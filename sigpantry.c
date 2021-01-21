@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <wchar.h>;
+#include <wchar.h>
 
 void menuSobre(void);
 
@@ -22,26 +22,31 @@ int main(void) {
 }
 
 void menuSobre(void) {
-    wprintf(L"%s", L"\n");
-    wprintf(L"%s", L"///////////////////////////////////////////////////////////////////////////////\n");
-    wprintf(L"%s", L"///                                                                         ///\n");
-    wprintf(L"%s", L"///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    wprintf(L"%s", L"///                 Centro de Ensino Superior do Seridó                     ///\n");
-    wprintf(L"%s", L"///               Departamento de Computação e Tecnologia                   ///\n");
-    wprintf(L"%s", L"///                  Disciplina DCT1106 -- Programação                      ///\n");
-    wprintf(L"%s", L"///           Projeto Sistema de Controle de Despensa Doméstica             ///\n");
-    wprintf(L"%s", L"///              Developed by  @allangbr @joanmdrs - Jan, 2021              ///\n");
-    wprintf(L"%s", L"///                                                                         ///\n");
-    wprintf(L"%s", L"///////////////////////////////////////////////////////////////////////////////\n");
-    wprintf(L"%s", L"///                                                                         ///\n");
-    wprintf(L"%s", L"///      = = = = = Sistema de Controle de Despensa Doméstica = = = = =      ///\n");
-    wprintf(L"%s", L"///                                                                         ///\n");
-    wprintf(L"%s", L"///  Programa exemplo utilizado na disciplina DCT1106 - Programação, para   ///\n");
-    wprintf(L"%s", L"///  fins didáticos de ilustração. O programa contém os principais módulos  ///\n");
-    wprintf(L"%s", L"///  e funcionalidades que serão exigidos na avaliação dos projetos a serem ///\n");
-    wprintf(L"%s", L"///  desenvolvidos pelos alunos ao longo da disciplina. Serve como um guia  ///\n");
-    wprintf(L"%s", L"///  de consulta e referência para o desenvolvidos dos demais projetos.     ///\n");
-    wprintf(L"%s", L"///                                                                         ///\n");
-    wprintf(L"%s", L"///////////////////////////////////////////////////////////////////////////////\n");
-    wprintf(L"%s", L"\n");
+    wprintf(L"\n");
+    wprintf(L"/////////////////////////////////////////////////////////////////////////////////\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"///              Universidade Federal do Rio Grande do Norte                  ///\n");
+    wprintf(L"///                  Centro de Ensino Superior do Seridó                      ///\n");
+    wprintf(L"///                Departamento de Computação e Tecnologia                    ///\n");
+    wprintf(L"///                   Disciplina DCT1106 -- Programação                       ///\n");
+    wprintf(L"///            Projeto Sistema de Controle de Despensa Doméstica              ///\n");
+    wprintf(L"///               Developed by  @allangbr @joanmdrs - Jan, 2021               ///\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"/////////////////////////////////////////////////////////////////////////////////\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"///       = = = = = Sistema de Controle de Despensa Doméstica = = = = =       ///\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"///   O controle do estoque de produtos de uma despensa doméstica é uma das   ///\n");
+    wprintf(L"///   atividades necessárias em praticamente todas as residências, uma vez    ///\n");
+    wprintf(L"///   que a aquisição de produtos alimentícios, de higiene pessoal e de lim-  ///\n");
+    wprintf(L"///   peza é rotineira e se faz necessário monitorar quantidades e datas de   ///\n");
+    wprintf(L"///   validade de tais produtos. Tal atividade pode demandar tempo e esfor-   ///\n");
+    wprintf(L"///   o, principalmente se for realizado sem a ajuda de um software. O pre-   ///\n");
+    wprintf(L"///   sente projeto tem como objetivo desenvolver um programa de computador   ///\n");
+    wprintf(L"///   que realize o registro e o acompanhamento desses produtos em uma resi-  ///\n");
+    wprintf(L"///   dência, evitando o descontrole causado pela compra excessiva, ou pela   ///\n");
+    wprintf(L"///   falta ou pelo vencimento dos itens adquiridos.                          ///\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"/////////////////////////////////////////////////////////////////////////////////\n");
+    wprintf(L"\n");
 }
