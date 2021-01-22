@@ -23,6 +23,9 @@ int main(void) {
 
 void menuSobre(void) {
     wprintf(L"\n");
+    wprintf(L"BEM VINDO AO MENU SOBRE!\n\n");
+    wprintf(L"Aqui você encontra informações à respeito do projeto SIG-PANTRY e também sobre a \n");
+    wprintf(L"sua equipe de desenvolvimento. \n\n");
     wprintf(L"/////////////////////////////////////////////////////////////////////////////////\n");
     wprintf(L"///                                                                           ///\n");
     wprintf(L"///              Universidade Federal do Rio Grande do Norte                  ///\n");
@@ -48,5 +51,15 @@ void menuSobre(void) {
     wprintf(L"///   falta ou pelo vencimento dos itens adquiridos.                          ///\n");
     wprintf(L"///                                                                           ///\n");
     wprintf(L"/////////////////////////////////////////////////////////////////////////////////\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"///       = = = = = = = = = = Equipe Desenvolvedora = = = = = = = = = =       ///\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"///   A equipe desenvoldedora deste projeto é formada por Allan Gabriel de    ///\n");
+    wprintf(L"///   Almeida Oliveira e Joan de Azevedo Medeiros. Ambos são graduandos do    ///\n");
+    wprintf(L"///   curso de SISTEMAS DA INFORMAÇÃO pela Universidade Federal do Rio Gran-  ///\n");
+    wprintf(L"///   de do Norte - UFRN.                                                     ///\n");
+    wprintf(L"///                                                                           ///\n");
+    wprintf(L"/////////////////////////////////////////////////////////////////////////////////\n");
+
     wprintf(L"\n");
 }
