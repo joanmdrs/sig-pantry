@@ -8,12 +8,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
-#include <locale.h>
 
 void menuSobre(void);
 
 int main(void) {
-    setlocale(LC_ALL, "");
     menuSobre();
     return 0;
 
