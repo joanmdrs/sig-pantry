@@ -12,11 +12,12 @@
 
 void menuSobre(void);
 void menuPrincipal(void);
-void menuEntrada(void);
+void menuCompras(void);
 
 int main(void) {
     ///menuSobre();
-    menuEntrada();
+    menuPrincipal();
+    menuCompras();
     return 0;
 
 }
@@ -46,7 +47,7 @@ void menuPrincipal(void){
     getchar();
 }
 
-void menuEntrada(void){
+void menuCompras(void){
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -57,7 +58,7 @@ void menuEntrada(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            ENTRADAS:                                              ///\n");
+    printf("///            COMPRAS:                                               ///\n");
     printf("///                                                                   ///\n");
     printf("///            1 - Cadastrar compra                                   ///\n");
     printf("///            2 - Pesquisar compra                                   ///\n");
