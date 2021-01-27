@@ -11,16 +11,16 @@
 #include <stdlib.h>
 
 void menuSobre(void);
-void menuPrincipal(void);
+void menuEntrada(void);
 
 int main(void) {
     ///menuSobre();
-    menuPrincipal();
+    menuEntrada();
     return 0;
 
 }
 
-void menuPrincipal(void){
+void menuEntrada(void){
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -31,12 +31,12 @@ void menuPrincipal(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MENU:                                                  ///\n");
+    printf("///            ENTRADAS:                                              ///\n");
     printf("///                                                                   ///\n");
-    printf("///            1 - Módulo Produtos                                    ///\n");
-    printf("///            2 - Módulo Compras                                     ///\n");
-    printf("///            3 - Módulo Consumo                                     ///\n");
-    printf("///            4 - Sobre o Sistema                                    ///\n");
+    printf("///            1 - Cadastrar compra                                   ///\n");
+    printf("///            2 - Pesquisar compra                                   ///\n");
+    printf("///            3 - Excluir compra                                     ///\n");
+    printf("///            4 - Alterar compra                                     ///\n");
     printf("///            0 - Encerrar Programa                                  ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
