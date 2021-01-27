@@ -11,6 +11,7 @@
 #include <stdlib.h>
 
 void menuSobre(void);
+void menuPrincipal(void);
 void menuEntrada(void);
 
 int main(void) {
@@ -18,6 +19,31 @@ int main(void) {
     menuEntrada();
     return 0;
 
+}
+
+void menuPrincipal(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            MENU:                                                  ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            1 - Módulo Produtos                                    ///\n");
+    printf("///            2 - Módulo Compra                                      ///\n");
+    printf("///            3 - Módulo Consumo                                     ///\n");
+    printf("///            4 - Sobre o Sistema                                    ///\n");
+    printf("///            0 - Encerrar Programa                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
 void menuEntrada(void){
