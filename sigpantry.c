@@ -8,16 +8,44 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void menuSobre(void);
+void menuPrincipal(void);
 
 int main(void) {
-    menuSobre();
+    ///menuSobre();
+    menuPrincipal();
     return 0;
 
 }
 
+void menuPrincipal(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            MENU:                                                  ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            1 - Módulo Produtos                                    ///\n");
+    printf("///            2 - Módulo Compras                                     ///\n");
+    printf("///            3 - Módulo Consumo                                     ///\n");
+    printf("///            4 - Sobre o Sistema                                    ///\n");
+    printf("///            0 - Encerrar Programa                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 void menuSobre(void) {
+
     printf("\n");
     printf("BEM VINDO AO MENU SOBRE!\n\n");
     printf("Aqui você encontra informações à respeito do projeto SIG-PANTRY e também sobre a \n");
