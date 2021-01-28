@@ -148,7 +148,7 @@ void menuSobre(void) {
 
 }
 
-void menuProdutos(void){
+void menuConsumo(void){
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
