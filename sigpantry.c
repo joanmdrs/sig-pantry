@@ -10,14 +10,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menuSobre(void);
 void menuPrincipal(void);
+void menuProdutos(void);
 void menuCompras(void);
+void menuSobre(void);
 
 int main(void) {
-    ///menuSobre();
     menuPrincipal();
+    menuProdutos();
     menuCompras();
+    menuSobre();
     return 0;
 
 }
@@ -36,10 +38,36 @@ void menuPrincipal(void){
     printf("///            MENU:                                                  ///\n");
     printf("///                                                                   ///\n");
     printf("///            1 - Módulo Produtos                                    ///\n");
-    printf("///            2 - Módulo Compra                                      ///\n");
+    printf("///            2 - Módulo Compras                                      ///\n");
     printf("///            3 - Módulo Consumo                                     ///\n");
     printf("///            4 - Sobre o Sistema                                    ///\n");
     printf("///            0 - Encerrar Programa                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void menuProdutos(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            PRODUTOS:                                              ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            1 - Cadastrar produto                                  ///\n");
+    printf("///            2 - Pesquisar produto                                  ///\n");
+    printf("///            3 - Excluir produto                                    ///\n");
+    printf("///            4 - Alterar produto                                    ///\n");
+    printf("///            5 - Listar produtos                                    ///\n");
+    printf("///            5 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -64,7 +92,7 @@ void menuCompras(void){
     printf("///            2 - Pesquisar compra                                   ///\n");
     printf("///            3 - Excluir compra                                     ///\n");
     printf("///            4 - Alterar compra                                     ///\n");
-    printf("///            0 - Encerrar Programa                                  ///\n");
+    printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -73,6 +101,7 @@ void menuCompras(void){
 }
 void menuSobre(void) {
 
+    system("clear");
     printf("\n");
     printf("BEM VINDO AO MENU SOBRE!\n\n");
     printf("Aqui você encontra informações à respeito do projeto SIG-PANTRY e também sobre a \n");
@@ -111,6 +140,7 @@ void menuSobre(void) {
     printf("///   de do Norte - UFRN.                                                     ///\n");
     printf("///                                                                           ///\n");
     printf("/////////////////////////////////////////////////////////////////////////////////\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 
-    printf("\n");
 }
