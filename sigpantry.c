@@ -11,11 +11,31 @@
 #include <stdlib.h>
 
 void menuPrincipal(void);
+
 void menuProdutos(void);
 void telaCadastrarProduto(void);
+void telaPesquisarProduto(void);
+void telaExcluirProduto(void);
+void telaAlterarProduto(void);
+///void telaListarProdutos(void);
+
 void menuCompras(void);
+///void telaCadastrarCompra(void);
+///void telaPesquisarCompra(void);
+///void telaExcluirCompra(void);
+///void telaAlterarCompra(void);
+///void telaListarCompras(void);
+
 void menuConsumo(void);
+///void telaCadastrarConsumo(void);
+///void telaPesquisarConsumo(void);
+///void telaExcluirConsumo(void);
+///void telaAlterarConsumo(void);
+///void telaListarConsumos(void);
+
 void menuSobre(void);
+
+
 
 int main(void) {
     menuSobre();
@@ -97,6 +117,122 @@ void telaCadastrarProduto(void){
     printf("///            - Data de Validade:                                    ///\n");
     printf("///            - Local:                                               ///\n");
     printf("///            - Status:                                              ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaPesquisarProduto(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            PESQUISAR PRODUTO:                                     ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///            - Nome:                                                ///\n");
+    printf("///            - Data de Validade:                                    ///\n");
+    printf("///            - Local:                                               ///\n");
+    printf("///            - Status:                                              ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaExcluirProduto(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            EXCLUIR PRODUTO:                                       ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///            - Nome:                                                ///\n");
+    printf("///            - Data de Validade:                                    ///\n");
+    printf("///            - Local:                                               ///\n");
+    printf("///            - Status:                                              ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n):                            ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Produto excluido com sucesso!                          ///\n");
+    printf("///            Operação cancelada!                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaAlterarProduto(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            ALTERAR PRODUTO:                                       ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///            - Nome:                                                ///\n");
+    printf("///            - Data de Validade:                                    ///\n");
+    printf("///            - Local:                                               ///\n");
+    printf("///            - Status:                                              ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Deseja alterar todos os valores (S/n)?               ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Novo Nome:                                           ///\n");
+    printf("///            - Nova Data de Validade:                               ///\n");
+    printf("///            - Novo Local:                                          ///\n");
+    printf("///            - Novo Status:                                         ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Digite 'a' para alterar o nome:                      ///\n");
+    printf("///            - Digite 'b' para alterar a validade:                  ///\n");
+    printf("///            - Digite 'c' para alterar o local:                     ///\n");
+    printf("///            - Digite 'd' para alterar o status:                    ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - a) Novo Nome:                                        ///\n");
+    printf("///            - b) Nova Data de Validade:                            ///\n");
+    printf("///            - c) Novo Local:                                       ///\n");
+    printf("///            - d) Novo Status:                                      ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n):                            ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Produto excluido com sucesso!                          ///\n");
+    printf("///            Operação cancelada!                                    ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
