@@ -20,14 +20,14 @@ void telaAlterarProduto(void);
 ///void telaListarProdutos(void);
 
 void menuCompras(void);
-///void telaCadastrarCompra(void);
+void telaCadastrarCompra(void);
 ///void telaPesquisarCompra(void);
 ///void telaExcluirCompra(void);
 ///void telaAlterarCompra(void);
 ///void telaListarCompras(void);
 
 void menuConsumo(void);
-///void telaCadastrarConsumo(void);
+void telaCadastrarConsumo(void);
 ///void telaPesquisarConsumo(void);
 ///void telaExcluirConsumo(void);
 ///void telaAlterarConsumo(void);
@@ -35,15 +35,19 @@ void menuConsumo(void);
 
 void menuSobre(void);
 
-
-
 int main(void) {
-    menuSobre();
-    menuPrincipal();
-    menuProdutos();
-    menuCompras();
-    menuConsumo();
-    telaCadastrarProduto();
+    ///menuSobre();
+    ///menuPrincipal();
+    ///menuProdutos();
+    ///telaCadastrarProduto();
+    ///telaPesquisarProduto();
+    ///telaExcluirProduto();
+    ///telaAlterarProduto();
+    ///menuCompras();
+    ///telaCadastrarCompra();
+    ///menuConsumo();
+    ///telaCadastrarConsumo();
+    
     return 0;
 
 }
@@ -289,6 +293,33 @@ void menuCompras(void){
     getchar();
 }
 
+void telaCadastrarCompra(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            CADASTRAR COMPRA:                                      ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///            - Quantidade:                                          ///\n");
+    printf("///            - Data:                                                ///\n");
+    printf("///            - Horário:                                             ///\n");
+    printf("///            - Valor:                                               ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+
+
+}
+
 void menuConsumo(void){
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -308,6 +339,30 @@ void menuConsumo(void){
     printf("///            4 - Alterar consumo                                    ///\n");
     printf("///            5 - Listar consumos                                    ///\n");
     printf("///            5 - Voltar                                             ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaCadastrarConsumo(void){
+     system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            CADASTRAR CONSUMO:                                     ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///            - Quantidade:                                          ///\n");
+    printf("///            - Data:                                                ///\n");
+    printf("///            - Horário:                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
