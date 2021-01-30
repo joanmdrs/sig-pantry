@@ -21,9 +21,9 @@ void telaAlterarProduto(void);
 
 void menuCompras(void);
 void telaCadastrarCompra(void);
-///void telaPesquisarCompra(void);
-///void telaExcluirCompra(void);
-///void telaAlterarCompra(void);
+void telaPesquisarCompra(void);
+void telaExcluirCompra(void);
+void telaAlterarCompra(void);
 ///void telaListarCompras(void);
 
 void menuConsumo(void);
@@ -37,14 +37,21 @@ void menuSobre(void);
 
 int main(void) {
     ///menuSobre();
+
     ///menuPrincipal();
+
     ///menuProdutos();
     ///telaCadastrarProduto();
     ///telaPesquisarProduto();
     ///telaExcluirProduto();
     ///telaAlterarProduto();
+
     ///menuCompras();
     ///telaCadastrarCompra();
+    ///telaPesquisarCompra();
+    ///telaExcluirCompra();
+    ///telaAlterarCompra();
+
     ///menuConsumo();
     ///telaCadastrarConsumo();
     
@@ -194,7 +201,7 @@ void telaExcluirProduto(void){
     printf("///                                                                   ///\n");
     printf("///            Produto excluído com sucesso!                          ///\n");
     printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");                                                                  ///\n");
+    printf("///                                                                   ///\n");
     printf("///            - Confirmar operação (S/n): N                          ///\n");
     printf("///                                                                   ///\n");
     printf("///            Operação cancelada!                                    ///\n");
@@ -238,7 +245,7 @@ void telaAlterarProduto(void){
     printf("///            - Novo Status:                                         ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Deseja alterar todos os valores (S/n)? N            ///\n");
+    printf("///            - Deseja alterar todos os valores (S/n)? N             ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Digite 'a' para alterar o nome:                      ///\n");
     printf("///            - Digite 'b' para alterar a validade:                  ///\n");
@@ -318,6 +325,138 @@ void telaCadastrarCompra(void){
     getchar();
 
 
+}
+
+void telaPesquisarCompra(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            PESQUISAR COMPRA:                                      ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            COMPRA LOCALIZADA!                                     ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///            - Quantidade:                                          ///\n");
+    printf("///            - Data:                                                ///\n");
+    printf("///            - Horário:                                             ///\n");
+    printf("///            - Valor:                                               ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///            Não existem compras cadastradas com o nome             ///\n");    
+    printf("///            do item informado.                                     ///\n");    
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaExcluirCompra(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            EXCLUIR COMPRA:                                        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            COMPRA LOCALIZADA!                                     ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///            - Quantidade:                                          ///\n");
+    printf("///            - Data:                                                ///\n");
+    printf("///            - Horário:                                             ///\n");
+    printf("///            - Valor:                                               ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): S                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Compra excluída com sucesso!                           ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): N                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Operação cancelada!                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaAlterarCompra(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            ALTERAR COMPRA:                                        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            COMPRA LOCALIZADA!                                     ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Item:                                                ///\n");
+    printf("///            - Quantidade:                                          ///\n");
+    printf("///            - Data:                                                ///\n");
+    printf("///            - Horário:                                             ///\n");
+    printf("///            - Valor:                                               ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Deseja alterar todos os valores (S/n)? S             ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Nova Quantidade:                                     ///\n");
+    printf("///            - Nova Data:                                           ///\n");
+    printf("///            - Novo Valor:                                          ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Deseja alterar todos os valores (S/n)? N             ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Digite 'a' para alterar a quantidade:                ///\n");
+    printf("///            - Digite 'b' para alterar a data:                      ///\n");
+    printf("///            - Digite 'c' para alterar o valor:                     ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - a) Nova Quantidade:                                  ///\n");
+    printf("///            - b) Nova Data:                                        ///\n");
+    printf("///            - c) Novo Valor:                                       ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): S                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Compra alterada com sucesso!                           ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): N                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Operação cancelada!                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
 void menuConsumo(void){
