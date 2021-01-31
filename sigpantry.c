@@ -17,26 +17,25 @@ void telaCadastrarProduto(void);
 void telaPesquisarProduto(void);
 void telaExcluirProduto(void);
 void telaAlterarProduto(void);
-///void telaListarProdutos(void);
+void telaListarProdutos(void);
 
 void menuCompras(void);
 void telaCadastrarCompra(void);
 void telaPesquisarCompra(void);
 void telaExcluirCompra(void);
 void telaAlterarCompra(void);
-///void telaListarCompras(void);
+void telaListarCompras(void);
 
 void menuConsumo(void);
 void telaCadastrarConsumo(void);
-///void telaPesquisarConsumo(void);
-///void telaExcluirConsumo(void);
-///void telaAlterarConsumo(void);
-///void telaListarConsumos(void);
+void telaPesquisarConsumo(void);
+void telaExcluirConsumo(void);
+void telaAlterarConsumo(void);
+void telaListarConsumos(void);
 
 void menuSobre(void);
 
 int main(void) {
-    ///menuSobre();
 
     ///menuPrincipal();
 
@@ -45,15 +44,23 @@ int main(void) {
     ///telaPesquisarProduto();
     ///telaExcluirProduto();
     ///telaAlterarProduto();
+    ///telaListarProdutos();
 
     ///menuCompras();
     ///telaCadastrarCompra();
     ///telaPesquisarCompra();
     ///telaExcluirCompra();
     ///telaAlterarCompra();
+    ///telaListarCompras();
 
     ///menuConsumo();
     ///telaCadastrarConsumo();
+    ///telaPesquisarConsumo();
+    ///telaExcluirConsumo();
+    ///telaAlterarConsumo();
+    ///telaListarConsumos();
+
+    ///menuSobre();
     
     return 0;
 
@@ -121,9 +128,9 @@ void telaCadastrarProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            CADASTRAR PRODUTO:                                     ///\n");
+    printf("///            MÓDULO CADASTRAR PRODUTO:                              ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///            - Código de Barras:                                    ///\n");
     printf("///            - Nome:                                                ///\n");
     printf("///            - Data de Validade:                                    ///\n");
     printf("///            - Local:                                               ///\n");
@@ -150,7 +157,7 @@ void telaPesquisarProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            PESQUISAR PRODUTO:                                     ///\n");
+    printf("///            MÓDULO PESQUISAR PRODUTO:                              ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Codigo de Barras:                                    ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -185,9 +192,9 @@ void telaExcluirProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            EXCLUIR PRODUTO:                                       ///\n");
+    printf("///            MÓDULO EXCLUIR PRODUTO:                                ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Codigo de Barras:                                    ///\n");
+    printf("///            - Código de Barras:                                    ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            PRODUTO LOCALIZADO!                                    ///\n");
@@ -198,6 +205,10 @@ void telaExcluirProduto(void){
     printf("///            - Local:                                               ///\n");
     printf("///            - Status:                                              ///\n");
     printf("///            - Quantidade:                                          ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///            Não existem produtos cadastrados com o código          ///\n");    
+    printf("///            de barras informado.                                   ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Confirmar operação (S/n): S                          ///\n");
@@ -238,6 +249,10 @@ void telaAlterarProduto(void){
     printf("///            - Data de Validade:                                    ///\n");
     printf("///            - Local:                                               ///\n");
     printf("///            - Status:                                              ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///            Não existem produtos cadastrados com o código          ///\n");    
+    printf("///            de barras informado.                                   ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Deseja alterar todos os valores (S/n)? S             ///\n");
@@ -411,7 +426,7 @@ void telaPesquisarCompra(void){
 }
 
 void telaExcluirCompra(void){
-   system("clear");
+    system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -457,7 +472,6 @@ void telaExcluirCompra(void){
 
 void telaAlterarCompra(void){
     system("clear");
-    system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -481,18 +495,24 @@ void telaAlterarCompra(void){
     printf("///            - Horário da compra:                                   ///\n");
     printf("///            - Valor da compra:                                     ///\n");   
     printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///          Não há registro de compras para o dia e horário          ///\n");    
+    printf("///          informado.                                               ///\n");    
+    printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///          - Deseja alterar todos os items da compra (S/n)? S       ///\n");
     printf("///                                                                   ///\n");
-    printf("///            Nova lista de items !                                  ///\n");
-    printf("///            - Item:                                                ///\n");
-    printf("///            - Quantidade:                                          ///\n");
-    printf("///            - Valor do item:                                       ///\n");
+    printf("///            NOVA LISTA DE ITENS !                                  ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///            - Novo Item:                                           ///\n");
+    printf("///            - Nova Quantidade:                                     ///\n");
+    printf("///            - Novo Valor:                                          ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///          - Deseja alterar todos os items da compra (S/n)? N       ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Informe o item à alterar:                            ///\n");
+    printf("///            - Novo nome do item:                                   ///\n");
     printf("///            - Nova Quantidade:                                     ///\n");
     printf("///            - Novo Valor:                                          ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -520,6 +540,37 @@ void telaAlterarCompra(void){
     */
 }
 
+void telaListarCompras(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            MÓDULO LISTAR COMPRAS:                                 ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Itens: Aqui vai mostrar todos os itens comprados       ///\n");
+    printf("///            naquele dia e horário, suas quantidades e valores      ///\n");
+    printf("///            - Data da compra:                                      ///\n");
+    printf("///            - Horário da compra:                                   ///\n");
+    printf("///            - Valor da compra:                                     ///\n"); 
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+
+    /* No módulo listar compras, serão exibidos todos os items comprados, separados por 
+    data e horário de cadastro. 
+    */
+
+
+}
+
 void menuConsumo(void){
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -538,7 +589,7 @@ void menuConsumo(void){
     printf("///            3 - Excluir consumo                                    ///\n");
     printf("///            4 - Alterar consumo                                    ///\n");
     printf("///            5 - Listar consumos                                    ///\n");
-    printf("///            5 - Voltar                                             ///\n");
+    printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -547,7 +598,7 @@ void menuConsumo(void){
 }
 
 void telaCadastrarConsumo(void){
-     system("clear");
+    system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -557,17 +608,205 @@ void telaCadastrarConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            CADASTRAR CONSUMO:                                     ///\n");
+    printf("///            MÓDULO CADASTRAR CONSUMO:                              ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Item:                                                ///\n");
     printf("///            - Quantidade:                                          ///\n");
-    printf("///            - Data:                                                ///\n");
-    printf("///            - Horário:                                             ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///          Deseja adicionar outro item (S/n) ?                      ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///          Consumo cadastrado com sucesso !                         ///\n");
+    printf("///          Data: 00/00/0000  Horário: 00:00                         ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+
+    /*Na tela de cadastrar consumo, o usuário irá inicialmente cadastrar o primeiro item do que foi consumido,
+      após isso, ele será questionando se deseja adicionar outro item, se o usuário responder S, a tela contendo
+      os campos item e quantidade será exibida mais uma vez. Caso o usuário digite N, aparecerá uma 
+      mensagem de cofirmação de cadastro, informando a data e o horário. 
+
+
+    */
+}
+
+void telaPesquisarConsumo(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            MÓDULO PESQUISAR CONSUMO:                              ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Data do consumo:                                     ///\n");
+    printf("///            - Horário do consumo:                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            CONSUMO LOCALIZADO!                                    ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Itens: Aqui vai mostrar todos os itens consumidos      ///\n");
+    printf("///            naquele dia e horário e suas quantidades               ///\n");
+    printf("///            - Data do consumo:                                     ///\n");
+    printf("///            - Horário da consumo:                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///          Não há registro de consumo para o dia e horário          ///\n");    
+    printf("///          informado.                                               ///\n");    
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaExcluirConsumo(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            MÓDULO EXCLUIR CONSUMO:                                ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Data do consumo:                                     ///\n");
+    printf("///            - Horário do consumo:                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            CONSUMO LOCALIZADO!                                    ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Itens: Aqui vai mostrar todos os itens consumidos    ///\n");
+    printf("///              naquele dia e horário, e suas quantidades.           ///\n");
+    printf("///            - Data do consumo:                                     ///\n");
+    printf("///            - Horário do consumo:                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///          Não há registro de consumo para o dia e horário          ///\n");    
+    printf("///          informado.                                               ///\n");    
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): S                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Consumo excluído com sucesso!                          ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): N                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Operação cancelada!                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+
+}
+
+void telaAlterarConsumo(void){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            MÓDULO ALTERAR CONSUMO:                                ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Data do consumo:                                     ///\n");
+    printf("///            - Horário do consumo:                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            CONSUMO LOCALIZADO!                                    ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Itens: Aqui vai mostrar todos os itens consumidos      ///\n");
+    printf("///            naquele dia e horário e suas quantidades               ///\n");
+    printf("///            - Data do consumo:                                     ///\n");
+    printf("///            - Horário do consumo:                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///          Não há registro de consumo para o dia e horário          ///\n");    
+    printf("///          informado.                                               ///\n");    
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///          - Deseja alterar todos os items do consumo (S/n)? S      ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            NOVA LISTA DE ITENS CONSUMIDOS !                       ///\n");
+    printf("///                                                                   ///\n");  
+    printf("///            - Novo Item:                                           ///\n");
+    printf("///            - Nova Quantidade:                                     ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///          - Deseja alterar todos os items do consumo (S/n)? N      ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Informe o item à alterar:                            ///\n");
+    printf("///            - Novo nome do item:                                   ///\n");
+    printf("///            - Nova Quantidade:                                     ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): S                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Consumo alterado com sucesso!                          ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n): N                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Operação cancelada!                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+
+    /* No módulo alterar consumo, o usuário irá informar a data e horário do consumo à alterar,
+    se o consumo existir, ele deverá escolher se vai alterar todos os items da lista ou se irá
+    alterar apenas um dos items da lista. Caso o usuário queira alterar todos os items, ele irá 
+    cadastrar uma nova lista de items, no entanto, se ele quiser alterar apenas um item, ele deve
+    informar o nome do item e então cadastrar seus novos valores.
+
+    */
+
+}
+
+void telaListarConsumos(){
+    system("clear");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            MÓDULO LISTAR CONSUMOS:                                ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Itens: Aqui vai mostrar todos os itens consumidos      ///\n");
+    printf("///            naquele por dia e horário, e suas quantidades          ///\n");
+    printf("///            - Data do consumo:                                     ///\n");
+    printf("///            - Horário do consumo:                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+
+    /* No módulo listar consumos, serão exibidos todos os items consumidos, separados por 
+    data e horário de cadastro. 
+    */
 }
 
 void menuSobre(void) {
