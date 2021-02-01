@@ -37,30 +37,30 @@ void menuSobre(void);
 
 int main(void) {
 
-    ///menuPrincipal();
+    menuPrincipal();
 
-    ///menuProdutos();
-    ///telaCadastrarProduto();
-    ///telaPesquisarProduto();
-    ///telaExcluirProduto();
-    ///telaAlterarProduto();
-    ///telaListarProdutos();
+    menuProdutos();
+    telaCadastrarProduto();
+    telaPesquisarProduto();
+    telaExcluirProduto();
+    telaAlterarProduto();
+    telaListarProdutos();
 
-    ///menuCompras();
-    ///telaCadastrarCompra();
-    ///telaPesquisarCompra();
-    ///telaExcluirCompra();
-    ///telaAlterarCompra();
-    ///telaListarCompras();
+    menuCompras();
+    telaCadastrarCompra();
+    telaPesquisarCompra();
+    telaExcluirCompra();
+    telaAlterarCompra();
+    telaListarCompras();
 
-    ///menuConsumo();
-    ///telaCadastrarConsumo();
-    ///telaPesquisarConsumo();
-    ///telaExcluirConsumo();
-    ///telaAlterarConsumo();
-    ///telaListarConsumos();
+    menuConsumo();
+    telaCadastrarConsumo();
+    telaPesquisarConsumo();
+    telaExcluirConsumo();
+    telaAlterarConsumo();
+    telaListarConsumos();
 
-    ///menuSobre();
+    menuSobre();
     
     return 0;
 
@@ -175,7 +175,7 @@ void telaPesquisarProduto(void){
     printf("///            Não existem produtos cadastrados com o código          ///\n");    
     printf("///            de barras informado.                                   ///\n");    
     printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");                                                               ///\n");
+    printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
