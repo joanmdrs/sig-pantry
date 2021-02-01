@@ -109,7 +109,7 @@ void menuProdutos(void){
     printf("///            3 - Excluir produto                                    ///\n");
     printf("///            4 - Alterar produto                                    ///\n");
     printf("///            5 - Listar produtos                                    ///\n");
-    printf("///            5 - Voltar                                             ///\n");
+    printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -138,12 +138,21 @@ void telaCadastrarProduto(void){
     printf("///            - Quantidade:                                          ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///         Produto cadastrado com sucesso !                          ///\n");
+    printf("///          Deseja adicionar outro produto (S/n) ?                   ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///         Produto(s) cadastrado(s) com sucesso !                    ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+
+    /* O módulo cadastrar produto tem como objetivo cadastrar todos os itens existentes na despensa. Dessa forma,
+       ao acessar esta tela, o usuário irá cadastrar o primeiro produto que ele deseja, após preencher todos os 
+       campos, o usuário será questionado se ele deseja cadastrar outro produto, caso sim, a tela de cadastro será
+       exibida mais uma ves. Caso o usuário tenha encerrado o cadastro, ele receberá uma mensagem de confirmação.
+    */
 }
 
 void telaPesquisarProduto(void){
@@ -380,11 +389,12 @@ void telaCadastrarCompra(void){
     getchar();
 
     /*Na tela de cadastrar compra, o usuário irá inicialmente cadastrar o primeiro item da lista de compras,
-      após isso, ele será questionando se deseja adicionar outro item, se o usuário responder S, a tela contendo
+      após isso, ele será questionado se deseja adicionar outro item, se o usuário responder S, a tela contendo
       os campos item, quantidade e valor será exibida mais uma vez. Caso o usuário digite N, aparecerá uma 
       mensagem de cofirmação de cadastro, informando o valor total da compra, a data e o horário. 
 
-
+      A finalidade do módulo cadastrar não é adicionar produtos a despensa, o seu objetivo é permitir ao usuário
+      poder registrar as suas compras e assim ter o controle do que está comprando e quanto está gastando. 
     */
 
 
@@ -610,7 +620,7 @@ void telaCadastrarConsumo(void){
     printf("///                                                                   ///\n");
     printf("///            MÓDULO CADASTRAR CONSUMO:                              ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Item:                                                ///\n");
+    printf("///            - Código de Barras:                                    ///\n");
     printf("///            - Quantidade:                                          ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -626,9 +636,11 @@ void telaCadastrarConsumo(void){
     getchar();
 
     /*Na tela de cadastrar consumo, o usuário irá inicialmente cadastrar o primeiro item do que foi consumido,
-      após isso, ele será questionando se deseja adicionar outro item, se o usuário responder S, a tela contendo
-      os campos item e quantidade será exibida mais uma vez. Caso o usuário digite N, aparecerá uma 
+      após isso, ele será questionado se deseja adicionar outro item, se o usuário responder S, a tela contendo
+      os campos código de barras e quantidade será exibida mais uma vez. Caso o usuário digite N, aparecerá uma 
       mensagem de cofirmação de cadastro, informando a data e o horário. 
+
+      Conforme o usuário cadastra os produtos que consumiu, as informações acerca dos produtos vão sendo alteradas.
 
 
     */
@@ -742,18 +754,24 @@ void telaAlterarConsumo(void){
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n");  
+    printf("///                                                                   ///\n");
     printf("///          - Deseja alterar todos os items do consumo (S/n)? S      ///\n");
     printf("///                                                                   ///\n");
     printf("///            NOVA LISTA DE ITENS CONSUMIDOS !                       ///\n");
-    printf("///                                                                   ///\n");  
-    printf("///            - Novo Item:                                           ///\n");
+    printf("///                                                                   ///\n"); 
+    printf("///            - Código de barras:                                    ///\n");
     printf("///            - Nova Quantidade:                                     ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
+    printf("///          Deseja adicionar outro item (S/n) ?                      ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
     printf("///          - Deseja alterar todos os items do consumo (S/n)? N      ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Informe o item à alterar:                            ///\n");
-    printf("///            - Novo nome do item:                                   ///\n");
+    printf("///            - Código de barras:                                    ///\n") ;
     printf("///            - Nova Quantidade:                                     ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -775,8 +793,7 @@ void telaAlterarConsumo(void){
     se o consumo existir, ele deverá escolher se vai alterar todos os items da lista ou se irá
     alterar apenas um dos items da lista. Caso o usuário queira alterar todos os items, ele irá 
     cadastrar uma nova lista de items, no entanto, se ele quiser alterar apenas um item, ele deve
-    informar o nome do item e então cadastrar seus novos valores.
-
+    informar o código de barras e então cadastrar seus novos valores.
     */
 
 }
@@ -795,7 +812,7 @@ void telaListarConsumos(){
     printf("///            MÓDULO LISTAR CONSUMOS:                                ///\n");
     printf("///                                                                   ///\n");
     printf("///            Itens: Aqui vai mostrar todos os itens consumidos      ///\n");
-    printf("///            naquele por dia e horário, e suas quantidades          ///\n");
+    printf("///            naquele por dia e horário, e suas informações          ///\n");
     printf("///            - Data do consumo:                                     ///\n");
     printf("///            - Horário do consumo:                                  ///\n");
     printf("///        ___________________________________________________        ///\n");
