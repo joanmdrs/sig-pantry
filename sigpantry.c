@@ -39,6 +39,7 @@ int main(void) {
 
     menuPrincipal();
 
+    /*
     menuProdutos();
     telaCadastrarProduto();
     telaPesquisarProduto();
@@ -61,6 +62,7 @@ int main(void) {
     telaListarConsumos();
 
     menuSobre();
+    */
     
     return 0;
 
@@ -80,15 +82,44 @@ void menuPrincipal(void){
     printf("///            MENU:                                                  ///\n");
     printf("///                                                                   ///\n");
     printf("///            1 - Módulo Produtos                                    ///\n");
-    printf("///            2 - Módulo Compras                                      ///\n");
+    printf("///            2 - Módulo Compras                                     ///\n");
     printf("///            3 - Módulo Consumo                                     ///\n");
     printf("///            4 - Sobre o Sistema                                    ///\n");
     printf("///            0 - Encerrar Programa                                  ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+
+    int opcao;
+
+    printf("Informe sua opção : ");
+    scanf("%d", &opcao);
+    
+    if (opcao == 1){
+
+        menuProdutos();
+        
+    }else if(opcao == 2){
+
+        menuCompras();
+
+    }else if(opcao == 3){
+
+        menuConsumo();
+
+    }else if(opcao == 4){
+
+        menuSobre();
+
+    }else if(opcao == 0){
+
+        printf("Programa encerrado!\n");
+
+    }else{
+
+        printf("Você informou um valor inválido para esta operação.\n");
+    }
+
 }
 
 void menuProdutos(void){
@@ -115,6 +146,8 @@ void menuProdutos(void){
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+
+
 }
 
 void telaCadastrarProduto(void){
