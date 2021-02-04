@@ -94,31 +94,6 @@ void menuPrincipal(void){
 
     printf("Informe sua opção : ");
     scanf("%d", &opcao);
-    
-    if (opcao == 1){
-
-        menuProdutos();
-        
-    }else if(opcao == 2){
-
-        menuCompras();
-
-    }else if(opcao == 3){
-
-        menuConsumo();
-
-    }else if(opcao == 4){
-
-        menuSobre();
-
-    }else if(opcao == 0){
-
-        printf("Programa encerrado!\n");
-
-    }else{
-
-        printf("Você informou um valor inválido para esta operação.\n");
-    }
 
 }
 
