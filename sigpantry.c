@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 char menuPrincipal(void);
 
@@ -38,32 +39,31 @@ void menuSobre(void);
 int main(void) {
     char opcao1, opcao2, opcao3, opcao4;
 
-    /*
-    opcao1 = menuPrincipal();
+    
+    ///opcao1 = menuPrincipal();
 
-    opcao2 = menuProdutos();
-    telaCadastrarProduto();
-    telaPesquisarProduto();
-    telaExcluirProduto();
-    telaAlterarProduto();
-    telaListarProdutos();
+    ///opcao2 = menuProdutos();
+    ///telaCadastrarProduto();
+    ///telaPesquisarProduto();
+    ///telaExcluirProduto();
+    ///telaAlterarProduto();
+    ///telaListarProdutos();
 
-    opcao3 = menuCompras();
-    telaCadastrarCompra();
-    telaPesquisarCompra();
-    telaExcluirCompra();
-    telaAlterarCompra();
-    telaListarCompras();
+    ///opcao3 = menuCompras();
+    ///telaCadastrarCompra();
+    ///telaPesquisarCompra();
+    ///telaExcluirCompra();
+    ///telaAlterarCompra();
+    ///telaListarCompras();
 
-    opcao4 = menuConsumo();
+    ///opcao4 = menuConsumo();
     telaCadastrarConsumo();
-    telaPesquisarConsumo();
-    telaExcluirConsumo();
-    telaAlterarConsumo();
-    telaListarConsumos();
+    ///telaPesquisarConsumo();
+    ///telaExcluirConsumo();
+    ///telaAlterarConsumo();
+    ///telaListarConsumos();
 
     menuSobre();
-    */
     
     return 0;
 
@@ -138,8 +138,9 @@ char menuProdutos(void){
 }
 
 void telaCadastrarProduto(void){
+
     char codBarras[14];
-    char nome[51];
+    char descricao[51];
     char dataValidade[11];
     char local[10];
     char status[10];
@@ -147,55 +148,49 @@ void telaCadastrarProduto(void){
     int quant;
 
     system("clear");
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            MÓDULO CADASTRAR PRODUTO:                              ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Código de Barras: ");
+    printf("\n");
+    printf(" ***************************************************\n");
+    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+    printf(" * * *     SIGPENTRY - Controle de Despensa    * * *\n");
+    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+    printf(" ***************************************************\n");
+    printf("                                                    \n");
+    printf("   = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =   \n");
+    printf("                                                    \n");
+    printf("     Código de Barras: ");
     scanf("%[0-9]", codBarras);
     getchar();
-    printf("///            - Nome: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
+    printf("     Descrição: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", descricao);
     getchar();
-    printf("///            - Data de Validade (dd/mm/aaaa): ");
+    printf("     Data Val. (dd/mm/aaaa): ");
     scanf("%[0-9/]", dataValidade);
     getchar();
-    printf("///            - Local: ");
+    printf("     Local: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", local);
     getchar();
-    printf("///            - Status: ");
+    printf("     Status: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", status);
     getchar();
-    printf("///            - Quantidade: ");
+    printf("     Quantidade: ");
     scanf("%d", &quant);
     getchar();
-    printf("///                                                                   ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Deseja adicionar outro produto (S/n) ? ");
-    scanf("%c", resposta);
-    getchar();
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            Produto(s) cadastrado(s) com sucesso !                 ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("        Produto(s) cadastrado(s) com sucesso !      \n");
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("        Código de Barras: %s \n", codBarras);
+    printf("               Descrição: %s \n", descricao);
+    printf("        Data de Validade: %s \n", dataValidade);
+    printf("                   Local: %s \n", local);
+    printf("                  Status: %s \n", status);
+    printf("              Quantidade: %d \n", quant);
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("         >>> Tecle <ENTER> para continuar...        \n");
     getchar();
 
-    /* O módulo cadastrar produto tem como objetivo cadastrar todos os itens existentes na despensa. Dessa forma,
-       ao acessar esta tela, o usuário irá cadastrar o primeiro produto que ele deseja, após preencher todos os 
-       campos, o usuário será questionado se ele deseja cadastrar outro produto, caso sim, a tela de cadastro será
-       exibida mais uma ves. Caso o usuário tenha encerrado o cadastro, ele receberá uma mensagem de confirmação.
-    */
 }
 
 void telaPesquisarProduto(void){
@@ -452,43 +447,69 @@ char menuCompras(void){
 }
 
 void telaCadastrarCompra(void){
+
+    char item[51];
+    int quant;
+    float valorItem;
+    float valorCompra;
+    
+/// Pegando a data do sistema -----------------------------------------------------
+
+    time_t timer;
+    struct tm *horarioLocal;
+
+    time(&timer); // Obtem informações de data e hora
+    horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+
+    int dia = horarioLocal->tm_mday;
+    int mes = horarioLocal->tm_mon + 1;
+    int ano = horarioLocal->tm_year + 1900;
+
+    int hora = horarioLocal->tm_hour;
+    int min  = horarioLocal->tm_min;
+    int sec  = horarioLocal->tm_sec;
+
+    int vetor[6]= {dia,mes,ano,hora,min,sec};
+
+/// --------------------------------------------------------------------------------
+
     system("clear");
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            MÓDULO CADASTRAR COMPRA:                               ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Item:                                                ///\n");
-    printf("///            - Quantidade:                                          ///\n");
-    printf("///            - Valor do item:                                       ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          Deseja adicionar outro item (S/n) ?                      ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          Compra cadastrada com sucesso !                          ///\n");
-    printf("///          Data: 00/00/0000  Horário: 00:00  Valor: R$ 0,00         ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\n");
+    printf(" ***************************************************\n");
+    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+    printf(" * * *     SIGPENTRY - Controle de Despensa    * * *\n");
+    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+    printf(" ***************************************************\n");
+    printf("                                                    \n");
+    printf("   = = = = = = MÓDULO CADASTRAR COMPRA: = = = = = = \n");
+    printf("                                                    \n");
+    printf("     Descrição do Item: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", item);
     getchar();
-
-    /*Na tela de cadastrar compra, o usuário irá inicialmente cadastrar o primeiro item da lista de compras,
-      após isso, ele será questionado se deseja adicionar outro item, se o usuário responder S, a tela contendo
-      os campos item, quantidade e valor será exibida mais uma vez. Caso o usuário digite N, aparecerá uma 
-      mensagem de cofirmação de cadastro, informando o valor total da compra, a data e o horário. 
-
-      A finalidade do módulo cadastrar não é adicionar produtos a despensa, o seu objetivo é permitir ao usuário
-      poder registrar as suas compras e assim ter o controle do que está comprando e quanto está gastando. 
-    */
-
+    printf("     Quantidade: ");
+    scanf("%d", &quant);
+    getchar();
+    printf("     Valor do Item: R$ "); 
+    scanf("%f", &valorItem);
+    getchar();
+    
+    valorCompra += quant * valorItem;
+    
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("        Compra cadastrada com sucesso !             \n");
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("       Descrição do Item: %s \n", item);
+    printf("              Quantidade: %d \n", quant);
+    printf("           Valor do Item: %.2f \n", valorItem);
+    printf("         Valor da compra: %.2f \n", valorCompra);
+    printf("                    Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
+    printf("                 Horário: %d/%d/%d \n",vetor[3],vetor[4],vetor[5]);
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("         >>> Tecle <ENTER> para continuar...        \n");
+    getchar();
 
 }
 
@@ -708,42 +729,67 @@ char menuConsumo(void){
 }
 
 void telaCadastrarConsumo(void){
+    char codBarras[14];
+    char item[51];
+    int quant;
+    
+/// Pegando a data do sistema -----------------------------------------------------
+
+    time_t timer;
+    struct tm *horarioLocal;
+
+    time(&timer); // Obtem informações de data e hora
+    horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+
+    int dia = horarioLocal->tm_mday;
+    int mes = horarioLocal->tm_mon + 1;
+    int ano = horarioLocal->tm_year + 1900;
+
+    int hora = horarioLocal->tm_hour;
+    int min  = horarioLocal->tm_min;
+    int sec  = horarioLocal->tm_sec;
+
+    int vetor[6]= {dia,mes,ano,hora,min,sec};
+
+/// --------------------------------------------------------------------------------
+
     system("clear");
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            MÓDULO CADASTRAR CONSUMO:                              ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Código de Barras:                                    ///\n");
-    printf("///            - Quantidade:                                          ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          Deseja adicionar outro item (S/n) ?                      ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          Consumo cadastrado com sucesso !                         ///\n");
-    printf("///          Data: 00/00/0000  Horário: 00:00                         ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\n");
+    printf(" ***************************************************\n");
+    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+    printf(" * * *     SIGPENTRY - Controle de Despensa    * * *\n");
+    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+    printf(" ***************************************************\n");
+    printf("                                                    \n");
+    printf("    = = = = = MÓDULO CADASTRAR CONSUMO: = = = = =   \n");
+    printf("                                                    \n");
+    printf("     Código de Barras: ");
+    scanf("%[0-9]", codBarras);
+    getchar();
+    printf("     Descrição do Item: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", item);
+    getchar();
+    printf("     Quantidade: ");
+    scanf("%d", &quant);
+    getchar();
+    
+    
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("        Consumo cadastrado com sucesso !            \n");
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("        Código de Barras: %s \n", codBarras);
+    printf("       Descrição do Item: %s \n", item);
+    printf("              Quantidade: %d \n", quant);
+    printf("                    Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
+    printf("                 Horário: %d/%d/%d \n",vetor[3],vetor[4],vetor[5]);
+    printf(" ___________________________________________________\n");
+    printf("                                                    \n");
+    printf("         >>> Tecle <ENTER> para continuar...        \n");
     getchar();
 
-    /*Na tela de cadastrar consumo, o usuário irá inicialmente cadastrar o primeiro item do que foi consumido,
-      após isso, ele será questionado se deseja adicionar outro item, se o usuário responder S, a tela contendo
-      os campos código de barras e quantidade será exibida mais uma vez. Caso o usuário digite N, aparecerá uma 
-      mensagem de cofirmação de cadastro, informando a data e o horário. 
 
-      Conforme o usuário cadastra os produtos que consumiu, as informações acerca dos produtos vão sendo alteradas.
-
-
-    */
 }
 
 void telaPesquisarConsumo(void){
