@@ -53,17 +53,17 @@ int main(void) {
     ///telaCadastrarCompra();
     ///telaPesquisarCompra();
     ///telaExcluirCompra();
-    ///telaAlterarCompra();
+    telaAlterarCompra();
     ///telaListarCompras();
 
     ///opcao4 = menuConsumo();
-    telaCadastrarConsumo();
+    ///telaCadastrarConsumo();
     ///telaPesquisarConsumo();
     ///telaExcluirConsumo();
     ///telaAlterarConsumo();
     ///telaListarConsumos();
 
-    menuSobre();
+    ///menuSobre();
     
     return 0;
 
@@ -448,7 +448,9 @@ char menuCompras(void){
 
 void telaCadastrarCompra(void){
 
-    char item[51];
+    char codBarras[14];
+    char nomeItem[51];
+    char dataValidade[11];
     int quant;
     float valorItem;
     float valorCompra;
@@ -483,8 +485,14 @@ void telaCadastrarCompra(void){
     printf("                                                    \n");
     printf("   = = = = = = MÓDULO CADASTRAR COMPRA: = = = = = = \n");
     printf("                                                    \n");
+    printf("     Código de Barras: ");
+    scanf("%[0-9]", codBarras);
+    getchar();
     printf("     Descrição do Item: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", item);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
+    getchar();
+    printf("     Data Val. (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dataValidade);
     getchar();
     printf("     Quantidade: ");
     scanf("%d", &quant);
@@ -500,12 +508,14 @@ void telaCadastrarCompra(void){
     printf("        Compra cadastrada com sucesso !             \n");
     printf(" ___________________________________________________\n");
     printf("                                                    \n");
-    printf("       Descrição do Item: %s \n", item);
+    printf("        Código de Barras: %s \n", codBarras);
+    printf("       Descrição do Item: %s \n", nomeItem);
+    printf("        Data de Validade: %s \n", dataValidade);
     printf("              Quantidade: %d \n", quant);
-    printf("           Valor do Item: %.2f \n", valorItem);
-    printf("         Valor da compra: %.2f \n", valorCompra);
+    printf("           Valor do Item: R$ %.2f \n", valorItem);
+    printf("         Valor da compra: R$ %.2f \n", valorCompra);
     printf("                    Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
-    printf("                 Horário: %d/%d/%d \n",vetor[3],vetor[4],vetor[5]);
+    printf("                 Horário: %d:%d:%d \n",vetor[3],vetor[4],vetor[5]);
     printf(" ___________________________________________________\n");
     printf("                                                    \n");
     printf("         >>> Tecle <ENTER> para continuar...        \n");
@@ -514,6 +524,10 @@ void telaCadastrarCompra(void){
 }
 
 void telaPesquisarCompra(void){
+
+    char data[11];
+    char horario[9];
+
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -526,8 +540,16 @@ void telaPesquisarCompra(void){
     printf("///                                                                   ///\n");
     printf("///            MÓDULO PESQUISAR COMPRA:                               ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data da compra:                                      ///\n");
-    printf("///            - Horário da compra:                                   ///\n");
+    printf("///            - Data da compra (dd/mm/aaa): ");
+    scanf("%s", &data);
+    getchar();
+    printf("///            - Horário da compra (hh:mm:ss): ");
+    scanf("%[0-9:]", &horario);
+    getchar();
+    printf("\n///            EXIBINDO VALORES DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Data da compra: %s \n", data);
+    printf("///             Horário da compra: %s \n", horario);
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            COMPRA LOCALIZADA!                                     ///\n");
@@ -549,7 +571,12 @@ void telaPesquisarCompra(void){
 }
 
 void telaExcluirCompra(void){
-    system("clear");
+
+    char data[11];
+    char horario[9];
+    char resposta[2];
+
+    system("cls");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -561,15 +588,24 @@ void telaExcluirCompra(void){
     printf("///                                                                   ///\n");
     printf("///            MÓDULO EXCLUIR COMPRA:                                 ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data da compra:                                      ///\n");
-    printf("///            - Horário da compra:                                   ///\n");
+    printf("///            - Data da compra (dd/mm/aaa): ");
+    scanf("%s", &data);
+    getchar();
+    printf("///            - Horário da compra (hh:mm:ss): ");
+    scanf("%[0-9:]", &horario);
+    getchar();
+    printf("///                                                                   ///\n");
+    printf("///            EXIBINDO VALORES DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Data da compra: %s \n", data);
+    printf("///             Horário da compra: %s \n", horario);
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            COMPRA LOCALIZADA!                                     ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Itens: Aqui vai mostrar todos os itens comprados     ///\n");
     printf("///              naquele dia e horário e suas quantidades.            ///\n");
-    printf("///            - Data da compra:                                     ///\n");
+    printf("///            - Data da compra:                                      ///\n");
     printf("///            - Horário da compra:                                   ///\n");
     printf("///            - Valor da compra:                                     ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -578,7 +614,14 @@ void telaExcluirCompra(void){
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n): S                          ///\n");
+    printf("///            - Confirmar operação (S/N): ");
+    scanf("%[NS]",resposta);
+    getchar();
+    printf("///                                                                   ///\n");
+    printf("///            EXIBINDO VALOR DE ENTRADA:                             ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Opção escolhida: %s \n", resposta);
+    printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            Compra excluída com sucesso!                           ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -594,7 +637,20 @@ void telaExcluirCompra(void){
 }
 
 void telaAlterarCompra(void){
-    system("clear");
+
+    char data[11];
+    char horario[9];
+    char resposta[1];
+    char decisao[1];
+
+    char codBarras[14];
+    char nomeItem[51];
+    char dataValidade[11];
+    int quant;
+    float valorItem;
+    float valorCompra;
+
+    system("cls");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -606,8 +662,17 @@ void telaAlterarCompra(void){
     printf("///                                                                   ///\n");
     printf("///            MÓDULO ALTERAR COMPRA:                                 ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data da compra:                                      ///\n");
-    printf("///            - Horário da compra:                                   ///\n");
+    printf("///            - Data da compra (dd/mm/aaa): ");
+    scanf("%s", data);
+    getchar();
+    printf("///            - Horário da compra (hh:mm:ss): ");
+    scanf("%[0-9:]", horario);
+    getchar();
+    printf("///                                                                   ///\n");
+    printf("///            EXIBINDO VALORES DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Data da compra: %s \n", data);
+    printf("///             Horário da compra: %s \n", horario);
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            COMPRA LOCALIZADA!                                     ///\n");
@@ -623,44 +688,15 @@ void telaAlterarCompra(void){
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///          - Deseja alterar todos os items da compra (S/n)? S       ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            NOVA LISTA DE ITENS !                                  ///\n");
-    printf("///                                                                   ///\n");  
-    printf("///            - Novo Item:                                           ///\n");
-    printf("///            - Nova Quantidade:                                     ///\n");
-    printf("///            - Novo Valor:                                          ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          - Deseja alterar todos os items da compra (S/n)? N       ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Informe o item à alterar:                            ///\n");
-    printf("///            - Novo nome do item:                                   ///\n");
-    printf("///            - Nova Quantidade:                                     ///\n");
-    printf("///            - Novo Valor:                                          ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n): S                          ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            Compra alterada com sucesso!                           ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n): N                          ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            Operação cancelada!                                    ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("///          - Deseja alterar todos os items da compra (S/N) ");
+    scanf("%[NS]", resposta);
     getchar();
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Opção escolhida: %s \n", resposta);
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
 
-    /* No módulo alterar compra, o usuário irá informar a data e horário da compra à alterar,
-    se a compra existir, ele deverá escolher se vai alterar todos os items da lista ou se irá
-    alterar apenas um dos items da lista. Caso o usuário queira alterar todos os items, ele irá 
-    cadastrar uma nova lista de items, no entanto, se ele quiser alterar apenas um item, ele deve
-    informar o nome do item e então cadastrar seus novos valores.
-
-    */
 }
 
 void telaListarCompras(void){
