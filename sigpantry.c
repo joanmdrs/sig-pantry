@@ -39,32 +39,30 @@ void menuSobre(void);
 int main(void) {
     char opcao1, opcao2, opcao3, opcao4;
 
-    
-    ///opcao1 = menuPrincipal();
+    menuSobre();
+    opcao1 = menuPrincipal();
 
-    ///opcao2 = menuProdutos();
-    ///telaCadastrarProduto();
-    ///telaPesquisarProduto();
-    ///telaExcluirProduto();
-    ///telaAlterarProduto();
-    ///telaListarProdutos();
+    opcao2 = menuProdutos();
+    telaCadastrarProduto();
+    telaPesquisarProduto();
+    telaExcluirProduto();
+    telaAlterarProduto();
+    telaListarProdutos();
 
-    ///opcao3 = menuCompras();
-    ///telaCadastrarCompra();
-    ///telaPesquisarCompra();
-    ///telaExcluirCompra();
-    ///telaAlterarCompra();
-    ///telaListarCompras();
+    opcao3 = menuCompras();
+    telaCadastrarCompra();
+    telaPesquisarCompra();
+    telaExcluirCompra();
+    telaAlterarCompra();
+    telaListarCompras();
 
-    ///opcao4 = menuConsumo();
-    ///telaCadastrarConsumo();
-    ///telaPesquisarConsumo();
-    ///telaExcluirConsumo();
-    ///telaAlterarConsumo();
-    ///telaListarConsumos();
+    opcao4 = menuConsumo();
+    telaCadastrarConsumo();
+    telaPesquisarConsumo();
+    telaExcluirConsumo();
+    telaAlterarConsumo();
+    telaListarConsumos();
 
-    ///menuSobre();
-    
     return 0;
 
 }
