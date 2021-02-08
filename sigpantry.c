@@ -53,7 +53,7 @@ int main(void) {
     ///telaCadastrarCompra();
     ///telaPesquisarCompra();
     ///telaExcluirCompra();
-    telaAlterarCompra();
+    ///telaAlterarCompra();
     ///telaListarCompras();
 
     ///opcao4 = menuConsumo();
@@ -140,55 +140,57 @@ char menuProdutos(void){
 void telaCadastrarProduto(void){
 
     char codBarras[14];
-    char descricao[51];
+    char nomeItem[51];
     char dataValidade[11];
     char local[10];
     char status[10];
-    char resposta;
     int quant;
 
     system("clear");
     printf("\n");
-    printf(" ***************************************************\n");
-    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
-    printf(" * * *     SIGPENTRY - Controle de Despensa    * * *\n");
-    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
-    printf(" ***************************************************\n");
-    printf("                                                    \n");
-    printf("   = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =   \n");
-    printf("                                                    \n");
-    printf("     Código de Barras: ");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///          = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: ");
     scanf("%[0-9]", codBarras);
     getchar();
-    printf("     Descrição: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", descricao);
+    printf("///            - Descrição: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
     getchar();
-    printf("     Data Val. (dd/mm/aaaa): ");
+    printf("///            - Data Val. (dd/mm/aaaa): ");
     scanf("%[0-9/]", dataValidade);
     getchar();
-    printf("     Local: ");
+    printf("///            - Local: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", local);
     getchar();
-    printf("     Status: ");
+    printf("///            - Status: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", status);
     getchar();
-    printf("     Quantidade: ");
+    printf("///            - Quantidade: ");
     scanf("%d", &quant);
     getchar();
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("        Produto(s) cadastrado(s) com sucesso !      \n");
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("        Código de Barras: %s \n", codBarras);
-    printf("               Descrição: %s \n", descricao);
-    printf("        Data de Validade: %s \n", dataValidade);
-    printf("                   Local: %s \n", local);
-    printf("                  Status: %s \n", status);
-    printf("              Quantidade: %d \n", quant);
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("         >>> Tecle <ENTER> para continuar...        \n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                  Produto cadastrado com sucesso !                 ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///              Código de Barras: %s \n", codBarras);
+    printf("///                     Descrição: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                         Local: %s \n", local);
+    printf("///                        Status: %s \n", status);
+    printf("///                    Quantidade: %d \n", quant);
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                >>> Tecle <ENTER> para continuar...                ///\n");
     getchar();
 
 }
@@ -206,17 +208,22 @@ void telaPesquisarProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO PESQUISAR PRODUTO:                              ///\n");
+    printf("///          = = = = =  MÓDULO PESQUISAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Código de Barras: ");
     scanf("%[0-9]", codBarras);
     getchar();
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                         VALOR DE ENTRADA:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: %s \n",codBarras);
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            PRODUTO LOCALIZADO!                                    ///\n"); ///se encontrar
     printf("///                                                                   ///\n");
     printf("///            - Codigo de Barras:                                    ///\n");
-    printf("///            - Nome:                                                ///\n");
+    printf("///            - Descrição:                                           ///\n");
     printf("///            - Data de Validade:                                    ///\n");
     printf("///            - Local:                                               ///\n");
     printf("///            - Status:                                              ///\n");
@@ -234,7 +241,7 @@ void telaPesquisarProduto(void){
 
 void telaExcluirProduto(void){
     char codBarras[14];
-    char resposta[1];
+    char resposta[2];
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -246,12 +253,17 @@ void telaExcluirProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO EXCLUIR PRODUTO:                                ///\n");
+    printf("///            = = = = = MÓDULO EXCLUIR PRODUTO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Código de Barras: ");
     scanf("%[0-9]", codBarras);
     getchar();
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                         VALOR DE ENTRADA:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: %s \n",codBarras);
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            PRODUTO LOCALIZADO!                                    ///\n"); ///se encontrar
     printf("///                                                                   ///\n");
@@ -267,11 +279,19 @@ void telaExcluirProduto(void){
     printf("///            de barras informado.                                   ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n) ? ");
-    scanf("%c", resposta);
+    printf("///            - Confirmar operação (S/N) ? ");
+    scanf("%[SNsn]", resposta);
     getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                         VALOR DE ENTRADA:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Opção escolhia: %s \n",resposta);
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            Produto excluído com sucesso!                          ///\n"); /// se a opção for sim
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
     printf("///            Operação cancelada!                                    ///\n"); /// se a opção for não
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -282,13 +302,13 @@ void telaExcluirProduto(void){
 
 void telaAlterarProduto(void){
     char codBarras[14];
-    char nome[51];
+    char nomeItem[51];
     char dataValidade[11];
     char local[10];
     char status[10];
-    char resposta[1];
-    char respostaLetras[1];
-
+    char resposta[2];
+    char respostaLetras[2];
+    char decisao[2];
     int quant;
 
     system("clear");
@@ -301,17 +321,22 @@ void telaAlterarProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO ALTERAR PRODUTO:                                ///\n");
+    printf("///            = = = = = MÓDULO ALTERAR PRODUTO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Código de Barras: ");
     scanf("%[0-9]", codBarras);
     getchar();
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: %s \n",codBarras);
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            PRODUTO LOCALIZADO!                                    ///\n"); ///se encontrar
     printf("///                                                                   ///\n");
-    printf("///            - Codigo de Barras:                                    ///\n");
-    printf("///            - Nome:                                                ///\n");
+    printf("///            - Código de Barras:                                    ///\n");
+    printf("///            - Descrição:                                           ///\n");
     printf("///            - Data de Validade:                                    ///\n");
     printf("///            - Local:                                               ///\n");
     printf("///            - Status:                                              ///\n");
@@ -321,14 +346,22 @@ void telaAlterarProduto(void){
     printf("///            de barras informado.                                   ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Deseja alterar todos os valores (S/n)? ");
-    scanf("%c", resposta);
+    printf("///            - Deseja alterar todos os valores (S/N)? ");
+    scanf("%[SNsn]", resposta);
     getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Novo Nome: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Opção escolhida: %s \n",resposta);
+    printf("///___________________________________________________________________///\n");
+    printf("///                                                                   ///\n");
+    printf("///           INFORME OS NOVOS VALORES DO PRODUTO:                    ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Nova Descrição: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
     getchar();
-    printf("///            - Nova Data de Validade (dd/mm/aaaa): ");
+    printf("///            - Nova Data Val. (dd/mm/aaaa): ");
     scanf("%[0-9/]", dataValidade);
     getchar();
     printf("///            - Novo Local: ");
@@ -340,19 +373,40 @@ void telaAlterarProduto(void){
     printf("///            - Nova Quantidade: ");
     scanf("%d", &quant);
     getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Digite 'a' para alterar o nome                       ///\n"); ///Se não
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                          Nome: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                         Local: %s \n", local);
+    printf("///                        Status: %s \n", status);
+    printf("///                    Quantidade: %d \n", quant);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           ESCOLHA O CAMPO À ALTERAR:                              ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Digite 'a' para alterar o nome                       ///\n");
     printf("///            - Digite 'b' para alterar a validade                   ///\n");
     printf("///            - Digite 'c' para alterar o local                      ///\n");
     printf("///            - Digite 'd' para alterar o status                     ///\n");
-    printf("///            - Digite 'e' para alterar a quantidade: ");
+    printf("///            - Digite 'e' para alterar a quantidade:                ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Informe a sua opção: "); 
     scanf("%[A-E a-e]", respostaLetras);
     getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - a) Novo Nome: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Opção escolhida: %s \n",respostaLetras);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - a) Nova Descrição: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
     getchar();
-    printf("///            - b) Nova Data de Validade (dd/mm/aaaa): ");
+    printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
     scanf("%[0-9/]", dataValidade);
     getchar();
     printf("///            - c) Novo Local: ");
@@ -363,15 +417,32 @@ void telaAlterarProduto(void){
     getchar();
     printf("///            - e) Nova Quantidade: ");
     scanf("%d", &quant);
-    getchar();         
+    getchar();  
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                          Nome: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                         Local: %s \n", local);
+    printf("///                        Status: %s \n", status);
+    printf("///                    Quantidade: %d \n", quant);       
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/N) ? ");
+    scanf("%[SNsn]", decisao);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Opção escolhida: %s \n",decisao);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Produto alterado com sucesso!                          ///\n"); /// se a opção for sim
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n) ? ");
-    scanf("%c", resposta);
-    getchar();
-    printf("///                                                                   ///\n");
-    printf("///            Produto alterado com sucesso!                          ///\n"); ///Se a resposta for sim
-    printf("///            Operação cancelada!                                    ///\n"); ///Se a resposta for não
+    printf("///            Operação cancelada!                                    ///\n"); /// se a opção for não
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -477,48 +548,51 @@ void telaCadastrarCompra(void){
 
     system("clear");
     printf("\n");
-    printf(" ***************************************************\n");
-    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
-    printf(" * * *     SIGPENTRY - Controle de Despensa    * * *\n");
-    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
-    printf(" ***************************************************\n");
-    printf("                                                    \n");
-    printf("   = = = = = = MÓDULO CADASTRAR COMPRA: = = = = = = \n");
-    printf("                                                    \n");
-    printf("     Código de Barras: ");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           = = = = =  MÓDULO CADASTRAR COMPRA: = = = = =           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: ");
     scanf("%[0-9]", codBarras);
     getchar();
-    printf("     Descrição do Item: ");
+    printf("///            - Descrição do Item: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
     getchar();
-    printf("     Data Val. (dd/mm/aaaa): ");
+    printf("///            - Data Val. (dd/mm/aaaa): ");
     scanf("%[0-9/]", dataValidade);
     getchar();
-    printf("     Quantidade: ");
+    printf("///            - Quantidade: ");
     scanf("%d", &quant);
     getchar();
-    printf("     Valor do Item: R$ "); 
+    printf("///            - Valor do Item: R$ "); 
     scanf("%f", &valorItem);
     getchar();
     
     valorCompra += quant * valorItem;
     
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("        Compra cadastrada com sucesso !             \n");
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("        Código de Barras: %s \n", codBarras);
-    printf("       Descrição do Item: %s \n", nomeItem);
-    printf("        Data de Validade: %s \n", dataValidade);
-    printf("              Quantidade: %d \n", quant);
-    printf("           Valor do Item: R$ %.2f \n", valorItem);
-    printf("         Valor da compra: R$ %.2f \n", valorCompra);
-    printf("                    Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
-    printf("                 Horário: %d:%d:%d \n",vetor[3],vetor[4],vetor[5]);
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("         >>> Tecle <ENTER> para continuar...        \n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                 Compra cadastrada com sucesso !                   ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///              Código de Barras: %s \n", codBarras);
+    printf("///             Descrição do Item: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                    Quantidade: %d \n", quant);
+    printf("///                 Valor do Item: R$ %.2f \n", valorItem);
+    printf("///               Valor da compra: R$ %.2f \n", valorCompra);
+    printf("///                          Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
+    printf("///                       Horário: %d:%d:%d \n",vetor[3],vetor[4],vetor[5]);
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                 >>> Tecle <ENTER> para continuar...               ///\n");
     getchar();
 
 }
@@ -538,24 +612,26 @@ void telaPesquisarCompra(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO PESQUISAR COMPRA:                               ///\n");
+    printf("///           = = = = =  MÓDULO PESQUISAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Data da compra (dd/mm/aaa): ");
-    scanf("%s", &data);
+    scanf("%s", data);
     getchar();
     printf("///            - Horário da compra (hh:mm:ss): ");
-    scanf("%[0-9:]", &horario);
+    scanf("%[0-9:]", horario);
     getchar();
-    printf("\n///            EXIBINDO VALORES DE ENTRADA:                           ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                        VALORES DE ENTRADA:                        ///\n");
     printf("///                                                                   ///\n");
     printf("///             Data da compra: %s \n", data);
     printf("///             Horário da compra: %s \n", horario);
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            COMPRA LOCALIZADA!                                     ///\n");
     printf("///                                                                   ///\n");
     printf("///            Itens: Aqui vai mostrar todos os itens comprados       ///\n");
-    printf("///            naquele dia e horário, suas quantidades e valores      ///\n");
+    printf("///            naquele dia e horário.                                 ///\n");
     printf("///            - Data da compra:                                      ///\n");
     printf("///            - Horário da compra:                                   ///\n");
     printf("///            - Valor da compra:                                     ///\n");
@@ -576,7 +652,7 @@ void telaExcluirCompra(void){
     char horario[9];
     char resposta[2];
 
-    system("cls");
+    system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -586,20 +662,21 @@ void telaExcluirCompra(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO EXCLUIR COMPRA:                                 ///\n");
+    printf("///            = = = = =  MÓDULO EXCLUIR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Data da compra (dd/mm/aaa): ");
-    scanf("%s", &data);
+    scanf("%s", data);
     getchar();
     printf("///            - Horário da compra (hh:mm:ss): ");
-    scanf("%[0-9:]", &horario);
+    scanf("%[0-9:]", horario);
     getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            EXIBINDO VALORES DE ENTRADA:                           ///\n");
+    printf("///                        VALORES DE ENTRADA:                        ///\n");
     printf("///                                                                   ///\n");
     printf("///             Data da compra: %s \n", data);
     printf("///             Horário da compra: %s \n", horario);
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            COMPRA LOCALIZADA!                                     ///\n");
     printf("///                                                                   ///\n");
@@ -615,18 +692,17 @@ void telaExcluirCompra(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Confirmar operação (S/N): ");
-    scanf("%[NS]",resposta);
+    scanf("%[NSns]",resposta);
     getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            EXIBINDO VALOR DE ENTRADA:                             ///\n");
+    printf("///                        VALOR DE ENTRADA:                          ///\n");
     printf("///                                                                   ///\n");
     printf("///             Opção escolhida: %s \n", resposta);
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            Compra excluída com sucesso!                           ///\n");
     printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n): N                          ///\n");
     printf("///                                                                   ///\n");
     printf("///            Operação cancelada!                                    ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -650,7 +726,7 @@ void telaAlterarCompra(void){
     float valorItem;
     float valorCompra;
 
-    system("cls");
+    system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -660,7 +736,7 @@ void telaAlterarCompra(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO ALTERAR COMPRA:                                 ///\n");
+    printf("///            = = = = =  MÓDULO ALTERAR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Data da compra (dd/mm/aaa): ");
     scanf("%s", data);
@@ -668,34 +744,142 @@ void telaAlterarCompra(void){
     printf("///            - Horário da compra (hh:mm:ss): ");
     scanf("%[0-9:]", horario);
     getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            EXIBINDO VALORES DE ENTRADA:                           ///\n");
+    printf("///                      VALORES DE ENTRADA:                          ///\n");
     printf("///                                                                   ///\n");
     printf("///             Data da compra: %s \n", data);
     printf("///             Horário da compra: %s \n", horario);
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            COMPRA LOCALIZADA!                                     ///\n");
+    printf("///            COMPRA LOCALIZADA!                                     ///\n"); ///Possível resultado
     printf("///                                                                   ///\n");
     printf("///            Itens: Aqui vai mostrar todos os itens comprados       ///\n");
-    printf("///            naquele dia e horário, suas quantidades e valores      ///\n");
+    printf("///            naquele dia e horário.                                 ///\n");
     printf("///            - Data da compra:                                      ///\n");
     printf("///            - Horário da compra:                                   ///\n");
     printf("///            - Valor da compra:                                     ///\n");   
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");  
-    printf("///          Não há registro de compras para o dia e horário          ///\n");    
+    printf("///          Não há registro de compras para o dia e horário          ///\n"); ///Outro possível resultado   
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///          - Deseja alterar todos os items da compra (S/N) ");
-    scanf("%[NS]", resposta);
+    scanf("%[NSns]", resposta);
     getchar();
-    printf("///        ___________________________________________________        ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
     printf("///                                                                   ///\n");
     printf("///             Opção escolhida: %s \n", resposta);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           NOVA LISTA DE ITENS:                                    ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: ");
+    scanf("%[0-9]", codBarras);
+    getchar();
+    printf("///            - Descrição do Item: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
+    getchar();
+    printf("///            - Data Val. (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dataValidade);
+    getchar();
+    printf("///            - Quantidade: ");
+    scanf("%d", &quant);
+    getchar();
+    printf("///            - Valor do Item: R$ "); 
+    scanf("%f", &valorItem);
+    getchar();
+    
+    valorCompra += quant * valorItem;
+    
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///              Código de Barras: %s \n", codBarras);
+    printf("///             Descrição do Item: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                    Quantidade: %d \n", quant);
+    printf("///                 Valor do Item: R$ %.2f \n", valorItem);
+    printf("///               Valor da compra: R$ %.2f \n", valorCompra);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           INFORME O ITEM A ALTERAR:                               ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: ");
+    scanf("%[0-9]", codBarras);
+    getchar();
+    printf("///            - Data de Validade (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dataValidade);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                     VALORES DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///              Código de Barras: %s \n", codBarras);
+    printf("///              Data de Validade: %s \n", dataValidade); 
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            ITEM ENCONTRADO !                                      ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             - Código de Barras:                                   ///\n");
+    printf("///             - Descrição do Item:                                  ///\n");
+    printf("///             - Data de Validade:                                   ///\n"); 
+    printf("///             - Quantidade:                                         ///\n"); 
+    printf("///             - Valor do Item:                                      ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
+    printf("///            ITEM NÃO ENCONTRADO !                                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///          INFORME OS NOVOS CAMPOS DO ITEM:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Descrição do Item: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
+    getchar();
+    printf("///            - Data Val. (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dataValidade);
+    getchar();
+    printf("///            - Quantidade: ");
+    scanf("%d", &quant);
+    getchar();
+    printf("///            - Valor do Item: R$ "); 
+    scanf("%f", &valorItem);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Descrição do Item: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                    Quantidade: %d \n", quant);
+    printf("///                 Valor do Item: R$ %.2f \n", valorItem);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n) ? ");
+    scanf("%[SNsn]", decisao);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Opção escolhida: %s \n",decisao);
+    printf("/// __________________________________________________________________///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Compra alterada com sucesso!                           ///\n"); /// se a opção for sim
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Operação cancelada!                                    ///\n"); /// se a opção for não
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 
 }
 
@@ -766,6 +950,7 @@ char menuConsumo(void){
 
 void telaCadastrarConsumo(void){
     char codBarras[14];
+    char dataValidade[11];
     char item[51];
     int quant;
     
@@ -791,44 +976,54 @@ void telaCadastrarConsumo(void){
 
     system("clear");
     printf("\n");
-    printf(" ***************************************************\n");
-    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
-    printf(" * * *     SIGPENTRY - Controle de Despensa    * * *\n");
-    printf(" * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
-    printf(" ***************************************************\n");
-    printf("                                                    \n");
-    printf("    = = = = = MÓDULO CADASTRAR CONSUMO: = = = = =   \n");
-    printf("                                                    \n");
-    printf("     Código de Barras: ");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           = = = = =  MÓDULO CADASTRAR CONSUMO: = = = = =          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: ");
     scanf("%[0-9]", codBarras);
     getchar();
-    printf("     Descrição do Item: ");
+    printf("///            - Data Val. (dd/mm/aaa): ");
+    scanf("%[0-9/]", dataValidade);
+    getchar();
+    printf("///            - Descrição do Item: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", item);
     getchar();
-    printf("     Quantidade: ");
+    printf("///            - Quantidade: ");
     scanf("%d", &quant);
     getchar();
     
-    
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("        Consumo cadastrado com sucesso !            \n");
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("        Código de Barras: %s \n", codBarras);
-    printf("       Descrição do Item: %s \n", item);
-    printf("              Quantidade: %d \n", quant);
-    printf("                    Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
-    printf("                 Horário: %d/%d/%d \n",vetor[3],vetor[4],vetor[5]);
-    printf(" ___________________________________________________\n");
-    printf("                                                    \n");
-    printf("         >>> Tecle <ENTER> para continuar...        \n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                 Consumo cadastrado com sucesso !                  ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Código de Barras: %s \n", codBarras);
+    printf("///             Data de Validade: %s \n", dataValidade);
+    printf("///            Descrição do Item: %s \n", item);
+    printf("///                   Quantidade: %d \n", quant);
+    printf("///                         Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
+    printf("///                      Horário: %d/%d/%d \n",vetor[3],vetor[4],vetor[5]);
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                >>> Tecle <ENTER> para continuar...                ///\n");
     getchar();
 
 
 }
 
 void telaPesquisarConsumo(void){
+
+    char data[11];
+    char horario[9];
+
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -839,11 +1034,21 @@ void telaPesquisarConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO PESQUISAR CONSUMO:                              ///\n");
+    printf("///           = = = = =  MÓDULO PESQUISAR CONSUMO: = = = = =          ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data do consumo:                                     ///\n");
-    printf("///            - Horário do consumo:                                  ///\n");
-    printf("///        ___________________________________________________        ///\n");
+    printf("///            - Data do consumo (dd/mm/aaa): ");
+    scanf("%[0-9/]", data);
+    getchar();
+    printf("///            - Horário do consumo (hh:mm:ss): ");
+    scanf("%[0-9:]", horario);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Data do consumo: %s \n", data);
+    printf("///             Horário do consumo: %s \n", horario);
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            CONSUMO LOCALIZADO!                                    ///\n");
     printf("///                                                                   ///\n");
@@ -863,6 +1068,11 @@ void telaPesquisarConsumo(void){
 }
 
 void telaExcluirConsumo(void){
+
+    char data[11];
+    char horario[9];
+    char resposta[2];
+    
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -873,11 +1083,21 @@ void telaExcluirConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO EXCLUIR CONSUMO:                                ///\n");
+    printf("///            = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data do consumo:                                     ///\n");
-    printf("///            - Horário do consumo:                                  ///\n");
-    printf("///        ___________________________________________________        ///\n");
+    printf("///            - Data do consumo (dd/mm/aaa): ");
+    scanf("%[0-9/]", data);
+    getchar();
+    printf("///            - Horário do consumo (hh:mm:ss): ");
+    scanf("%[0-9:]", horario);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Data do consumo: %s \n", data);
+    printf("///             Horário do consumo: %s \n", horario);
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            CONSUMO LOCALIZADO!                                    ///\n");
     printf("///                                                                   ///\n");
@@ -891,7 +1111,15 @@ void telaExcluirConsumo(void){
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n): S                          ///\n");
+    printf("///            - Confirmar operação (S/N): ");
+    scanf("%[NSns]",resposta);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                        VALOR DE ENTRADA:                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Opção escolhida: %s \n", resposta);
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            Consumo excluído com sucesso!                          ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -908,6 +1136,16 @@ void telaExcluirConsumo(void){
 }
 
 void telaAlterarConsumo(void){
+    char data[11];
+    char horario[9];
+    char resposta[1];
+    char decisao[1];
+
+    char codBarras[14];
+    char nomeItem[51];
+    char dataValidade[11];
+    int quant;
+
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -918,65 +1156,138 @@ void telaAlterarConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO ALTERAR CONSUMO:                                ///\n");
+    printf("///          = = = = = = MÓDULO ALTERAR CONSUMO = = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data do consumo:                                     ///\n");
-    printf("///            - Horário do consumo:                                  ///\n");
-    printf("///        ___________________________________________________        ///\n");
+    printf("///            - Data do consumo (dd/mm/aaa): ");
+    scanf("%s", data);
+    getchar();
+    printf("///            - Horário do consumo (hh:mm:ss): ");
+    scanf("%[0-9:]", horario);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            CONSUMO LOCALIZADO!                                    ///\n");
+    printf("///                      VALORES DE ENTRADA:                          ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Data do consumo: %s \n", data);
+    printf("///             Horário do consumo: %s \n", horario);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            CONSUMO LOCALIZADO!                                    ///\n"); ///Possível resultado
     printf("///                                                                   ///\n");
     printf("///            Itens: Aqui vai mostrar todos os itens consumidos      ///\n");
-    printf("///            naquele dia e horário e suas quantidades               ///\n");
+    printf("///            naquele dia e horário.                                 ///\n");
     printf("///            - Data do consumo:                                     ///\n");
-    printf("///            - Horário do consumo:                                  ///\n");
+    printf("///            - Horário do consumo                                   ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");  
-    printf("///          Não há registro de consumo para o dia e horário          ///\n");    
+    printf("///          Não há registro de consumo para o dia e horário          ///\n"); ///Outro possível resultado   
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n");  
+    printf("///          - Deseja alterar todos os items do consumo (S/N) ");
+    scanf("%[NSns]", resposta);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///          - Deseja alterar todos os items do consumo (S/n)? S      ///\n");
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            NOVA LISTA DE ITENS CONSUMIDOS !                       ///\n");
-    printf("///                                                                   ///\n"); 
-    printf("///            - Código de barras:                                    ///\n");
-    printf("///            - Nova Quantidade:                                     ///\n");
+    printf("///             Opção escolhida: %s \n", resposta);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           NOVA LISTA DE ITENS:                                    ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: ");
+    scanf("%[0-9]", codBarras);
+    getchar();
+    printf("///            - Descrição do Item: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
+    getchar();
+    printf("///            - Data Val. (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dataValidade);
+    getchar();
+    printf("///            - Quantidade: ");
+    scanf("%d", &quant);
+    getchar();
+    
+    
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///              Código de Barras: %s \n", codBarras);
+    printf("///             Descrição do Item: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                    Quantidade: %d \n", quant);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           INFORME O ITEM A ALTERAR:                               ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Código de Barras: ");
+    scanf("%[0-9]", codBarras);
+    getchar();
+    printf("///            - Data de Validade (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dataValidade);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                     VALORES DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///              Código de Barras: %s \n", codBarras);
+    printf("///              Data de Validade: %s \n", dataValidade); 
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            ITEM ENCONTRADO !                                      ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             - Código de Barras:                                   ///\n");
+    printf("///             - Descrição do Item:                                  ///\n");
+    printf("///             - Data de Validade:                                   ///\n"); 
+    printf("///             - Quantidade:                                         ///\n"); 
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///          Deseja adicionar outro item (S/n) ?                      ///\n");
+    printf("///            ITEM NÃO ENCONTRADO !                                  ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///          INFORME OS NOVOS CAMPOS DO ITEM:                         ///\n");
     printf("///                                                                   ///\n");
-    printf("///          - Deseja alterar todos os items do consumo (S/n)? N      ///\n");
+    printf("///            - Descrição do Item: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
+    getchar();
+    printf("///            - Data Val. (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dataValidade);
+    getchar();
+    printf("///            - Quantidade: ");
+    scanf("%d", &quant);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Código de barras:                                    ///\n") ;
-    printf("///            - Nova Quantidade:                                     ///\n");
+    printf("///                       VALORES DE ENTRADA:                         ///\n");
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///             Descrição do Item: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                    Quantidade: %d \n", quant);
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Confirmar operação (S/n) ? ");
+    scanf("%[SNsn]", decisao);
+    getchar();
+    printf("/// _________________________________________________________________ ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                       VALOR DE ENTRADA:                           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Opção escolhida: %s \n",decisao);
+    printf("/// __________________________________________________________________///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Consumo alterado com sucesso!                          ///\n"); /// se a opção for sim
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n): S                          ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            Consumo alterado com sucesso!                          ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/n): N                          ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            Operação cancelada!                                    ///\n");
+    printf("///            Operação cancelada!                                    ///\n"); /// se a opção for não
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
-
-    /* No módulo alterar consumo, o usuário irá informar a data e horário do consumo à alterar,
-    se o consumo existir, ele deverá escolher se vai alterar todos os items da lista ou se irá
-    alterar apenas um dos items da lista. Caso o usuário queira alterar todos os items, ele irá 
-    cadastrar uma nova lista de items, no entanto, se ele quiser alterar apenas um item, ele deve
-    informar o código de barras e então cadastrar seus novos valores.
-    */
 
 }
 
