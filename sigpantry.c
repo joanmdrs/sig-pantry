@@ -37,12 +37,30 @@ void telaListarConsumos(void);
 void menuSobre(void);
 
 int main(void) {
+
     char opcao1, opcao2, opcao3, opcao4;
 
-    menuSobre();
-    opcao1 = menuPrincipal();
+    while (opcao1 != '0'){
+        opcao1 = menuPrincipal();
 
-    opcao2 = menuProdutos();
+        switch (opcao1){
+
+            case '1':
+                menuProdutos();
+                break;
+            case '2':
+                menuCompras();
+                break;
+            case '3':
+                menuConsumo();
+                break;
+            case '4':
+                menuSobre();
+                break;
+        }
+    }
+
+    /*opcao2 = menuProdutos();
     telaCadastrarProduto();
     telaPesquisarProduto();
     telaExcluirProduto();
@@ -62,6 +80,9 @@ int main(void) {
     telaExcluirConsumo();
     telaAlterarConsumo();
     telaListarConsumos();
+
+    menuSobre();
+    */
 
     return 0;
 
