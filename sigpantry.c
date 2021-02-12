@@ -44,35 +44,65 @@ int main(void) {
         opcao1 = menuPrincipal();
 
         switch (opcao1){
-
             case '1':
-                menuProdutos();
+                while (opcao2 != '0'){
+                    opcao2 = menuProdutos();
+
+                    switch (opcao2){
+
+                        case '1':
+                            telaCadastrarProduto();
+                            break;
+                        case '2':
+                            telaPesquisarProduto();
+                            break;
+                        case '3':
+                            telaExcluirProduto();
+                            break;
+                        case '4':
+                            telaAlterarProduto();
+                            break;
+                        case '5':
+                            telaListarProdutos();
+                            break;
+                    }
+                }
                 break;
+
             case '2':
-                menuCompras();
+                while (opcao3 != '0'){
+                    opcao3 = menuCompras();
+
+                    switch (opcao3){
+
+                        case '1':
+                            telaCadastrarCompra();
+                            break;
+                        case '2':
+                            telaPesquisarCompra();
+                            break;
+                        case '3':
+                            telaExcluirCompra();
+                            break;
+                        case '4':
+                            telaAlterarCompra();
+                            break;
+                        case '5':
+                            telaListarCompras();
+                            break;
+                    }
+                }
                 break;
+
             case '3':
                 menuConsumo();
                 break;
+
             case '4':
                 menuSobre();
                 break;
         }
     }
-
-    /*opcao2 = menuProdutos();
-    telaCadastrarProduto();
-    telaPesquisarProduto();
-    telaExcluirProduto();
-    telaAlterarProduto();
-    telaListarProdutos();
-
-    opcao3 = menuCompras();
-    telaCadastrarCompra();
-    telaPesquisarCompra();
-    telaExcluirCompra();
-    telaAlterarCompra();
-    telaListarCompras();
 
     opcao4 = menuConsumo();
     telaCadastrarConsumo();
@@ -80,9 +110,6 @@ int main(void) {
     telaExcluirConsumo();
     telaAlterarConsumo();
     telaListarConsumos();
-
-    menuSobre();
-    */
 
     return 0;
 
@@ -114,9 +141,6 @@ char menuPrincipal(void){
     printf("Informe a sua opção : ");
     scanf("%c", &opcao);
     getchar();
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
 	return opcao;
 
 }
@@ -148,9 +172,6 @@ char menuProdutos(void){
     printf("Informe a sua opção : ");
     scanf("%c", &opcao);
     getchar();
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
 	return opcao;
 
 
@@ -528,9 +549,6 @@ char menuCompras(void){
     printf("Informe a sua opção : ");
     scanf("%c", &opcao);
     getchar();
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
 	return opcao;
 
 
@@ -960,9 +978,6 @@ char menuConsumo(void){
     printf("Informe a sua opção : ");
     scanf("%c", &opcao);
     getchar();
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
 	return opcao;
 
 }
