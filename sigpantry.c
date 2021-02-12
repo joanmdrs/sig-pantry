@@ -40,16 +40,15 @@ int main(void) {
 
     char opcao1, opcao2, opcao3, opcao4;
 
-    while (opcao1 != '0'){
+    do{
         opcao1 = menuPrincipal();
 
         switch (opcao1){
             case '1':
-                while (opcao2 != '0'){
+                do{                   
                     opcao2 = menuProdutos();
 
                     switch (opcao2){
-
                         case '1':
                             telaCadastrarProduto();
                             break;
@@ -66,15 +65,15 @@ int main(void) {
                             telaListarProdutos();
                             break;
                     }
-                }
+
+                }while(opcao2 != '0');
                 break;
 
             case '2':
-                while (opcao3 != '0'){
+                do{
                     opcao3 = menuCompras();
 
                     switch (opcao3){
-
                         case '1':
                             telaCadastrarCompra();
                             break;
@@ -91,18 +90,42 @@ int main(void) {
                             telaListarCompras();
                             break;
                     }
-                }
+
+                } while (opcao3 != '0');
                 break;
 
             case '3':
-                menuConsumo();
-                break;
+                do{
+                    opcao4 = menuConsumo();
 
+                    switch (opcao4){
+                        case '1':
+                            telaCadastrarConsumo();
+                            break;
+                        case '2':
+                            telaPesquisarConsumo();
+                            break;
+                        case '3':
+                            telaExcluirConsumo();
+                            break;
+                        case '4':
+                            telaAlterarConsumo();
+                            break;
+                        case '5':
+                            telaListarConsumos();
+                            break;
+                    }
+
+                } while(opcao4 != '0');
+                break;
+                
             case '4':
                 menuSobre();
                 break;
-        }
-    }
+
+        } 
+
+    }while(opcao1 != '0');
 
     opcao4 = menuConsumo();
     telaCadastrarConsumo();
