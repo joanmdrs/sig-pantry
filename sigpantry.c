@@ -127,13 +127,6 @@ int main(void) {
 
     }while(opcao1 != '0');
 
-    opcao4 = menuConsumo();
-    telaCadastrarConsumo();
-    telaPesquisarConsumo();
-    telaExcluirConsumo();
-    telaAlterarConsumo();
-    telaListarConsumos();
-
     return 0;
 
 }
