@@ -1128,7 +1128,7 @@ void telaAlterarCompra(void){
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
             printf("///                                                                   ///\n");
-            printf("///                      Valor: %d \n", valorItem);       
+            printf("///                      Valor: %.2f \n", valorItem);       
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///            O valor foi alterado!                                  ///\n");
@@ -1411,8 +1411,8 @@ void telaExcluirConsumo(void){
 void telaAlterarConsumo(void){
     char data[11];
     char horario[9];
-    char resposta[1];
-    char decisao[1];
+    char resposta;
+    char decisao;
     char respostaLetras;
 
     char codBarras[14];
@@ -1459,13 +1459,13 @@ void telaAlterarConsumo(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///          - Deseja alterar todos os items do consumo (S/N) ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", resposta);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &resposta);
     getchar();
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                       VALOR DE ENTRADA:                           ///\n");
     printf("///                                                                   ///\n");
-    printf("///             Opção escolhida: %s \n", resposta);
+    printf("///             Opção escolhida: %c \n", resposta);
     printf("/// _________________________________________________________________ ///\n");
 
     if (resposta == 'S' || resposta == 's'){
