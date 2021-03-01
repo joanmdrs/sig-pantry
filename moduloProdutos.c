@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* A função menuProdutos irá direcionar o usuário para as funções cadastrar, pesquisar,
+   excluir, alterar e listar, referentes ao módulo produtos. */
+
 char menuProdutos(void){
     char opcao;
 
@@ -32,6 +35,8 @@ char menuProdutos(void){
 
 
 }
+
+/* A função telaCadastrarProduto realiza o cadastro de um produto. */
 
 void telaCadastrarProduto(void){
 
@@ -91,6 +96,8 @@ void telaCadastrarProduto(void){
 
 }
 
+/* A função telaPesquisarProduto realiza a busca de um produto. */
+
 void telaPesquisarProduto(void){
     char codBarras[14];
     
@@ -134,6 +141,8 @@ void telaPesquisarProduto(void){
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
+
+/* A função telaExcluirProduto realiza a exclusão de um produto. */
 
 void telaExcluirProduto(void){
     char codBarras[14];
@@ -212,6 +221,8 @@ void telaExcluirProduto(void){
     }
     
 }
+
+/* A função telaAlterarProduto realiza a alteração de um produto. */
 
 void telaAlterarProduto(void){
     char codBarras[14];
@@ -466,6 +477,8 @@ void telaAlterarProduto(void){
     }
     
 }
+
+/* A função telaListarProdutos realiza a listagem de todos os produtos. */
 
 void telaListarProdutos(void){
     system("clear");

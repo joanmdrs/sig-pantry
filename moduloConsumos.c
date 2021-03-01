@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+/* A função menuConsumo irá direcionar o usuário para as funções cadastrar, pesquisar,
+   excluir, alterar e listar, referentes ao módulo consumo. */
+
 char menuConsumo(void){
     char opcao;
     
@@ -32,6 +35,8 @@ char menuConsumo(void){
 	return opcao;
 
 }
+
+/* A função telaCadastrarConsumo realiza o cadastro de um consumo. */
 
 void telaCadastrarConsumo(void){
     char codBarras[14];
@@ -104,6 +109,8 @@ void telaCadastrarConsumo(void){
 
 }
 
+/* A função telaPesquisarConsumo realiza a busca de um consumo. */
+
 void telaPesquisarConsumo(void){
 
     char data[11];
@@ -151,6 +158,8 @@ void telaPesquisarConsumo(void){
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
+
+/* A função telaExcluirConsumo realiza a exclusão de um consumo. */
 
 void telaExcluirConsumo(void){
 
@@ -227,6 +236,8 @@ void telaExcluirConsumo(void){
     }
 
 }
+
+/* A função telaAlterarConsumo realiza a alteração de um consumo. */
 
 void telaAlterarConsumo(void){
     char data[11];
@@ -446,6 +457,8 @@ void telaAlterarConsumo(void){
         }
     }
 }
+
+/* A função telaListarConsumos realiza a listagem de todos os consumos. */
 
 void telaListarConsumos(void){
     system("clear");

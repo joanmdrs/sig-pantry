@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+/* A função menuCompras irá direcionar o usuário para as funções cadastrar, pesquisar,
+   excluir, alterar e listas, referentes ao módulo compras. */
+
+
 char menuCompras(void){
     char opcao;
 
@@ -33,6 +37,8 @@ char menuCompras(void){
 
 
 }
+
+/* A função telaCadastrarCompra realiza o cadastro de uma compra. */
 
 void telaCadastrarCompra(void){
 
@@ -114,6 +120,8 @@ void telaCadastrarCompra(void){
 
 }
 
+/* A função telaPesquisarCompra realiza a busca de uma compra. */
+
 void telaPesquisarCompra(void){
 
     char data[11];
@@ -162,6 +170,8 @@ void telaPesquisarCompra(void){
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
+
+/* A função telaExcluirCompra realiza a exclusão de uma compra. */
 
 void telaExcluirCompra(void){
 
@@ -244,6 +254,8 @@ void telaExcluirCompra(void){
     }
     
 }
+
+/* A função telaAlterarCompra realiza a alteração de uma compra. */
 
 void telaAlterarCompra(void){
 
@@ -503,6 +515,8 @@ void telaAlterarCompra(void){
         getchar();
     }
 }
+
+/* A função telaListarCompras realiza a listagem de todas as compras. */
 
 void telaListarCompras(void){
     system("clear");
