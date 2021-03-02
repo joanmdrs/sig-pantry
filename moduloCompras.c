@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "moduloTestes.h"
+
 
 /* A função menuCompras irá direcionar o usuário para as funções cadastrar, pesquisar,
    excluir, alterar e listas, referentes ao módulo compras. */

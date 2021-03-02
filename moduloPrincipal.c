@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "moduloTestes.h"
+
 
 /* A função menuPrincipal realiza a navegação para os demais módulos do projeto. */
 
 char menuPrincipal(void){
     char opcao;
+    int teste;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -29,6 +32,13 @@ char menuPrincipal(void){
     printf("Informe a sua opção : ");
     scanf("%c", &opcao);
     getchar();
+    teste = testeDigito(opcao);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira novamente um valor correto: ");
+        scanf("%c", &opcao);
+        getchar();
+        teste = testeDigito(opcao);
+    }
 	return opcao;
 
 }
