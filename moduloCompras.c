@@ -10,6 +10,7 @@
 
 char menuCompras(void){
     char opcao;
+    int teste = 0;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -33,8 +34,15 @@ char menuCompras(void){
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("Informe a sua opção : ");
-    scanf("%c", &opcao);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &opcao);
     getchar();
+    teste = testeDigito(opcao);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira novamente um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &opcao);
+        getchar();
+        teste = testeDigito(opcao);
+    }
 	return opcao;
 
 
@@ -47,8 +55,9 @@ void telaCadastrarCompra(void){
     char codBarras[14];
     char nomeItem[51];
     char dataValidade[11];
-    int quant;
-    float valorItem;
+    char quant[10];
+    char valorItem[10];
+    int teste = 0;
     float valorCompra;
     
 /// Pegando a data do sistema -----------------------------------------------------
@@ -85,22 +94,66 @@ void telaCadastrarCompra(void){
     printf("///           = = = = =  MÓDULO CADASTRAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Código de Barras: ");
-    scanf("%[0-9]", codBarras);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
     getchar();
+    teste = testeDigitos(codBarras);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
+        getchar();
+        teste = testeDigitos(codBarras);
+    }
+    teste = 0;
     printf("///            - Descrição do Item: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", nomeItem);
     getchar();
+    teste = testeDigitos(nomeItem);
+    while(teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", nomeItem);
+        getchar();
+        teste = testeDigitos(nomeItem);
+    }
+    teste = 0;
     printf("///            - Data Val. (dd/mm/aaaa): ");
-    scanf("%[0-9/]", dataValidade);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
     getchar();
+    teste = testeDigitos(dataValidade);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
+        getchar();
+        teste = testeDigitos(dataValidade);
+    }
+    teste = 0;
     printf("///            - Quantidade: ");
-    scanf("%d", &quant);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
     getchar();
+    teste = testeDigitos(quant);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
+        getchar();
+        teste = testeDigitos(quant);
+    }
+    teste = 0;
+    int quantidade = converteCharParaInt(quant);
+
+
     printf("///            - Valor do Item: R$ "); 
-    scanf("%f", &valorItem);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
     getchar();
+    teste = testeDigitos(valorItem);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
+        getchar();
+        teste = testeDigitos(valorItem);
+    }
+    double valor = converteCharParaDouble(valorItem);
+    teste = 0;
     
-    valorCompra += quant * valorItem;
+    valorCompra += quantidade * valor;
     
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -110,8 +163,8 @@ void telaCadastrarCompra(void){
     printf("///              Código de Barras: %s \n", codBarras);
     printf("///             Descrição do Item: %s \n", nomeItem);
     printf("///              Data de Validade: %s \n", dataValidade);
-    printf("///                    Quantidade: %d \n", quant);
-    printf("///                 Valor do Item: R$ %.2f \n", valorItem);
+    printf("///                    Quantidade: %d \n", quantidade);
+    printf("///                 Valor do Item: R$ %.2f \n", valor);
     printf("///               Valor da compra: R$ %.2f \n", valorCompra);
     printf("///                          Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
     printf("///                       Horário: %d:%d:%d \n",vetor[3],vetor[4],vetor[5]);
@@ -128,6 +181,7 @@ void telaPesquisarCompra(void){
 
     char data[11];
     char horario[9];
+    int teste = 0;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -142,11 +196,26 @@ void telaPesquisarCompra(void){
     printf("///           = = = = =  MÓDULO PESQUISAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Data da compra (dd/mm/aaa): ");
-    scanf("%s", data);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
     getchar();
+    teste = testeDigitos(data);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
+        getchar();
+        teste = testeDigitos(data);
+    }
+    teste = 0;
     printf("///            - Horário da compra (hh:mm:ss): ");
-    scanf("%[0-9:]", horario);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
     getchar();
+    teste = testeDigitos(horario);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
+        getchar();
+        teste = testeDigitos(horario);
+    }
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                        VALORES DE ENTRADA:                        ///\n");
@@ -177,9 +246,10 @@ void telaPesquisarCompra(void){
 
 void telaExcluirCompra(void){
 
+    char resposta;
     char data[11];
     char horario[9];
-    char resposta;
+    int teste = 0;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -194,11 +264,27 @@ void telaExcluirCompra(void){
     printf("///            = = = = =  MÓDULO EXCLUIR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Data da compra (dd/mm/aaa): ");
-    scanf("%s", data);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
     getchar();
+    teste = testeDigitos(data);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
+        getchar();
+        teste = testeDigitos(data);
+    }
+    teste = 0;
     printf("///            - Horário da compra (hh:mm:ss): ");
-    scanf("%[0-9:]", horario);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
     getchar();
+    teste = testeDigitos(horario);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
+        getchar();
+        teste = testeDigitos(horario);
+    }
+    teste = 0;
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                        VALORES DE ENTRADA:                        ///\n");
@@ -221,8 +307,15 @@ void telaExcluirCompra(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Confirmar operação (S/N): ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &resposta);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &resposta);
     getchar();
+    teste = testeDigito(resposta);
+    while(teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &resposta);
+        getchar();
+        teste = testeDigito(resposta);
+    }
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                        VALOR DE ENTRADA:                          ///\n");
@@ -270,9 +363,11 @@ void telaAlterarCompra(void){
     char codBarras[14];
     char nomeItem[51];
     char dataValidade[11];
-    int quant;
-    float valorItem;
+    char quant[10];
+    char valorItem[10];
     float valorCompra;
+
+    int teste = 0;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -287,11 +382,27 @@ void telaAlterarCompra(void){
     printf("///            = = = = =  MÓDULO ALTERAR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Data da compra (dd/mm/aaa): ");
-    scanf("%s", data);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
     getchar();
+    teste = testeDigitos(data);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
+        getchar();
+        teste = testeDigitos(data);
+    }
+    teste = 0;
     printf("///            - Horário da compra (hh:mm:ss): ");
-    scanf("%[0-9:]", horario);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
     getchar();
+    teste = testeDigitos(horario);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
+        getchar();
+        teste = testeDigitos(horario);
+    }
+    teste = 0;
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                      VALORES DE ENTRADA:                          ///\n");
@@ -314,8 +425,16 @@ void telaAlterarCompra(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///          - Deseja alterar todos os items da compra (S/N) ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &resposta);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &resposta);
     getchar();
+    teste = testeDigito(resposta);
+    while(teste){
+        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &resposta);
+        getchar();
+        teste = testeDigito(resposta);
+    }
+    teste = 0;
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                       VALOR DE ENTRADA:                           ///\n");
@@ -328,22 +447,66 @@ void telaAlterarCompra(void){
         printf("///           NOVA LISTA DE ITENS:                                    ///\n");
         printf("///                                                                   ///\n");
         printf("///            - Código de Barras: ");
-        scanf("%[0-9]", codBarras);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
         getchar();
+        teste = testeDigitos(codBarras);
+        while(!teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
+            getchar();
+            teste = testeDigitos(codBarras);
+        }
+        teste = 0;
         printf("///            - Descrição do Item: ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", nomeItem);
         getchar();
+        teste = testeDigitos(nomeItem);
+        while(teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", nomeItem);
+            getchar();
+            teste = testeDigitos(nomeItem);
+        }
+        teste = 0;
         printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("%[0-9/]", dataValidade);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
         getchar();
+        teste = testeDigitos(dataValidade);
+        while(!teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
+            getchar();
+            teste = testeDigitos(dataValidade);
+        }
+        teste = 0;
         printf("///            - Quantidade: ");
-        scanf("%d", &quant);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
         getchar();
+        teste = testeDigitos(quant);
+        while(!teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
+            getchar();
+            teste = testeDigitos(quant);
+        }
+        teste = 0;
+        int quantidade = converteCharParaInt(quant);
+
+
         printf("///            - Valor do Item: R$ "); 
-        scanf("%f", &valorItem);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
         getchar();
+        teste = testeDigitos(valorItem);
+        while(!teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
+            getchar();
+            teste = testeDigitos(valorItem);
+        }
+        double valor = converteCharParaDouble(valorItem);
+        teste = 0;
         
-        valorCompra += quant * valorItem;
+        valorCompra += quantidade * valor;
         
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
@@ -353,14 +516,22 @@ void telaAlterarCompra(void){
         printf("///              Código de Barras: %s \n", codBarras);
         printf("///             Descrição do Item: %s \n", nomeItem);
         printf("///              Data de Validade: %s \n", dataValidade);
-        printf("///                    Quantidade: %d \n", quant);
-        printf("///                 Valor do Item: R$ %.2f \n", valorItem);
+        printf("///                    Quantidade: %d \n", quantidade);
+        printf("///                 Valor do Item: R$ %.2f \n", valor);
         printf("///               Valor da compra: R$ %.2f \n", valorCompra);
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
         printf("///            - Confirmar operação (S/N) ? ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &decisao);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &decisao);
         getchar();
+        teste = testeDigito(decisao);
+        while(teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &decisao);
+            getchar();
+            teste = testeDigito(decisao);
+        }
+        teste = 0;
 
         if (decisao == 'S' || decisao == 's'){
             printf("///                                                                   ///\n");
@@ -392,11 +563,27 @@ void telaAlterarCompra(void){
         printf("///           INFORME O ITEM A ALTERAR:                               ///\n");
         printf("///                                                                   ///\n");
         printf("///            - Código de Barras: ");
-        scanf("%[0-9]", codBarras);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
         getchar();
+        teste = testeDigitos(codBarras);
+        while(!teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
+            getchar();
+            teste = testeDigitos(codBarras);
+        }
+        teste = 0;
         printf("///            - Data de Validade (dd/mm/aaaa): ");
-        scanf("%[0-9/]", dataValidade);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
         getchar();
+        teste = testeDigitos(dataValidade);
+        while(!teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
+            getchar();
+            teste = testeDigitos(dataValidade);
+        }
+        teste = 0;
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
         printf("///                     VALORES DE ENTRADA:                           ///\n");
@@ -426,13 +613,30 @@ void telaAlterarCompra(void){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///            - Informe a sua opção: "); 
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &respostaLetras);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &respostaLetras);
         getchar();
+        teste = testeDigito(respostaLetras);
+        while(teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", &respostaLetras);
+            getchar();
+            teste = testeDigito(respostaLetras);
+        }
+        teste = 0;
+
         if (respostaLetras == 'A' || respostaLetras == 'a'){
             printf("///                                                                   ///\n");
             printf("///            - a) Nova Descrição: ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
             getchar();
+            teste = testeDigitos(nomeItem);
+            while(teste){
+                printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+                scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", nomeItem);
+                getchar();
+                teste = testeDigitos(nomeItem);
+            }
+            teste = 0;
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
@@ -448,8 +652,16 @@ void telaAlterarCompra(void){
         }else if(resposta == 'B' || respostaLetras == 'b'){
             printf("///                                                                   ///\n");
             printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
-            scanf("%[0-9/]", dataValidade);
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
             getchar();
+            teste = testeDigitos(dataValidade);
+            while(!teste){
+                printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+                scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
+                getchar();
+                teste = testeDigitos(dataValidade);
+            }
+            teste = 0;
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
@@ -466,13 +678,22 @@ void telaAlterarCompra(void){
         }else if(respostaLetras == 'C' || respostaLetras == 'c'){   
             printf("///                                                                   ///\n");
             printf("///            - c) Nova Quantidade: ");
-            scanf("%d", &quant);
-            getchar();  
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
+            getchar();
+            teste = testeDigitos(quant);
+            while(!teste){
+                printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+                scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
+                getchar();
+                teste = testeDigitos(quant);
+            }
+            teste = 0;
+            int quantidade = converteCharParaInt(quant);
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
             printf("///                                                                   ///\n");
-            printf("///                    Quantidade: %d \n", quant);       
+            printf("///                    Quantidade: %d \n", quantidade);       
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///            A quantidade da compra foi alterada!                   ///\n");
@@ -484,13 +705,22 @@ void telaAlterarCompra(void){
         }else if(respostaLetras == 'D' || respostaLetras == 'd'){
             printf("///                                                                   ///\n");
             printf("///            - d) Novo Valor: ");
-            scanf("%f", &valorItem);
-            getchar();  
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
+            getchar();
+            teste = testeDigitos(valorItem);
+            while(!teste){
+                printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+                scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
+                getchar();
+                teste = testeDigitos(valorItem);
+            }
+            double valor = converteCharParaDouble(valorItem);
+            teste = 0;
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
             printf("///                                                                   ///\n");
-            printf("///                      Valor: %.2f \n", valorItem);       
+            printf("///                      Valor: %.2f \n", valor);       
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///            O valor foi alterado!                                  ///\n");

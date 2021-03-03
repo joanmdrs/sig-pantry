@@ -3,14 +3,14 @@
 #include <ctype.h>
 #include <string.h>
 
-int testeDigitos(char nome[]){
+int testeDigitos(char n[]){
   int cont = 0;
   int i;
   int tam;
 
-  tam = strlen(nome);
+  tam = strlen(n);
   for(i=0; i<tam; i++){
-    if(isdigit(nome[i])){
+    if(isdigit(n[i])){
       cont++;
     }
   }
@@ -21,10 +21,10 @@ int testeDigitos(char nome[]){
   }
 }
 
-int testeDigito(char nome){
+int testeDigito(char n){
   int cont = 0;
   
-  if(isdigit(nome)){
+  if(isdigit(n)){
       cont++;
   }
   
@@ -33,4 +33,18 @@ int testeDigito(char nome){
   }else{
     return 0;
   }
+}
+
+int converteCharParaInt(char n[]){
+  int i = 0;
+  i = atoi (n);
+
+  return i;
+}
+
+double converteCharParaDouble(char n[]){
+  double i = 0;
+  i = strtod (n, NULL);
+
+  return i;
 }

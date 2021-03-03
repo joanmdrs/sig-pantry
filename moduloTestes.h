@@ -1,3 +1,8 @@
-int testeDigito(char nome);
+int testeDigito(char);
 
-int testeDigitos(char nome[]);
+int testeDigitos(char []);
+
+
+int converteCharParaInt(char []);
+
+double converteCharParaDouble(char []);

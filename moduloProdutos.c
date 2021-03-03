@@ -8,6 +8,7 @@
 
 char menuProdutos(void){
     char opcao;
+    int teste;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -33,6 +34,13 @@ char menuProdutos(void){
     printf("Informe a sua opção : ");
     scanf("%c", &opcao);
     getchar();
+    teste = testeDigito(opcao);
+    while(!teste){
+        printf("Você inseriu um valor incorreto, por favor, insira novamente um valor correto: ");
+        scanf("%c", &opcao);
+        getchar();
+        teste = testeDigito(opcao);
+    }
 	return opcao;
 
 
