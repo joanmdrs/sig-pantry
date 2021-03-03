@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "moduloTestes.h"
+#include "validacoes.h"
 
 
 /* A função menuCompras irá direcionar o usuário para as funções cadastrar, pesquisar,
@@ -57,28 +58,23 @@ void telaCadastrarCompra(void){
     char dataValidade[11];
     char quant[10];
     char valorItem[10];
-    int teste = 0;
     float valorCompra;
-    
-/// Pegando a data do sistema -----------------------------------------------------
+    char dataCompra[11];
+    char horaCompra[6];
 
-    time_t timer;
-    struct tm *horarioLocal;
+    char dia[3];
+	int diaC;
+	char mes[3];
+	int mesC;
+	char ano[5];
+	int anoC;
+    char hora[3];
+    int horaC;
+    char minutos[3];
+    int minutosC;
 
-    time(&timer); // Obtem informações de data e hora
-    horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
-
-    int dia = horarioLocal->tm_mday;
-    int mes = horarioLocal->tm_mon + 1;
-    int ano = horarioLocal->tm_year + 1900;
-
-    int hora = horarioLocal->tm_hour;
-    int min  = horarioLocal->tm_min;
-    int sec  = horarioLocal->tm_sec;
-
-    int vetor[6]= {dia,mes,ano,hora,min,sec};
-
-/// --------------------------------------------------------------------------------
+    int teste = 0;
+    int testeD = 0;
 
     system("clear");
     printf("\n");
@@ -93,46 +89,76 @@ void telaCadastrarCompra(void){
     printf("///                                                                   ///\n");
     printf("///           = = = = =  MÓDULO CADASTRAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Código de Barras: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
-    getchar();
-    teste = testeDigitosNumericos(codBarras);
-    while(teste){
-        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Código de Barras: ");
+        scanf("%s", codBarras);
         getchar();
-        teste = testeDigitosNumericos(codBarras);
-    }
+    
+		teste = validaCodBarras(codBarras);
+        testeD = testeDigitosNumericos(codBarras);
+
+		if(!teste || testeD){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(!teste || testeD);
+
+// ---------------------------------------------------------------------------------------
+
     teste = 0;
     printf("///            - Descrição do Item: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", nomeItem);
     getchar();
     teste = testeDigitos(nomeItem);
     while(teste){
-        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+        printf("///            Caracteres inválidos, tente novamente!");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", nomeItem);
         getchar();
         teste = testeDigitos(nomeItem);
     }
-    teste = 0;
-    printf("///            - Data Val. (dd/mm/aaaa): ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
-    getchar();
 
-    teste = testeDigitosNumericosData(dataValidade);
-    while(teste){
-        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Data Val. (dd/mm/aaaa): ");
+        scanf("%s", dataValidade);
         getchar();
-        teste = testeDigitosNumericosData(dataValidade);
-    }
+
+        dia[0] = dataValidade[0];
+		dia[1] = dataValidade[1];
+		diaC = atoi(dia);
+
+		mes[0] = dataValidade[3];
+		mes[1] = dataValidade[4];
+		mesC = atoi(mes);
+
+		ano[0] = dataValidade[6];
+		ano[1] = dataValidade[7];
+		ano[2] = dataValidade[8];
+		ano[3] = dataValidade[9];
+		anoC = atoi(ano);
+    
+        teste = testaData(diaC, mesC, anoC);
+        testeD = testeDigitosNumericosData(dataValidade);
+
+        if (!teste || testeD) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!teste || testeD);
+
+// ---------------------------------------------------------------------------------------
+
     teste = 0;
     printf("///            - Quantidade: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
     getchar();
     teste = testeDigitosNumericos(quant);
     while(teste){
-        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+        printf("///            Caracteres inválidos, tente novamente!");   
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
         getchar();
         teste = testeDigitosNumericos(quant);
@@ -140,18 +166,76 @@ void telaCadastrarCompra(void){
     teste = 0;
     int quantidade = converteCharParaInt(quant);
 
+// ---------------------------------------------------------------------------------------
 
     printf("///            - Valor do Item: R$ "); 
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
     getchar();
     teste = testeDigitosNumericosValorFlutuante(valorItem);
     while(teste){
-        printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
+        printf("///            Caracteres inválidos, tente novamente!"); 
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
         getchar();
         teste = testeDigitosNumericosValorFlutuante(valorItem);
     }
     double valor = converteCharParaDouble(valorItem);
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Data Compra (dd/mm/aaaa): ");
+        scanf("%s", dataCompra);
+        getchar();
+
+        dia[0] = dataCompra[0];
+		dia[1] = dataCompra[1];
+		diaC = atoi(dia);
+
+		mes[0] = dataCompra[3];
+		mes[1] = dataCompra[4];
+		mesC = atoi(mes);
+
+		ano[0] = dataCompra[6];
+		ano[1] = dataCompra[7];
+		ano[2] = dataCompra[8];
+		ano[3] = dataCompra[9];
+		anoC = atoi(ano);
+    
+        teste = testaData(diaC, mesC, anoC);
+        testeD = testeDigitosNumericosData(dataCompra);
+
+        if (!teste || testeD) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!teste || testeD);
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Horário Compra (hh:mm): ");
+        scanf("%s", horaCompra);
+        getchar();
+
+        hora[0] = horaCompra[0];
+        hora[1] = horaCompra[1];
+		horaC = atoi(hora);
+
+		minutos[0] = horaCompra[3];
+        minutos[1] = horaCompra[4];
+        minutosC = atoi(minutos);
+    
+        teste = validaHora(horaC, minutosC);
+        testeD = testeDigitosNumericosHora(horaCompra);
+
+        if (!teste || testeD) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!teste || testeD);
+
+// ---------------------------------------------------------------------------------------
+
     teste = 0;
     
     valorCompra += quantidade * valor;
@@ -167,8 +251,8 @@ void telaCadastrarCompra(void){
     printf("///                    Quantidade: %d \n", quantidade);
     printf("///                 Valor do Item: R$ %.2f \n", valor);
     printf("///               Valor da compra: R$ %.2f \n", valorCompra);
-    printf("///                          Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
-    printf("///                       Horário: %d:%d:%d \n",vetor[3],vetor[4],vetor[5]);
+    printf("///                          Data: %s \n", dataCompra);
+    printf("///                       Horário: %s \n", horaCompra);
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///                 >>> Tecle <ENTER> para continuar...               ///\n");

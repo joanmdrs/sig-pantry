@@ -10,7 +10,8 @@
 
 char menuProdutos(void){
     char opcao;
-    int teste;
+    int validaOp;
+    int validaOpM;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -38,14 +39,16 @@ char menuProdutos(void){
         printf("Informe a sua opção : ");
         scanf("%c", &opcao);
         getchar();
-        teste = testeDigito(opcao);
+        validaOp = testeDigito(opcao);
+        validaOpM = validaOpcaoMenu(opcao); 
 
-        if(!teste){
+        if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
 
         }
 
-    }while(!teste);
+    }while(!validaOp || !validaOpM);
+
 	return opcao;
 
 
@@ -88,7 +91,7 @@ void telaCadastrarProduto(void){
     printf("///          = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
-    // ----------------------- Validando o código de barras ----------------------------------
+// ----------------------- Validando o código de barras ----------------------------------
 
     do{
         printf("///            - Código de Barras: ");
@@ -195,6 +198,8 @@ void telaCadastrarProduto(void){
 
     quantC = atoi(quant);
 
+// ---------------------------------------------------------------------------------------
+
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///                  Produto cadastrado com sucesso !                 ///\n");
@@ -217,6 +222,7 @@ void telaCadastrarProduto(void){
 
 void telaPesquisarProduto(void){
     char codBarras[14];
+    int validaCod;
     
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -230,9 +236,24 @@ void telaPesquisarProduto(void){
     printf("///                                                                   ///\n");
     printf("///          = = = = =  MÓDULO PESQUISAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Código de Barras: ");
-    scanf("%[0-9]", codBarras);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Código de Barras: ");
+        scanf("%s", codBarras);
+        getchar();
+    
+		validaCod = validaCodBarras(codBarras);
+
+		if(!validaCod){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(!validaCod);
+
+// ---------------------------------------------------------------------------------------
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                         VALOR DE ENTRADA:                         ///\n");
@@ -265,6 +286,10 @@ void telaExcluirProduto(void){
     char codBarras[14];
     char resposta;
 
+    int validaCod;
+    int validaOp;
+    int validaDig;
+
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -277,9 +302,24 @@ void telaExcluirProduto(void){
     printf("///                                                                   ///\n");
     printf("///            = = = = = MÓDULO EXCLUIR PRODUTO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Código de Barras: ");
-    scanf("%[0-9]", codBarras);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Código de Barras: ");
+        scanf("%s", codBarras);
+        getchar();
+    
+		validaCod = validaCodBarras(codBarras);
+
+		if(!validaCod){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(!validaCod);
+
+// ---------------------------------------------------------------------------------------
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                         VALOR DE ENTRADA:                         ///\n");
@@ -287,7 +327,7 @@ void telaExcluirProduto(void){
     printf("///            - Código de Barras: %s \n",codBarras);
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            PRODUTO LOCALIZADO!                                    ///\n"); ///se encontrar
+    printf("///            PRODUTO LOCALIZADO!                                    ///\n"); 
     printf("///                                                                   ///\n");
     printf("///            - Codigo de Barras:                                    ///\n");
     printf("///            - Nome:                                                ///\n");
@@ -297,13 +337,31 @@ void telaExcluirProduto(void){
     printf("///            - Quantidade:                                          ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");  
-    printf("///            Não existem produtos cadastrados com o código          ///\n"); ///se não encontrar   
+    printf("///            Não existem produtos cadastrados com o código          ///\n");    
     printf("///            de barras informado.                                   ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/N) ? ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &resposta);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Confirmar operação (S/N) ? ");
+        scanf("%c", &resposta);
+        getchar();
+
+        validaOp = validaOpcao(resposta);
+        validaDig = testeDigito(resposta);
+        
+
+        if(!validaOp || validaDig){
+            printf("///            Opcão inválida, tente novamente!\n");
+        }
+
+    }while(!validaOp || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                         VALOR DE ENTRADA:                         ///\n");
@@ -322,14 +380,6 @@ void telaExcluirProduto(void){
     }else if (resposta == 'N' || resposta == 'n'){
         printf("///                                                                   ///\n");
         printf("///            Operação cancelada!                                    ///\n"); 
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
-
-    }else{
-        printf("///                                                                   ///\n");
-        printf("///            Você informou um valor inválido!                       ///\n"); 
         printf("///                                                                   ///\n");
         printf("/////////////////////////////////////////////////////////////////////////\n\n");
         printf("\t\t>>> Tecle <ENTER> para continuar...\n");

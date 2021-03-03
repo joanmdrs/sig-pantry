@@ -2,6 +2,24 @@
 #include <string.h>
 #include <stdlib.h>
 
+int validaOpcao(char n){
+
+	if (n == 'S' || n == 's' || n == 'N' || n == 'n'){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+int validaOpcaoMenu(char n){
+
+	if (n == '1' || n == '2' || n == '3' || n == '4' || n == '0'  ){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
 int validaCodBarras(char codBarras[]){
  
 	float somaPares = 0.0;  // --> variável destinada à receber a soma dos caracteres pares da variável char codBarras[14]
@@ -109,4 +127,17 @@ int testaData(int dd, int mm, int aa) {
 	}
 
   	return 1;
+}
+
+int validaHora(int hh, int mm){
+
+	if (hh >= 0 && hh <=23){
+		if(mm >= 0 && mm <= 59){
+			return 1;
+		}else{
+			return 0;
+		}
+	}else{
+		return 0;
+	}
 }
