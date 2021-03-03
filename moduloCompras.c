@@ -96,12 +96,12 @@ void telaCadastrarCompra(void){
     printf("///            - Código de Barras: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
     getchar();
-    teste = testeDigitos(codBarras);
-    while(!teste){
+    teste = testeDigitosNumericos(codBarras);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
         getchar();
-        teste = testeDigitos(codBarras);
+        teste = testeDigitosNumericos(codBarras);
     }
     teste = 0;
     printf("///            - Descrição do Item: ");
@@ -118,23 +118,24 @@ void telaCadastrarCompra(void){
     printf("///            - Data Val. (dd/mm/aaaa): ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
     getchar();
-    teste = testeDigitos(dataValidade);
-    while(!teste){
+
+    teste = testeDigitosNumericosData(dataValidade);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
         getchar();
-        teste = testeDigitos(dataValidade);
+        teste = testeDigitosNumericosData(dataValidade);
     }
     teste = 0;
     printf("///            - Quantidade: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
     getchar();
-    teste = testeDigitos(quant);
-    while(!teste){
+    teste = testeDigitosNumericos(quant);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
         getchar();
-        teste = testeDigitos(quant);
+        teste = testeDigitosNumericos(quant);
     }
     teste = 0;
     int quantidade = converteCharParaInt(quant);
@@ -143,12 +144,12 @@ void telaCadastrarCompra(void){
     printf("///            - Valor do Item: R$ "); 
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
     getchar();
-    teste = testeDigitos(valorItem);
-    while(!teste){
+    teste = testeDigitosNumericosValorFlutuante(valorItem);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
         getchar();
-        teste = testeDigitos(valorItem);
+        teste = testeDigitosNumericosValorFlutuante(valorItem);
     }
     double valor = converteCharParaDouble(valorItem);
     teste = 0;
@@ -198,23 +199,23 @@ void telaPesquisarCompra(void){
     printf("///            - Data da compra (dd/mm/aaa): ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
     getchar();
-    teste = testeDigitos(data);
-    while(!teste){
+    teste = testeDigitosNumericosData(data);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
         getchar();
-        teste = testeDigitos(data);
+        teste = testeDigitosNumericosData(data);
     }
     teste = 0;
     printf("///            - Horário da compra (hh:mm:ss): ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
     getchar();
-    teste = testeDigitos(horario);
-    while(!teste){
+    teste = testeDigitosNumericosHora(horario);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
         getchar();
-        teste = testeDigitos(horario);
+        teste = testeDigitosNumericosHora(horario);
     }
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
@@ -266,23 +267,23 @@ void telaExcluirCompra(void){
     printf("///            - Data da compra (dd/mm/aaa): ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
     getchar();
-    teste = testeDigitos(data);
-    while(!teste){
+    teste = testeDigitosNumericosData(data);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
         getchar();
-        teste = testeDigitos(data);
+        teste = testeDigitosNumericosData(data);
     }
     teste = 0;
     printf("///            - Horário da compra (hh:mm:ss): ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
     getchar();
-    teste = testeDigitos(horario);
-    while(!teste){
+    teste = testeDigitosNumericosHora(horario);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
         getchar();
-        teste = testeDigitos(horario);
+        teste = testeDigitosNumericosHora(horario);
     }
     teste = 0;
     printf("/// _________________________________________________________________ ///\n");
@@ -384,23 +385,23 @@ void telaAlterarCompra(void){
     printf("///            - Data da compra (dd/mm/aaa): ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
     getchar();
-    teste = testeDigitos(data);
-    while(!teste){
+    teste = testeDigitosNumericosData(data);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", data);
         getchar();
-        teste = testeDigitos(data);
+        teste = testeDigitosNumericosData(data);
     }
     teste = 0;
     printf("///            - Horário da compra (hh:mm:ss): ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
     getchar();
-    teste = testeDigitos(horario);
-    while(!teste){
+    teste = testeDigitosNumericosHora(horario);
+    while(teste){
         printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9:]", horario);
         getchar();
-        teste = testeDigitos(horario);
+        teste = testeDigitosNumericosHora(horario);
     }
     teste = 0;
     printf("/// _________________________________________________________________ ///\n");
@@ -449,12 +450,12 @@ void telaAlterarCompra(void){
         printf("///            - Código de Barras: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
         getchar();
-        teste = testeDigitos(codBarras);
-        while(!teste){
+        teste = testeDigitosNumericos(codBarras);
+        while(teste){
             printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
             getchar();
-            teste = testeDigitos(codBarras);
+            teste = testeDigitosNumericos(codBarras);
         }
         teste = 0;
         printf("///            - Descrição do Item: ");
@@ -471,23 +472,23 @@ void telaAlterarCompra(void){
         printf("///            - Data Val. (dd/mm/aaaa): ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
         getchar();
-        teste = testeDigitos(dataValidade);
-        while(!teste){
+        teste = testeDigitosNumericosData(dataValidade);
+        while(teste){
             printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
             getchar();
-            teste = testeDigitos(dataValidade);
+            teste = testeDigitosNumericosHora(dataValidade);
         }
         teste = 0;
         printf("///            - Quantidade: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
         getchar();
-        teste = testeDigitos(quant);
-        while(!teste){
+        teste = testeDigitosNumericos(quant);
+        while(teste){
             printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
             getchar();
-            teste = testeDigitos(quant);
+            teste = testeDigitosNumericos(quant);
         }
         teste = 0;
         int quantidade = converteCharParaInt(quant);
@@ -496,12 +497,12 @@ void telaAlterarCompra(void){
         printf("///            - Valor do Item: R$ "); 
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
         getchar();
-        teste = testeDigitos(valorItem);
-        while(!teste){
+        teste = testeDigitosNumericosValorFlutuante(valorItem);
+        while(teste){
             printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
             getchar();
-            teste = testeDigitos(valorItem);
+            teste = testeDigitosNumericosValorFlutuante(valorItem);
         }
         double valor = converteCharParaDouble(valorItem);
         teste = 0;
@@ -565,23 +566,23 @@ void telaAlterarCompra(void){
         printf("///            - Código de Barras: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
         getchar();
-        teste = testeDigitos(codBarras);
-        while(!teste){
+        teste = testeDigitosNumericos(codBarras);
+        while(teste){
             printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
             getchar();
-            teste = testeDigitos(codBarras);
+            teste = testeDigitosNumericos(codBarras);
         }
         teste = 0;
         printf("///            - Data de Validade (dd/mm/aaaa): ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
         getchar();
-        teste = testeDigitos(dataValidade);
-        while(!teste){
+        teste = testeDigitosNumericosData(dataValidade);
+        while(teste){
             printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
             getchar();
-            teste = testeDigitos(dataValidade);
+            teste = testeDigitosNumericosData(dataValidade);
         }
         teste = 0;
         printf("/// _________________________________________________________________ ///\n");
@@ -654,12 +655,12 @@ void telaAlterarCompra(void){
             printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
             getchar();
-            teste = testeDigitos(dataValidade);
-            while(!teste){
+            teste = testeDigitosNumericosData(dataValidade);
+            while(teste){
                 printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
                 scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9/]", dataValidade);
                 getchar();
-                teste = testeDigitos(dataValidade);
+                teste = testeDigitosNumericosData(dataValidade);
             }
             teste = 0;
             printf("/// _________________________________________________________________ ///\n");
@@ -680,12 +681,12 @@ void telaAlterarCompra(void){
             printf("///            - c) Nova Quantidade: ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
             getchar();
-            teste = testeDigitos(quant);
-            while(!teste){
+            teste = testeDigitosNumericos(quant);
+            while(teste){
                 printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
                 scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", quant);
                 getchar();
-                teste = testeDigitos(quant);
+                teste = testeDigitosNumericos(quant);
             }
             teste = 0;
             int quantidade = converteCharParaInt(quant);
@@ -707,12 +708,12 @@ void telaAlterarCompra(void){
             printf("///            - d) Novo Valor: ");
             scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
             getchar();
-            teste = testeDigitos(valorItem);
-            while(!teste){
+            teste = testeDigitosNumericosValorFlutuante(valorItem);
+            while(teste){
                 printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");   
                 scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9.]", valorItem);
                 getchar();
-                teste = testeDigitos(valorItem);
+                teste = testeDigitosNumericosValorFlutuante(valorItem);
             }
             double valor = converteCharParaDouble(valorItem);
             teste = 0;
