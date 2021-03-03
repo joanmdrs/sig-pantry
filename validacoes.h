@@ -1,9 +1,17 @@
-int validaCodBarras(char []);
-int bissexto(int);
-int testaData(int, int, int);
-int validaOpcao(char);
+int testeDigito(char);
+int testeDigitos(char []);
+int testeDigitosNumericos(char []);
+int testeDigitosNumericosData(char []);
+int testeDigitosNumericosHora(char []);
+int testeDigitosNumericosValorFlutuante(char []);
+int converteCharParaInt(char []);
+double converteCharParaDouble(char []);int validaOpcao(char);
 int validaOpcaoMenu(char);
-int validaHora(int, int);
+int validaCodBarras(char []);
+int testaBissexto(int);
+int testaData(int, int, int);
+int testaHora(int, int);
+
 
 
 

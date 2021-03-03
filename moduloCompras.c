@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "moduloTestes.h"
 #include "validacoes.h"
 
 
@@ -225,7 +224,7 @@ void telaCadastrarCompra(void){
         minutos[1] = horaCompra[4];
         minutosC = atoi(minutos);
     
-        teste = validaHora(horaC, minutosC);
+        teste = testaHora(horaC, minutosC);
         testeD = testeDigitosNumericosHora(horaCompra);
 
         if (!teste || testeD) {

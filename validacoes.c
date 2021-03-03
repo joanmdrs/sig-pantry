@@ -1,15 +1,181 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+// A função testeDigito realiza a validação de uma variavel de apenas um dígito.
+
+int testeDigito(char n){
+  	int cont = 0;
+  
+  	if(isdigit(n)){
+    	cont++;
+	}
+  
+	if(cont >= 1){
+		return 1;
+
+	}else{
+		return 0;
+	}
+}
+
+// A função testeDigitos realiza a validação de uma variavel de um ou mais dígitos, acrescentando 
+// 1 ao contador, quando a variável possui um caracter numérico naquela posição.
+
+int testeDigitos(char n[]){
+	int cont = 0;
+	int i;
+	int tam;
+
+	tam = strlen(n);
+
+	for(i=0; i<tam; i++){
+
+		if(isdigit(n[i])){
+			cont++;
+		}
+	}
+
+	if(cont >= 1){
+		return 1;
+
+	}else{
+		return 0;
+	}
+}
+
+// A função testeDigitosNumericos realiza a validação de uma variavel de um ou mais digitos, acrescentando
+// 1 ao contador quando a variável não possui um caracter numérico naquela posição.
+
+int testeDigitosNumericos(char n[]){
+	int cont = 0;
+	int i;
+	int tam;
+
+	tam = strlen(n);
+
+	for(i=0; i<tam; i++){
+
+		if(!isdigit(n[i])){
+			cont++;
+		}
+	}
+
+	if(cont >= 1){
+		return 1;
+
+	}else{
+		return 0;
+	}
+}
+
+// A função testeDigitosNumericosData realiza a validação de uma variavel de um ou mais digitos, acrescentando
+// 1 ao contador, quando a variável possui um caracter não numérico e diferente de '/' naquela posição.
+
+int testeDigitosNumericosData(char n[]){
+	int cont = 0;
+	int i;
+	int tam;
+
+	tam = strlen(n);
+
+	for(i=0; i<tam; i++){
+
+		if(!isdigit(n[i]) && n[i] != '/' ){
+			cont++;
+		}
+	}
+
+	if(cont >= 1){	
+		return 1;
+
+	}else{
+		return 0;
+	}
+}
+
+// A função testeDigitosNumericosHora realiza a validação de uma variavel de um ou mais digitos, acrescentando
+// 1 ao contador, quando a variável possui um caracter não numérico e diferente de ':'
+
+int testeDigitosNumericosHora(char n[]){
+	int cont = 0;
+	int i;
+	int tam;
+
+	tam = strlen(n);
+
+	for(i=0; i<tam; i++){
+
+		if(!isdigit(n[i]) && n[i] != ':' ){
+			cont++;
+		}
+	}
+
+	if(cont >= 1){
+		return 1;
+
+	}else{
+		return 0;
+	}
+}
+
+// A função testeDigitosNumericosValorFlutuante realiza a validação de uma variavel de um ou mais digitos, 
+// acrescentando 1 ao contador, quando a variável possui um caracter não numérico e diferente de '.'
+
+int testeDigitosNumericosValorFlutuante(char n[]){
+	int cont = 0;
+	int i;
+	int tam;
+
+	tam = strlen(n);
+
+	for(i=0; i<tam; i++){
+
+		if(!isdigit(n[i]) && n[i] != '.' ){
+			cont++;
+		}
+	}
+
+	if(cont >= 1){
+		return 1;
+
+	}else{
+		return 0;
+	}
+}
+
+// A função converteCharParaInt realiza a conversão de uma variável char para uma variável do tipo int. 
+
+int converteCharParaInt(char n[]){
+	int i = 0;
+	i = atoi (n);
+
+	return i;
+}
+
+// A função converteCharParaDouble realiza a conversão de uma variável char para uma variável do tipo double. 
+
+double converteCharParaDouble(char n[]){
+	double i = 0;
+	i = strtod (n, NULL);
+
+	return i;
+}
+
+// A função validaOpcao define quais são os valores aceitos quando se realiza uma pergunta de SIM ou NÃO
 
 int validaOpcao(char n){
 
 	if (n == 'S' || n == 's' || n == 'N' || n == 'n'){
 		return 1;
+
 	}else{
 		return 0;
 	}
 }
+
+// A função validaOpcaoMenu define quais são as opções de menu aceitas pela variável.
 
 int validaOpcaoMenu(char n){
 
@@ -19,6 +185,8 @@ int validaOpcaoMenu(char n){
 		return 0;
 	}
 }
+
+// A função validaCodBarras verifica por meio de um cálculo, se o código de barras informado é válido.
 
 int validaCodBarras(char codBarras[]){
  
@@ -92,52 +260,78 @@ int validaCodBarras(char codBarras[]){
 
 }
 
-int bissexto(int aa) {
-  	if ((aa % 4 == 0) && (aa % 100 != 0)) {
+// A função testaBissexto verifica se um determinado ano é bissexto
+
+int testaBissexto(int ano) {
+  	if (((ano % 4 == 0) && (ano % 100 != 0)) || ano % 400 == 0 ) {
     	return 1;
-  	}else if (aa % 400 == 0) {
-    	return 1;
+
   	}else{
     	return 0;
+
   	}
 }
 
-int testaData(int dd, int mm, int aa) {
+// A função testaData verifica se uma determinada data é válida 
+
+int testaData(int dia, int mes, int ano) {
   	int maiorDia;
-  	if (aa < 0 || mm < 1 || mm > 12){
+
+  	if (ano < 0 || mes < 1 || mes > 12){
     	return 0;
-	}
-	
-  	if (mm == 2) {
-    	if (bissexto(aa)) {
+
+	}else if(mes == 2) {
+    	if (testaBissexto(ano)) {
       		maiorDia = 29;
+			if (dia < 1 || dia > maiorDia){
+    			return 0;
+			}else{
+				return 1;
+			}
+
 		}else{
       		maiorDia = 28;
+			if (dia < 1 || dia > maiorDia){
+    			return 0;
+			}else{
+				return 1;
+			}
 		}
 
-  	}else if (mm == 4 || mm == 6 || mm == 9 || mm == 11) {
+  	}else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
     	maiorDia = 30;
+		if (dia < 1 || dia > maiorDia){
+			return 0;
+		}else{
+			return 1;
+		}
+
   	} else{
     	maiorDia = 31;
+		if (dia < 1 || dia > maiorDia){
+			return 0;
+		}else{
+			return 1;
+		}
 
 	}
 
-  	if (dd < 1 || dd > maiorDia){
-    	return 0;
-	}
-
-  	return 1;
 }
 
-int validaHora(int hh, int mm){
+// A função testaHora verifica se uma determinada hora é válida 
 
-	if (hh >= 0 && hh <=23){
-		if(mm >= 0 && mm <= 59){
+int testaHora(int hora, int min){
+
+	if (hora >= 0 && hora <=23){
+		if(min >= 0 && min <= 59){
 			return 1;
+
 		}else{
 			return 0;
 		}
+
 	}else{
 		return 0;
+
 	}
 }
