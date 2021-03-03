@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-int validaCodBarras(char codBarras[14]){
+int validaCodBarras(char codBarras[]){
  
 	float somaPares = 0.0;  // --> variável destinada à receber a soma dos caracteres pares da variável char codBarras[14]
 	float somaImpares = 0.0;// --> variável destinada à receber a soma dos caracteres ímpares da variável char codBarras[14]

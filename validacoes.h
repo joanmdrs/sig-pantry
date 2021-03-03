@@ -1,1 +1,1 @@
-int validaCodBarras(char [14]);
+int validaCodBarras(char []);

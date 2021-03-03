@@ -62,6 +62,7 @@ int telaCadastrarProduto(void){
     char local[10];
     char status[10];
     int quant;
+    int teste;
 
     system("clear");
     printf("\n");
@@ -78,9 +79,16 @@ int telaCadastrarProduto(void){
     printf("///                                                                   ///\n");
 
     do{
-		printf("///            - Código de Barras: ");
-        scanf("%s", codBarras);
+        printf("///            - Código de Barras: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
         getchar();
+        teste = testeDigitosNumericos(codBarras);
+        while(teste){
+            printf("Você inseriu um valor incorreto, por favor, insira um valor correto: ");
+            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9]", codBarras);
+            getchar();
+            teste = testeDigitosNumericos(codBarras);
+        }
 
 		validaCod = validaCodBarras(codBarras);
 
