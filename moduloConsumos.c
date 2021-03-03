@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "validacoes.h"
+#include "moduloValidacoes.h"
 
 /* A função menuConsumo irá direcionar o usuário para as funções cadastrar, pesquisar,
    excluir, alterar e listar, referentes ao módulo consumo. */
