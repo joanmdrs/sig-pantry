@@ -9,7 +9,7 @@ int validaCodBarras(char codBarras[]){
 	float somaTotal = 0.0;  // --> variável destinada à receber a soma dos caracteres pares e ímpares da variável char codBarras[14]
 	float resultadoF = 0.0; // --> variável destinada à receber o valor flutuante do valor armazenado na variável (float somaTotal) dividido por 10
 	int resultadoI = 0;     // --> variável destinada à receber a parte inteira do valor armazenado na variável (float resultadoF) 
-	char aux[1];            // --> variável destinada à auxiliar na conversão do valor char para int.
+	char aux[2];            // --> variável destinada à auxiliar na conversão do valor char para int.
 	float numConv = 0.0;    // --> variável destinada à receber o valor char convertido para int
 	int digitoI;            // --> variável destinada à receber o último caractere (dígito verificador) informado pelo usuário da variável char codBarras[14]
 	int digitoC;            // --> variável destinada à receber o valor calculado, referente ao dígito verificador do código de barras
@@ -45,17 +45,9 @@ int validaCodBarras(char codBarras[]){
 			digitoC = ((resultadoI + 1) * 10) - somaTotal;
 
 			if (digitoI == digitoC){
-				printf("Código Válido!\n");
-				printf("Soma Pares: %.1f \n", somaPares);
-				printf("Soma Impares: %.1f \n", somaImpares);
-				printf("Resultado float: %.1f \n", resultadoF);
-				printf("Resultado int: %d \n", resultadoI);
-				printf("Dígito Verificar inserido: %d\n",digitoI);
-				printf("Dígito Verificar calculado: %d\n",digitoC);
 				return 1;
 
 			}else{
-				printf("Código Inválido!\n");
 				return 0;
 
 			}
@@ -67,17 +59,9 @@ int validaCodBarras(char codBarras[]){
 			digitoC = ((resultadoI + 1) * 10) - somaTotal;
 
 			if (digitoI == digitoC){
-				printf("Código Válido!\n");
-				printf("Soma Pares: %.1f \n", somaPares);
-				printf("Soma Impares: %.1f \n", somaImpares);
-				printf("Resultado float: %.1f \n", resultadoF);
-				printf("Resultado int: %d \n", resultadoI);
-				printf("Dígito Verificar inserido: %d\n",digitoI);
-				printf("Dígito Verificar calculado: %d\n",digitoC);
 				return 1;
 
 			}else{
-				printf("Código Inválido!\n");
 				return 0;
 
 			}
@@ -88,4 +72,41 @@ int validaCodBarras(char codBarras[]){
 		
 	}
 
+}
+
+int bissexto(int aa) {
+  	if ((aa % 4 == 0) && (aa % 100 != 0)) {
+    	return 1;
+  	}else if (aa % 400 == 0) {
+    	return 1;
+  	}else{
+    	return 0;
+  	}
+}
+
+int testaData(int dd, int mm, int aa) {
+  	int maiorDia;
+  	if (aa < 0 || mm < 1 || mm > 12){
+    	return 0;
+	}
+	
+  	if (mm == 2) {
+    	if (bissexto(aa)) {
+      		maiorDia = 29;
+		}else{
+      		maiorDia = 28;
+		}
+
+  	}else if (mm == 4 || mm == 6 || mm == 9 || mm == 11) {
+    	maiorDia = 30;
+  	} else{
+    	maiorDia = 31;
+
+	}
+
+  	if (dd < 1 || dd > maiorDia){
+    	return 0;
+	}
+
+  	return 1;
 }
