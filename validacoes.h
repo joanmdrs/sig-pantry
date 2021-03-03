@@ -1,0 +1,1 @@
+int validaCodBarras(char [14]);

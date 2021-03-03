@@ -15,6 +15,7 @@
 #include "moduloCompras.h"
 #include "moduloSobre.h"
 #include "moduloConsumos.h"
+#include "validacoes.h"
 
 int main(void) {
 

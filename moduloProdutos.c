@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "moduloTestes.h"
+#include "validacoes.h"
 
 
 /* A função menuProdutos irá direcionar o usuário para as funções cadastrar, pesquisar,
@@ -31,16 +33,19 @@ char menuProdutos(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("Informe a sua opção : ");
-    scanf("%c", &opcao);
-    getchar();
-    teste = testeDigito(opcao);
-    while(!teste){
-        printf("Você inseriu um valor incorreto, por favor, insira novamente um valor correto: ");
+
+    do{
+        printf("Informe a sua opção : ");
         scanf("%c", &opcao);
         getchar();
         teste = testeDigito(opcao);
-    }
+
+        if(!teste){
+            printf("Opção inválida, tente novamente!\n");
+
+        }
+
+    }while(!teste);
 	return opcao;
 
 
@@ -48,9 +53,10 @@ char menuProdutos(void){
 
 /* A função telaCadastrarProduto realiza o cadastro de um produto. */
 
-void telaCadastrarProduto(void){
+int telaCadastrarProduto(void){
 
     char codBarras[14];
+    int validaCod;
     char nomeItem[51];
     char dataValidade[11];
     char local[10];
@@ -70,9 +76,21 @@ void telaCadastrarProduto(void){
     printf("///                                                                   ///\n");
     printf("///          = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Código de Barras: ");
-    scanf("%[0-9]", codBarras);
-    getchar();
+
+    do{
+		printf("///            - Código de Barras: ");
+        scanf("%s", codBarras);
+        getchar();
+
+		validaCod = validaCodBarras(codBarras);
+
+		if(!validaCod){
+			printf("///            Código inválido, tente novamente !\n ");
+		}
+
+	}while(!validaCod);
+    
+
     printf("///            - Descrição: ");
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
     getchar();
