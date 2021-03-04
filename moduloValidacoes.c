@@ -297,7 +297,11 @@ int validaCodBarras(char codBarras[]){
 // A função testaBissexto verifica se um determinado ano é bissexto
 
 int testaBissexto(int ano) {
-  	if (((ano % 4 == 0) && (ano % 100 != 0)) || ano % 400 == 0 ) {
+
+	if (ano == 0){
+		return 0;
+
+	}else if (((ano % 4 == 0) && (ano % 100 != 0)) || ano % 400 == 0 ) {
     	return 1;
 
   	}else{
@@ -310,31 +314,52 @@ int testaBissexto(int ano) {
 
 int testaData(int dia, int mes, int ano) {
 
-	int maiorDia;
+	int diaM;
 
-   	if (ano <= 0 || mes < 1 || mes > 12){
+   	if (dia < 1 || dia > 31 ||mes < 1 || mes > 12 || ano == 0 || ano < 2000){
     	return 0;
-	}
-	
-  	if (mes == 2) {
-    	if (testaBissexto(ano)) {
-      		maiorDia = 29;
+
+	}else{
+
+		if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
+			diaM = 31;
+			
+			if (dia >= 1 && dia <= diaM){
+				return 1;
+			}else{
+				return 0;
+			}
+
+		}else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+    		diaM = 30;
+			if (dia >= 1 && dia <= diaM){
+				return 1;
+			}else{
+				return 0;
+			}
+		
+		}else if(mes == 2){
+
+			if (!testaBissexto(ano)) {
+      			diaM = 28;
+				if (dia >= 1 && dia <= diaM){
+					return 1;
+				}else{
+					return 0;
+				}
+
+			}else{
+				diaM = 29;
+				if (dia >= 1 && dia <= diaM){
+					return 1;
+				}else{
+					return 0;
+				}
+			}
 		}else{
-      		maiorDia = 28;
+			return 0;
 		}
-
-  	}else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
-    	maiorDia = 30;
-
-  	} else{
-    	maiorDia = 31;
 	}
-
-  	if (dia < 1 || dia > maiorDia){
-    	return 0;
-	}
-
-  	return 1;
 }
 
 // A função testaHora verifica se uma determinada hora é válida 
