@@ -241,7 +241,7 @@ void telaCadastrarCompra(void){
         minutos[1] = horaCompra[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaCompra);
         validaDig = testeDigitosNumericosHora(horaCompra);
 
         if (!validaHora || validaDig) {
@@ -350,7 +350,7 @@ void telaPesquisarCompra(void){
         minutos[1] = horaCompra[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaCompra);
         validaDig = testeDigitosNumericosHora(horaCompra);
 
         if (!validaHora || validaDig) {
@@ -469,7 +469,7 @@ void telaExcluirCompra(void){
         minutos[1] = horaCompra[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaCompra);
         validaDig = testeDigitosNumericosHora(horaCompra);
 
         if (!validaHora || validaDig) {
@@ -641,7 +641,7 @@ void telaAlterarCompra(void){
         minutos[1] = horaCompra[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaCompra);
         validaDig = testeDigitosNumericosHora(horaCompra);
 
         if (!validaHora || validaDig) {

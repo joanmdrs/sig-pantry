@@ -216,7 +216,7 @@ void telaCadastrarConsumo(void){
         minutos[1] = horaConsumo[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
 
         if (!validaHora || validaDig) {
@@ -324,7 +324,7 @@ void telaPesquisarConsumo(void){
         minutos[1] = horaConsumo[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
 
         if (!validaHora || validaDig) {
@@ -442,7 +442,7 @@ void telaExcluirConsumo(void){
         minutos[1] = horaConsumo[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
 
         if (!validaHora || validaDig) {
@@ -604,7 +604,7 @@ void telaAlterarConsumo(void){
         minutos[1] = horaConsumo[4];
         minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC);
+        validaHora = testaHora(horaC, minutosC, horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
 
         if (!validaHora || validaDig) {

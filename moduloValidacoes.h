@@ -30,7 +30,7 @@ int testaBissexto(int);
 
 int testaData(int, int, int);
 
-int testaHora(int, int);
+int testaHora(int, int, char []);
 
 
 

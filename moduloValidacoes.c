@@ -364,18 +364,25 @@ int testaData(int dia, int mes, int ano) {
 
 // A função testaHora verifica se uma determinada hora é válida 
 
-int testaHora(int hora, int min){
+int testaHora(int hora, int min, char n[]){
 
-	if (hora >= 0 && hora <=23){
-		if(min >= 0 && min <= 59){
-			return 1;
+	if (strlen(n) == 5){
+		if (hora > 23 || min > 59 ){
+			return 0;
+
+		}else if (hora >= 0 && hora <=23){
+			if(min >= 0 && min <= 59){
+				return 1;
+			}else{
+				return 0;
+			}
 
 		}else{
 			return 0;
 		}
-
 	}else{
 		return 0;
-
 	}
+
+	
 }
