@@ -20,6 +20,8 @@ int validaOpcaoMenu(char);
 
 int validaOpcaoSubMenu(char);
 
+int validaOpcaoLetrasAC(char);
+
 int validaOpcaoLetrasAD(char);
 
 int validaOpcaoLetrasAE(char);
