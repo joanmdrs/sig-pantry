@@ -309,47 +309,32 @@ int testaBissexto(int ano) {
 // A função testaData verifica se uma determinada data é válida 
 
 int testaData(int dia, int mes, int ano) {
-  	int maiorDia;
 
-  	if (ano < 0 || mes < 1 || mes > 12){
+	int maiorDia;
+
+   	if (ano <= 0 || mes < 1 || mes > 12){
     	return 0;
-
-	}else if(mes == 2) {
+	}
+	
+  	if (mes == 2) {
     	if (testaBissexto(ano)) {
       		maiorDia = 29;
-			if (dia < 1 || dia > maiorDia){
-    			return 0;
-			}else{
-				return 1;
-			}
-
 		}else{
       		maiorDia = 28;
-			if (dia < 1 || dia > maiorDia){
-    			return 0;
-			}else{
-				return 1;
-			}
 		}
 
   	}else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
     	maiorDia = 30;
-		if (dia < 1 || dia > maiorDia){
-			return 0;
-		}else{
-			return 1;
-		}
 
   	} else{
     	maiorDia = 31;
-		if (dia < 1 || dia > maiorDia){
-			return 0;
-		}else{
-			return 1;
-		}
-
 	}
 
+  	if (dia < 1 || dia > maiorDia){
+    	return 0;
+	}
+
+  	return 1;
 }
 
 // A função testaHora verifica se uma determinada hora é válida 
