@@ -197,6 +197,17 @@ int validaOpcaoSubMenu(char n){
 	}
 }
 
+// A função validaOpcaoLetrasAD define quais são as opções de escolha aceitas pela variável de A a C.
+
+int validaOpcaoLetrasAC(char n){
+
+	if (n == 'a' || n == 'A' || n == 'b' || n == 'B' || n == 'c' || n == 'C' ){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
 // A função validaOpcaoLetrasAD define quais são as opções de escolha aceitas pela variável de A a D.
 
 int validaOpcaoLetrasAD(char n){

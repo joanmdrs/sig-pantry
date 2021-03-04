@@ -753,7 +753,7 @@ void telaAlterarConsumo(void){
         printf("///              Código de Barras: %s \n", codBarras);
         printf("///             Descrição do Item: %s \n", nomeItem);
         printf("///              Data de Validade: %s \n", dataValidade);
-        printf("///                    Quantidade: %d \n", quant);
+        printf("///                    Quantidade: %d \n", quantC);
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
 
@@ -879,7 +879,7 @@ void telaAlterarConsumo(void){
             getchar();
 
             validaDig = testeDigito(respostaLetras);
-            validaOp = validaOpcaoLetrasAD(respostaLetras);
+            validaOp = validaOpcaoLetrasAC(respostaLetras);
             
 
             if(!validaOp || validaDig){
