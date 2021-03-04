@@ -186,6 +186,40 @@ int validaOpcaoMenu(char n){
 	}
 }
 
+// A função validaOpcaoSubMenu define quais são as opções de submenu aceitas pela variável.
+
+int validaOpcaoSubMenu(char n){
+
+	if (n == '1' || n == '2' || n == '3' || n == '4' || n == '5' || n == '0'  ){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+// A função validaOpcaoLetrasAD define quais são as opções de escolha aceitas pela variável de A a D.
+
+int validaOpcaoLetrasAD(char n){
+
+	if (n == 'a' || n == 'A' || n == 'b' || n == 'B' || n == 'c' || n == 'C' || n == 'd' || n == 'D' ){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+// A função validaOpcaoLetrasAD define quais são as opções de escolha aceitas pela variável de A a E.
+
+int validaOpcaoLetrasAE(char n){
+
+	if (n == 'a' || n == 'A' || n == 'b' || n == 'B' || n == 'c' || n == 'C' || n == 'd' || n == 'D' || n == 'e' || n == 'E' ){
+		return 1;
+
+	}else{
+		return 0;
+	}
+}
+
 // A função validaCodBarras verifica por meio de um cálculo, se o código de barras informado é válido.
 
 int validaCodBarras(char codBarras[]){
