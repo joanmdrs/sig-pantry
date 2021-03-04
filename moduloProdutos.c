@@ -141,7 +141,7 @@ void telaCadastrarProduto(void){
 		ano[3] = dataValidade[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataValidade);
         validaDig = testeDigitosNumericosData(dataValidade);
 
         if (!validaData || validaDig) {
@@ -530,7 +530,7 @@ void telaAlterarProduto(void){
             ano[3] = dataValidade[9];
             anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC);
+            validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
 
             if (!validaData ) {
@@ -732,7 +732,7 @@ void telaAlterarProduto(void){
                 ano[3] = dataValidade[9];
                 anoC = converteCharParaInt(ano);
             
-                validaData = testaData(diaC, mesC, anoC);
+                validaData = testaData(diaC, mesC, anoC, dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
 
                 if (!validaData ) {

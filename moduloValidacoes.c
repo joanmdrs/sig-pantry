@@ -307,7 +307,7 @@ int validaCodBarras(char codBarras[]){
 
 // A função testaBissexto verifica se um determinado ano é bissexto
 
-int testaBissexto(int ano) {
+int testaBissexto(int ano) { // "adaptado de @flgorgonio, 2021"
 
 	if (ano == 0){
 		return 0;
@@ -323,54 +323,66 @@ int testaBissexto(int ano) {
 
 // A função testaData verifica se uma determinada data é válida 
 
-int testaData(int dia, int mes, int ano) {
+int testaData(int dia, int mes, int ano, char n[]) {
 
-	int diaM;
+	int diaM; // variável destinada à receber o maior dia do mês
 
-   	if (dia < 1 || dia > 31 ||mes < 1 || mes > 12 || ano == 0 || ano < 2000){
-    	return 0;
+	if (strlen(n) == 10){
+
+		if (dia < 1 || dia > 31 ||mes < 1 || mes > 12 || ano == 0 || ano < 2000){
+    		return 0;
+
+		}else{
+
+			if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
+				diaM = 31;
+				
+				if (dia >= 1 && dia <= diaM){
+					return 1;
+				}else{
+					return 0;
+				}
+
+			}else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+				diaM = 30;
+
+				if (dia >= 1 && dia <= diaM){
+					return 1;
+
+				}else{
+					return 0;
+				}
+			
+			}else if(mes == 2){
+
+				if (!testaBissexto(ano)) {
+					diaM = 28;
+
+					if (dia >= 1 && dia <= diaM){
+						return 1;
+
+					}else{
+						return 0;
+					}
+
+				}else{
+					diaM = 29;
+					if (dia >= 1 && dia <= diaM){
+						return 1;
+						
+					}else{
+						return 0;
+					}
+				}
+			}else{
+				return 0;
+			}
+		}
 
 	}else{
-
-		if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
-			diaM = 31;
-			
-			if (dia >= 1 && dia <= diaM){
-				return 1;
-			}else{
-				return 0;
-			}
-
-		}else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
-    		diaM = 30;
-			if (dia >= 1 && dia <= diaM){
-				return 1;
-			}else{
-				return 0;
-			}
-		
-		}else if(mes == 2){
-
-			if (!testaBissexto(ano)) {
-      			diaM = 28;
-				if (dia >= 1 && dia <= diaM){
-					return 1;
-				}else{
-					return 0;
-				}
-
-			}else{
-				diaM = 29;
-				if (dia >= 1 && dia <= diaM){
-					return 1;
-				}else{
-					return 0;
-				}
-			}
-		}else{
-			return 0;
-		}
+		return 0;
 	}
+   	
 }
 
 // A função testaHora verifica se uma determinada hora é válida 

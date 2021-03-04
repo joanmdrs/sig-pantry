@@ -145,7 +145,7 @@ void telaCadastrarConsumo(void){
 		ano[3] = dataValidade[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataValidade);
         validaDig = testeDigitosNumericosData(dataValidade);
 
         if (!validaData || validaDig) {
@@ -192,7 +192,7 @@ void telaCadastrarConsumo(void){
 		ano[3] = dataConsumo[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
 
         if (!validaData || validaDig) {
@@ -300,7 +300,7 @@ void telaPesquisarConsumo(void){
 		ano[3] = dataConsumo[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
 
         if (!validaData || validaDig) {
@@ -418,7 +418,7 @@ void telaExcluirConsumo(void){
 		ano[3] = dataConsumo[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
 
         if (!validaData || validaDig) {
@@ -580,7 +580,7 @@ void telaAlterarConsumo(void){
 		ano[3] = dataConsumo[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
 
         if (!validaData || validaDig) {
@@ -718,7 +718,7 @@ void telaAlterarConsumo(void){
             ano[3] = dataValidade[9];
             anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC);
+            validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
 
             if (!validaData || validaDig) {
@@ -834,7 +834,7 @@ void telaAlterarConsumo(void){
             ano[3] = dataValidade[9];
             anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC);
+            validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
 
             if (!validaData || validaDig) {
@@ -945,7 +945,7 @@ void telaAlterarConsumo(void){
                 ano[3] = dataValidade[9];
                 anoC = converteCharParaInt(ano);
             
-                validaData = testaData(diaC, mesC, anoC);
+                validaData = testaData(diaC, mesC, anoC, dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
 
                 if (!validaData ) {

@@ -149,7 +149,7 @@ void telaCadastrarCompra(void){
 		ano[3] = dataValidade[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataValidade);
         validaDig = testeDigitosNumericosData(dataValidade);
 
         if (!validaData || validaDig) {
@@ -217,7 +217,7 @@ void telaCadastrarCompra(void){
 		ano[3] = dataCompra[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataCompra);
         validaDig = testeDigitosNumericosData(dataCompra);
 
         if (!validaData || validaDig) {
@@ -326,7 +326,7 @@ void telaPesquisarCompra(void){
 		ano[3] = dataCompra[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataCompra);
         validaDig = testeDigitosNumericosData(dataCompra);
 
         if (!validaData || validaDig) {
@@ -445,7 +445,7 @@ void telaExcluirCompra(void){
 		ano[3] = dataCompra[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataCompra);
         validaDig = testeDigitosNumericosData(dataCompra);
 
         if (!validaData || validaDig) {
@@ -617,7 +617,7 @@ void telaAlterarCompra(void){
 		ano[3] = dataCompra[9];
 		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC);
+        validaData = testaData(diaC, mesC, anoC, dataCompra);
         validaDig = testeDigitosNumericosData(dataCompra);
 
         if (!validaData || validaDig) {
@@ -755,7 +755,7 @@ void telaAlterarCompra(void){
             ano[3] = dataValidade[9];
             anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC);
+            validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
 
             if (!validaData || validaDig) {
@@ -895,7 +895,7 @@ void telaAlterarCompra(void){
             ano[3] = dataValidade[9];
             anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC);
+            validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
 
             if (!validaData || validaDig) {
@@ -1009,7 +1009,7 @@ void telaAlterarCompra(void){
                 ano[3] = dataValidade[9];
                 anoC = converteCharParaInt(ano);
             
-                validaData = testaData(diaC, mesC, anoC);
+                validaData = testaData(diaC, mesC, anoC, dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
 
                 if (!validaData ) {
