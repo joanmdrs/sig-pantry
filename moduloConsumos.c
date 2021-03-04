@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "moduloValidacoes.h"
 
 /* A função menuConsumo irá direcionar o usuário para as funções cadastrar, pesquisar,
@@ -8,7 +7,8 @@
 
 char menuConsumo(void){
     char opcao;
-    int teste;
+    int validaOp;
+    int validaOpM;
     
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -31,16 +31,22 @@ char menuConsumo(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("Informe a sua opção : ");
-    scanf("%c", &opcao);
-    getchar();
-    teste = testeDigito(opcao);
-    while(!teste){
-        printf("Você inseriu um valor incorreto, por favor, insira novamente um valor correto: ");
+    
+    do{
+        printf("Informe a sua opção : ");
         scanf("%c", &opcao);
         getchar();
-        teste = testeDigito(opcao);
-    }
+
+        validaOp = testeDigito(opcao);
+        validaOpM = validaOpcaoSubMenu(opcao); 
+
+        if(!validaOp || !validaOpM){
+            printf("Opção inválida, tente novamente!\n");
+
+        }
+
+    }while(!validaOp || !validaOpM);
+
 	return opcao;
 
 }
@@ -48,30 +54,30 @@ char menuConsumo(void){
 /* A função telaCadastrarConsumo realiza o cadastro de um consumo. */
 
 void telaCadastrarConsumo(void){
-    char codBarras[14];
-    char dataValidade[11];
-    char item[51];
-    int quant;
     
-/// Pegando a data do sistema -----------------------------------------------------
+    char codBarras[14];
+    char nomeItem[51];
+    char dataValidade[11];
+    char quant[10];
+    char dataConsumo[11];
+    char horaConsumo[6];
 
-    time_t timer;
-    struct tm *horarioLocal;
+    char dia[3];
+	int diaC;
+	char mes[3];
+	int mesC;
+	char ano[5];
+	int anoC;
+    char hora[3];
+    int horaC;
+    char minutos[3];
+    int minutosC;
 
-    time(&timer); // Obtem informações de data e hora
-    horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
-
-    int dia = horarioLocal->tm_mday;
-    int mes = horarioLocal->tm_mon + 1;
-    int ano = horarioLocal->tm_year + 1900;
-
-    int hora = horarioLocal->tm_hour;
-    int min  = horarioLocal->tm_min;
-    int sec  = horarioLocal->tm_sec;
-
-    int vetor[6]= {dia,mes,ano,hora,min,sec};
-
-/// --------------------------------------------------------------------------------
+    int validaCod;
+    int validaDig;
+    int validaData;
+    int validaHora;
+    int quantC;
 
     system("clear");
     printf("\n");
@@ -84,46 +90,181 @@ void telaCadastrarConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///           = = = = =  MÓDULO CADASTRAR CONSUMO: = = = = =          ///\n");
+    printf("///          = = = = =  MÓDULO CADASTRAR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Código de Barras: ");
-    scanf("%[0-9]", codBarras);
-    getchar();
-    printf("///            - Data Val. (dd/mm/aaa): ");
-    scanf("%[0-9/]", dataValidade);
-    getchar();
-    printf("///            - Descrição do Item: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", item);
-    getchar();
-    printf("///            - Quantidade: ");
-    scanf("%d", &quant);
-    getchar();
+
+// ----------------------- Validando o código de barras ----------------------------------
+
+    do{
+        printf("///            - Código de Barras: ");
+        scanf("%s", codBarras);
+        getchar();
     
+		validaCod = validaCodBarras(codBarras);
+        validaDig = testeDigitosNumericos(codBarras);
+
+		if(!validaCod || validaDig){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(!validaCod || validaDig);
+
+// ----------------------- Validando a descrição do produto ------------------------------
+
+    do{
+        printf("///            - Descrição do Item: ");
+        scanf("%s", nomeItem);
+        getchar();
+
+        validaDig = testeDigitos(nomeItem);
+
+        if(validaDig){
+            printf("///            Caracteres inválidos, tente novamente !\n");
+        }
+
+    }while (validaDig);
+
+// ----------------------- Validando a data de validade ----------------------------------
+
+    do{
+        printf("///            - Data Val. (dd/mm/aaaa): ");
+        scanf("%s", dataValidade);
+        getchar();
+
+        dia[0] = dataValidade[0];
+		dia[1] = dataValidade[1];
+		diaC = converteCharParaInt(dia);
+
+		mes[0] = dataValidade[3];
+		mes[1] = dataValidade[4];
+		mesC = converteCharParaInt(mes);
+
+		ano[0] = dataValidade[6];
+		ano[1] = dataValidade[7];
+		ano[2] = dataValidade[8];
+		ano[3] = dataValidade[9];
+		anoC = converteCharParaInt(ano);
+    
+        validaData = testaData(diaC, mesC, anoC);
+        validaDig = testeDigitosNumericosData(dataValidade);
+
+        if (!validaData || validaDig) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig);
+
+// ----------------------------- Validando a quantidade ----------------------------------
+      
+    do{
+        printf("///            - Quantidade: ");
+        scanf("%s", quant);
+        getchar();
+        
+        validaDig = testeDigitosNumericos(quant);
+
+        if(validaDig){
+            printf("///            Dígitos inválidos, tente novamente !\n");
+        }
+
+    }while (validaDig);
+
+    quantC = converteCharParaInt(quant);
+
+// ------------------------- Validando a data do consumo ----------------------------------
+
+    do{
+        printf("///            - Data Consumo (dd/mm/aaaa): ");
+        scanf("%s", dataConsumo);
+        getchar();
+
+        dia[0] = dataConsumo[0];
+		dia[1] = dataConsumo[1];
+		diaC = converteCharParaInt(dia);
+
+		mes[0] = dataConsumo[3];
+		mes[1] = dataConsumo[4];
+		mesC = converteCharParaInt(mes);
+
+		ano[0] = dataConsumo[6];
+		ano[1] = dataConsumo[7];
+		ano[2] = dataConsumo[8];
+		ano[3] = dataConsumo[9];
+		anoC = converteCharParaInt(ano);
+    
+        validaData = testaData(diaC, mesC, anoC);
+        validaDig = testeDigitosNumericosData(dataConsumo);
+
+        if (!validaData || validaDig) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig);
+
+// ------------------------- Validando a hora do consumo ----------------------------------
+
+    do{
+        printf("///            - Horário Consumo (hh:mm): ");
+        scanf("%s", horaConsumo);
+        getchar();
+
+        hora[0] = horaConsumo[0];
+        hora[1] = horaConsumo[1];
+		horaC = converteCharParaInt(hora);
+
+		minutos[0] = horaConsumo[3];
+        minutos[1] = horaConsumo[4];
+        minutosC = converteCharParaInt(minutos);
+    
+        validaHora = testaHora(horaC, minutosC);
+        validaDig = testeDigitosNumericosHora(horaConsumo);
+
+        if (!validaHora || validaDig) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!validaHora || validaDig);
+    
+// ---------------------------------------------------------------------------------------
+
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///                 Consumo cadastrado com sucesso !                  ///\n");
+    printf("///                 Consumo cadastrado com sucesso !                   ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///             Código de Barras: %s \n", codBarras);
-    printf("///             Data de Validade: %s \n", dataValidade);
-    printf("///            Descrição do Item: %s \n", item);
-    printf("///                   Quantidade: %d \n", quant);
-    printf("///                         Data: %d/%d/%d \n",vetor[0],vetor[1],vetor[2]);
-    printf("///                      Horário: %d/%d/%d \n",vetor[3],vetor[4],vetor[5]);
+    printf("///              Código de Barras: %s \n", codBarras);
+    printf("///             Descrição do Item: %s \n", nomeItem);
+    printf("///              Data de Validade: %s \n", dataValidade);
+    printf("///                    Quantidade: %d \n", quantC);
+    printf("///                          Data: %s \n", dataConsumo);
+    printf("///                       Horário: %s \n", horaConsumo);
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///                >>> Tecle <ENTER> para continuar...                ///\n");
+    printf("///                 >>> Tecle <ENTER> para continuar...               ///\n");
     getchar();
-
-
 }
 
 /* A função telaPesquisarConsumo realiza a busca de um consumo. */
 
 void telaPesquisarConsumo(void){
 
-    char data[11];
-    char horario[9];
+    char dataConsumo[11];
+    char horaConsumo[9];
+    
+    char dia[3];
+	int diaC;
+	char mes[3];
+	int mesC;
+	char ano[5];
+	int anoC;
+    char hora[3];
+    int horaC;
+    char minutos[3];
+    int minutosC;
+
+    int validaDig;
+    int validaData;
+    int validaHora;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -137,18 +278,69 @@ void telaPesquisarConsumo(void){
     printf("///                                                                   ///\n");
     printf("///           = = = = =  MÓDULO PESQUISAR CONSUMO: = = = = =          ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data do consumo (dd/mm/aaa): ");
-    scanf("%[0-9/]", data);
-    getchar();
-    printf("///            - Horário do consumo (hh:mm:ss): ");
-    scanf("%[0-9:]", horario);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Data Consumo (dd/mm/aaaa): ");
+        scanf("%s", dataConsumo);
+        getchar();
+
+        dia[0] = dataConsumo[0];
+		dia[1] = dataConsumo[1];
+		diaC = converteCharParaInt(dia);
+
+		mes[0] = dataConsumo[3];
+		mes[1] = dataConsumo[4];
+		mesC = converteCharParaInt(mes);
+
+		ano[0] = dataConsumo[6];
+		ano[1] = dataConsumo[7];
+		ano[2] = dataConsumo[8];
+		ano[3] = dataConsumo[9];
+		anoC = converteCharParaInt(ano);
+    
+        validaData = testaData(diaC, mesC, anoC);
+        validaDig = testeDigitosNumericosData(dataConsumo);
+
+        if (!validaData || validaDig) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Horário Consumo (hh:mm): ");
+        scanf("%s", horaConsumo);
+        getchar();
+
+        hora[0] = horaConsumo[0];
+        hora[1] = horaConsumo[1];
+		horaC = converteCharParaInt(hora);
+
+		minutos[0] = horaConsumo[3];
+        minutos[1] = horaConsumo[4];
+        minutosC = converteCharParaInt(minutos);
+    
+        validaHora = testaHora(horaC, minutosC);
+        validaDig = testeDigitosNumericosHora(horaConsumo);
+
+        if (!validaHora || validaDig) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!validaHora || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                       VALORES DE ENTRADA:                         ///\n");
     printf("///                                                                   ///\n");
-    printf("///             Data do consumo: %s \n", data);
-    printf("///             Horário do consumo: %s \n", horario);
+    printf("///             Data do consumo: %s \n", dataConsumo);
+    printf("///             Horário do consumo: %s \n", horaConsumo);
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            CONSUMO LOCALIZADO!                                    ///\n");
@@ -172,9 +364,25 @@ void telaPesquisarConsumo(void){
 
 void telaExcluirConsumo(void){
 
-    char data[11];
-    char horario[9];
     char resposta;
+    char dataConsumo[11];
+    char horaConsumo[9];
+
+    char dia[3];
+	int diaC;
+	char mes[3];
+	int mesC;
+	char ano[5];
+	int anoC;
+    char hora[3];
+    int horaC;
+    char minutos[3];
+    int minutosC;
+
+    int validaOp;
+    int validaDig;
+    int validaData;
+    int validaHora;
     
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -188,18 +396,69 @@ void telaExcluirConsumo(void){
     printf("///                                                                   ///\n");
     printf("///            = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data do consumo (dd/mm/aaa): ");
-    scanf("%[0-9/]", data);
-    getchar();
-    printf("///            - Horário do consumo (hh:mm:ss): ");
-    scanf("%[0-9:]", horario);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Data Consumo (dd/mm/aaaa): ");
+        scanf("%s", dataConsumo);
+        getchar();
+
+        dia[0] = dataConsumo[0];
+		dia[1] = dataConsumo[1];
+		diaC = converteCharParaInt(dia);
+
+		mes[0] = dataConsumo[3];
+		mes[1] = dataConsumo[4];
+		mesC = converteCharParaInt(mes);
+
+		ano[0] = dataConsumo[6];
+		ano[1] = dataConsumo[7];
+		ano[2] = dataConsumo[8];
+		ano[3] = dataConsumo[9];
+		anoC = converteCharParaInt(ano);
+    
+        validaData = testaData(diaC, mesC, anoC);
+        validaDig = testeDigitosNumericosData(dataConsumo);
+
+        if (!validaData || validaDig) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Horário Consumo (hh:mm): ");
+        scanf("%s", horaConsumo);
+        getchar();
+
+        hora[0] = horaConsumo[0];
+        hora[1] = horaConsumo[1];
+		horaC = converteCharParaInt(hora);
+
+		minutos[0] = horaConsumo[3];
+        minutos[1] = horaConsumo[4];
+        minutosC = converteCharParaInt(minutos);
+    
+        validaHora = testaHora(horaC, minutosC);
+        validaDig = testeDigitosNumericosHora(horaConsumo);
+
+        if (!validaHora || validaDig) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!validaHora || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                       VALORES DE ENTRADA:                         ///\n");
     printf("///                                                                   ///\n");
-    printf("///             Data do consumo: %s \n", data);
-    printf("///             Horário do consumo: %s \n", horario);
+    printf("///             Data do consumo: %s \n", dataConsumo);
+    printf("///             Horário do consumo: %s \n", horaConsumo);
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            CONSUMO LOCALIZADO!                                    ///\n");
@@ -214,9 +473,25 @@ void telaExcluirConsumo(void){
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Confirmar operação (S/N): ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &resposta);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Confirmar operação (S/N) ? ");
+        scanf("%c", &resposta);
+        getchar();
+
+        validaDig = testeDigito(resposta);
+        validaOp = validaOpcao(resposta);
+        
+
+        if(!validaOp || validaDig){
+            printf("///            Opcão inválida, tente novamente!\n");
+        }
+
+    }while(!validaOp || validaDig);
+
+// ---------------------------------------------------------------------------------------
 
     if (resposta == 'S' || resposta == 's'){
         printf("///                                                                   ///\n");
@@ -234,14 +509,6 @@ void telaExcluirConsumo(void){
         printf("\t\t>>> Tecle <ENTER> para continuar...\n");
         getchar();
 
-    }else{
-        printf("///                                                                   ///\n");
-        printf("///            Você informou um valor inválido!                       ///\n"); 
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
-
     }
 
 }
@@ -249,8 +516,9 @@ void telaExcluirConsumo(void){
 /* A função telaAlterarConsumo realiza a alteração de um consumo. */
 
 void telaAlterarConsumo(void){
-    char data[11];
-    char horario[9];
+
+    char dataConsumo[11];
+    char horaConsumo[9];
     char resposta;
     char decisao;
     char respostaLetras;
@@ -258,7 +526,25 @@ void telaAlterarConsumo(void){
     char codBarras[14];
     char nomeItem[51];
     char dataValidade[11];
-    int quant;
+    char quant[10];
+
+    char dia[3];
+	int diaC;
+	char mes[3];
+	int mesC;
+	char ano[5];
+	int anoC;
+    char hora[3];
+    int horaC;
+    char minutos[3];
+    int minutosC;
+
+    int validaCod;
+    int validaOp;
+    int validaDig;
+    int validaData;
+    int validaHora;
+    int quantC;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -272,18 +558,69 @@ void telaAlterarConsumo(void){
     printf("///                                                                   ///\n");
     printf("///          = = = = = = MÓDULO ALTERAR CONSUMO = = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///            - Data do consumo (dd/mm/aaa): ");
-    scanf("%s", data);
-    getchar();
-    printf("///            - Horário do consumo (hh:mm:ss): ");
-    scanf("%[0-9:]", horario);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Data Consumo (dd/mm/aaaa): ");
+        scanf("%s", dataConsumo);
+        getchar();
+
+        dia[0] = dataConsumo[0];
+		dia[1] = dataConsumo[1];
+		diaC = converteCharParaInt(dia);
+
+		mes[0] = dataConsumo[3];
+		mes[1] = dataConsumo[4];
+		mesC = converteCharParaInt(mes);
+
+		ano[0] = dataConsumo[6];
+		ano[1] = dataConsumo[7];
+		ano[2] = dataConsumo[8];
+		ano[3] = dataConsumo[9];
+		anoC = converteCharParaInt(ano);
+    
+        validaData = testaData(diaC, mesC, anoC);
+        validaDig = testeDigitosNumericosData(dataConsumo);
+
+        if (!validaData || validaDig) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///            - Horário Consumo (hh:mm): ");
+        scanf("%s", horaConsumo);
+        getchar();
+
+        hora[0] = horaConsumo[0];
+        hora[1] = horaConsumo[1];
+		horaC = converteCharParaInt(hora);
+
+		minutos[0] = horaConsumo[3];
+        minutos[1] = horaConsumo[4];
+        minutosC = converteCharParaInt(minutos);
+    
+        validaHora = testaHora(horaC, minutosC);
+        validaDig = testeDigitosNumericosHora(horaConsumo);
+
+        if (!validaHora || validaDig) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!validaHora || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                      VALORES DE ENTRADA:                          ///\n");
     printf("///                                                                   ///\n");
-    printf("///             Data do consumo: %s \n", data);
-    printf("///             Horário do consumo: %s \n", horario);
+    printf("///             Data do consumo: %s \n", dataConsumo);
+    printf("///             Horário do consumo: %s \n", horaConsumo);
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            CONSUMO LOCALIZADO!                                    ///\n"); ///Possível resultado
@@ -298,9 +635,26 @@ void telaAlterarConsumo(void){
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///          - Deseja alterar todos os items do consumo (S/N) ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &resposta);
-    getchar();
+
+// ---------------------------------------------------------------------------------------
+
+    do{
+        printf("///          - Deseja alterar todos os items da consumo (S/N) ");
+        scanf("%c", &resposta);
+        getchar();
+
+        validaDig = testeDigito(resposta);
+        validaOp = validaOpcao(resposta);
+        
+
+        if(!validaOp || validaDig){
+            printf("///            Opcão inválida, tente novamente!\n");
+        }
+
+    }while(!validaOp || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                       VALOR DE ENTRADA:                           ///\n");
@@ -312,18 +666,85 @@ void telaAlterarConsumo(void){
         printf("///                                                                   ///\n");
         printf("///           NOVA LISTA DE ITENS:                                    ///\n");
         printf("///                                                                   ///\n");
-        printf("///            - Código de Barras: ");
-        scanf("%[0-9]", codBarras);
-        getchar();
-        printf("///            - Descrição do Item: ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
-        getchar();
-        printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("%[0-9/]", dataValidade);
-        getchar();
-        printf("///            - Quantidade: ");
-        scanf("%d", &quant);
-        getchar();
+
+// ----------------------- Validando o código de barras ----------------------------------
+
+        do{
+            printf("///            - Código de Barras: ");
+            scanf("%s", codBarras);
+            getchar();
+        
+            validaCod = validaCodBarras(codBarras);
+
+            if(!validaCod){
+                printf("///            Código inválido, tente novamente !\n");
+            }
+
+        }while(!validaCod);
+
+// ----------------------- Validando a descrição do produto ------------------------------
+
+        do{
+            printf("///            - Descrição do Item: ");
+            scanf("%s", nomeItem);
+            getchar();
+
+            validaDig = testeDigitos(nomeItem);
+
+            if(validaDig){
+                printf("///            Caracteres inválidos, tente novamente !\n");
+            }
+        
+        }while (validaDig);
+
+// ----------------------- Validando a data de validade ----------------------------------
+
+        do{
+            printf("///            - Data Val. (dd/mm/aaaa): ");
+            scanf("%s", dataValidade);
+            getchar();
+
+            dia[0] = dataValidade[0];
+            dia[1] = dataValidade[1];
+            diaC = converteCharParaInt(dia);
+
+            mes[0] = dataValidade[3];
+            mes[1] = dataValidade[4];
+            mesC = converteCharParaInt(mes);
+
+            ano[0] = dataValidade[6];
+            ano[1] = dataValidade[7];
+            ano[2] = dataValidade[8];
+            ano[3] = dataValidade[9];
+            anoC = converteCharParaInt(ano);
+        
+            validaData = testaData(diaC, mesC, anoC);
+            validaDig = testeDigitosNumericosData(dataValidade);
+
+            if (!validaData || validaDig) {
+                printf("///            Data inválida, tente novamente !\n");
+            }
+
+        }while(!validaData || validaDig);
+
+// ----------------------------- Validando a quantidade ----------------------------------
+      
+        do{
+            printf("///            - Quantidade: ");
+            scanf("%s", quant);
+            getchar();
+            
+            validaDig = testeDigitosNumericos(quant);
+
+            if(validaDig){
+                printf("///            Dígitos inválidos, tente novamente !\n");
+            }
+
+        }while (validaDig);
+
+        quantC = converteCharParaInt(quant);
+
+
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
         printf("///                       VALORES DE ENTRADA:                         ///\n");
@@ -335,9 +756,25 @@ void telaAlterarConsumo(void){
         printf("///                    Quantidade: %d \n", quant);
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
-        printf("///            - Confirmar operação (S/N) ? ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &decisao);
-        getchar();
+
+// ---------------------------------------------------------------------------------------
+
+        do{
+            printf("///            - Confirmar operação (S/N) ? ");
+            scanf("%c", &decisao);
+            getchar();
+
+            validaDig = testeDigito(decisao);
+            validaOp = validaOpcao(decisao);
+
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
+            }
+
+        }while(!validaOp || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
         if (decisao == 'S' || decisao == 's'){
             printf("///                                                                   ///\n");
             printf("///            Consumo alterado com sucesso!                           ///\n"); 
@@ -354,25 +791,60 @@ void telaAlterarConsumo(void){
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
-        }else{
-            printf("///                                                                   ///\n");
-            printf("///            Você informou um valor inválido!                       ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
         }
 
     }else if(resposta == 'N' || resposta == 'n'){
         printf("///                                                                   ///\n");
         printf("///           INFORME O ITEM A ALTERAR:                               ///\n");
         printf("///                                                                   ///\n");
-        printf("///            - Código de Barras: ");
-        scanf("%[0-9]", codBarras);
-        getchar();
-        printf("///            - Data de Validade (dd/mm/aaaa): ");
-        scanf("%[0-9/]", dataValidade);
-        getchar();
+
+// ----------------------- Validando o código de barras ----------------------------------
+
+        do{
+            printf("///            - Código de Barras: ");
+            scanf("%s", codBarras);
+            getchar();
+        
+            validaCod = validaCodBarras(codBarras);
+
+            if(!validaCod){
+                printf("///            Código inválido, tente novamente !\n");
+            }
+
+        }while(!validaCod);
+
+// ----------------------- Validando a data de validade ----------------------------------
+
+        do{
+            printf("///            - Data de Validade (dd/mm/aaaa): ");
+            scanf("%s", dataValidade);
+            getchar();
+
+            dia[0] = dataValidade[0];
+            dia[1] = dataValidade[1];
+            diaC = converteCharParaInt(dia);
+
+            mes[0] = dataValidade[3];
+            mes[1] = dataValidade[4];
+            mesC = converteCharParaInt(mes);
+
+            ano[0] = dataValidade[6];
+            ano[1] = dataValidade[7];
+            ano[2] = dataValidade[8];
+            ano[3] = dataValidade[9];
+            anoC = converteCharParaInt(ano);
+        
+            validaData = testaData(diaC, mesC, anoC);
+            validaDig = testeDigitosNumericosData(dataValidade);
+
+            if (!validaData || validaDig) {
+                printf("///            Data inválida, tente novamente !\n");
+            }
+
+        }while(!validaData || validaDig);
+
+// ---------------------------------------------------------------------------------------
+
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
         printf("///                     VALORES DE ENTRADA:                           ///\n");
@@ -399,14 +871,43 @@ void telaAlterarConsumo(void){
         printf("///            - Digite 'c' para alterar o quantidade                 ///\n");
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
-        printf("///            - Informe a sua opção: "); 
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", &respostaLetras);
-        getchar();
+        // ---------------------------------------------------------------------------------------
+
+        do{
+            printf("///            - Informe a sua opção: ");
+            scanf("%c", &respostaLetras);
+            getchar();
+
+            validaDig = testeDigito(respostaLetras);
+            validaOp = validaOpcaoLetrasAD(respostaLetras);
+            
+
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
+            }
+
+        }while(!validaOp || validaDig);
+
+// ----------------------- Validando a descrição da compra -------------------------------
+
         if (respostaLetras == 'A' || respostaLetras == 'a'){
             printf("///                                                                   ///\n");
-            printf("///            - a) Nova Descrição: ");
-            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nomeItem);
-            getchar();
+
+            do{
+                printf("///            - a) Nova Descrição: ");
+                scanf("%s", nomeItem);
+                getchar();
+
+                validaDig = testeDigitos(nomeItem);
+
+                if(validaDig){
+                    printf("///            Caracteres inválidos, tente novamente !\n");
+                }
+
+            }while (validaDig);
+
+// ---------------------------------------------------------------------------------------
+
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
@@ -414,16 +915,47 @@ void telaAlterarConsumo(void){
             printf("///                          Nome: %s \n", nomeItem);
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
-            printf("///            O nome do consumo foi alterado!                        ///\n");
+            printf("///            O nome da compra foi alterado!                         ///\n");
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
+
+// ----------------------- Validando a data de validade ----------------------------------
+
         }else if(resposta == 'B' || respostaLetras == 'b'){
             printf("///                                                                   ///\n");
-            printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
-            scanf("%[0-9/]", dataValidade);
-            getchar();
+
+            do{
+                printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
+                scanf("%s", dataValidade);
+                getchar();
+
+                dia[0] = dataValidade[0];
+                dia[1] = dataValidade[1];
+                diaC = converteCharParaInt(dia);
+
+                mes[0] = dataValidade[3];
+                mes[1] = dataValidade[4];
+                mesC = converteCharParaInt(mes);
+
+                ano[0] = dataValidade[6];
+                ano[1] = dataValidade[7];
+                ano[2] = dataValidade[8];
+                ano[3] = dataValidade[9];
+                anoC = converteCharParaInt(ano);
+            
+                validaData = testaData(diaC, mesC, anoC);
+                validaDig = testeDigitosNumericosData(dataValidade);
+
+                if (!validaData ) {
+                    printf("///            Data inválida, tente novamente !\n");
+                }
+
+            }while(!validaData);
+
+// ---------------------------------------------------------------------------------------
+
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
@@ -431,33 +963,42 @@ void telaAlterarConsumo(void){
             printf("///              Data de Validade: %s \n", dataValidade);
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
-            printf("///            A data de validade do consumo foi alterada!            ///\n");
+            printf("///            A data de validade da compra foi alterada!             ///\n");
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
+// ----------------------------- Validando a quantidade ----------------------------------
+
         }else if(respostaLetras == 'C' || respostaLetras == 'c'){   
             printf("///                                                                   ///\n");
-            printf("///            - c) Nova Quantidade: ");
-            scanf("%d", &quant);
-            getchar();  
+      
+            do{
+                printf("///            - c) Nova Quantidade: ");
+                scanf("%s", quant);
+                getchar();
+                
+                validaDig = testeDigitosNumericos(quant);
+
+                if(validaDig){
+                    printf("///            Dígitos inválidos, tente novamente !\n");
+                }
+
+            }while (validaDig);
+
+            quantC = converteCharParaInt(quant);
+
+// ---------------------------------------------------------------------------------------
+
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
             printf("///                                                                   ///\n");
-            printf("///                    Quantidade: %d \n", quant);       
+            printf("///                    Quantidade: %d \n", quantC);       
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
-            printf("///            A quantidade do consumo foi alterada!                  ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }else{
-            printf("///                                                                   ///\n");
-            printf("///            Você informou um valor inválido!                       ///\n");
+            printf("///            A quantidade da compra foi alterada!                   ///\n");
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");

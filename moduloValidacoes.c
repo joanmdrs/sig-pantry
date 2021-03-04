@@ -208,7 +208,7 @@ int validaOpcaoLetrasAD(char n){
 	}
 }
 
-// A função validaOpcaoLetrasAD define quais são as opções de escolha aceitas pela variável de A a E.
+// A função validaOpcaoLetrasAE define quais são as opções de escolha aceitas pela variável de A a E.
 
 int validaOpcaoLetrasAE(char n){
 

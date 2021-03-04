@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "moduloValidacoes.h"
 
 
@@ -39,6 +38,7 @@ char menuCompras(void){
         printf("Informe a sua opção : ");
         scanf("%c", &opcao);
         getchar();
+
         validaOp = testeDigito(opcao);
         validaOpM = validaOpcaoSubMenu(opcao); 
 
@@ -105,14 +105,15 @@ void telaCadastrarCompra(void){
         getchar();
     
 		validaCod = validaCodBarras(codBarras);
+        validaDig = testeDigitosNumericos(codBarras);
 
-		if(!validaCod){
+		if(!validaCod || validaDig){
 			printf("///            Código inválido, tente novamente !\n");
 		}
 
-	}while(!validaCod);
+	}while(!validaCod || validaDig);
 
-// ---------------------------------------------------------------------------------------
+// ----------------------- Validando a descrição do produto ------------------------------
 
     do{
         printf("///            - Descrição do Item: ");
@@ -127,7 +128,7 @@ void telaCadastrarCompra(void){
 
     }while (validaDig);
 
-// ---------------------------------------------------------------------------------------
+// ----------------------- Validando a data de validade ----------------------------------
 
     do{
         printf("///            - Data Val. (dd/mm/aaaa): ");
@@ -195,7 +196,7 @@ void telaCadastrarCompra(void){
     
     valorCompra += quantC * valor;
 
-// ---------------------------------------------------------------------------------------
+// ------------------------- Validando a data da compra ----------------------------------
 
     do{
         printf("///            - Data Compra (dd/mm/aaaa): ");
@@ -225,7 +226,7 @@ void telaCadastrarCompra(void){
 
     }while(!validaData || validaDig);
 
-// ---------------------------------------------------------------------------------------
+// ------------------------- Validando a hora da compra ----------------------------------
 
     do{
         printf("///            - Horário Compra (hh:mm): ");
@@ -248,9 +249,6 @@ void telaCadastrarCompra(void){
         }
 
     }while(!validaHora || validaDig);
-
-
-
     
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -290,11 +288,9 @@ void telaPesquisarCompra(void){
     char minutos[3];
     int minutosC;
 
-    int validaCod;
     int validaDig;
     int validaData;
     int validaHora;
-    int quantC;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -365,7 +361,6 @@ void telaPesquisarCompra(void){
 
 // ---------------------------------------------------------------------------------------
 
-
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                        VALORES DE ENTRADA:                        ///\n");
@@ -411,12 +406,10 @@ void telaExcluirCompra(void){
     char minutos[3];
     int minutosC;
 
-    int validaCod;
     int validaOp;
     int validaDig;
     int validaData;
     int validaHora;
-    int quantC;
 
     system("clear");
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -551,13 +544,6 @@ void telaExcluirCompra(void){
         printf("\t\t>>> Tecle <ENTER> para continuar...\n");
         getchar();
 
-    }else{
-        printf("///                                                                   ///\n");
-        printf("///            Você informou um valor inválido!                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
     }
     
 }
@@ -610,7 +596,7 @@ void telaAlterarCompra(void){
     printf("///            = = = = =  MÓDULO ALTERAR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
     
-   // ---------------------------------------------------------------------------------------
+// ------------------------- Validando a data da compra ----------------------------------
 
     do{
         printf("///            - Data Compra (dd/mm/aaaa): ");
@@ -640,7 +626,7 @@ void telaAlterarCompra(void){
 
     }while(!validaData || validaDig);
 
-// ---------------------------------------------------------------------------------------
+// ------------------------- Validando a hora da compra ----------------------------------
 
     do{
         printf("///            - Horário Compra (hh:mm): ");
@@ -674,7 +660,7 @@ void telaAlterarCompra(void){
     printf("///             Horário da compra: %s \n", horaCompra);
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            COMPRA LOCALIZADA!                                     ///\n"); ///Possível resultado
+    printf("///            COMPRA LOCALIZADA!                                     ///\n");
     printf("///                                                                   ///\n");
     printf("///            Itens: Aqui vai mostrar todos os itens comprados       ///\n");
     printf("///            naquele dia e horário.                                 ///\n");
@@ -683,7 +669,7 @@ void telaAlterarCompra(void){
     printf("///            - Valor da compra:                                     ///\n");   
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");  
-    printf("///          Não há registro de compras para o dia e horário          ///\n"); ///Outro possível resultado   
+    printf("///          Não há registro de compras para o dia e horário          ///\n");  
     printf("///          informado.                                               ///\n");    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -706,6 +692,7 @@ void telaAlterarCompra(void){
     }while(!validaOp || validaDig);
 
 // ---------------------------------------------------------------------------------------
+
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///                       VALOR DE ENTRADA:                           ///\n");
@@ -732,7 +719,7 @@ void telaAlterarCompra(void){
 
         }while(!validaCod);
 
-// ---------------------------------------------------------------------------------------
+// ----------------------- Validando a descrição do produto ------------------------------
 
         do{
             printf("///            - Descrição do Item: ");
@@ -747,7 +734,7 @@ void telaAlterarCompra(void){
         
         }while (validaDig);
 
-// ---------------------------------------------------------------------------------------
+// ----------------------- Validando a data de validade ----------------------------------
 
         do{
             printf("///            - Data Val. (dd/mm/aaaa): ");
@@ -865,13 +852,6 @@ void telaAlterarCompra(void){
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
-        }else{
-            printf("///                                                                   ///\n");
-            printf("///            Você informou um valor inválido!                       ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
         }
 
     }else if(resposta == 'N' || resposta == 'n'){
@@ -894,7 +874,7 @@ void telaAlterarCompra(void){
 
         }while(!validaCod);
 
-// ---------------------------------------------------------------------------------------
+// ----------------------- Validando a data de validade ----------------------------------
 
         do{
             printf("///            - Data de Validade (dd/mm/aaaa): ");
@@ -950,7 +930,7 @@ void telaAlterarCompra(void){
         printf("///                                                                   ///\n");
         printf("///            - Digite 'a' para alterar a descrição                  ///\n");
         printf("///            - Digite 'b' para alterar a validade                   ///\n");
-        printf("///            - Digite 'c' para alterar o quantidade                 ///\n");
+        printf("///            - Digite 'c' para alterar a quantidade                 ///\n");
         printf("///            - Digite 'd' para alterar o valor                      ///\n");
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
@@ -972,12 +952,10 @@ void telaAlterarCompra(void){
 
         }while(!validaOp || validaDig);
 
-// ---------------------------------------------------------------------------------------
+// ----------------------- Validando a descrição da compra -------------------------------
 
         if (respostaLetras == 'A' || respostaLetras == 'a'){
             printf("///                                                                   ///\n");
-
-// ----------------------- Validando a descrição da compra -------------------------------
 
             do{
                 printf("///            - a) Nova Descrição: ");
@@ -1007,10 +985,10 @@ void telaAlterarCompra(void){
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
+// ----------------------- Validando a data de validade ----------------------------------
+
         }else if(resposta == 'B' || respostaLetras == 'b'){
             printf("///                                                                   ///\n");
-
-// ----------------------- Validando a data de validade ----------------------------------
 
             do{
                 printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
@@ -1055,10 +1033,10 @@ void telaAlterarCompra(void){
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
+// ----------------------------- Validando a quantidade ----------------------------------
+
         }else if(respostaLetras == 'C' || respostaLetras == 'c'){   
             printf("///                                                                   ///\n");
-
-// ----------------------------- Validando a quantidade ----------------------------------
       
             do{
                 printf("///            - c) Nova Quantidade: ");
@@ -1090,10 +1068,10 @@ void telaAlterarCompra(void){
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
+// ----------------------------- Validando o valor do item -------------------------------
+
         }else if(respostaLetras == 'D' || respostaLetras == 'd'){
             printf("///                                                                   ///\n");
-
-// ----------------------------- Validando o valor do item -------------------------------
       
             do{
                 printf("///            - d) Novo Valor: ");
@@ -1123,23 +1101,7 @@ void telaAlterarCompra(void){
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
             
-        }else{
-            printf("///                                                                   ///\n");
-            printf("///            Você informou um valor inválido!                       ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
         }
-
-    }else{
-        printf("///                                                                   ///\n");
-        printf("///            Você informou um valor inválido!                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
     }
 }
 
@@ -1170,3 +1132,4 @@ void telaListarCompras(void){
     getchar();
 
 }
+
