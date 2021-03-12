@@ -307,7 +307,10 @@ int validaCodBarras(char codBarras[]){
 
 // A função testaBissexto verifica se um determinado ano é bissexto
 
-int testaBissexto(int ano) { // "adaptado de @flgorgonio, 2021"
+int testaBissexto(int ano) { 
+
+// "adaptado de @flgorgonio, 2021" 
+// "Disponível em: https://replit.com/@flaviusgorgonio/ValidaDataComFuncoesc#main.c"
 
 	if (ano == 0){
 		return 0;

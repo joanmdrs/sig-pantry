@@ -24,7 +24,8 @@ char menuPrincipal(void){
     printf("///            1 - Módulo Produtos                                    ///\n");
     printf("///            2 - Módulo Compras                                     ///\n");
     printf("///            3 - Módulo Consumo                                     ///\n");
-    printf("///            4 - Sobre o Sistema                                    ///\n");
+    printf("///            4 - Módulo Relatórios                                  ///\n");
+    printf("///            5 - Sobre o sistema                                    ///\n");
     printf("///            0 - Encerrar Programa                                  ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
