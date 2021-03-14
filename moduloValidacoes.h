@@ -1,3 +1,5 @@
+void limpaTela(void);
+
 int testeDigito(char);
 
 int testeDigitos(char []);
@@ -16,9 +18,7 @@ double converteCharParaDouble(char []);
 
 int validaOpcao(char);
 
-int validaOpcaoMenu(char);
-
-int validaOpcaoSubMenu(char);
+int validaOpcaoMenu(char, int);
 
 int validaOpcaoLetrasAC(char);
 

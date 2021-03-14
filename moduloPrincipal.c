@@ -9,6 +9,7 @@ char menuPrincipal(void){
     char opcao;
     int validaOp;
     int validaOpM;
+    int q = 5;
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -31,12 +32,13 @@ char menuPrincipal(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
+
     do{
         printf("Informe a sua opção : ");
         scanf("%c", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoSubMenu(opcao); 
+        validaOpM = validaOpcaoMenu(opcao, q); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");

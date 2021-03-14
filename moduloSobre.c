@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "moduloValidacoes.h"
 
 void menuSobre(void) {
-    system("clear");
+    limpaTela();
     printf("\n");
     printf("BEM VINDO AO MENU SOBRE!\n\n");
     printf("Aqui você encontra informações à respeito do projeto SIG-PANTRY e também sobre a \n");

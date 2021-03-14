@@ -3,10 +3,8 @@
 #include <ctype.h>
 #include <string.h>
 
-void limpaTela(){
-	if(system("clear") || system("cls")){
-		
-	}
+void limpaTela(void){
+	system("cls");
 }
 
 // A função testeDigito realiza a validação de uma variavel de apenas um dígito.
@@ -183,24 +181,34 @@ int validaOpcao(char n){
 
 // A função validaOpcaoMenu define quais são as opções de menu aceitas pela variável.
 
-int validaOpcaoMenu(char n){
+int validaOpcaoMenu(char n, int q){
 
-	if (n == '1' || n == '2' || n == '3' || n == '4' || n == '0'  ){
-		return 1;
+	if (q == 5){
+		if (n == '1' || n == '2' || n == '3' || n == '4' || n == '5' || n == '0'  ){
+			return 1;
+		}else{
+			return 0;
+		}
+
+	}else if(q == 4){
+		if (n == '1' || n == '2' || n == '3' || n == '4' || n == '0'  ){
+			return 1;
+		}else{
+			return 0;
+		}
+		
+	}else if(q == 3){
+		if (n == '1' || n == '2' || n == '3' || n == '0'  ){
+			return 1;
+		}else{
+			return 0;
+		}
+		
 	}else{
 		return 0;
 	}
-}
-
-// A função validaOpcaoSubMenu define quais são as opções de submenu aceitas pela variável.
-
-int validaOpcaoSubMenu(char n){
-
-	if (n == '1' || n == '2' || n == '3' || n == '4' || n == '5' || n == '0'  ){
-		return 1;
-	}else{
-		return 0;
-	}
+	
+	
 }
 
 // A função validaOpcaoLetrasAD define quais são as opções de escolha aceitas pela variável de A a C.

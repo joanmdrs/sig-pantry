@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "moduloValidacoes.h"
 
 char menuRelatorios(void){
     char opcao;
+    int q = 3;
     int validaOp;
     int validaOpM;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -31,7 +33,7 @@ char menuRelatorios(void){
         scanf("%c", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoSubMenu(opcao); 
+        validaOpM = validaOpcaoMenu(opcao, q); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -44,8 +46,9 @@ char menuRelatorios(void){
 
 }
 
-void telaRelatorioProdutos(void){
-    system("clear");
+char menuRelatorioProdutos(void){
+
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -68,8 +71,9 @@ void telaRelatorioProdutos(void){
 
 }
 
-void telaRelatorioCompras(void){
-    system("clear");
+char menuRelatorioCompras(void){
+
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -92,8 +96,9 @@ void telaRelatorioCompras(void){
 
 }
 
-void telaRelatorioConsumo(void){
-    system("clear");
+char menuRelatorioConsumo(void){
+
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");

@@ -9,10 +9,11 @@
 
 char menuProdutos(void){
     char opcao;
+    int q = 5;
     int validaOp;
     int validaOpM;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -39,7 +40,7 @@ char menuProdutos(void){
         scanf("%c", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoSubMenu(opcao); 
+        validaOpM = validaOpcaoMenu(opcao, q); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -75,7 +76,7 @@ void telaCadastrarProduto(void){
 	int anoC;
 	int quantC = 0;
 
-    system("clear");
+    limpaTela();
     printf("\n");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -223,7 +224,7 @@ void telaPesquisarProduto(void){
     char codBarras[14];
     int validaCod;
     
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -289,7 +290,7 @@ void telaExcluirProduto(void){
     int validaOp;
     int validaDig;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -415,7 +416,7 @@ void telaAlterarProduto(void){
 	int anoC;
 	int quantC = 0;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -858,7 +859,8 @@ void telaAlterarProduto(void){
 /* A função telaListarProdutos realiza a listagem de todos os produtos. */
 
 void telaListarProdutos(void){
-    system("clear");
+
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");

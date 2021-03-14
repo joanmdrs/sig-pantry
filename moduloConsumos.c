@@ -7,10 +7,11 @@
 
 char menuConsumo(void){
     char opcao;
+    int q = 5;
     int validaOp;
     int validaOpM;
     
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -38,7 +39,7 @@ char menuConsumo(void){
         getchar();
 
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoSubMenu(opcao); 
+        validaOpM = validaOpcaoMenu(opcao, q); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -79,7 +80,7 @@ void telaCadastrarConsumo(void){
     int validaHora;
     int quantC;
 
-    system("clear");
+    limpaTela();
     printf("\n");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -266,7 +267,7 @@ void telaPesquisarConsumo(void){
     int validaData;
     int validaHora;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -384,7 +385,7 @@ void telaExcluirConsumo(void){
     int validaData;
     int validaHora;
     
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -546,7 +547,7 @@ void telaAlterarConsumo(void){
     int validaHora;
     int quantC;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -1011,7 +1012,8 @@ void telaAlterarConsumo(void){
 /* A função telaListarConsumos realiza a listagem de todos os consumos. */
 
 void telaListarConsumos(void){
-    system("clear");
+
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");

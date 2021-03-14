@@ -9,10 +9,11 @@
 
 char menuCompras(void){
     char opcao;
+    int q = 5;
     int validaOp;
     int validaOpM;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -40,7 +41,7 @@ char menuCompras(void){
         getchar();
 
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoSubMenu(opcao); 
+        validaOpM = validaOpcaoMenu(opcao, q); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -83,7 +84,7 @@ void telaCadastrarCompra(void){
     int validaHora;
     int quantC;
 
-    system("clear");
+    limpaTela();
     printf("\n");
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -292,7 +293,7 @@ void telaPesquisarCompra(void){
     int validaData;
     int validaHora;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -411,7 +412,7 @@ void telaExcluirCompra(void){
     int validaData;
     int validaHora;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -583,7 +584,7 @@ void telaAlterarCompra(void){
     int validaHora;
     int quantC;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -1108,7 +1109,8 @@ void telaAlterarCompra(void){
 /* A função telaListarCompras realiza a listagem de todas as compras. */
 
 void telaListarCompras(void){
-    system("clear");
+
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");

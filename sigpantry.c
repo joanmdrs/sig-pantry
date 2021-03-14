@@ -15,10 +15,11 @@
 #include "moduloCompras.h"
 #include "moduloSobre.h"
 #include "moduloConsumos.h"
+#include "moduloRelatorios.h"
 
 int main(void) {
 
-    char opcao1, opcao2, opcao3, opcao4;
+    char opcao1, opcao2, opcao3, opcao4, opcao5;
 
     do{
         opcao1 = menuPrincipal();
@@ -100,6 +101,25 @@ int main(void) {
                 break;
                 
             case '4':
+                do{
+                    opcao5 = menuRelatorios();
+
+                    switch (opcao5){
+                        case '1':
+                            menuRelatorioProdutos();
+                            break;
+                        case '2':
+                            menuRelatorioCompras();
+                            break;
+                        case '3':
+                            menuRelatorioConsumo();
+                            break;
+                    }
+
+                } while(opcao5 != '0');
+                break;
+
+            case '5':
                 menuSobre();
                 break;
 
