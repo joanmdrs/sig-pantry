@@ -7,9 +7,10 @@
 
 char menuPrincipal(void){
     char opcao;
-    int teste;
+    int validaOp;
+    int validaOpM;
 
-    system("clear");
+    limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
@@ -30,16 +31,20 @@ char menuPrincipal(void){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("Informe a sua opção : ");
-    scanf("%c", &opcao);
-    getchar();
-    teste = testeDigito(opcao);
-    while(!teste){
-        printf("Você inseriu um valor incorreto, por favor, insira novamente um valor correto: ");
+    do{
+        printf("Informe a sua opção : ");
         scanf("%c", &opcao);
         getchar();
-        teste = testeDigito(opcao);
-    }
+        validaOp = testeDigito(opcao);
+        validaOpM = validaOpcaoSubMenu(opcao); 
+
+        if(!validaOp || !validaOpM){
+            printf("Opção inválida, tente novamente!\n");
+
+        }
+
+    }while(!validaOp || !validaOpM);
+
 	return opcao;
 
 }

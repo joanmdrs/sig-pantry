@@ -3,6 +3,12 @@
 #include <ctype.h>
 #include <string.h>
 
+void limpaTela(){
+	if(system("clear") || system("cls")){
+		
+	}
+}
+
 // A função testeDigito realiza a validação de uma variavel de apenas um dígito.
 
 int testeDigito(char n){

@@ -55,14 +55,11 @@ void telaRelatorioProdutos(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO LISTAR PRODUTOS:                                ///\n");
+    printf("///            RELATÓRIOS - PRODUTOS:                                 ///\n");    
     printf("///                                                                   ///\n");
-    printf("///            - Codigo de Barras:                                    ///\n");
-    printf("///            - Nome:                                                ///\n");
-    printf("///            - Data de Validade:                                    ///\n");
-    printf("///            - Local:                                               ///\n");
-    printf("///            - Status:                                              ///\n");
-    printf("///            - Quantidade:                                          ///\n");
+    printf("///            1 - Itens vencidos                                     ///\n");
+    printf("///            2 - Itens a vencer                                     ///\n");
+    printf("///            3 - Itens abertos                                      ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -82,14 +79,11 @@ void telaRelatorioCompras(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO LISTAR PRODUTOS:                                ///\n");
+    printf("///            RELATÓRIOS - COMPRAS:                                  ///\n");    
     printf("///                                                                   ///\n");
-    printf("///            - Codigo de Barras:                                    ///\n");
-    printf("///            - Nome:                                                ///\n");
-    printf("///            - Data de Validade:                                    ///\n");
-    printf("///            - Local:                                               ///\n");
-    printf("///            - Status:                                              ///\n");
-    printf("///            - Quantidade:                                          ///\n");
+    printf("///            1 - Compras Diárias                                    ///\n");
+    printf("///            2 - Compras Mensais                                    ///\n");
+    printf("///            3 - Compras Anuais                                     ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -109,14 +103,11 @@ void telaRelatorioConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO LISTAR PRODUTOS:                                ///\n");
+    printf("///            RELATÓRIOS - CONSUMO:                                  ///\n");    
     printf("///                                                                   ///\n");
-    printf("///            - Codigo de Barras:                                    ///\n");
-    printf("///            - Nome:                                                ///\n");
-    printf("///            - Data de Validade:                                    ///\n");
-    printf("///            - Local:                                               ///\n");
-    printf("///            - Status:                                              ///\n");
-    printf("///            - Quantidade:                                          ///\n");
+    printf("///            1 - Consumo Diário                                     ///\n");
+    printf("///            2 - Consumo Mensal                                     ///\n");
+    printf("///            3 - Consumo Anual                                      ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -124,4 +115,6 @@ void telaRelatorioConsumo(void){
     getchar();
 
 }
+
+
 
