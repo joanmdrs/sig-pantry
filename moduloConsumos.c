@@ -99,7 +99,7 @@ void telaCadastrarConsumo(void){
 
     do{
         printf("///            - Código de Barras: ");
-        scanf("[^\n]", codBarras);
+        scanf("%[^\n]", codBarras);
         getchar();
     
 		validaCod = validaCodBarras(codBarras);
@@ -116,7 +116,7 @@ void telaCadastrarConsumo(void){
 
     do{
         printf("///            - Descrição do Item: ");
-        scanf("[^\n]", nomeItem);
+        scanf("%[^\n]", nomeItem);
         getchar();
 
         validaDig = testeDigitos(nomeItem);
@@ -132,7 +132,7 @@ void telaCadastrarConsumo(void){
 
     do{
         printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("[^\n]", dataValidade);
+        scanf("%[^\n]", dataValidade);
         getchar();
 
         dia[0] = dataValidade[0];
@@ -163,7 +163,7 @@ void telaCadastrarConsumo(void){
       
     do{
         printf("///            - Quantidade: ");
-        scanf("[^\n]", quant);
+        scanf("%[^\n]", quant);
         getchar();
         
         validaDig = testeDigitosNumericos(quant);
@@ -181,7 +181,7 @@ void telaCadastrarConsumo(void){
 
     do{
         printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("[^\n]", dataConsumo);
+        scanf("%[^\n]", dataConsumo);
         getchar();
 
         dia[0] = dataConsumo[0];
@@ -212,7 +212,7 @@ void telaCadastrarConsumo(void){
 
     do{
         printf("///            - Horário Consumo (hh:mm): ");
-        scanf("[^\n]", horaConsumo);
+        scanf("%[^\n]", horaConsumo);
         getchar();
 
         hora[0] = horaConsumo[0];
@@ -292,7 +292,7 @@ void telaPesquisarConsumo(void){
 
     do{
         printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("[^\n]", dataConsumo);
+        scanf("%[^\n]", dataConsumo);
         getchar();
 
         dia[0] = dataConsumo[0];
@@ -323,7 +323,7 @@ void telaPesquisarConsumo(void){
 
     do{
         printf("///            - Horário Consumo (hh:mm): ");
-        scanf("[^\n]", horaConsumo);
+        scanf("%[^\n]", horaConsumo);
         getchar();
 
         hora[0] = horaConsumo[0];
@@ -413,7 +413,7 @@ void telaExcluirConsumo(void){
 
     do{
         printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("[^\n]", dataConsumo);
+        scanf("%[^\n]", dataConsumo);
         getchar();
 
         dia[0] = dataConsumo[0];
@@ -444,7 +444,7 @@ void telaExcluirConsumo(void){
 
     do{
         printf("///            - Horário Consumo (hh:mm): ");
-        scanf("[^\n]", horaConsumo);
+        scanf("%[^\n]", horaConsumo);
         getchar();
 
         hora[0] = horaConsumo[0];
@@ -557,6 +557,7 @@ void telaAlterarConsumo(void){
     int validaDig;
     int validaData;
     int validaHora;
+    int validaNull;
     int quantC;
 
     limpaTela();
@@ -576,7 +577,7 @@ void telaAlterarConsumo(void){
 
     do{
         printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("[^\n]", dataConsumo);
+        scanf("%[^\n]", dataConsumo);
         getchar();
 
         dia[0] = dataConsumo[0];
@@ -595,18 +596,19 @@ void telaAlterarConsumo(void){
     
         validaData = testaData(diaC, mesC, anoC, dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
+        validaNull = verificaNulo(dataConsumo);
 
-        if (!validaData || validaDig) {
+        if (!validaData || validaDig || validaNull) {
             printf("///            Data inválida, tente novamente !\n");
         }
 
-    }while(!validaData || validaDig);
+    }while(!validaData || validaDig || validaNull);
 
 // ---------------------------------------------------------------------------------------
 
     do{
         printf("///            - Horário Consumo (hh:mm): ");
-        scanf("[^\n]", horaConsumo);
+        scanf("%[^\n]", horaConsumo);
         getchar();
 
         hora[0] = horaConsumo[0];
@@ -619,12 +621,13 @@ void telaAlterarConsumo(void){
     
         validaHora = testaHora(horaC, minutosC, horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
+        validaNull = verificaNulo(horaConsumo);
 
-        if (!validaHora || validaDig) {
+        if (!validaHora || validaDig || validaNull) {
             printf("///            Hora inválida, tente novamente !\n");
         }
 
-    }while(!validaHora || validaDig);
+    }while(!validaHora || validaDig || validaNull);
 
 // ---------------------------------------------------------------------------------------
 
@@ -632,8 +635,8 @@ void telaAlterarConsumo(void){
     printf("///                                                                   ///\n");
     printf("///                      VALORES DE ENTRADA:                          ///\n");
     printf("///                                                                   ///\n");
-    printf("///             Data do consumo: [^\n] \n", dataConsumo);
-    printf("///             Horário do consumo: [^\n] \n", horaConsumo);
+    printf("///             Data do consumo: %s \n", dataConsumo);
+    printf("///             Horário do consumo: %s \n", horaConsumo);
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
     printf("///            CONSUMO LOCALIZADO!                                    ///\n"); ///Possível resultado
@@ -684,37 +687,39 @@ void telaAlterarConsumo(void){
 
         do{
             printf("///            - Código de Barras: ");
-            scanf("[^\n]", codBarras);
+            scanf("%[^\n]", codBarras);
             getchar();
         
             validaCod = validaCodBarras(codBarras);
+            validaNull = verificaNulo(codBarras);
 
-            if(!validaCod){
+            if(!validaCod || validaNull){
                 printf("///            Código inválido, tente novamente !\n");
             }
 
-        }while(!validaCod);
+        }while(!validaCod || validaNull);
 
 // ----------------------- Validando a descrição do produto ------------------------------
 
         do{
             printf("///            - Descrição do Item: ");
-            scanf("[^\n]", nomeItem);
+            scanf("%[^\n]", nomeItem);
             getchar();
 
             validaDig = testeDigitos(nomeItem);
+            validaNull = verificaNulo(nomeItem);
 
-            if(validaDig){
+            if(validaDig || validaNull){
                 printf("///            Caracteres inválidos, tente novamente !\n");
             }
         
-        }while (validaDig);
+        }while (validaDig || validaNull);
 
 // ----------------------- Validando a data de validade ----------------------------------
 
         do{
             printf("///            - Data Val. (dd/mm/aaaa): ");
-            scanf("[^\n]", dataValidade);
+            scanf("%[^\n]", dataValidade);
             getchar();
 
             dia[0] = dataValidade[0];
@@ -733,27 +738,29 @@ void telaAlterarConsumo(void){
         
             validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
+            validaNull = verificaNulo(dataValidade);
 
-            if (!validaData || validaDig) {
+            if (!validaData || validaDig || validaNull) {
                 printf("///            Data inválida, tente novamente !\n");
             }
 
-        }while(!validaData || validaDig);
+        }while(!validaData || validaDig || validaNull);
 
 // ----------------------------- Validando a quantidade ----------------------------------
       
         do{
             printf("///            - Quantidade: ");
-            scanf("[^\n]", quant);
+            scanf("%[^\n]", quant);
             getchar();
             
             validaDig = testeDigitosNumericos(quant);
+            validaNull = verificaNulo(quant);
 
-            if(validaDig){
+            if(validaDig || validaNull){
                 printf("///            Dígitos inválidos, tente novamente !\n");
             }
 
-        }while (validaDig);
+        }while (validaDig || validaNull);
 
         quantC = converteCharParaInt(quant);
 
@@ -763,9 +770,9 @@ void telaAlterarConsumo(void){
         printf("///                       VALORES DE ENTRADA:                         ///\n");
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
-        printf("///              Código de Barras: [^\n] \n", codBarras);
-        printf("///             Descrição do Item: [^\n] \n", nomeItem);
-        printf("///              Data de Validade: [^\n] \n", dataValidade);
+        printf("///              Código de Barras: %s \n", codBarras);
+        printf("///             Descrição do Item: %s \n", nomeItem);
+        printf("///              Data de Validade: %s \n", dataValidade);
         printf("///                    Quantidade: %d \n", quantC);
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
@@ -815,22 +822,23 @@ void telaAlterarConsumo(void){
 
         do{
             printf("///            - Código de Barras: ");
-            scanf("[^\n]", codBarras);
+            scanf("%[^\n]", codBarras);
             getchar();
         
             validaCod = validaCodBarras(codBarras);
+            validaNull = verificaNulo(codBarras);
 
-            if(!validaCod){
+            if(!validaCod || validaNull){
                 printf("///            Código inválido, tente novamente !\n");
             }
 
-        }while(!validaCod);
+        }while(!validaCod || validaNull);
 
 // ----------------------- Validando a data de validade ----------------------------------
 
         do{
             printf("///            - Data de Validade (dd/mm/aaaa): ");
-            scanf("[^\n]", dataValidade);
+            scanf("%[^\n]", dataValidade);
             getchar();
 
             dia[0] = dataValidade[0];
@@ -849,12 +857,13 @@ void telaAlterarConsumo(void){
         
             validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
+            validaNull = verificaNulo(dataValidade);
 
-            if (!validaData || validaDig) {
+            if (!validaData || validaDig || validaNull) {
                 printf("///            Data inválida, tente novamente !\n");
             }
 
-        }while(!validaData || validaDig);
+        }while(!validaData || validaDig || validaNull);
 
 // ---------------------------------------------------------------------------------------
 
@@ -862,8 +871,8 @@ void telaAlterarConsumo(void){
         printf("///                                                                   ///\n");
         printf("///                     VALORES DE ENTRADA:                           ///\n");
         printf("///                                                                   ///\n");
-        printf("///              Código de Barras: [^\n] \n", codBarras);
-        printf("///              Data de Validade: [^\n] \n", dataValidade); 
+        printf("///              Código de Barras: %s \n", codBarras);
+        printf("///              Data de Validade: %s \n", dataValidade); 
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
         printf("///            ITEM ENCONTRADO !                                      ///\n");
@@ -908,16 +917,17 @@ void telaAlterarConsumo(void){
 
             do{
                 printf("///            - a) Nova Descrição: ");
-                scanf("[^\n]", nomeItem);
+                scanf("%[^\n]", nomeItem);
                 getchar();
 
                 validaDig = testeDigitos(nomeItem);
+                validaNull = verificaNulo(nomeItem);
 
-                if(validaDig){
+                if(validaDig || validaNull){
                     printf("///            Caracteres inválidos, tente novamente !\n");
                 }
 
-            }while (validaDig);
+            }while (validaDig || validaNull);
 
 // ---------------------------------------------------------------------------------------
 
@@ -925,7 +935,7 @@ void telaAlterarConsumo(void){
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
             printf("///                                                                   ///\n");
-            printf("///                          Nome: [^\n] \n", nomeItem);
+            printf("///                          Nome: %s \n", nomeItem);
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///            O nome da compra foi alterado!                         ///\n");
@@ -941,7 +951,7 @@ void telaAlterarConsumo(void){
 
             do{
                 printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
-                scanf("[^\n]", dataValidade);
+                scanf("%[^\n]", dataValidade);
                 getchar();
 
                 dia[0] = dataValidade[0];
@@ -960,12 +970,13 @@ void telaAlterarConsumo(void){
             
                 validaData = testaData(diaC, mesC, anoC, dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
+                validaNull = verificaNulo(dataValidade);
 
-                if (!validaData ) {
+                if (!validaData || validaNull) {
                     printf("///            Data inválida, tente novamente !\n");
                 }
 
-            }while(!validaData);
+            }while(!validaData || validaNull);
 
 // ---------------------------------------------------------------------------------------
 
@@ -973,7 +984,7 @@ void telaAlterarConsumo(void){
             printf("///                                                                   ///\n");
             printf("///                        VALOR DE ENTRADA:                          ///\n");
             printf("///                                                                   ///\n");
-            printf("///              Data de Validade: [^\n] \n", dataValidade);
+            printf("///              Data de Validade: %s \n", dataValidade);
             printf("/// _________________________________________________________________ ///\n");
             printf("///                                                                   ///\n");
             printf("///            A data de validade da compra foi alterada!             ///\n");
@@ -989,16 +1000,17 @@ void telaAlterarConsumo(void){
       
             do{
                 printf("///            - c) Nova Quantidade: ");
-                scanf("[^\n]", quant);
+                scanf("%[^\n]", quant);
                 getchar();
                 
                 validaDig = testeDigitosNumericos(quant);
+                validaNull = verificaNulo(quant);
 
-                if(validaDig){
+                if(validaDig || validaNull){
                     printf("///            Dígitos inválidos, tente novamente !\n");
                 }
 
-            }while (validaDig);
+            }while (validaDig || validaNull);
 
             quantC = converteCharParaInt(quant);
 
