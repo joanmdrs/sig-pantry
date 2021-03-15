@@ -4,7 +4,7 @@
 #include <string.h>
 
 void limpaTela(void){
-	system("cls");
+	system("clear");
 }
 
 // A função testeDigito realiza a validação de uma variavel de apenas um dígito.
@@ -423,5 +423,17 @@ int testaHora(int hora, int min, char n[]){
 	}else{
 		return 0;
 	}
+}
+
+// A função verificaNulo verifica se o usuário deixou de inserir algum dado
+
+int verificaNulo(char nome[]) {
+  int tam;
+  tam = strlen(nome);
+  if (tam == 0) {
+    return 1;
+  }else {
+    return 0;
+  }
 }
 

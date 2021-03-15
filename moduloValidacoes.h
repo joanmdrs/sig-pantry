@@ -34,6 +34,4 @@ int testaData(int, int, int, char []);
 
 int testaHora(int, int, char []);
 
-
-
-
+int verificaNulo(char []);
