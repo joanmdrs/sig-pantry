@@ -7,7 +7,6 @@
 
 char menuConsumo(void){
     char opcao;
-    int q = 5;
     int validaOp;
     int validaOpM;
     
@@ -39,7 +38,7 @@ char menuConsumo(void){
         getchar();
 
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, q); 
+        validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -655,7 +654,7 @@ void telaAlterarConsumo(void){
 // ---------------------------------------------------------------------------------------
 
     do{
-        printf("///          - Deseja alterar todos os items da consumo (S/N) ");
+        printf("///          - Deseja alterar todos os items do consumo (S/N) ");
         scanf("%[^\n]", &resposta);
         getchar();
 

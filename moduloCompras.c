@@ -9,7 +9,6 @@
 
 char menuCompras(void){
     char opcao;
-    int q = 5;
     int validaOp;
     int validaOpM;
 
@@ -41,7 +40,7 @@ char menuCompras(void){
         getchar();
 
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, q); 
+        validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");

@@ -6,10 +6,10 @@
 /* A função menuPrincipal realiza a navegação para os demais módulos do projeto. */
 
 char menuPrincipal(void){
+    
     char opcao;
     int validaOp;
     int validaOpM;
-    int q = 5;
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -35,10 +35,13 @@ char menuPrincipal(void){
 
     do{
         printf("Informe a sua opção : ");
-        scanf("%c", &opcao);
+        scanf("%[^\n]", &opcao);
         getchar();
+
+        printf("%c \n", opcao);
+
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, q); 
+        validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");

@@ -4,7 +4,6 @@
 
 char menuRelatorios(void){
     char opcao;
-    int q = 3;
     int validaOp;
     int validaOpM;
 
@@ -30,10 +29,10 @@ char menuRelatorios(void){
 
     do{
         printf("Informe a sua opção : ");
-        scanf("%c", &opcao);
+        scanf("%[^\n]", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, q); 
+        validaOpM = validaOpcaoMenu(opcao, 3); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
