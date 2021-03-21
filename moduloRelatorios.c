@@ -70,6 +70,46 @@ char menuRelatorioProdutos(void){
 
 }
 
+void itensVencidos(void){
+
+    char codBarras[14] = "789859844612";
+    char nomeItem[51] = "Arroz Branco";
+    char dataValidade[11] = "19/03/2021";
+    char local[10] = "Armário";
+    char status[10] = "Fechado";
+    int quant = 5;
+
+    limpaTela();
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           = = = = RELATÓRIO - PRODUTOS VENCIDOS = = = =           ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           Existem 3 produtos vencidos.                            ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    
+    for(int i=0; i < 3; i++){
+        printf("///                                                                   ///\n");
+        printf("///              Código de Barras: %s \n", codBarras);
+        printf("///                     Descrição: %s \n", nomeItem);
+        printf("///              Data de Validade: %s \n", dataValidade);
+        printf("///                         Local: %s \n", local);
+        printf("///                        Status: %s \n", status);
+        printf("///                    Quantidade: %d \n", quant);
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+    }
+
+
+
+}
+
 char menuRelatorioCompras(void){
 
     limpaTela();
