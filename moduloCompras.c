@@ -6,7 +6,6 @@
 /* A função menuCompras irá direcionar o usuário para as funções cadastrar, pesquisar,
    excluir, alterar e listas, referentes ao módulo compras. */
 
-
 char menuCompras(void){
     char opcao;
     int validaOp;

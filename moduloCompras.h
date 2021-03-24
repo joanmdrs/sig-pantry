@@ -1,3 +1,4 @@
+
 char menuCompras(void);
 
 void telaCadastrarCompra(void);

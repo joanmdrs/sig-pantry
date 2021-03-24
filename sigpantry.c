@@ -19,7 +19,7 @@
 
 int main(void) {
 
-    char opcao1, opcao2, opcao3, opcao4, opcao5;
+    char opcao1, opcao2, opcao3, opcao4, opcao5, opcao6, opcao7, opcao8;
 
     do{
         opcao1 = menuPrincipal();
@@ -106,13 +106,63 @@ int main(void) {
 
                     switch (opcao5){
                         case '1':
-                            menuRelatorioProdutos();
+                            do{
+                                opcao6 = menuRelatorioProdutos();
+                                switch (opcao6){
+                                    case '1': 
+                                        itensVencidos();
+                                        break;
+
+                                    case '2':
+                                        itensParaVencer();
+                                        break;
+                                    
+                                    case '3':
+                                        itensAbertos();
+                                        break;
+                                }
+                                
+                            }while(opcao6 != '0');
                             break;
+
                         case '2':
-                            menuRelatorioCompras();
+                            do{
+                                opcao7 = menuRelatorioCompras();
+                                switch (opcao7){
+                                    case '1': 
+                                        comprasDiarias();
+                                        break;
+
+                                    case '2':
+                                        comprasMensais();
+                                        break;
+                                    
+                                    case '3':
+                                        comprasAnuais();
+                                        break;
+                                }
+                                
+                            }while(opcao7 != '0');
                             break;
+
                         case '3':
-                            menuRelatorioConsumo();
+                           do{
+                                opcao8 = menuRelatorioConsumo();
+                                switch (opcao5){
+                                    case '1': 
+                                        consumoDiario();
+                                        break;
+
+                                    case '2':
+                                        consumoMensal();
+                                        break;
+                                    
+                                    case '3':
+                                        consumoAnual();
+                                        break;
+                                }
+                                
+                            }while(opcao8 != '0');
                             break;
                     }
 

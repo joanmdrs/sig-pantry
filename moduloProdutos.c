@@ -3,7 +3,6 @@
 #include <string.h>
 #include "moduloValidacoes.h"
 
-
 /* A função menuProdutos irá direcionar o usuário para as funções cadastrar, pesquisar,
    excluir, alterar e listar, referentes ao módulo produtos. */
 
