@@ -110,20 +110,21 @@ void itensVencidos(void){
     printf("///                                                                   ///\n");
     printf("///           = = = = RELATÓRIO - PRODUTOS VENCIDOS = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///           Total de produtos vencidos: 2                           ///\n");
-    printf("///           _____________________________________________           ///\n");
+    printf("              Total de produtos vencidos: 2                              \n");
+    printf("              _____________________________________________              \n");
     
     for(int i=0; i < 2; i++){
-        printf("///                                                                   ///\n");
-        printf("///              Código de Barras : %s \n", codBarras);
-        printf("///              Descrição        : %s \n", nomeItem);
-        printf("///              Data de Validade : %s \n", dataValidade);
-        printf("///              Local            : %s \n", local);
-        printf("///              Status           : %s \n", status);
-        printf("///              Quantidade       : %d \n", quant);
-        printf("///           _____________________________________________           ///\n");
+        printf("                                                                         \n");
+        printf("                 Código de Barras : %s \n", codBarras);
+        printf("                 Descrição        : %s \n", nomeItem);
+        printf("                 Data de Validade : %s \n", dataValidade);
+        printf("                 Local            : %s \n", local);
+        printf("                 Status           : %s \n", status);
+        printf("                 Quantidade       : %d \n", quant);
+        printf("              _____________________________________________              \n");
     }
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\n/////////////////////////////////////////////////////////////////////////\n");
+    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 
 
@@ -150,29 +151,61 @@ void itensParaVencer(void){
     printf("///                                                                   ///\n");
     printf("///           = = = = RELATÓRIO - PRODUTOS À VENCER = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///           Total de produtos à vencer: 2                           ///\n");
-    printf("///           Data: 23/03/2021                                        ///\n");
-    printf("///           _____________________________________________           ///\n");
+    printf("              Total de produtos à vencer: 2                              \n");
+    printf("              Data: 23/03/2021                                           \n");
+    printf("              _____________________________________________              \n");
     
     for(int i=0; i < 2; i++){
-        printf("///                                                                   ///\n");
-        printf("///              Código de Barras : %s \n", codBarras);
-        printf("///              Descrição        : %s \n", nomeItem);
-        printf("///              Data de Validade : %s \n", dataValidade);
-        printf("///              Local            : %s \n", local);
-        printf("///              Status           : %s \n", status);
-        printf("///              Quantidade       : %d \n", quant);
-        printf("///           _____________________________________________           ///\n");
+        printf("                                                                         \n");
+        printf("                 Código de Barras : %s \n", codBarras);
+        printf("                 Descrição        : %s \n", nomeItem);
+        printf("                 Data de Validade : %s \n", dataValidade);
+        printf("                 Local            : %s \n", local);
+        printf("                 Status           : %s \n", status);
+        printf("                 Quantidade       : %d \n", quant);
+        printf("              _____________________________________________              \n");
     }
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\n/////////////////////////////////////////////////////////////////////////\n");
+    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 
 }
 
 void itensAbertos(void){
+    char codBarras[14] = "789859844612";
+    char nomeItem[51] = "Arroz Branco";
+    char dataValidade[11] = "28/03/2021";
+    char local[10] = "Armário";
+    char status[10] = "Fechado";
+    int quant = 5;
+
     limpaTela();
-    printf("Em desenvolvimento\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           = = = = RELATÓRIO - PRODUTOS ABERTOS = = = =            ///\n");
+    printf("///                                                                   ///\n");
+    printf("              Total de produtos abertos: 2                               \n");
+    printf("              _____________________________________________              \n");
+    
+    for(int i=0; i < 2; i++){
+        printf("                                                                         \n");
+        printf("                 Código de Barras : %s \n", codBarras);
+        printf("                 Descrição        : %s \n", nomeItem);
+        printf("                 Data de Validade : %s \n", dataValidade);
+        printf("                 Local            : %s \n", local);
+        printf("                 Status           : %s \n", status);
+        printf("                 Quantidade       : %d \n", quant);
+        printf("              _____________________________________________              \n");
+    }
+    printf("\n/////////////////////////////////////////////////////////////////////////\n");
+    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 
 }
@@ -240,25 +273,26 @@ void comprasDiarias(void){
     printf("///                                                                   ///\n");
     printf("///           = = = = RELATÓRIO - COMPRAS DIÁRIAS = = = =             ///\n");
     printf("///                                                                   ///\n");
-    printf("///           Total gasto com compras hoje: $200                      ///\n");
-    printf("///           Total de compras realizadas hoje: 2                     ///\n");
-    printf("///           Data: 23/03/2021                                        ///\n");
-    printf("///           _____________________________________________           ///\n");
+    printf("              Total gasto com compras hoje: $200                         \n");
+    printf("              Total de compras realizadas hoje: 2                        \n");
+    printf("              Data: 23/03/2021                                           \n");
+    printf("              _____________________________________________              \n");
     
     for(int i=0; i < 2; i++){
-        printf("///                                                                   ///\n");
-        printf("///              Data Compra: %s\n", dataCompra);
-        printf("///              Horário Compra: %s\n\n", horaCompra);
-        printf("///              Lista de Itens:\n\n");
+        printf("                                                                         \n");
+        printf("                 Data Compra: %s\n", dataCompra);
+        printf("                 Horário Compra: %s\n\n", horaCompra);
+        printf("                 Lista de Itens:\n\n");
 
         for (int i = 0; i < 5; i++){
-            printf("///              %s, %d unidade(s) \n", nomeItem, quant);
+            printf("                 %s, %d unidade(s) \n", nomeItem, quant);
         }
 
-        printf("///              Valor Compra: $ %s\n", valorCompra);
-        printf("///           _____________________________________________           ///\n");
+        printf("                 Valor Compra: $ %s\n", valorCompra);
+        printf("              _____________________________________________              \n");
     }
-
+    
+    printf("\n/////////////////////////////////////////////////////////////////////////\n");
     printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 
