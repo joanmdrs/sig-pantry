@@ -148,7 +148,7 @@ int main(void) {
                         case '3':
                            do{
                                 opcao8 = menuRelatorioConsumo();
-                                switch (opcao5){
+                                switch (opcao8){
                                     case '1': 
                                         consumoDiario();
                                         break;
@@ -176,6 +176,7 @@ int main(void) {
         } 
 
     }while(opcao1 != '0');
+    printf("Fim do programa, obrigado por utilizar nossos serviços!\n");
 
     return 0;
 
