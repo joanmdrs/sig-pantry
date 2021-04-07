@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <string.h>
 
+// A função limpaTela realiza literalmente a limpeza da tela. 
+
 void limpaTela(void){
 	system("clear");
 }
