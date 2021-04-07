@@ -342,42 +342,63 @@ int testaBissexto(int ano) {
 
 // A função testaData verifica se uma determinada data é válida 
 
-int testaData(int dia, int mes, int ano, char n[]) {
+int testaData(char n[]) {
+
+	char dia[3];
+	int diaC;
+	char mes[3];
+	int mesC;
+	char ano[5];
+	int anoC;
 
 	int diaM; // variável destinada à receber o maior dia do mês
 
+	dia[0] = n[0];
+	dia[1] = n[1];
+	diaC = converteCharParaInt(dia);
+
+	mes[0] = n[3];
+	mes[1] = n[4];
+	mesC = converteCharParaInt(mes);
+
+	ano[0] = n[6];
+	ano[1] = n[7];
+	ano[2] = n[8];
+	ano[3] = n[9];
+	anoC = converteCharParaInt(ano);
+
 	if (strlen(n) == 10){
 
-		if (dia < 1 || dia > 31 ||mes < 1 || mes > 12 || ano == 0 || ano < 2000){
+		if (diaC < 1 || diaC > 31 ||mesC < 1 || mesC > 12 || anoC == 0 || anoC < 2000){
     		return 0;
 
 		}else{
 
-			if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
+			if (mesC == 1 || mesC == 3 || mesC == 5 || mesC == 7 || mesC == 8 || mesC == 10 || mesC == 12){
 				diaM = 31;
 				
-				if (dia >= 1 && dia <= diaM){
+				if (diaC >= 1 && diaC <= diaM){
 					return 1;
 				}else{
 					return 0;
 				}
 
-			}else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+			}else if (mesC == 4 || mesC == 6 || mesC == 9 || mesC == 11) {
 				diaM = 30;
 
-				if (dia >= 1 && dia <= diaM){
+				if (diaC >= 1 && diaC <= diaM){
 					return 1;
 
 				}else{
 					return 0;
 				}
 			
-			}else if(mes == 2){
+			}else if(mesC == 2){
 
-				if (!testaBissexto(ano)) {
+				if (!testaBissexto(anoC)) {
 					diaM = 28;
 
-					if (dia >= 1 && dia <= diaM){
+					if (diaC >= 1 && diaC <= diaM){
 						return 1;
 
 					}else{
@@ -386,7 +407,7 @@ int testaData(int dia, int mes, int ano, char n[]) {
 
 				}else{
 					diaM = 29;
-					if (dia >= 1 && dia <= diaM){
+					if (diaC >= 1 && diaC <= diaM){
 						return 1;
 						
 					}else{

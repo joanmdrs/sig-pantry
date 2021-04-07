@@ -3,6 +3,18 @@
 #include <string.h>
 #include "moduloValidacoes.h"
 
+typedef struct produto Produto;
+
+struct produto {
+    char codBarras[14];
+    char nomeItem[51];
+    char dataValidade[11];
+    char local[10];
+    char status[10];
+    char quant[10];
+};
+
+
 /* A função menuProdutos irá direcionar o usuário para as funções cadastrar, pesquisar,
    excluir, alterar e listar, referentes ao módulo produtos. */
 
@@ -53,27 +65,14 @@ char menuProdutos(void){
 
 /* A função telaCadastrarProduto realiza o cadastro de um produto. */
 
-void telaCadastrarProduto(void){
-
-    char codBarras[14];
-    char nomeItem[51];
-    char dataValidade[11];
-    char local[10];
-    char status[10];
-    char quant[10];
+Produto* telaCadastrarProduto(void){
     
     int validaCod;
 	int validaDig;
 	int validaData;
     int validaNull;
 
-	char dia[3];
-	int diaC;
-	char mes[3];
-	int mesC;
-	char ano[5];
-	int anoC;
-	int quantC = 0;
+	char quant1[10];
 
     limpaTela();
     printf("\n");
@@ -89,16 +88,18 @@ void telaCadastrarProduto(void){
     printf("///          = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
+    Produto* pro;
+
 // ----------------------- Validando o código de barras ----------------------------------
 
     do{
         printf("///            - Código de Barras: ");
-        scanf("%[^\n]", codBarras);
+        scanf("%[^\n]", pro->codBarras);
         getchar();
-    
-		validaCod = validaCodBarras(codBarras);
-        validaDig = testeDigitosNumericos(codBarras);
-        validaNull = verificaNulo(codBarras);
+
+		validaCod = validaCodBarras(pro->codBarras);
+        validaDig = testeDigitosNumericos(pro->codBarras);
+        validaNull = verificaNulo(pro->codBarras);
 
 		if(!validaCod || validaDig || validaNull){
 			printf("///            Código inválido, tente novamente !\n");
@@ -110,11 +111,11 @@ void telaCadastrarProduto(void){
 
     do{
         printf("///            - Descrição: ");
-        scanf("%[^\n]", nomeItem);
+        scanf("%[^\n]", pro->nomeItem);
         getchar();
 
-        validaDig = testeDigitos(nomeItem);
-        validaNull = verificaNulo(nomeItem);
+        validaDig = testeDigitos(pro->nomeItem);
+        validaNull = verificaNulo(pro->nomeItem);
 
         if(validaDig || validaNull){
             printf("///            Caracteres inválidos, tente novamente !\n");
@@ -126,26 +127,12 @@ void telaCadastrarProduto(void){
 
     do{
         printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("%[^\n]", dataValidade);
+        scanf("%[^\n]", pro->dataValidade);
         getchar();
 
-        dia[0] = dataValidade[0];
-		dia[1] = dataValidade[1];
-		diaC = converteCharParaInt(dia);
-
-		mes[0] = dataValidade[3];
-		mes[1] = dataValidade[4];
-		mesC = converteCharParaInt(mes);
-
-		ano[0] = dataValidade[6];
-		ano[1] = dataValidade[7];
-		ano[2] = dataValidade[8];
-		ano[3] = dataValidade[9];
-		anoC = converteCharParaInt(ano);
-    
-        validaData = testaData(diaC, mesC, anoC, dataValidade);
-        validaDig = testeDigitosNumericosData(dataValidade);
-        validaNull = verificaNulo(dataValidade);
+        validaData = testaData(pro->dataValidade);
+        validaDig = testeDigitosNumericosData(pro->dataValidade);
+        validaNull = verificaNulo(pro->dataValidade);
 
         if (!validaData || validaDig || validaNull) {
             printf("///            Data inválida, tente novamente !\n");
@@ -157,11 +144,11 @@ void telaCadastrarProduto(void){
 
     do{
         printf("///            - Local: ");
-        scanf("%[^\n]", local);
+        scanf("%[^\n]", pro->local);
         getchar();
 
-        validaDig = testeDigitos(local);
-        validaNull = verificaNulo(local);
+        validaDig = testeDigitos(pro->local);
+        validaNull = verificaNulo(pro->local);
 
         if(validaDig || validaNull){
             printf("///            Caracteres inválidos, tente novamente !\n");
@@ -173,11 +160,11 @@ void telaCadastrarProduto(void){
 
     do{
         printf("///            - Status: ");
-        scanf("%[^\n]", status);
+        scanf("%[^\n]", pro->status);
         getchar();
 
-        validaDig = testeDigitos(status);
-        validaNull = verificaNulo(status);
+        validaDig = testeDigitos(pro->status);
+        validaNull = verificaNulo(pro->status);
 
         if(validaDig || validaNull){
             printf("///            Caracteres inválidos, tente novamente !\n");
@@ -189,19 +176,17 @@ void telaCadastrarProduto(void){
       
     do{
         printf("///            - Quantidade: ");
-        scanf("%[^\n]", quant);
+        scanf("%[^\n]", pro->quant);
         getchar();
         
-        validaDig = testeDigitosNumericos(quant);
-        validaNull = verificaNulo(quant);
+        validaDig = testeDigitosNumericos(pro->quant);
+        validaNull = verificaNulo(pro->quant);
 
         if(validaDig || validaNull){
             printf("///            Dígitos inválidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
-
-    quantC = converteCharParaInt(quant);
 
 // ---------------------------------------------------------------------------------------
 
@@ -210,16 +195,18 @@ void telaCadastrarProduto(void){
     printf("///                  Produto cadastrado com sucesso !                 ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///              Código de Barras: %s \n", codBarras);
-    printf("///                     Descrição: %s \n", nomeItem);
-    printf("///              Data de Validade: %s \n", dataValidade);
-    printf("///                         Local: %s \n", local);
-    printf("///                        Status: %s \n", status);
-    printf("///                    Quantidade: %d \n", quantC);
+    printf("///              Código de Barras: %s \n", pro->codBarras);
+    printf("///                     Descrição: %s \n", pro->nomeItem);
+    printf("///              Data de Validade: %s \n", pro->dataValidade);
+    printf("///                         Local: %s \n", pro->local);
+    printf("///                        Status: %s \n", pro->status);
+    printf("///                    Quantidade: %d \n", pro->quant);
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///                >>> Tecle <ENTER> para continuar...                ///\n");
     getchar();
+
+    return pro;
 
 }
 
@@ -401,6 +388,7 @@ void telaExcluirProduto(void){
 
 /* A função telaAlterarProduto realiza a alteração de um produto. */
 
+/*
 void telaAlterarProduto(void){
     char codBarras[14];
     char nomeItem[51];
@@ -876,6 +864,8 @@ void telaAlterarProduto(void){
     }
     
 }
+
+*/
 
 /* A função telaListarProdutos realiza a listagem de todos os produtos. */
 

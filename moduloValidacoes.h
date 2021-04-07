@@ -30,7 +30,7 @@ int validaCodBarras(char []);
 
 int testaBissexto(int);
 
-int testaData(int, int, int, char []);
+int testaData(char []);
 
 int testaHora(int, int, char []);
 
