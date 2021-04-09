@@ -4,7 +4,6 @@
 #include "moduloValidacoes.h"
 
 typedef struct produto Produto;
-
 struct produto {
     char codBarras[14];
     char nomeItem[51];
@@ -72,7 +71,7 @@ Produto* telaCadastrarProduto(void){
 	int validaData;
     int validaNull;
 
-	char quant1[10];
+    int quantC;
 
     limpaTela();
     printf("\n");
@@ -89,6 +88,7 @@ Produto* telaCadastrarProduto(void){
     printf("///                                                                   ///\n");
 
     Produto* pro;
+    pro = (Produto*) malloc(sizeof(Produto));
 
 // ----------------------- Validando o código de barras ----------------------------------
 
@@ -187,6 +187,7 @@ Produto* telaCadastrarProduto(void){
         }
 
     }while (validaDig || validaNull);
+    quantC = converteCharParaInt(pro->quant);
 
 // ---------------------------------------------------------------------------------------
 
@@ -200,7 +201,7 @@ Produto* telaCadastrarProduto(void){
     printf("///              Data de Validade: %s \n", pro->dataValidade);
     printf("///                         Local: %s \n", pro->local);
     printf("///                        Status: %s \n", pro->status);
-    printf("///                    Quantidade: %d \n", pro->quant);
+    printf("///                    Quantidade: %d \n", quantC);
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///                >>> Tecle <ENTER> para continuar...                ///\n");
@@ -388,7 +389,7 @@ void telaExcluirProduto(void){
 
 /* A função telaAlterarProduto realiza a alteração de um produto. */
 
-/*
+
 void telaAlterarProduto(void){
     char codBarras[14];
     char nomeItem[51];
@@ -531,7 +532,7 @@ void telaAlterarProduto(void){
             ano[3] = dataValidade[9];
             anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC, dataValidade);
+            //validaData = testaData(diaC, mesC, anoC, dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
             validaNull = verificaNulo(dataValidade); 
 
@@ -738,7 +739,7 @@ void telaAlterarProduto(void){
                 ano[3] = dataValidade[9];
                 anoC = converteCharParaInt(ano);
             
-                validaData = testaData(diaC, mesC, anoC, dataValidade);
+                //validaData = testaData(diaC, mesC, anoC, dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
                 validaNull = verificaNulo(dataValidade);
 
@@ -865,7 +866,6 @@ void telaAlterarProduto(void){
     
 }
 
-*/
 
 /* A função telaListarProdutos realiza a listagem de todos os produtos. */
 

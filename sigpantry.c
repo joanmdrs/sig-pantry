@@ -21,6 +21,8 @@ int main(void) {
 
     char opcao1, opcao2, opcao3, opcao4, opcao5, opcao6, opcao7, opcao8;
 
+    Produto* pro;
+
     do{
         opcao1 = menuPrincipal();
 
@@ -31,7 +33,7 @@ int main(void) {
 
                     switch (opcao2){
                         case '1':
-                            telaCadastrarProduto();
+                            pro = telaCadastrarProduto();
                             break;
                         case '2':
                             telaPesquisarProduto();
@@ -48,6 +50,7 @@ int main(void) {
                     }
 
                 }while(opcao2 != '0');
+                free(pro);
                 break;
 
             case '2':
