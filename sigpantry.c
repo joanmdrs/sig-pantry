@@ -27,6 +27,7 @@ int main(void) {
         opcao1 = menuPrincipal();
 
         Produto* pro;
+        Compra* com;
 
         switch (opcao1){
             case '1':
@@ -61,7 +62,7 @@ int main(void) {
 
                     switch (opcao3){
                         case '1':
-                            telaCadastrarCompra();
+                            com = telaCadastrarCompra();
                             break;
                         case '2':
                             telaPesquisarCompra();
@@ -78,6 +79,7 @@ int main(void) {
                     }
 
                 } while (opcao3 != '0');
+                free(com);
                 break;
 
             case '3':
