@@ -6,7 +6,7 @@
 // A função limpaTela realiza literalmente a limpeza da tela. 
 
 void limpaTela(void){
-	system("clc");
+	system("cls");
 }
 
 // A função testeDigito realiza a validação de uma variavel de apenas um dígito.
@@ -427,14 +427,28 @@ int testaData(char n[]) {
 
 // A função testaHora verifica se uma determinada hora é válida 
 
-int testaHora(int hora, int min, char n[]){
+int testaHora(char n[]){
+
+	char hora[3];
+    int horaC;
+    char min[3];
+    int minC;
+
+	hora[0] = n[0];
+	hora[1] = n[1];
+	horaC = converteCharParaInt(hora);
+
+	min[0] = n[3];
+	min[1] = n[4];
+	minC = converteCharParaInt(min);
+
 
 	if (strlen(n) == 5){
-		if (hora > 23 || min > 59 ){
+		if (horaC > 23 || minC > 59 ){
 			return 0;
 
-		}else if (hora >= 0 && hora <=23){
-			if(min >= 0 && min <= 59){
+		}else if (horaC >= 0 && horaC <=23){
+			if(minC >= 0 && minC <= 59){
 				return 1;
 			}else{
 				return 0;

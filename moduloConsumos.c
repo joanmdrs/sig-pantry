@@ -62,17 +62,6 @@ void telaCadastrarConsumo(void){
     char dataConsumo[11];
     char horaConsumo[6];
 
-    char dia[3];
-	int diaC;
-	char mes[3];
-	int mesC;
-	char ano[5];
-	int anoC;
-    char hora[3];
-    int horaC;
-    char minutos[3];
-    int minutosC;
-
     int validaCod;
     int validaDig;
     int validaData;
@@ -133,22 +122,8 @@ void telaCadastrarConsumo(void){
         printf("///            - Data Val. (dd/mm/aaaa): ");
         scanf("%[^\n]", dataValidade);
         getchar();
-
-        dia[0] = dataValidade[0];
-		dia[1] = dataValidade[1];
-		diaC = converteCharParaInt(dia);
-
-		mes[0] = dataValidade[3];
-		mes[1] = dataValidade[4];
-		mesC = converteCharParaInt(mes);
-
-		ano[0] = dataValidade[6];
-		ano[1] = dataValidade[7];
-		ano[2] = dataValidade[8];
-		ano[3] = dataValidade[9];
-		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC, dataValidade);
+        validaData = testaData(dataValidade);
         validaDig = testeDigitosNumericosData(dataValidade);
         validaNull = verificaNulo(dataValidade);
 
@@ -182,22 +157,8 @@ void telaCadastrarConsumo(void){
         printf("///            - Data Consumo (dd/mm/aaaa): ");
         scanf("%[^\n]", dataConsumo);
         getchar();
-
-        dia[0] = dataConsumo[0];
-		dia[1] = dataConsumo[1];
-		diaC = converteCharParaInt(dia);
-
-		mes[0] = dataConsumo[3];
-		mes[1] = dataConsumo[4];
-		mesC = converteCharParaInt(mes);
-
-		ano[0] = dataConsumo[6];
-		ano[1] = dataConsumo[7];
-		ano[2] = dataConsumo[8];
-		ano[3] = dataConsumo[9];
-		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC, dataConsumo);
+        validaData = testaData(dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
         validaNull = verificaNulo(dataConsumo);
 
@@ -214,15 +175,7 @@ void telaCadastrarConsumo(void){
         scanf("%[^\n]", horaConsumo);
         getchar();
 
-        hora[0] = horaConsumo[0];
-        hora[1] = horaConsumo[1];
-		horaC = converteCharParaInt(hora);
-
-		minutos[0] = horaConsumo[3];
-        minutos[1] = horaConsumo[4];
-        minutosC = converteCharParaInt(minutos);
-    
-        validaHora = testaHora(horaC, minutosC, horaConsumo);
+        validaHora = testaHora(horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
         validaNull = verificaNulo(horaConsumo);
 
@@ -293,22 +246,8 @@ void telaPesquisarConsumo(void){
         printf("///            - Data Consumo (dd/mm/aaaa): ");
         scanf("%[^\n]", dataConsumo);
         getchar();
-
-        dia[0] = dataConsumo[0];
-		dia[1] = dataConsumo[1];
-		diaC = converteCharParaInt(dia);
-
-		mes[0] = dataConsumo[3];
-		mes[1] = dataConsumo[4];
-		mesC = converteCharParaInt(mes);
-
-		ano[0] = dataConsumo[6];
-		ano[1] = dataConsumo[7];
-		ano[2] = dataConsumo[8];
-		ano[3] = dataConsumo[9];
-		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC, dataConsumo);
+        validaData = testaData(dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
         validaNull = verificaNulo(dataConsumo);
 
@@ -325,15 +264,7 @@ void telaPesquisarConsumo(void){
         scanf("%[^\n]", horaConsumo);
         getchar();
 
-        hora[0] = horaConsumo[0];
-        hora[1] = horaConsumo[1];
-		horaC = converteCharParaInt(hora);
-
-		minutos[0] = horaConsumo[3];
-        minutos[1] = horaConsumo[4];
-        minutosC = converteCharParaInt(minutos);
-    
-        validaHora = testaHora(horaC, minutosC, horaConsumo);
+        validaHora = testaHora(horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
         validaNull = verificaNulo(horaConsumo);
 
@@ -414,22 +345,8 @@ void telaExcluirConsumo(void){
         printf("///            - Data Consumo (dd/mm/aaaa): ");
         scanf("%[^\n]", dataConsumo);
         getchar();
-
-        dia[0] = dataConsumo[0];
-		dia[1] = dataConsumo[1];
-		diaC = converteCharParaInt(dia);
-
-		mes[0] = dataConsumo[3];
-		mes[1] = dataConsumo[4];
-		mesC = converteCharParaInt(mes);
-
-		ano[0] = dataConsumo[6];
-		ano[1] = dataConsumo[7];
-		ano[2] = dataConsumo[8];
-		ano[3] = dataConsumo[9];
-		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC, dataConsumo);
+        validaData = testaData(dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
         validaNull = verificaNulo(dataConsumo);
 
@@ -445,16 +362,8 @@ void telaExcluirConsumo(void){
         printf("///            - Horário Consumo (hh:mm): ");
         scanf("%[^\n]", horaConsumo);
         getchar();
-
-        hora[0] = horaConsumo[0];
-        hora[1] = horaConsumo[1];
-		horaC = converteCharParaInt(hora);
-
-		minutos[0] = horaConsumo[3];
-        minutos[1] = horaConsumo[4];
-        minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC, horaConsumo);
+        validaHora = testaHora(horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
         validaNull = verificaNulo(horaConsumo);
 
@@ -578,22 +487,8 @@ void telaAlterarConsumo(void){
         printf("///            - Data Consumo (dd/mm/aaaa): ");
         scanf("%[^\n]", dataConsumo);
         getchar();
-
-        dia[0] = dataConsumo[0];
-		dia[1] = dataConsumo[1];
-		diaC = converteCharParaInt(dia);
-
-		mes[0] = dataConsumo[3];
-		mes[1] = dataConsumo[4];
-		mesC = converteCharParaInt(mes);
-
-		ano[0] = dataConsumo[6];
-		ano[1] = dataConsumo[7];
-		ano[2] = dataConsumo[8];
-		ano[3] = dataConsumo[9];
-		anoC = converteCharParaInt(ano);
     
-        validaData = testaData(diaC, mesC, anoC, dataConsumo);
+        validaData = testaData(dataConsumo);
         validaDig = testeDigitosNumericosData(dataConsumo);
         validaNull = verificaNulo(dataConsumo);
 
@@ -609,16 +504,8 @@ void telaAlterarConsumo(void){
         printf("///            - Horário Consumo (hh:mm): ");
         scanf("%[^\n]", horaConsumo);
         getchar();
-
-        hora[0] = horaConsumo[0];
-        hora[1] = horaConsumo[1];
-		horaC = converteCharParaInt(hora);
-
-		minutos[0] = horaConsumo[3];
-        minutos[1] = horaConsumo[4];
-        minutosC = converteCharParaInt(minutos);
     
-        validaHora = testaHora(horaC, minutosC, horaConsumo);
+        validaHora = testaHora(horaConsumo);
         validaDig = testeDigitosNumericosHora(horaConsumo);
         validaNull = verificaNulo(horaConsumo);
 
@@ -720,22 +607,8 @@ void telaAlterarConsumo(void){
             printf("///            - Data Val. (dd/mm/aaaa): ");
             scanf("%[^\n]", dataValidade);
             getchar();
-
-            dia[0] = dataValidade[0];
-            dia[1] = dataValidade[1];
-            diaC = converteCharParaInt(dia);
-
-            mes[0] = dataValidade[3];
-            mes[1] = dataValidade[4];
-            mesC = converteCharParaInt(mes);
-
-            ano[0] = dataValidade[6];
-            ano[1] = dataValidade[7];
-            ano[2] = dataValidade[8];
-            ano[3] = dataValidade[9];
-            anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC, dataValidade);
+            validaData = testaData(dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
             validaNull = verificaNulo(dataValidade);
 
@@ -839,22 +712,8 @@ void telaAlterarConsumo(void){
             printf("///            - Data de Validade (dd/mm/aaaa): ");
             scanf("%[^\n]", dataValidade);
             getchar();
-
-            dia[0] = dataValidade[0];
-            dia[1] = dataValidade[1];
-            diaC = converteCharParaInt(dia);
-
-            mes[0] = dataValidade[3];
-            mes[1] = dataValidade[4];
-            mesC = converteCharParaInt(mes);
-
-            ano[0] = dataValidade[6];
-            ano[1] = dataValidade[7];
-            ano[2] = dataValidade[8];
-            ano[3] = dataValidade[9];
-            anoC = converteCharParaInt(ano);
         
-            validaData = testaData(diaC, mesC, anoC, dataValidade);
+            validaData = testaData(dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
             validaNull = verificaNulo(dataValidade);
 
@@ -952,22 +811,8 @@ void telaAlterarConsumo(void){
                 printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
                 scanf("%[^\n]", dataValidade);
                 getchar();
-
-                dia[0] = dataValidade[0];
-                dia[1] = dataValidade[1];
-                diaC = converteCharParaInt(dia);
-
-                mes[0] = dataValidade[3];
-                mes[1] = dataValidade[4];
-                mesC = converteCharParaInt(mes);
-
-                ano[0] = dataValidade[6];
-                ano[1] = dataValidade[7];
-                ano[2] = dataValidade[8];
-                ano[3] = dataValidade[9];
-                anoC = converteCharParaInt(ano);
             
-                validaData = testaData(diaC, mesC, anoC, dataValidade);
+                validaData = testaData(dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
                 validaNull = verificaNulo(dataValidade);
 

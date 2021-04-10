@@ -18,9 +18,10 @@ struct produto {
    excluir, alterar e listar, referentes ao módulo produtos. */
 
 char menuProdutos(void){
+
     char opcao;
-    int validaOp;
-    int validaOpM;
+    int validaI; 
+    int validaII;  
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -48,15 +49,15 @@ char menuProdutos(void){
         printf("Informe a sua opção : ");
         scanf("%[^\n]", &opcao);
         getchar();
-        validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, 5); 
+        validaI = testeDigito(opcao);
+        validaII = validaOpcaoMenu(opcao, 5); 
 
-        if(!validaOp || !validaOpM){
+        if(!validaI || !validaII){
             printf("Opção inválida, tente novamente!\n");
 
         }
 
-    }while(!validaOp || !validaOpM);
+    }while(!validaI || !validaII);
 
 	return opcao;
 
@@ -87,6 +88,8 @@ Produto* telaCadastrarProduto(void){
     printf("///          = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
+// ----------------------- Alocando espaço de memória ----------------------------------
+
     Produto* pro;
     pro = (Produto*) malloc(sizeof(Produto));
 
@@ -97,9 +100,13 @@ Produto* telaCadastrarProduto(void){
         scanf("%[^\n]", pro->codBarras);
         getchar();
 
-		validaCod = validaCodBarras(pro->codBarras);
-        validaDig = testeDigitosNumericos(pro->codBarras);
-        validaNull = verificaNulo(pro->codBarras);
+        char codigo[14];
+
+        strcpy(codigo, pro->codBarras);
+
+		validaCod = validaCodBarras(codigo);
+        validaDig = testeDigitosNumericos(codigo);
+        validaNull = verificaNulo(codigo);
 
 		if(!validaCod || validaDig || validaNull){
 			printf("///            Código inválido, tente novamente !\n");
@@ -114,8 +121,11 @@ Produto* telaCadastrarProduto(void){
         scanf("%[^\n]", pro->nomeItem);
         getchar();
 
-        validaDig = testeDigitos(pro->nomeItem);
-        validaNull = verificaNulo(pro->nomeItem);
+        char nome[51];
+        strcpy(nome,pro->nomeItem);
+
+        validaDig = testeDigitos(nome);
+        validaNull = verificaNulo(nome);
 
         if(validaDig || validaNull){
             printf("///            Caracteres inválidos, tente novamente !\n");
@@ -130,9 +140,13 @@ Produto* telaCadastrarProduto(void){
         scanf("%[^\n]", pro->dataValidade);
         getchar();
 
-        validaData = testaData(pro->dataValidade);
-        validaDig = testeDigitosNumericosData(pro->dataValidade);
-        validaNull = verificaNulo(pro->dataValidade);
+        char data[11];
+
+        strcpy(data,pro->dataValidade);
+
+        validaData = testaData(data);
+        validaDig = testeDigitosNumericosData(data);
+        validaNull = verificaNulo(data);
 
         if (!validaData || validaDig || validaNull) {
             printf("///            Data inválida, tente novamente !\n");
@@ -146,9 +160,13 @@ Produto* telaCadastrarProduto(void){
         printf("///            - Local: ");
         scanf("%[^\n]", pro->local);
         getchar();
+        
+        char local1[10];
 
-        validaDig = testeDigitos(pro->local);
-        validaNull = verificaNulo(pro->local);
+        strcpy(local1, pro->local);
+
+        validaDig = testeDigitos(local1);
+        validaNull = verificaNulo(local1);
 
         if(validaDig || validaNull){
             printf("///            Caracteres inválidos, tente novamente !\n");
@@ -163,8 +181,12 @@ Produto* telaCadastrarProduto(void){
         scanf("%[^\n]", pro->status);
         getchar();
 
-        validaDig = testeDigitos(pro->status);
-        validaNull = verificaNulo(pro->status);
+        char status1[10];
+
+        strcpy(status1, pro->status);
+
+        validaDig = testeDigitos(status1);
+        validaNull = verificaNulo(status1);
 
         if(validaDig || validaNull){
             printf("///            Caracteres inválidos, tente novamente !\n");
@@ -179,8 +201,11 @@ Produto* telaCadastrarProduto(void){
         scanf("%[^\n]", pro->quant);
         getchar();
         
-        validaDig = testeDigitosNumericos(pro->quant);
-        validaNull = verificaNulo(pro->quant);
+        char quant1[10];
+
+        strcpy(quant1, pro->quant);
+        validaDig = testeDigitosNumericos(quant1);
+        validaNull = verificaNulo(quant1);
 
         if(validaDig || validaNull){
             printf("///            Dígitos inválidos, tente novamente !\n");

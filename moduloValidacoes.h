@@ -32,6 +32,6 @@ int testaBissexto(int);
 
 int testaData(char []);
 
-int testaHora(int, int, char []);
+int testaHora(char []);
 
 int verificaNulo(char []);
