@@ -21,10 +21,12 @@ int main(void) {
 
     char opcao1, opcao2, opcao3, opcao4, opcao5, opcao6, opcao7, opcao8;
 
-    Produto* pro;
+
 
     do{
         opcao1 = menuPrincipal();
+
+        Produto* pro;
 
         switch (opcao1){
             case '1':

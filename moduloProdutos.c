@@ -432,12 +432,6 @@ void telaAlterarProduto(void){
     int validaData;
     int validaNull;
 
-	char dia[3];
-	int diaC;
-	char mes[3];
-	int mesC;
-	char ano[5];
-	int anoC;
 	int quantC = 0;
 
     limpaTela();
@@ -542,30 +536,16 @@ void telaAlterarProduto(void){
             printf("///            - Nova Data Val. (dd/mm/aaaa): ");
             scanf("%[^\n]", dataValidade);
             getchar();
-
-            dia[0] = dataValidade[0];
-            dia[1] = dataValidade[1];
-            diaC = converteCharParaInt(dia);
-
-            mes[0] = dataValidade[3];
-            mes[1] = dataValidade[4];
-            mesC = converteCharParaInt(mes);
-
-            ano[0] = dataValidade[6];
-            ano[1] = dataValidade[7];
-            ano[2] = dataValidade[8];
-            ano[3] = dataValidade[9];
-            anoC = converteCharParaInt(ano);
         
-            //validaData = testaData(diaC, mesC, anoC, dataValidade);
+            validaData = testaData(dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
             validaNull = verificaNulo(dataValidade); 
 
-            if (!validaData || validaNull) {
+            if (!validaData || validaDig || validaNull) {
                 printf("///            Data inválida, tente novamente !\n");
             }
 
-        }while(!validaData || validaNull);
+        }while(!validaData || validaDig || validaNull);
 
 // -------------------------------- Validando o local ------------------------------------
 
@@ -749,22 +729,8 @@ void telaAlterarProduto(void){
                 printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
                 scanf("%[^\n]", dataValidade);
                 getchar();
-
-                dia[0] = dataValidade[0];
-                dia[1] = dataValidade[1];
-                diaC = converteCharParaInt(dia);
-
-                mes[0] = dataValidade[3];
-                mes[1] = dataValidade[4];
-                mesC = converteCharParaInt(mes);
-
-                ano[0] = dataValidade[6];
-                ano[1] = dataValidade[7];
-                ano[2] = dataValidade[8];
-                ano[3] = dataValidade[9];
-                anoC = converteCharParaInt(ano);
             
-                //validaData = testaData(diaC, mesC, anoC, dataValidade);
+                validaData = testaData(dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
                 validaNull = verificaNulo(dataValidade);
 
