@@ -463,7 +463,7 @@ int testaHora(char n[]){
 	}
 }
 
-// A função verificaNulo verifica se o usuário deixou de inserir algum dado
+// A função verificaNulo verifica se o usuário informou um valor nulo
 
 int verificaNulo(char nome[]) {
   int tam;
@@ -473,5 +473,18 @@ int verificaNulo(char nome[]) {
   }else {
     return 0;
   }
+}
+
+// A função verificaStatus verifica se o status do produto informado é FECHADO ou ABERTO
+
+int verificaStatus(char status[]){
+
+	if(!strcmp(status, "Fechado") || !strcmp(status, "FECHADO") || !strcmp(status, "fechado") || !strcmp(status, "Aberto") || !strcmp(status, "ABERTO") || !strcmp(status, "aberto")){
+		return 1;
+
+	}else{
+		return 0;
+	}
+
 }
 
