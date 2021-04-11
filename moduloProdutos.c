@@ -240,7 +240,7 @@ Produto* telaCadastrarProduto(void){
 
 /* A função telaPesquisarProduto realiza a busca de um produto. */
 
-void telaPesquisarProduto(void){
+void telaPesquisarProduto(Produto* pro){
     char codBarras[14];
     int validaCod;
     int validaNull;
@@ -283,19 +283,26 @@ void telaPesquisarProduto(void){
     printf("///            - Código de Barras: %s \n",codBarras);
     printf("/// _________________________________________________________________ ///\n");
     printf("///                                                                   ///\n");
-    printf("///            PRODUTO LOCALIZADO!                                    ///\n"); 
-    printf("///                                                                   ///\n");
-    printf("///            - Codigo de Barras:                                    ///\n");
-    printf("///            - Descrição:                                           ///\n");
-    printf("///            - Data de Validade:                                    ///\n");
-    printf("///            - Local:                                               ///\n");
-    printf("///            - Status:                                              ///\n");
-    printf("///            - Quantidade:                                          ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");  
-    printf("///            Não existem produtos cadastrados com o código          ///\n");  
-    printf("///            de barras informado.                                   ///\n");    
-    printf("///        ___________________________________________________        ///\n");
+    if (!strcmp(codBarras,pro->codBarras)){
+
+        int quantC = converteCharParaInt(pro->quant);
+
+        printf("///            PRODUTO LOCALIZADO!                                    ///\n"); 
+        printf("///                                                                   ///\n");
+        printf("///              Código de Barras: %s \n", pro->codBarras);
+        printf("///                     Descrição: %s \n", pro->nomeItem);
+        printf("///              Data de Validade: %s \n", pro->dataValidade);
+        printf("///                         Local: %s \n", pro->local);
+        printf("///                        Status: %s \n", pro->status);
+        printf("///                    Quantidade: %d \n", quantC);
+        printf("///        ___________________________________________________        ///\n");
+
+    } else{
+        printf("///            Não existem produtos cadastrados com o código          ///\n");  
+        printf("///            de barras informado.                                   ///\n");    
+        printf("///        ___________________________________________________        ///\n");
+    }
+    
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");

@@ -39,7 +39,7 @@ int main(void) {
                             pro = telaCadastrarProduto();
                             break;
                         case '2':
-                            telaPesquisarProduto();
+                            telaPesquisarProduto(pro);
                             break;
                         case '3':
                             telaExcluirProduto();
@@ -65,7 +65,7 @@ int main(void) {
                             com = telaCadastrarCompra();
                             break;
                         case '2':
-                            telaPesquisarCompra();
+                            telaPesquisarCompra(com);
                             break;
                         case '3':
                             telaExcluirCompra();

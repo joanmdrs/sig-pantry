@@ -12,7 +12,7 @@ char menuCompras(void);
 
 Compra* telaCadastrarCompra(void);
 
-void telaPesquisarCompra(void);
+void telaPesquisarCompra(Compra*);
 
 void telaExcluirCompra(void);
 

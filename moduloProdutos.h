@@ -10,7 +10,7 @@ struct produto {
 
 char menuProdutos(void);
 Produto* telaCadastrarProduto(void);
-void telaPesquisarProduto(void);
+void telaPesquisarProduto(Produto*);
 void telaExcluirProduto(void);
 void telaAlterarProduto(void);
 void telaListarProdutos(void);
