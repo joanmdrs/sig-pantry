@@ -11,6 +11,6 @@ struct produto {
 char menuProdutos(void);
 Produto* telaCadastrarProduto(void);
 void telaPesquisarProduto(Produto*);
-void telaExcluirProduto(void);
-void telaAlterarProduto(void);
+void telaExcluirProduto(Produto*);
+void telaAlterarProduto(Produto*);
 void telaListarProdutos(void);

@@ -483,25 +483,24 @@ void telaExcluirProduto(Produto* pro){
 
 /* A função telaAlterarProduto realiza a alteração de um produto. */
 
+void telaAlterarProduto(Produto* pro){
 
-void telaAlterarProduto(void){
     char codBarras[14];
     char nomeItem[51];
     char dataValidade[11];
     char local[10];
     char status[10];
+    char quant[10];
+
     char resposta;
     char respostaLetras;
     char decisao;
-    char quant[10];
 
     int validaCod;
     int validaDig;
     int validaOp;
     int validaData;
     int validaNull;
-
-	int quantC = 0;
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -515,8 +514,6 @@ void telaAlterarProduto(void){
     printf("///                                                                   ///\n");
     printf("///            = = = = = MÓDULO ALTERAR PRODUTO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
-
-// ----------------------- Validando o código de barras ----------------------------------
 
     do{
         printf("///            - Código de Barras: ");
@@ -533,215 +530,30 @@ void telaAlterarProduto(void){
 
 	}while(!validaCod || validaDig || validaNull);
 
-    printf("/// _________________________________________________________________ ///\n");
-    printf("///                                                                   ///\n");
-    printf("///                       VALOR DE ENTRADA:                           ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Código de Barras: %s \n",codBarras);
-    printf("/// _________________________________________________________________ ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            PRODUTO LOCALIZADO!                                    ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Código de Barras:                                    ///\n");
-    printf("///            - Descrição:                                           ///\n");
-    printf("///            - Data de Validade:                                    ///\n");
-    printf("///            - Local:                                               ///\n");
-    printf("///            - Status:                                              ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");  
-    printf("///            Não existem produtos cadastrados com o código          ///\n"); 
-    printf("///            de barras informado.                                   ///\n");    
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
+    if(!strcmp(codBarras, pro->codBarras) && strcmp("x", pro->status)){
 
-// ---------------------------------------------------------------------------------------
-
-    do{
-        printf("///            - Deseja alterar todos os itens do produto (S/N) ? ");
-        scanf("%[^\n]", &resposta);
-        getchar();
-
-        validaDig = testeDigito(resposta);
-        validaOp = validaOpcao(resposta);
-        
-
-        if(!validaOp || validaDig){
-            printf("///            Opcão inválida, tente novamente!\n");
-        }
-
-    }while(!validaOp || validaDig);
-
-    printf("/// _________________________________________________________________ ///\n");
-    printf("///                                                                   ///\n");
-    printf("///                       VALOR DE ENTRADA:                           ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            - Opção escolhida: %c \n",resposta);
-    printf("///___________________________________________________________________///\n");
-
-    if (resposta == 'S' || resposta == 's'){
+        printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
-        printf("///           INFORME OS NOVOS VALORES DO PRODUTO:                    ///\n");
+        printf("///                        PRODUTO LOCALIZADO!                        ///\n");
         printf("///                                                                   ///\n");
-        
-// ----------------------- Validando a descrição do produto ------------------------------
-
-        do{
-            printf("///            - Nova Descrição: ");
-            scanf("%[^\n]", nomeItem);
-            getchar();
-
-            validaDig = testeDigitos(nomeItem);
-            validaNull = verificaNulo(nomeItem);
-
-            if(validaDig || validaNull){
-                printf("///            Caracteres inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-
-// ----------------------- Validando a data de validade ----------------------------------
-        
-        do{
-            printf("///            - Nova Data Val. (dd/mm/aaaa): ");
-            scanf("%[^\n]", dataValidade);
-            getchar();
-        
-            validaData = testaData(dataValidade);
-            validaDig = testeDigitosNumericosData(dataValidade);
-            validaNull = verificaNulo(dataValidade); 
-
-            if (!validaData || validaDig || validaNull) {
-                printf("///            Data inválida, tente novamente !\n");
-            }
-
-        }while(!validaData || validaDig || validaNull);
-
-// -------------------------------- Validando o local ------------------------------------
-
-        do{
-            printf("///            - Novo Local: ");
-            scanf("%[^\n]", local);
-            getchar();
-
-            validaDig = testeDigitos(local);
-            validaNull = verificaNulo(local);
-
-            if(validaDig || validaNull){
-                printf("///            Caracteres inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-
-// -------------------------------- Validando o status -----------------------------------
-
-        do{
-            printf("///            - Novo Status: ");
-            scanf("%[^\n]", status);
-            getchar();
-
-            validaDig = testeDigitos(status);
-            validaNull = verificaNulo(status);
-
-            if(validaDig || validaNull){
-                printf("///            Caracteres inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);        
-        
-// ----------------------------- Validando a quantidade ----------------------------------
-
-        do{
-            printf("///            - Nova Quantidade: ");
-            scanf("%[^\n]", quant);
-            getchar();
-            
-            validaDig = testeDigitosNumericos(quant);
-            validaNull = verificaNulo(quant);
-
-            if(validaDig || validaNull){
-                printf("///            Dígitos inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-
-        quantC = converteCharParaInt(quant);
-        
-
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                       VALORES DE ENTRADA:                         ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                          Nome: %s \n", nomeItem);
-        printf("///              Data de Validade: %s \n", dataValidade);
-        printf("///                         Local: %s \n", local);
-        printf("///                        Status: %s \n", status);
-        printf("///                    Quantidade: %d \n", quantC);
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-
-// ---------------------------------------------------------------------------------------
-
-        do{
-            printf("///            - Confirmar operação (S/N) ? ");
-            scanf("%[^\n]", &decisao);
-            getchar();
-
-            validaDig = testeDigito(decisao);
-            validaOp = validaOpcao(decisao);
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                       VALOR DE ENTRADA:                           ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            - Opção escolhida: %c \n",decisao);
-        printf("/// _________________________________________________________________ ///\n");
-
-        if (decisao == 'S' || decisao == 's'){
-            printf("///                                                                   ///\n");
-            printf("///            Produto alterado com sucesso!                          ///\n"); 
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }else if(decisao == 'N' || decisao == 'n'){
-            printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }
-
-    }else if(resposta == 'N' || resposta == 'n'){
-
-        printf("///                                                                   ///\n");
-        printf("///           ESCOLHA O CAMPO À ALTERAR:                              ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            - Digite 'a' para alterar o nome                       ///\n");
-        printf("///            - Digite 'b' para alterar a validade                   ///\n");
-        printf("///            - Digite 'c' para alterar o local                      ///\n");
-        printf("///            - Digite 'd' para alterar o status                     ///\n");
-        printf("///            - Digite 'e' para alterar a quantidade:                ///\n");
+        printf("///              Código de Barras: %s \n", pro->codBarras);
+        printf("///                     Descrição: %s \n", pro->nomeItem);
+        printf("///              Data de Validade: %s \n", pro->dataValidade);
+        printf("///                         Local: %s \n", pro->local);
+        printf("///                        Status: %s \n", pro->status);
+        printf("///                    Quantidade: %s \n", pro->quant);
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
 
-// ---------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
 
         do{
-            printf("///            - Informe a sua opção: ");
-            scanf("%[^\n]", &respostaLetras);
+            printf("///            - Deseja alterar todos os itens do produto (S/N) ? ");
+            scanf("%[^\n]", &resposta);
             getchar();
 
-            validaDig = testeDigito(respostaLetras);
-            validaOp = validaOpcaoLetrasAE(respostaLetras);
+            validaDig = testeDigito(resposta);
+            validaOp = validaOpcao(resposta);
             
 
             if(!validaOp || validaDig){
@@ -750,20 +562,15 @@ void telaAlterarProduto(void){
 
         }while(!validaOp || validaDig);
 
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                       VALOR DE ENTRADA:                           ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            - Opção escolhida: %c \n",respostaLetras);
-        printf("/// _________________________________________________________________ ///\n");
+// ---------------------------------------------------------------------------------------
 
-// ----------------------- Validando a descrição do produto ------------------------------
-
-        if (respostaLetras == 'A' || respostaLetras == 'a'){
+        if (resposta == 'S' || resposta == 's'){
+            printf("///                                                                   ///\n");
+            printf("///           INFORME OS NOVOS VALORES DO PRODUTO:                    ///\n");
             printf("///                                                                   ///\n");
         
             do{
-                printf("///            - a) Nova Descrição: ");
+                printf("///            - Nova Descrição: ");
                 scanf("%[^\n]", nomeItem);
                 getchar();
 
@@ -775,33 +582,15 @@ void telaAlterarProduto(void){
                 }
 
             }while (validaDig || validaNull);
-
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                        VALOR DE ENTRADA:                          ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                          Nome: %s \n", nomeItem);
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///            O nome do produto foi alterado!                        ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-// ----------------------- Validando a data de validade ----------------------------------
-
-        }else if(resposta == 'B' || respostaLetras == 'b'){
-            printf("///                                                                   ///\n");
             
             do{
-                printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
+                printf("///            - Nova Data Val. (dd/mm/aaaa): ");
                 scanf("%[^\n]", dataValidade);
                 getchar();
             
                 validaData = testaData(dataValidade);
                 validaDig = testeDigitosNumericosData(dataValidade);
-                validaNull = verificaNulo(dataValidade);
+                validaNull = verificaNulo(dataValidade); 
 
                 if (!validaData || validaDig || validaNull) {
                     printf("///            Data inválida, tente novamente !\n");
@@ -809,26 +598,8 @@ void telaAlterarProduto(void){
 
             }while(!validaData || validaDig || validaNull);
 
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                        VALOR DE ENTRADA:                          ///\n");
-            printf("///                                                                   ///\n");
-            printf("///              Data de Validade: %s \n", dataValidade);
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///            A data de validade do produto foi alterada!            ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-// -------------------------------- Validando o local ------------------------------------
-
-        }else if(respostaLetras == 'C' || respostaLetras == 'c'){
-            printf("///                                                                   ///\n");
-            
             do{
-                printf("///            - c) Novo Local: ");
+                printf("///            - Novo Local: ");
                 scanf("%[^\n]", local);
                 getchar();
 
@@ -841,26 +612,8 @@ void telaAlterarProduto(void){
 
             }while (validaDig || validaNull);
 
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                        VALOR DE ENTRADA:                          ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                         Local: %s \n", local);
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///            O local do produto foi alterado!                       ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-// -------------------------------- Validando o status -----------------------------------
-
-        }else if(respostaLetras == 'D' || respostaLetras == 'd'){
-            printf("///                                                                   ///\n");
-            
             do{
-                printf("///            - d) Novo Status: ");
+                printf("///            - Novo Status: ");
                 scanf("%[^\n]", status);
                 getchar();
 
@@ -872,27 +625,9 @@ void telaAlterarProduto(void){
                 }
 
             }while (validaDig || validaNull);
-
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                        VALOR DE ENTRADA:                          ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                        Status: %s \n", status);
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");
-            printf("///            O status do produto foi alterado!                      ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-// ----------------------------- Validando a quantidade ----------------------------------
-
-        }else if(respostaLetras == 'E' || respostaLetras == 'e'){
-            printf("///                                                                   ///\n");
-                  
+            
             do{
-                printf("///            - e) Nova Quantidade: ");
+                printf("///            - Nova Quantidade: ");
                 scanf("%[^\n]", quant);
                 getchar();
                 
@@ -903,25 +638,188 @@ void telaAlterarProduto(void){
                     printf("///            Dígitos inválidos, tente novamente !\n");
                 }
 
-            }while (validaDig || validaNull);
+            }while (validaDig || validaNull);            
 
-            quantC = converteCharParaInt(quant);
+            do{
+                printf("///            - Confirmar operação (S/N) ? ");
+                scanf("%[^\n]", &decisao);
+                getchar();
 
-            printf("/// _________________________________________________________________ ///\n");
+                validaDig = testeDigito(decisao);
+                validaOp = validaOpcao(decisao);
+
+                if(!validaOp || validaDig){
+                    printf("///            Opcão inválida, tente novamente!\n");
+                }
+
+            }while(!validaOp || validaDig);
+
+            if (decisao == 'S' || decisao == 's'){
+
+                strcpy(pro->nomeItem, nomeItem);
+                strcpy(pro->dataValidade, dataValidade);
+                strcpy(pro->local, local);
+                strcpy(pro->status, status);
+                strcpy(pro->quant, quant);
+
+                printf("///                                                                   ///\n");
+                printf("///            Produto alterado com sucesso!                          ///\n"); 
+                printf("///                                                                   ///\n");
+                printf("/////////////////////////////////////////////////////////////////////////\n\n");
+                printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
+
+            }else if(decisao == 'N' || decisao == 'n'){
+                printf("///                                                                   ///\n");
+                printf("///            Operação cancelada!                                    ///\n");
+                printf("///                                                                   ///\n");
+                printf("/////////////////////////////////////////////////////////////////////////\n\n");
+                printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+                getchar();
+
+            }
+
+        }else if(resposta == 'N' || resposta == 'n'){
+
             printf("///                                                                   ///\n");
-            printf("///                        VALOR DE ENTRADA:                          ///\n");
+            printf("///           ESCOLHA O CAMPO À ALTERAR:                              ///\n");
             printf("///                                                                   ///\n");
-            printf("///                    Quantidade: %d \n", quantC);       
-            printf("/// _________________________________________________________________ ///\n");
+            printf("///            - Digite 'a' para alterar o nome                       ///\n");
+            printf("///            - Digite 'b' para alterar a validade                   ///\n");
+            printf("///            - Digite 'c' para alterar o local                      ///\n");
+            printf("///            - Digite 'd' para alterar o status                     ///\n");
+            printf("///            - Digite 'e' para alterar a quantidade:                ///\n");
+            printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n");
-            printf("///            A quantidade foi alterada!                             ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
+
+// ---------------------------------------------------------------------------------------
+
+            do{
+                printf("///            - Informe a sua opção: ");
+                scanf("%[^\n]", &respostaLetras);
+                getchar();
+
+                validaDig = testeDigito(respostaLetras);
+                validaOp = validaOpcaoLetrasAE(respostaLetras);
+                
+
+                if(!validaOp || validaDig){
+                    printf("///            Opcão inválida, tente novamente!\n");
+                }
+
+            }while(!validaOp || validaDig);
+
+            if (respostaLetras == 'A' || respostaLetras == 'a'){
+                printf("///                                                                   ///\n");
+            
+                do{
+                    printf("///            - a) Nova Descrição: ");
+                    scanf("%[^\n]", nomeItem);
+                    getchar();
+
+                    validaDig = testeDigitos(nomeItem);
+                    validaNull = verificaNulo(nomeItem);
+
+                    if(validaDig || validaNull){
+                        printf("///            Caracteres inválidos, tente novamente !\n");
+                    }
+
+                }while (validaDig || validaNull);
+
+                strcpy(pro->nomeItem, nomeItem);
+
+            }else if(resposta == 'B' || respostaLetras == 'b'){
+                printf("///                                                                   ///\n");
+                
+                do{
+                    printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
+                    scanf("%[^\n]", dataValidade);
+                    getchar();
+                
+                    validaData = testaData(dataValidade);
+                    validaDig = testeDigitosNumericosData(dataValidade);
+                    validaNull = verificaNulo(dataValidade);
+
+                    if (!validaData || validaDig || validaNull) {
+                        printf("///            Data inválida, tente novamente !\n");
+                    }
+
+                }while(!validaData || validaDig || validaNull);
+
+                strcpy(pro->dataValidade, dataValidade);
+
+            }else if(respostaLetras == 'C' || respostaLetras == 'c'){
+                printf("///                                                                   ///\n");
+                
+                do{
+                    printf("///            - c) Novo Local: ");
+                    scanf("%[^\n]", local);
+                    getchar();
+
+                    validaDig = testeDigitos(local);
+                    validaNull = verificaNulo(local);
+
+                    if(validaDig || validaNull){
+                        printf("///            Caracteres inválidos, tente novamente !\n");
+                    }
+
+                }while (validaDig || validaNull);
+
+                strcpy(pro->local, local);
+
+    // -------------------------------- Validando o status -----------------------------------
+
+            }else if(respostaLetras == 'D' || respostaLetras == 'd'){
+                printf("///                                                                   ///\n");
+                
+                do{
+                    printf("///            - d) Novo Status: ");
+                    scanf("%[^\n]", status);
+                    getchar();
+
+                    validaDig = testeDigitos(status);
+                    validaNull = verificaNulo(status);
+
+                    if(validaDig || validaNull){
+                        printf("///            Caracteres inválidos, tente novamente !\n");
+                    }
+
+                }while (validaDig || validaNull);
+
+                strcpy(pro->status, status);
+
+            }else if(respostaLetras == 'E' || respostaLetras == 'e'){
+                printf("///                                                                   ///\n");
+                    
+                do{
+                    printf("///            - e) Nova Quantidade: ");
+                    scanf("%[^\n]", quant);
+                    getchar();
+                    
+                    validaDig = testeDigitosNumericos(quant);
+                    validaNull = verificaNulo(quant);
+
+                    if(validaDig || validaNull){
+                        printf("///            Dígitos inválidos, tente novamente !\n");
+                    }
+
+                }while (validaDig || validaNull);
+
+                strcpy(pro->quant, quant);
+
+            }
 
         }
-
+    
+    }else{
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///            Não existem produtos cadastrados com o código          ///\n");  
+        printf("///            de barras informado.                                   ///\n");    
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
     }
     
 }

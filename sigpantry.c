@@ -42,10 +42,10 @@ int main(void) {
                             telaPesquisarProduto(pro);
                             break;
                         case '3':
-                            telaExcluirProduto();
+                            telaExcluirProduto(pro);
                             break;
                         case '4':
-                            telaAlterarProduto();
+                            telaAlterarProduto(pro);
                             break;
                         case '5':
                             telaListarProdutos();
