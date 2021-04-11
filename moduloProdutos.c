@@ -4,6 +4,7 @@
 #include "moduloValidacoes.h"
 
 typedef struct produto Produto;
+
 struct produto {
     char codBarras[14];
     char nomeItem[51];
@@ -204,6 +205,7 @@ Produto* telaCadastrarProduto(void){
         char quant1[10];
 
         strcpy(quant1, pro->quant);
+
         validaDig = testeDigitosNumericos(quant1);
         validaNull = verificaNulo(quant1);
 
