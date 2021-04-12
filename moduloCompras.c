@@ -386,7 +386,7 @@ void telaPesquisarCompra(Compra* com){
 
 // ---------------------------------------------------------------------------------------
 
-    if((!strcmp(dataCompra, com->dataCompra)) && (!strcmp(horaCompra, com->horaCompra))){
+    if((!strcmp(dataCompra, com->dataCompra)) && (!strcmp(horaCompra, com->horaCompra)) && strcmp("x",com->status)){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");  
         printf("///                        COMPRA LOCALIZADA!                         ///\n");
@@ -522,17 +522,17 @@ void telaExcluirCompra(Compra* com){
 // ---------------------------------------------------------------------------------------
 
         do{
-        printf("///            - Confirmar operação (S/N) ? ");
-        scanf("%[^\n]", &resposta);
-        getchar();
+            printf("///            - Confirmar operação (S/N) ? ");
+            scanf("%[^\n]", &resposta);
+            getchar();
 
-        validaDig = testeDigito(resposta);
-        validaOp = validaOpcao(resposta);
-        
+            validaDig = testeDigito(resposta);
+            validaOp = validaOpcao(resposta);
+            
 
-        if(!validaOp || validaDig){
-            printf("///            Opcão inválida, tente novamente!\n");
-        }
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
+            }
 
         }while(!validaOp || validaDig);
 
@@ -656,7 +656,7 @@ void telaAlterarCompra(Compra* com){
 
 // ---------------------------------------------------------------------------------------
 
-    if((!strcmp(dataCompra, com->dataCompra)) && (!strcmp(horaCompra, com->horaCompra))){
+    if((!strcmp(dataCompra, com->dataCompra)) && (!strcmp(horaCompra, com->horaCompra)) && strcmp("x",com->status)){
         printf("/// _________________________________________________________________ ///\n");
         printf("///                                                                   ///\n");
         printf("///            COMPRA LOCALIZADA!                                     ///\n");
@@ -688,28 +688,21 @@ void telaAlterarCompra(Compra* com){
 // ---------------------------------------------------------------------------------------
 
         do{
-        printf("///          - Deseja alterar todos os items da compra (S/N) ");
-        scanf("%[^\n]", &resposta);
-        getchar();
+            printf("///          - Deseja alterar todos os items da compra (S/N) ");
+            scanf("%[^\n]", &resposta);
+            getchar();
 
-        validaDig = testeDigito(resposta);
-        validaOp = validaOpcao(resposta);
-        
+            validaDig = testeDigito(resposta);
+            validaOp = validaOpcao(resposta);
+            
 
-        if(!validaOp || validaDig){
-            printf("///            Opcão inválida, tente novamente!\n");
-        }
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
+            }
 
         }while(!validaOp || validaDig);
 
 // ---------------------------------------------------------------------------------------
-
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                       VALOR DE ENTRADA:                           ///\n");
-        printf("///                                                                   ///\n");
-        printf("///             Opção escolhida: %c \n", resposta);
-        printf("/// _________________________________________________________________ ///\n");
 
         if (resposta == 'S' || resposta == 's'){
             printf("///                                                                   ///\n");
