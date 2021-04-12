@@ -341,7 +341,8 @@ void telaPesquisarProduto(Produto* pro){
             printf("///              Data de Validade: %s \n", pro->dataValidade);
             printf("///                         Local: %s \n", pro->local);
             printf("///                        Status: %s \n", pro->status);
-            printf("///                    Quantidade: %d \n", pro->quant);
+            int quantC = converteCharParaInt(pro->quant);
+            printf("///                    Quantidade: %d \n", quantC);
             printf("///        ___________________________________________________        ///\n");
 
         } else{

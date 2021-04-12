@@ -1,11 +1,13 @@
 typedef struct compra Compra;
 
 struct compra {
-    char codBarras[14];
-    char nomeItem[51];
-    char dataValidade[11];
-    char quant[10];
-    char valorItem[10];
+    char quantItens[10];
+    Produto itens[100];
+    float valorItem[100];
+    float valorCompra;
+    char dataCompra[11];
+    char horaCompra[6];
+    char status[10];
 };
 
 char menuCompras(void);
@@ -14,8 +16,8 @@ Compra* telaCadastrarCompra(void);
 
 void telaPesquisarCompra(Compra*);
 
-void telaExcluirCompra(void);
+void telaExcluirCompra(Compra*);
 
-void telaAlterarCompra(void);
+void telaAlterarCompra(Compra*);
 
 void telaListarCompras(void);

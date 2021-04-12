@@ -28,6 +28,7 @@ int main(void) {
 
         Produto* pro;
         Compra* com;
+        Consumo* con;
 
         switch (opcao1){
             case '1':
@@ -68,10 +69,10 @@ int main(void) {
                             telaPesquisarCompra(com);
                             break;
                         case '3':
-                            telaExcluirCompra();
+                            telaExcluirCompra(com);
                             break;
                         case '4':
-                            telaAlterarCompra();
+                            telaAlterarCompra(com);
                             break;
                         case '5':
                             telaListarCompras();
@@ -88,16 +89,16 @@ int main(void) {
 
                     switch (opcao4){
                         case '1':
-                            telaCadastrarConsumo();
+                            con = telaCadastrarConsumo();
                             break;
                         case '2':
-                            telaPesquisarConsumo();
+                            telaPesquisarConsumo(con);
                             break;
                         case '3':
-                            telaExcluirConsumo();
+                            telaExcluirConsumo(con);
                             break;
                         case '4':
-                            telaAlterarConsumo();
+                            telaAlterarConsumo(con);
                             break;
                         case '5':
                             telaListarConsumos();
@@ -105,6 +106,7 @@ int main(void) {
                     }
 
                 } while(opcao4 != '0');
+                free(con);
                 break;
                 
             case '4':

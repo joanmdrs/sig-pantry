@@ -6,7 +6,7 @@
 // A função limpaTela realiza literalmente a limpeza da tela. 
 
 void limpaTela(void){
-	system("cls");
+	system("clear");
 }
 
 // A função testeDigito realiza a validação de uma variavel de apenas um dígito.
