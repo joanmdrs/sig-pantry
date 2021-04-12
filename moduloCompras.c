@@ -113,7 +113,7 @@ Compra* telaCadastrarCompra(void){
 			printf("///            Quantidade inválida, tente novamente !\n");
 		}
 
-	}while(!validaCod || validaDig || validaNull);
+	}while(validaDig || validaNull);
 
     int q = atoi(com->quantItens);
 
@@ -302,6 +302,9 @@ Compra* telaCadastrarCompra(void){
     printf("///                                                                   ///\n");
 
     for (int i = 0; i < q; i++){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///            Item %d \n", i+1);
+        printf("///                                                                   ///\n");
         printf("///          Código de Barras: %s \n", com->itens[i].codBarras);
         printf("///          Descrição do Item: %s \n", com->itens[i].nomeItem);
         printf("///          Data de Validade: %s \n", com->itens[i].dataValidade);
@@ -309,10 +312,11 @@ Compra* telaCadastrarCompra(void){
         printf("///          Status: %s \n", com->itens[i].status);
         printf("///          Quant.: %s \n", com->itens[i].quant);
         printf("///          Val. Item: R$ %.2f \n", com->valorItem[i]);
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
 
     }
+
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
     printf("///          Data: %s \n", com->dataCompra);
     printf("///          Horário: %s \n", com->horaCompra);
     printf("///          Val. Compra: R$ %.2f \n", com->valorCompra);
@@ -397,7 +401,9 @@ void telaPesquisarCompra(Compra* com){
         int q = atoi(com->quantItens);
 
         for (int i = 0; i < q; i++){
-            printf("///\n");
+            printf("/// _________________________________________________________________ ///\n");
+            printf("///            Item %d \n", i+1);
+            printf("///                                                                   ///\n");
             printf("///            Código de Barras: %s \n", com->itens[i].codBarras);
             printf("///            Descrição do Item: %s \n", com->itens[i].nomeItem);
             printf("///            Data de Validade: %s \n", com->itens[i].dataValidade);
@@ -405,9 +411,10 @@ void telaPesquisarCompra(Compra* com){
             printf("///            Status: %s \n", com->itens[i].status);
             printf("///            Quant.: %s \n", com->itens[i].quant);
             printf("///            Val. Item: R$ %.2f \n", com->valorItem[i]);
-            printf("///        ___________________________________________________        ///\n");
 
         }
+
+        printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///             Data da compra: %s \n", com->dataCompra);
         printf("///             Horário da compra: %s \n", com->horaCompra);
@@ -501,7 +508,9 @@ void telaExcluirCompra(Compra* com){
         int q = atoi(com->quantItens);
 
         for (int i = 0; i < q; i++){
-            printf("///\n");
+            printf("/// _________________________________________________________________ ///\n");
+            printf("///            Item %d \n", i+1);
+            printf("///                                                                   ///\n");
             printf("///            Código de Barras: %s \n", com->itens[i].codBarras);
             printf("///            Descrição do Item: %s \n", com->itens[i].nomeItem);
             printf("///            Data de Validade: %s \n", com->itens[i].dataValidade);
@@ -509,10 +518,10 @@ void telaExcluirCompra(Compra* com){
             printf("///            Status: %s \n", com->itens[i].status);
             printf("///            Quant.: %s \n", com->itens[i].quant);
             printf("///            Val. Item: R$ %.2f \n", com->valorItem[i]);
-            printf("///        ___________________________________________________        ///\n");
 
         }
 
+        printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///             Data da compra: %s \n", com->dataCompra);
         printf("///             Horário da compra: %s \n", com->horaCompra);
@@ -667,7 +676,9 @@ void telaAlterarCompra(Compra* com){
         int q = atoi(com->quantItens);
 
         for (int i = 0; i < q; i++){
-            printf("///\n");
+            printf("/// _________________________________________________________________ ///\n");
+            printf("///            Item %d \n", i+1);
+            printf("///                                                                   ///\n");
             printf("///            Código de Barras: %s \n", com->itens[i].codBarras);
             printf("///            Descrição do Item: %s \n", com->itens[i].nomeItem);
             printf("///            Data de Validade: %s \n", com->itens[i].dataValidade);
@@ -675,10 +686,10 @@ void telaAlterarCompra(Compra* com){
             printf("///            Status: %s \n", com->itens[i].status);
             printf("///            Quant.: %s \n", com->itens[i].quant);
             printf("///            Val. Item: R$ %.2f \n", com->valorItem[i]);
-            printf("///        ___________________________________________________        ///\n");
 
         }
 
+        printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///             Data da compra: %s \n", com->dataCompra);
         printf("///             Horário da compra: %s \n", com->horaCompra);
@@ -811,6 +822,8 @@ void telaAlterarCompra(Compra* com){
                 printf("/// _________________________________________________________________ ///\n");
                 printf("///                                                                   ///\n");
                 printf("///                       VALORES DE ENTRADA:                         ///\n");
+                printf("///                                                                   ///\n");
+                printf("///            Item %d \n", i+1);
                 printf("/// _________________________________________________________________ ///\n");
                 printf("///                                                                   ///\n");
                 printf("///              Código de Barras: %s \n", codBarras);
@@ -851,7 +864,7 @@ void telaAlterarCompra(Compra* com){
 
 
                     printf("///                                                                   ///\n");
-                    printf("///            Compra alterada com sucesso!                           ///\n"); 
+                    printf("///            Item %d alterado com sucesso!                          ///\n", i+1); 
                     printf("///                                                                   ///\n");
                     printf("/////////////////////////////////////////////////////////////////////////\n\n");
                     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -916,11 +929,12 @@ void telaAlterarCompra(Compra* com){
                     printf("///                                                                   ///\n");
                     printf("///            ITEM ENCONTRADO !                                      ///\n");
                     printf("///                                                                   ///\n");
-                    printf("///             - Código de Barras:                                   ///\n");
-                    printf("///             - Descrição do Item:                                  ///\n");
-                    printf("///             - Data de Validade:                                   ///\n"); 
-                    printf("///             - Quantidade:                                         ///\n"); 
-                    printf("///             - Valor do Item:                                      ///\n");
+                    printf("///              Código de Barras: %s \n", com->itens[i].codBarras);
+                    printf("///             Descrição do Item: %s \n", com->itens[i].nomeItem);
+                    printf("///              Data de Validade: %s \n", com->itens[i].dataValidade);
+                    int quantC = converteCharParaInt(com->itens[i].quant);
+                    printf("///                    Quantidade: %d \n", quantC);
+                    printf("///                 Valor do Item: R$ %.2f \n", com->valorItem[i]);
                     printf("///        ___________________________________________________        ///\n");
 
                     printf("/// _________________________________________________________________ ///\n");
@@ -1098,17 +1112,20 @@ void telaAlterarCompra(Compra* com){
                         getchar();
                 
                     }
-        
 
                 } else{
                     printf("/// _________________________________________________________________ ///\n");
                     printf("///                                                                   ///\n");
                     printf("///            ITEM NÃO ENCONTRADO !                                  ///\n");
-                    printf("///        ___________________________________________________        ///\n");
+                    printf("///                                                                   ///\n");
+                    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+                    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+                    getchar();
 
                 }
             }
         }
+
     } else{
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");  
