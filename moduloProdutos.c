@@ -64,6 +64,18 @@ char menuProdutos(void){
 
 }
 
+/* A função gravarProduto salva o produto no arquivo produtos.dat. */
+
+void gravarProduto(Produto* pro){
+    FILE* file;
+
+    file = fopen("produtos.dat", "ab");
+
+    fwrite(pro, sizeof(Produto), 1, file);
+
+    fclose(file);
+}
+
 /* A função telaCadastrarProduto realiza o cadastro de um produto. */
 
 Produto* telaCadastrarProduto(void){
@@ -216,17 +228,110 @@ Produto* telaCadastrarProduto(void){
 
 }
 
+/* A função cadastrarProduto faz o procedimento para o cadastro de um produto. */
+
+void cadastrarProduto(void){
+    Produto* prod;
+
+    prod = telaCadastrarProduto();
+
+    gravarProduto(prod);
+
+    free(prod);
+}
+
+/* A função buscaProduto verifica se o produto está no arquivo produtos.dat. */
+
+Produto* buscaProduto(char op){
+
+    int validaCod;
+	int validaDig;
+    int validaNull;
+
+    FILE* file;
+    Produto* prod;
+
+    prod = (Produto*) malloc(sizeof(Produto));
+    file = fopen("produtos.dat", "rb");
+
+    while(!feof(file)){
+        fread(prod, sizeof(Produto), 1, file);
+
+        if(op == 'a'){
+            char codBarras[14];
+
+// ----------------------- Validando o código de barras ----------------------------------
+
+            do{
+                printf("///            - Código de Barras: ");
+                scanf("%[^\n]", codBarras);
+                getchar();
+
+                validaCod = validaCodBarras(codBarras);
+                validaDig = testeDigitosNumericos(codBarras);
+                validaNull = verificaNulo(codBarras);
+
+                if(!validaCod || validaDig || validaNull){
+                    printf("///            Código inválido, tente novamente !\n");
+                }
+
+            }while(!validaCod || validaDig || validaNull);
+
+// ---------------------------------------------------------------------------------------
+
+            if(!strcmp(prod->codBarras, codBarras)){
+                fclose(file);
+                return prod;
+            }
+
+        } else if(op == 'b'){
+            char nomeItem[51];
+
+// ----------------------- Validando a descrição do produto ------------------------------
+
+            do{
+                printf("///            - Descrição: ");
+                scanf("%[^\n]", nomeItem);
+                getchar();
+
+                validaDig = testeDigitos(nomeItem);
+                validaNull = verificaNulo(nomeItem);
+
+                if(validaDig || validaNull){
+                    printf("///            Caracteres inválidos, tente novamente !\n");
+                }
+
+            }while (validaDig || validaNull);
+
+// ---------------------------------------------------------------------------------------
+            
+            if(!strcmp(prod->nomeItem, nomeItem)){
+                fclose(file);
+                return prod;
+            }
+        } else{
+            printf("///        ___________________________________________________        ///\n");
+            printf("///                                                                   ///\n");
+            printf("///          Opção Inválida!                                          ///\n");  
+            printf("///        ___________________________________________________        ///\n");
+            printf("///                                                                   ///\n");
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+        }
+    }
+
+    fclose(file);
+    return NULL;
+
+}
+
 /* A função telaPesquisarProduto realiza a busca de um produto. */
 
-void telaPesquisarProduto(Produto* pro){
-
-    char codBarras[14];
-    char descricao[51];
+char telaPesquisarProduto(void){
     char tipoPesq;
 
     int validaDig;
-    int validaCod;
-    int validaNull;
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -260,128 +365,65 @@ void telaPesquisarProduto(Produto* pro){
 
     }while(validaDig);
 
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
+    return tipoPesq;
 
 // ---------------------------------------------------------------------------------------
+}
 
-    if (tipoPesq == 'a'){
+void exibeProduto(Produto* prod){
 
-// ---------------------------------------------------------------------------------------
+    if(prod == NULL){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///          Não existem produtos cadastrados com a descricao         ///\n");  
+        printf("///          informada.                                               ///\n");    
+        printf("///        ___________________________________________________        ///\n");
 
-        do{
-            printf("///            - Código de Barras: ");
-            scanf("%[^\n]", codBarras);
-            getchar();
-        
-            validaCod = validaCodBarras(codBarras);
-            validaNull = verificaNulo(codBarras);
-
-            if(!validaCod || validaNull){
-                printf("///            Código inválido, tente novamente !\n");
-            }
-
-        }while(!validaCod || validaNull);
-
-// ---------------------------------------------------------------------------------------
-
-        if (!strcmp(codBarras,pro->codBarras) && strcmp("x", pro->status)){
-
-            int quantC = converteCharParaInt(pro->quant);
+    } else {
+        if (strcmp("x",prod->status)){
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n");
             printf("///                        PRODUTO LOCALIZADO!                        ///\n");
             printf("///                                                                   ///\n");
-            printf("///              Código de Barras: %s \n", pro->codBarras);
-            printf("///                     Descrição: %s \n", pro->nomeItem);
-            printf("///              Data de Validade: %s \n", pro->dataValidade);
-            printf("///                         Local: %s \n", pro->local);
-            printf("///                        Status: %s \n", pro->status);
+            printf("///              Código de Barras: %s \n", prod->codBarras);
+            printf("///                     Descrição: %s \n", prod->nomeItem);
+            printf("///              Data de Validade: %s \n", prod->dataValidade);
+            printf("///                         Local: %s \n", prod->local);
+            printf("///                        Status: %s \n", prod->status);
+            int quantC = converteCharParaInt(prod->quant);
             printf("///                    Quantidade: %d \n", quantC);
             printf("///        ___________________________________________________        ///\n");
 
-        } else{
-            printf("///        ___________________________________________________        ///\n");
-            printf("///                                                                   ///\n");
-            printf("///            Não existem produtos cadastrados com o código          ///\n");  
-            printf("///            de barras informado.                                   ///\n");    
-            printf("///        ___________________________________________________        ///\n");
         }
-        
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
-
-    }else if(tipoPesq =='b'){
-
-        do{
-            printf("///            - Descrição: ");
-            scanf("%[^\n]", descricao);
-            getchar();
-
-            validaDig = testeDigitos(descricao);
-            validaNull = verificaNulo(descricao);
-
-            if(validaDig || validaNull){
-                printf("///            Caracteres inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-
-// ---------------------------------------------------------------------------------------
-
-        if (!strcmp(descricao,pro->nomeItem) && strcmp("x",pro->status)){
-            printf("///        ___________________________________________________        ///\n");
-            printf("///                                                                   ///\n");
-            printf("///                        PRODUTO LOCALIZADO!                        ///\n");
-            printf("///                                                                   ///\n");
-            printf("///              Código de Barras: %s \n", pro->codBarras);
-            printf("///                     Descrição: %s \n", pro->nomeItem);
-            printf("///              Data de Validade: %s \n", pro->dataValidade);
-            printf("///                         Local: %s \n", pro->local);
-            printf("///                        Status: %s \n", pro->status);
-            int quantC = converteCharParaInt(pro->quant);
-            printf("///                    Quantidade: %d \n", quantC);
-            printf("///        ___________________________________________________        ///\n");
-
-        } else{
-            printf("///        ___________________________________________________        ///\n");
-            printf("///                                                                   ///\n");
-            printf("///          Não existem produtos cadastrados com a descricao         ///\n");  
-            printf("///          informada.                                               ///\n");    
-            printf("///        ___________________________________________________        ///\n");
-        }
-        
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
-
-
-    }else{
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///          Opção Inválida!                                          ///\n");  
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
     }
 
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 
 }
 
+void pesquisarProduto(void){
+    Produto* pro;
+    char opcao;
+
+    opcao = telaPesquisarProduto();
+
+    pro = buscaProduto(opcao);
+
+    exibeProduto(pro);
+
+    free(pro);
+}
+
+
 /* A função telaExcluirProduto realiza a exclusão de um produto. */
 
-void telaExcluirProduto(Produto* pro){
-
-    char codBarras[14];
-    char resposta;
+char telaExcluirProduto(Produto* pro){
+    char codigoBarras[14];
 
     int validaCod;
-    int validaOp;
     int validaDig;
     int validaNull;
 
@@ -402,85 +444,145 @@ void telaExcluirProduto(Produto* pro){
 
     do{
         printf("///            - Código de Barras: ");
-        scanf("%[^\n]", codBarras);
+        scanf("%[^\n]", codigoBarras);
         getchar();
         
-		validaCod = validaCodBarras(codBarras);
-        validaDig = testeDigitosNumericos(codBarras);
-        validaNull = verificaNulo(codBarras);
+		validaCod = validaCodBarras(codigoBarras);
+        validaDig = testeDigitosNumericos(codigoBarras);
+        validaNull = verificaNulo(codigoBarras);
 
 		if(!validaCod || validaDig || validaNull){
 			printf("///            Código inválido, tente novamente !\n");
 		}
 
 	}while(!validaCod || validaDig || validaNull);
-
-// ---------------------------------------------------------------------------------------
-
-    if (!strcmp(codBarras,pro->codBarras) && strcmp("x",pro->status)){
-
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                        PRODUTO LOCALIZADO!                        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///              Código de Barras: %s \n", pro->codBarras);
-        printf("///                     Descrição: %s \n", pro->nomeItem);
-        printf("///              Data de Validade: %s \n", pro->dataValidade);
-        printf("///                         Local: %s \n", pro->local);
-        printf("///                        Status: %s \n", pro->status);
-        printf("///                    Quantidade: %s \n", pro->quant);
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-
-
-// ---------------------------------------------------------------------------------------
-
-        do{
-            printf("///            - Confirmar operação (S/N) ? ");
-            scanf("%[^\n]", &resposta);
-            getchar();
-
-            validaDig = testeDigito(resposta);
-            validaOp = validaOpcao(resposta);
-            
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-        if (resposta == 'S' || resposta == 's'){
-
-            strcpy(pro->status, "x");
-            printf("///                                                                   ///\n");
-            printf("///            Produto excluído com sucesso!                          ///\n"); 
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }else if (resposta == 'N' || resposta == 'n'){
-            printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n"); 
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }
-  
-// ---------------------------------------------------------------------------------------
-
-    }else{
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            Não existem produtos cadastrados com o código          ///\n");  
-        printf("///            de barras informado.                                   ///\n");    
-        printf("///        ___________________________________________________        ///\n");
-    }
     
+    return codigoBarras;
 }
+
+Produto* buscaProdutoPorCodBarra(char codBarras[]){
+
+    int validaCod;
+	int validaDig;
+    int validaNull;
+
+    FILE* file;
+    Produto* prod;
+
+    prod = (Produto*) malloc(sizeof(Produto));
+    file = fopen("produtos.dat", "rb");
+
+    while(!feof(file)){
+        fread(prod, sizeof(Produto), 1, file);
+
+        if(!strcmp(prod->codBarras, codBarras)){
+            printf("///        ___________________________________________________        ///\n");
+            printf("///                                                                   ///\n");
+            printf("///                        PRODUTO LOCALIZADO!                        ///\n");
+            printf("///                                                                   ///\n");
+            printf("///              Código de Barras: %s \n", prod->codBarras);
+            printf("///                     Descrição: %s \n", prod->nomeItem);
+            printf("///              Data de Validade: %s \n", prod->dataValidade);
+            printf("///                         Local: %s \n", prod->local);
+            printf("///                        Status: %s \n", prod->status);
+            printf("///                    Quantidade: %s \n", prod->quant);
+            printf("///        ___________________________________________________        ///\n");
+            printf("///                                                                   ///\n");
+
+            fclose(file);
+            return prod;
+        }
+    }
+
+    fclose(file);
+    return NULL;
+
+}
+
+void excProduto(Produto* pro){
+    FILE* file;
+    Produto* prod;
+    char resposta;
+
+    int validaDig;
+    int validaOp;
+
+    prod = (Produto*) malloc(sizeof(Produto));
+    file = fopen("produtos.dat", "r+b");
+
+    if(pro == NULL){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///          Não foi encontrado nenhum produto com esse               ///\n");  
+        printf("///          código de barras!                                        ///\n");
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+
+    } else{
+        while(!feof(file)) {
+            if (strcmp("x",pro->status)){
+                do{
+                    printf("///            - Confirmar operação (S/N) ? ");
+                    scanf("%[^\n]", &resposta);
+                    getchar();
+
+                    validaDig = testeDigito(resposta);
+                    validaOp = validaOpcao(resposta);
+                    
+
+                    if(!validaOp || validaDig){
+                        printf("///            Opcão inválida, tente novamente!\n");
+                    }
+
+                }while(!validaOp || validaDig);
+
+                if (resposta == 'S' || resposta == 's'){
+
+                    fread(prod, sizeof(Produto), 1, file);
+                    if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
+                        strcpy(prod->status, "x");
+                        fseek(file, -1*sizeof(Produto), SEEK_CUR);
+                        fwrite(prod, sizeof(Produto), 1, file);
+                    }
+
+                    printf("///                                                                   ///\n");
+                    printf("///            Produto excluído com sucesso!                          ///\n"); 
+                    printf("///                                                                   ///\n");
+                    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+                    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                    getchar();
+
+                } else if (resposta == 'N' || resposta == 'n'){
+                    printf("///                                                                   ///\n");
+                    printf("///            Operação cancelada!                                    ///\n"); 
+                    printf("///                                                                   ///\n");
+                    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+                    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+                    getchar();
+
+                }
+            }
+        }
+    }
+    fclose(file);
+
+}
+
+void excluirProduto(void){
+    Produto* prod;
+    char codBarras[14];
+
+    codBarras = telaExcluirProduto;
+
+    prod = buscaProdutoPorCodBarra(codBarras);
+
+    excProduto(prod);
+
+}
+
 
 /* A função telaAlterarProduto realiza a alteração de um produto. */
 

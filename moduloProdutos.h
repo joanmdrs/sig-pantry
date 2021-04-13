@@ -9,8 +9,29 @@ struct produto {
 };
 
 char menuProdutos(void);
+
 Produto* telaCadastrarProduto(void);
-void telaPesquisarProduto(Produto*);
-void telaExcluirProduto(Produto*);
+
+void gravarProduto(Produto*);
+
+void cadastrarProduto(void);
+
+Produto* buscaProduto(char);
+
+char telaPesquisarProduto(void);
+
+void exibeProduto(Produto*);
+
+void pesquisarProduto(void);
+
+char telaExcluirProduto(Produto*);
+
+Produto* buscaProdutoPorCodBarra(char []);
+
+void excProduto(Produto*);
+
+void excluirProduto(void);
+
 void telaAlterarProduto(Produto*);
+
 void telaListarProdutos(void);
