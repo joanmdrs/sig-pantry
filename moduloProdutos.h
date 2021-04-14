@@ -8,6 +8,8 @@ struct produto {
     char quant[10];
 };
 
+
+
 char menuProdutos(void);
 
 Produto* telaCadastrarProduto(void);

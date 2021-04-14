@@ -10,11 +10,28 @@ struct compra {
     char status[10];
 };
 
+typedef struct chave Chave;
+
+struct chave{
+    char dataCompra[11];
+    char horaCompra[6];
+};
+
 char menuCompras(void);
 
 Compra* telaCadastrarCompra(void);
 
-void telaPesquisarCompra(Compra*);
+void cadastrarCompra(void);
+
+void gravarCompra(Compra*);
+
+Chave* telaPesquisarCompra(void);
+
+Compra* pegarCompra(Chave*);
+
+void pesquisarCompra(void);
+
+void exibirCompra(Compra*);
 
 void telaExcluirCompra(Compra*);
 

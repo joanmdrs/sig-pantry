@@ -374,7 +374,7 @@ char telaPesquisarProduto(void){
 
 void exibeProduto(Produto* prod){
 
-    if(prod == NULL || strcmp(prod->status, "x")){
+    if(prod == NULL){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///          Não existem produtos cadastrados com os dados            ///\n");  
@@ -407,9 +407,7 @@ void pesquisarProduto(void){
     char opcao;
 
     opcao = telaPesquisarProduto();
-
     pro = buscaProduto(opcao);
-
     exibeProduto(pro);
 
     free(pro);

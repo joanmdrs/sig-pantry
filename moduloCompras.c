@@ -16,6 +16,22 @@ struct compra {
     char status[10];
 };
 
+typedef struct chave Chave;
+
+struct chave{
+    char dataCompra[11];
+    char horaCompra[6];
+};
+
+void gravarCompra(Compra* com){
+    FILE* file;
+
+    file = fopen("compras.dat", "ab");
+
+    fwrite(com, sizeof(Compra), 1, file);
+
+    fclose(file);
+}
 
 /* A função menuCompras irá direcionar o usuário para as funções cadastrar, pesquisar,
    excluir, alterar e listas, referentes ao módulo compras. */
@@ -94,12 +110,12 @@ Compra* telaCadastrarCompra(void){
     printf("///           = = = = =  MÓDULO CADASTRAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
-// ----------------------- Alocando espaço de memória ----------------------------------
+    // ----------------------- Alocando espaço de memória ----------------------------------
 
     Compra* com;
     com = (Compra*) malloc(sizeof(Compra));
 
-// ----------------------- Validando a quantidade de itens ----------------------------------
+    // ----------------------- Validando a quantidade de itens ----------------------------------
 
     do{
         printf("///            - Quant. Itens da compra: ");
@@ -123,7 +139,7 @@ Compra* telaCadastrarCompra(void){
         printf("///            Item %d \n", i+1);
         printf("///\n");
 
-// ----------------------- Validando o código de barras ----------------------------------
+        // ----------------------- Validando o código de barras ----------------------------------
 
         do{
             printf("///            - Código de Barras: ");
@@ -140,7 +156,7 @@ Compra* telaCadastrarCompra(void){
 
         }while(!validaCod || validaDig || validaNull);
 
-// ----------------------- Validando a descrição do produto ------------------------------
+        // ----------------------- Validando a descrição do produto ------------------------------
 
         do{
             printf("///            - Descrição do Item: ");
@@ -156,7 +172,7 @@ Compra* telaCadastrarCompra(void){
 
         }while (validaDig || validaNull);
 
-// ----------------------- Validando a data de validade ----------------------------------
+        // ----------------------- Validando a data de validade ----------------------------------
 
         do{
             printf("///            - Data Val. (dd/mm/aaaa): ");
@@ -173,7 +189,7 @@ Compra* telaCadastrarCompra(void){
 
         }while(!validaData || validaDig || validaNull);
 
-// -------------------------------- Validando o local ------------------------------------
+        // -------------------------------- Validando o local ------------------------------------
 
         do{
             printf("///            - Local: ");
@@ -189,7 +205,7 @@ Compra* telaCadastrarCompra(void){
 
         }while (validaDig || validaNull);
 
-// -------------------------------- Validando o status -----------------------------------
+        // -------------------------------- Validando o status -----------------------------------
 
         do{
             printf("///            - Status: ");
@@ -205,7 +221,7 @@ Compra* telaCadastrarCompra(void){
 
         }while (validaDig || validaNull);
 
-// ----------------------------- Validando a quantidade ----------------------------------
+        // ----------------------------- Validando a quantidade ----------------------------------
       
         do{
             printf("///            - Quantidade: ");
@@ -222,7 +238,7 @@ Compra* telaCadastrarCompra(void){
 
         }while (validaDig || validaNull);
 
-// ----------------------------- Validando o valor do item -------------------------------
+        // ----------------------------- Validando o valor do item -------------------------------
                 
         do{     
             char preco[10];           
@@ -243,7 +259,7 @@ Compra* telaCadastrarCompra(void){
         }while (validaDig || validaNull);
 
 
-// ------------------------- Calculando o valor da compra ----------------------------------
+        // ------------------------- Calculando o valor da compra ----------------------------------
 
         valor = quantC * (com->valorItem[i]);
         total += valor;
@@ -252,7 +268,7 @@ Compra* telaCadastrarCompra(void){
 
     }    
 
-// ------------------------- Validando a data da compra ----------------------------------
+    // ------------------------- Validando a data da compra ----------------------------------
 
     printf("///\n");
     do{
@@ -270,7 +286,7 @@ Compra* telaCadastrarCompra(void){
 
     }while(!validaData || validaDig || validaNull);
 
-// ------------------------- Validando a hora da compra ----------------------------------
+    // ------------------------- Validando a hora da compra ----------------------------------
 
     do{
         printf("///            - Horário Compra (hh:mm): ");
@@ -287,11 +303,11 @@ Compra* telaCadastrarCompra(void){
 
     }while(!validaHora || validaDig || validaNull);
 
-// ---------------------------------------------------------------------------------------
+    // -----------------Definindo o status da compra -----------------------------------------
 
-    strcpy(com->status, "Disponível");
+    strcpy(com->status, "DISPONÍVEL");
         
-// ---------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------
     
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -329,12 +345,21 @@ Compra* telaCadastrarCompra(void){
 
 }
 
+void cadastrarCompra(){
+
+    Compra* com;
+
+    com = telaCadastrarCompra();
+
+    gravarCompra(com);
+
+    free(com);
+
+}
+
 /* A função telaPesquisarCompra realiza a busca de uma compra. */
 
-void telaPesquisarCompra(Compra* com){
-
-    char dataCompra[11];
-    char horaCompra[9];
+Chave* telaPesquisarCompra(){
 
     int validaDig;
     int validaData;
@@ -354,16 +379,17 @@ void telaPesquisarCompra(Compra* com){
     printf("///           = = = = =  MÓDULO PESQUISAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
-// ------------------------- Validando a data da compra ----------------------------------
+    Chave* key;
+    key = (Chave*) malloc(sizeof(Chave));
 
     do{
         printf("///            - Data Compra (dd/mm/aaaa): ");
-        scanf("%[^\n]", dataCompra);
+        scanf("%[^\n]", key->dataCompra);
         getchar();
     
-        validaData = testaData(dataCompra);
-        validaDig = testeDigitosNumericosData(dataCompra);
-        validaNull = verificaNulo(dataCompra);
+        validaData = testaData(key->dataCompra);
+        validaDig = testeDigitosNumericosData(key->dataCompra);
+        validaNull = verificaNulo(key->dataCompra);
 
         if (!validaData || validaDig || validaNull) {
             printf("///            Data inválida, tente novamente !\n");
@@ -371,16 +397,14 @@ void telaPesquisarCompra(Compra* com){
 
     }while(!validaData || validaDig || validaNull);
 
-// ------------------------- Validando a hora da compra ----------------------------------
-
     do{
         printf("///            - Horário Compra (hh:mm): ");
-        scanf("%[^\n]", horaCompra);
+        scanf("%[^\n]", key->horaCompra);
         getchar();
     
-        validaHora = testaHora(horaCompra);
-        validaDig = testeDigitosNumericosHora(horaCompra);
-        validaNull = verificaNulo(horaCompra);
+        validaHora = testaHora(key->horaCompra);
+        validaDig = testeDigitosNumericosHora(key->horaCompra);
+        validaNull = verificaNulo(key->horaCompra);
 
         if (!validaHora || validaDig || validaNull) {
             printf("///            Hora inválida, tente novamente !\n");
@@ -388,22 +412,58 @@ void telaPesquisarCompra(Compra* com){
 
     }while(!validaHora || validaDig || validaNull);
 
-// ---------------------------------------------------------------------------------------
+    return key;
 
-    if((!strcmp(dataCompra, com->dataCompra)) && (!strcmp(horaCompra, com->horaCompra)) && strcmp("x",com->status)){
+}
+
+Compra* pegarCompra(Chave* key){
+
+    FILE* file;
+    Compra* com;
+
+    com = (Compra*) malloc(sizeof(Compra));
+    file = fopen("compras.dat", "rb");
+
+    while(!feof(file)){
+        fread(com, sizeof(Compra), 1, file);
+        if(!strcmp(com->dataCompra, key->dataCompra) && !strcmp(com->horaCompra, key->horaCompra) && strcmp("x",com->status)){
+            fclose(file);
+            return com;
+        }
+    }
+
+    fclose(file);
+    return NULL;
+}
+
+void exibirCompra(Compra* com){
+
+    if(com == NULL){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///         Não existem compras cadastradas com a DATA e HORA         ///\n");  
+        printf("///         fornecidas.                                               ///\n");    
+        printf("///        ___________________________________________________        ///\n");
+
+    } else {
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");  
         printf("///                        COMPRA LOCALIZADA!                         ///\n");
+        printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
-        printf("///            Lista de Itens:                                        ///\n");
+        printf("///             Data da compra: %s \n", com->dataCompra);
+        printf("///             Horário da compra: %s \n", com->horaCompra);
+        printf("///             Valor da compra: R$ %.2f \n", com->valorCompra);
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///            LISTA DE ITENS:                                        ///\n");
         printf("///                                                                   ///\n");
 
         int q = atoi(com->quantItens);
 
         for (int i = 0; i < q; i++){
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///            Item %d \n", i+1);
-            printf("///                                                                   ///\n");
+            printf("               Item %d \n", i+1);
+            printf("///\n");
             printf("///            Código de Barras: %s \n", com->itens[i].codBarras);
             printf("///            Descrição do Item: %s \n", com->itens[i].nomeItem);
             printf("///            Data de Validade: %s \n", com->itens[i].dataValidade);
@@ -414,35 +474,33 @@ void telaPesquisarCompra(Compra* com){
 
         }
 
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///             Data da compra: %s \n", com->dataCompra);
-        printf("///             Horário da compra: %s \n", com->horaCompra);
-        printf("///             Valor da compra: R$ %.2f \n", com->valorCompra);
-        printf("///        ___________________________________________________        ///\n");
-
-    }else{
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");  
-        printf("///          Não há registro de compras para o dia e horário          ///\n");    
-        printf("///          informado.                                               ///\n");    
-        printf("///        ___________________________________________________        ///\n");
     }
-    printf("///                                                                   ///\n");
+
+    printf("///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+
 }
 
-/* A função telaExcluirCompra realiza a exclusão de uma compra. */
+void pesquisarCompra(void){
 
-void telaExcluirCompra(Compra* com){
+    Compra* com;
+    Chave* key;
+
+    key = telaPesquisarCompra();
+    com = pegarCompra(key);
+    exibirCompra(com);
+
+    free(key);
+    free(com);
+
+}
+
+Chave* telaExcluirCompra(Compra* com){
 
     char resposta;
-    char dataCompra[11];
-    char horaCompra[9];
 
-    int validaOp;
     int validaDig;
     int validaData;
     int validaHora;
@@ -461,16 +519,19 @@ void telaExcluirCompra(Compra* com){
     printf("///            = = = = =  MÓDULO EXCLUIR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
-// ------------------------- Validando a data da compra ----------------------------------
+    Chave* key;
+    key = (Chave*) malloc(sizeof(Chave));
+
+    // ------------------------- Validando a data da compra ----------------------------------
 
     do{
         printf("///            - Data Compra (dd/mm/aaaa): ");
-        scanf("%[^\n]", dataCompra);
+        scanf("%[^\n]", key->dataCompra);
         getchar();
     
-        validaData = testaData(dataCompra);
-        validaDig = testeDigitosNumericosData(dataCompra);
-        validaNull = verificaNulo(dataCompra);
+        validaData = testaData(key->dataCompra);
+        validaDig = testeDigitosNumericosData(key->dataCompra);
+        validaNull = verificaNulo(key->dataCompra);
 
         if (!validaData || validaDig || validaNull) {
             printf("///            Data inválida, tente novamente !\n");
@@ -482,12 +543,12 @@ void telaExcluirCompra(Compra* com){
 
     do{
         printf("///            - Horário Compra (hh:mm): ");
-        scanf("%[^\n]", horaCompra);
+        scanf("%[^\n]", key->horaCompra);
         getchar();
     
-        validaHora = testaHora(horaCompra);
-        validaDig = testeDigitosNumericosHora(horaCompra);
-        validaNull = verificaNulo(horaCompra);
+        validaHora = testaHora(key->horaCompra);
+        validaDig = testeDigitosNumericosHora(key->horaCompra);
+        validaNull = verificaNulo(key->horaCompra);
 
         if (!validaHora || validaDig || validaNull) {
             printf("///            Hora inválida, tente novamente !\n");
@@ -495,40 +556,9 @@ void telaExcluirCompra(Compra* com){
 
     }while(!validaHora || validaDig || validaNull);
 
-// ---------------------------------------------------------------------------------------
+    return key;
 
-    if (!strcmp(dataCompra,com->dataCompra) && !strcmp(horaCompra,com->horaCompra) && strcmp("x",com->status)){
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            COMPRA LOCALIZADA!                                     ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            Lista de Itens:                                        ///\n");
-        printf("///                                                                   ///\n");
-
-        int q = atoi(com->quantItens);
-
-        for (int i = 0; i < q; i++){
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///            Item %d \n", i+1);
-            printf("///                                                                   ///\n");
-            printf("///            Código de Barras: %s \n", com->itens[i].codBarras);
-            printf("///            Descrição do Item: %s \n", com->itens[i].nomeItem);
-            printf("///            Data de Validade: %s \n", com->itens[i].dataValidade);
-            printf("///            Local: %s \n", com->itens[i].local);
-            printf("///            Status: %s \n", com->itens[i].status);
-            printf("///            Quant.: %s \n", com->itens[i].quant);
-            printf("///            Val. Item: R$ %.2f \n", com->valorItem[i]);
-
-        }
-
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///             Data da compra: %s \n", com->dataCompra);
-        printf("///             Horário da compra: %s \n", com->horaCompra);
-        printf("///             Valor da compra: R$ %.2f \n", com->valorCompra);
-        printf("///        ___________________________________________________        ///\n");
-
-// ---------------------------------------------------------------------------------------
+/*
 
         do{
             printf("///            - Confirmar operação (S/N) ? ");
@@ -585,7 +615,7 @@ void telaExcluirCompra(Compra* com){
         }
         
 
-// ---------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------- */
 
     
     
