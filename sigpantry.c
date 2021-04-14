@@ -45,7 +45,7 @@ int main(void) {
                             excluirProduto();
                             break;
                         case '4':
-                            //telaAlterarProduto(pro);
+                            alterarProduto();;
                             break;
                         case '5':
                             telaListarProdutos();

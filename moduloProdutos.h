@@ -20,18 +20,22 @@ Produto* buscaProduto(char);
 
 char telaPesquisarProduto(void);
 
-void exibeProduto(Produto*);
-
 void pesquisarProduto(void);
 
-char telaExcluirProduto(Produto*);
+void exibeProduto(Produto*);
 
-Produto* buscaProdutoPorCodBarra(char []);
+char* telaExcluirProduto(void);
+
+Produto* buscaProdutoPorCodBarra(char*);
 
 void excProduto(Produto*);
 
 void excluirProduto(void);
 
-void telaAlterarProduto(Produto*);
+char* telaAlterarProduto(void);
+
+void atualizarProduto(Produto*);
+
+void alterarProduto(void);
 
 void telaListarProdutos(void);
