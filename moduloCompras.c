@@ -426,7 +426,7 @@ Compra* pegarCompra(Chave* key){
 
     while(!feof(file)){
         fread(com, sizeof(Compra), 1, file);
-        if(!strcmp(com->dataCompra, key->dataCompra) && !strcmp(com->horaCompra, key->horaCompra) && strcmp("x",com->status)){
+        if(!strcmp(com->dataCompra, key->dataCompra) && !strcmp(com->horaCompra, key->horaCompra) ){
             fclose(file);
             return com;
         }
@@ -454,6 +454,7 @@ void exibirCompra(Compra* com){
         printf("///             Data da compra: %s \n", com->dataCompra);
         printf("///             Horário da compra: %s \n", com->horaCompra);
         printf("///             Valor da compra: R$ %.2f \n", com->valorCompra);
+        printf("///             Status: %s \n", com->status);
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///            LISTA DE ITENS:                                        ///\n");
@@ -497,7 +498,7 @@ void pesquisarCompra(void){
 
 }
 
-Chave* telaExcluirCompra(Compra* com){
+Chave* telaExcluirCompra(){
 
     char resposta;
 
@@ -621,7 +622,93 @@ Chave* telaExcluirCompra(Compra* com){
     
 }
 
-/* A função telaAlterarCompra realiza a alteração de uma compra. */
+void exclusaoLogicaCompra(Compra* com){
+
+    FILE* file;
+    Compra* comp;
+    char resposta;
+
+    int validaDig;
+    int validaOp;
+
+    comp = (Compra*) malloc(sizeof(Compra));
+    file = fopen("compras.dat", "r+b");
+
+    if(com == NULL){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///          Não foram encontradas compras com a DATA e HORA          ///\n");  
+        printf("///          fornecidas.                                              ///\n");    
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+
+    } else{
+        do{
+            printf("///            - Confirmar operação (S/N) ? ");
+            scanf("%[^\n]", &resposta);
+            getchar();
+
+            validaDig = testeDigito(resposta);
+            validaOp = validaOpcao(resposta);
+            
+
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
+            }
+
+        }while(!validaOp || validaDig);
+
+        if (resposta == 'S' || resposta == 's'){
+
+            while(!feof(file)) {
+                fread(comp, sizeof(Compra), 1, file);
+                if(!strcmp(com->dataCompra, comp->dataCompra) && !strcmp(com->horaCompra, comp->horaCompra) && strcmp("x",com->status)){
+                    strcpy(comp->status, "x");
+                    fseek(file, -1*sizeof(Compra), SEEK_CUR);
+                    fwrite(comp, sizeof(Compra), 1, file);
+                    break;
+                }
+            }
+
+            printf("///                                                                   ///\n");
+            printf("///            Compra excluída com sucesso!                           ///\n"); 
+            printf("///                                                                   ///\n");
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+
+        } else if (resposta == 'N' || resposta == 'n'){
+            printf("///                                                                   ///\n");
+            printf("///            Operação cancelada!                                    ///\n"); 
+            printf("///                                                                   ///\n");
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+
+        }
+    }
+    
+    fclose(file);
+}
+
+void excluirCompra(void){
+
+    Compra* com;
+    Chave* key;
+
+    key = telaExcluirCompra();
+    com = pegarCompra(key);
+    exibirCompra(com);
+    exclusaoLogicaCompra(com);
+
+    free(key);
+    free(com);
+
+
+}
 
 void telaAlterarCompra(Compra* com){
 

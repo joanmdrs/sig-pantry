@@ -66,7 +66,7 @@ int main(void) {
                             pesquisarCompra();
                             break;
                         case '3':
-                            //telaExcluirCompra(com);
+                            excluirCompra();
                             break;
                         case '4':
                             //telaAlterarCompra(com);

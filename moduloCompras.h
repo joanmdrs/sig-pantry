@@ -27,13 +27,17 @@ void gravarCompra(Compra*);
 
 Chave* telaPesquisarCompra(void);
 
+Chave* telaExcluirCompra(void);
+
 Compra* pegarCompra(Chave*);
 
 void pesquisarCompra(void);
 
 void exibirCompra(Compra*);
 
-void telaExcluirCompra(Compra*);
+void exclusaoLogicaCompra(Compra*);
+
+void excluirCompra(void);
 
 void telaAlterarCompra(Compra*);
 
