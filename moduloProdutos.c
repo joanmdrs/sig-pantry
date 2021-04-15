@@ -780,14 +780,8 @@ void atualizarProduto(Produto* pro){
 
             if (decisao == 'S' || decisao == 's'){
 
-<<<<<<< Updated upstream
-                while(!feof(file)) {
-                    fread(prod, sizeof(Produto), 1, file);
-                    if(!strcmp(prod->codBarras, pro->codBarras) && strcmp(prod->status, "x")){
-=======
                 while(fread(prod, sizeof(Produto), 1, file)) {
                     if(!strcmp(prod->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
->>>>>>> Stashed changes
                         strcpy(prod->nomeItem, nomeItem);
                         strcpy(prod->dataValidade, dataValidade);
                         strcpy(prod->local, local);
