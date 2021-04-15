@@ -502,8 +502,6 @@ void pesquisarCompra(void){
 
 Chave* telaExcluirCompra(){
 
-    char resposta;
-
     int validaDig;
     int validaData;
     int validaHora;

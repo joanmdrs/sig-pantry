@@ -780,9 +780,14 @@ void atualizarProduto(Produto* pro){
 
             if (decisao == 'S' || decisao == 's'){
 
+<<<<<<< Updated upstream
                 while(!feof(file)) {
                     fread(prod, sizeof(Produto), 1, file);
                     if(!strcmp(prod->codBarras, pro->codBarras) && strcmp(prod->status, "x")){
+=======
+                while(fread(prod, sizeof(Produto), 1, file)) {
+                    if(!strcmp(prod->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
+>>>>>>> Stashed changes
                         strcpy(prod->nomeItem, nomeItem);
                         strcpy(prod->dataValidade, dataValidade);
                         strcpy(prod->local, local);
@@ -792,7 +797,6 @@ void atualizarProduto(Produto* pro){
                         fwrite(prod, sizeof(Produto), 1, file);
                         break;
                     }
-                
                 } 
 
                 printf("///                                                                   ///\n");
@@ -864,8 +868,7 @@ void atualizarProduto(Produto* pro){
 
                 }while (validaDig || validaNull);
 
-                while(!feof(file)) {
-                    fread(prod, sizeof(Produto), 1, file);
+                while(fread(prod, sizeof(Produto), 1, file)) {
                     if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
                         strcpy(prod->nomeItem, nomeItem);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
@@ -900,8 +903,7 @@ void atualizarProduto(Produto* pro){
 
                 }while(!validaData || validaDig || validaNull);
 
-                while(!feof(file)) {
-                    fread(prod, sizeof(Produto), 1, file);
+                while(fread(prod, sizeof(Produto), 1, file)) {
                     if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
                         strcpy(prod->dataValidade, dataValidade);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
@@ -936,8 +938,7 @@ void atualizarProduto(Produto* pro){
 
                 }while (validaDig || validaNull);
 
-                while(!feof(file)) {
-                    fread(prod, sizeof(Produto), 1, file);
+                while(fread(prod, sizeof(Produto), 1, file)) {
                     if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
                         strcpy(prod->local, local);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
@@ -972,8 +973,7 @@ void atualizarProduto(Produto* pro){
 
                 }while (validaDig || validaNull);
 
-                while(!feof(file)) {
-                    fread(prod, sizeof(Produto), 1, file);
+                while(fread(prod, sizeof(Produto), 1, file)) {
                     if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
                         strcpy(prod->status, status);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
@@ -1008,8 +1008,7 @@ void atualizarProduto(Produto* pro){
 
                 }while (validaDig || validaNull);
 
-                while(!feof(file)) {
-                    fread(prod, sizeof(Produto), 1, file);
+                while(fread(prod, sizeof(Produto), 1, file)) {
                     if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
                         strcpy(prod->quant, quant);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
@@ -1077,7 +1076,7 @@ void telaListarProdutos(void){
     }
 
     while(fread(pro, sizeof(Produto), 1, fp)) {
-        if (pro->status != "x") {
+        if (strcmp(pro->status, "x")) {
             exibeProduto(pro);
         }
     }
