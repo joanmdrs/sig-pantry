@@ -35,10 +35,14 @@ void pesquisarCompra(void);
 
 void exibirCompra(Compra*);
 
-void exclusaoLogicaCompra(Compra*);
+void excluirLogicamente(Compra*);
 
 void excluirCompra(void);
 
-void telaAlterarCompra(Compra*);
+Chave* telaAlterarCompra();
+
+void alterarTudo(Compra*);
+
+void alterarItem(Compra*);
 
 void telaListarCompras(void);

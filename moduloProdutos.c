@@ -536,7 +536,7 @@ void excProduto(Produto* pro){
 
             while(!feof(file)) {
                 fread(prod, sizeof(Produto), 1, file);
-                if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(pro->status, "x")){
+                if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
                     strcpy(prod->status, "x");
                     fseek(file, -1*sizeof(Produto), SEEK_CUR);
                     fwrite(prod, sizeof(Produto), 1, file);
@@ -782,7 +782,7 @@ void atualizarProduto(Produto* pro){
 
                 while(!feof(file)) {
                     fread(prod, sizeof(Produto), 1, file);
-                    if(!strcmp(prod->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
+                    if(!strcmp(prod->codBarras, pro->codBarras) && strcmp(prod->status, "x")){
                         strcpy(prod->nomeItem, nomeItem);
                         strcpy(prod->dataValidade, dataValidade);
                         strcpy(prod->local, local);
@@ -790,6 +790,7 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->quant, quant);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
+                        break;
                     }
                 
                 } 
@@ -1013,6 +1014,7 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->quant, quant);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
+                        break;
                     }
                 }
 
