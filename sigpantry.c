@@ -21,8 +21,6 @@ int main(void) {
 
     char opcao1, opcao2, opcao3, opcao4, opcao5, opcao6, opcao7, opcao8;
 
-
-
     do{
         opcao1 = menuPrincipal();
 
@@ -72,7 +70,7 @@ int main(void) {
                             alterarCompra();
                             break;
                         case '5':
-                            //telaListarCompras();
+                            listarCompras();
                             break;
                     }
 

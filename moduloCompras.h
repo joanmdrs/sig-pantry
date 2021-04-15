@@ -45,3 +45,5 @@ void alterarTudo(Compra*);
 void alterarItem(Compra*);
 
 void alterarCompra(void);
+
+void listarCompras(void);

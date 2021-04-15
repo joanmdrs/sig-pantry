@@ -14,7 +14,6 @@ struct produto {
     char quant[10];
 };
 
-
 /* A função menuProdutos irá direcionar o usuário para as funções cadastrar, pesquisar,
    excluir, alterar e listar, referentes ao módulo produtos. */
 
