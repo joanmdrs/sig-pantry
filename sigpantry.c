@@ -69,7 +69,7 @@ int main(void) {
                             excluirCompra();
                             break;
                         case '4':
-                            //telaAlterarCompra(com);
+                            alterarCompra();
                             break;
                         case '5':
                             //telaListarCompras();

@@ -779,170 +779,214 @@ void alterarTudo(Compra* com_lida){
     int validaDig;
     int validaNull;
     int validaData;
-    int quantC;
+    int validaOp;
+
+    char decisao;
+    int quantC = 0;
+    int quantI = 0;
     float valor = 0.0;
     float total = 0.0;
 
+    float valorItem[100];
+    float valorCompra;
+
+    FILE* file;
     Compra* com;
+    Compra* com_pre;
     com = (Compra*) malloc(sizeof(Compra));
+    com_pre = (Compra*) malloc(sizeof(Compra));
 
-    printf("///                                                                   ///\n");
-    printf("///           NOVA LISTA DE ITENS:                                    ///\n");
-    printf("///                                                                   ///\n");
-    // ----------------------- Validando a quantidade de itens ----------------------------------
+    file = fopen("compras.dat", "r+b");
 
-    do{
-        printf("///            - Quant. Itens da compra: ");
-        scanf("%[^\n]", com->quantItens);
-        getchar();
-    
-        validaDig = testeDigitosNumericos(com->quantItens);
-        validaNull = verificaNulo(com->quantItens);
+    if(com_lida == NULL){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///         Não existem compras cadastradas com a DATA e HORA         ///\n");  
+        printf("///         fornecidas.                                               ///\n");    
+        printf("///        ___________________________________________________        ///\n");
 
-		if(validaDig || validaNull){
-			printf("///            Quantidade inválida, tente novamente !\n");
-		}
+    } else {
+        printf("///                                                                   ///\n");
+        printf("///           NOVA LISTA DE ITENS:                                    ///\n");
+        printf("///                                                                   ///\n");
 
-	}while(validaDig || validaNull);
-
-    int q = atoi(com->quantItens);
-
-
-    for(int i = 0; i < q; i++){
-
-        Produto* pro;
-        pro = (Produto*) malloc(sizeof(Compra));
-
-        printf("///\n");
-        printf("///            Item %d \n", i+1);
-        printf("///\n");
-
-        // ----------------------- Validando o código de barras ----------------------------------
+        // ----------------------- Validando a quantidade de itens ----------------------------------
 
         do{
-            printf("///            - Código de Barras: ");
-            scanf("%[^\n]", pro->codBarras);
+            printf("///            - Quant. Itens da compra: ");
+            scanf("%[^\n]", com_pre->quantItens);
             getchar();
         
-            validaCod = validaCodBarras(pro->codBarras);
-            validaNull = verificaNulo(pro->codBarras);
-
-            if(!validaCod || validaNull){
-                printf("///            Código inválido, tente novamente !\n");
-            }
-
-        }while(!validaCod || validaNull);
-
-        // ----------------------- Validando a descrição do produto ------------------------------
-
-        do{
-            printf("///            - Descrição do Item: ");
-            scanf("%[^\n]", pro->nomeItem);
-            getchar();
-
-            validaDig = testeDigitos(pro->nomeItem);
-            validaNull = verificaNulo(pro->nomeItem);
+            validaDig = testeDigitosNumericos(com_pre->quantItens);
+            validaNull = verificaNulo(com_pre->quantItens);
 
             if(validaDig || validaNull){
-                printf("///            Caracteres inválidos, tente novamente !\n");
+                printf("///            Quantidade inválida, tente novamente !\n");
             }
-        
-        }while (validaDig || validaNull);
 
-        // ----------------------- Validando a data de validade ----------------------------------
+        }while(validaDig || validaNull);
 
+        quantI = atoi(com_pre->quantItens);
+
+        for(int i = 0; i < quantI; i++){
+
+            printf("///\n");
+            printf("///            Item %d \n", i+1);
+            printf("///\n");
+
+            // ----------------------- Validando o código de barras ----------------------------------
+
+            do{
+                printf("///            - Código de Barras: ");
+                scanf("%[^\n]", com_pre->itens[i].codBarras);
+                getchar();
+            
+                validaCod = validaCodBarras(com_pre->itens[i].codBarras);
+                validaNull = verificaNulo(com_pre->itens[i].codBarras);
+
+                if(!validaCod || validaNull){
+                    printf("///            Código inválido, tente novamente !\n");
+                }
+
+            }while(!validaCod || validaNull);
+
+            // ----------------------- Validando a descrição do produto ------------------------------
+
+            do{
+                printf("///            - Descrição do Item: ");
+                scanf("%[^\n]", com_pre->itens[i].nomeItem);
+                getchar();
+
+                validaDig = testeDigitos(com_pre->itens[i].nomeItem);
+                validaNull = verificaNulo(com_pre->itens[i].nomeItem);
+
+                if(validaDig || validaNull){
+                    printf("///            Caracteres inválidos, tente novamente !\n");
+                }
+            
+            }while (validaDig || validaNull);
+
+            // ----------------------- Validando a data de validade ----------------------------------
+
+            do{
+                printf("///            - Data Val. (dd/mm/aaaa): ");
+                scanf("%[^\n]", com_pre->itens[i].dataValidade);
+                getchar();
+            
+                validaData = testaData(com_pre->itens[i].dataValidade);
+                validaDig = testeDigitosNumericosData(com_pre->itens[i].dataValidade);
+                validaNull = verificaNulo(com_pre->itens[i].dataValidade);
+
+                if (!validaData || validaDig || validaNull) {
+                    printf("///            Data inválida, tente novamente !\n");
+                }
+
+            }while(!validaData || validaDig || validaNull);
+
+            // ----------------------------- Validando a quantidade ----------------------------------
+            
+            do{
+                printf("///            - Quantidade: ");
+                scanf("%[^\n]", com_pre->itens[i].quant);
+                getchar();
+                
+                validaDig = testeDigitosNumericos(com_pre->itens[i].quant);
+                validaNull = verificaNulo(com_pre->itens[i].quant);
+
+                if(validaDig || validaNull){
+                    printf("///            Dígitos inválidos, tente novamente !\n");
+                }
+
+            }while (validaDig || validaNull);
+
+            // ----------------------------- Validando o valor do item -------------------------------
+            
+            do{     
+                char preco[10];  
+
+                printf("///            - Valor do Item: R$ ");
+                scanf("%[^\n]", preco);
+                getchar();
+
+                validaDig = testeDigitosNumericosValorFlutuante(preco);
+                validaNull = verificaNulo(preco);
+
+                if (validaDig || validaNull){
+                    printf("///            Preço do item inválido, tente novamente !\n");
+                }
+                
+                valorItem[i] = converteCharParaDouble(preco);
+            
+            }while (validaDig || validaNull);
+
+
+            // ------------------------- Calculando o valor da compra ----------------------------------
+
+            quantC = converteCharParaInt(com_pre->itens[i].quant);
+
+            valor = quantC * (valorItem[i]);
+            total += valor;
+        }    
+
+        valorCompra = total;
         do{
-            printf("///            - Data Val. (dd/mm/aaaa): ");
-            scanf("%[^\n]", pro->dataValidade);
-            getchar();
-        
-            validaData = testaData(pro->dataValidade);
-            validaDig = testeDigitosNumericosData(pro->dataValidade);
-            validaNull = verificaNulo(pro->dataValidade);
-
-            if (!validaData || validaDig || validaNull) {
-                printf("///            Data inválida, tente novamente !\n");
-            }
-
-        }while(!validaData || validaDig || validaNull);
-
-        // ----------------------------- Validando a quantidade ----------------------------------
-        
-        do{
-            printf("///            - Quantidade: ");
-            scanf("%[^\n]", pro->quant);
-            getchar();
-            
-            validaDig = testeDigitosNumericos(pro->quant);
-            validaNull = verificaNulo(pro->quant);
-
-            if(validaDig || validaNull){
-                printf("///            Dígitos inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-
-        // ----------------------------- Validando o valor do item -------------------------------
-        
-        do{     
-            char preco[10];  
-
-            printf("///            - Valor do Item: R$ ");
-            scanf("%[^\n]", preco);
+            printf("///            - Confirmar operação (S/N) ? ");
+            scanf("%[^\n]", &decisao);
             getchar();
 
-            validaDig = testeDigitosNumericosValorFlutuante(preco);
-            validaNull = verificaNulo(preco);
+            validaDig = testeDigito(decisao);
+            validaOp = validaOpcao(decisao);
 
-            if (validaDig || validaNull){
-                printf("///            Preço do item inválido, tente novamente !\n");
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
             }
-            
 
-            com->valorItem[i] = converteCharParaDouble(preco);
+        }while(!validaOp || validaDig);
+
+
+        if (decisao == 'S' || decisao == 's'){
+
+            while(fread(com, sizeof(Compra), 1, file)) {
+                if(!strcmp(com->dataCompra, com_lida->dataCompra) && !strcmp(com->horaCompra, com_lida->horaCompra)){
+
+                    for(int i = 0; i < quantI; i++){
+                        strcpy(com->quantItens, com_pre->quantItens);
+                        strcpy(com->itens[i].codBarras, com_pre->itens[i].codBarras);
+                        strcpy(com->itens[i].nomeItem, com_pre->itens[i].nomeItem);
+                        strcpy(com->itens[i].dataValidade, com_pre->itens[i].dataValidade);
+                        strcpy(com->itens[i].quant, com_pre->itens[i].quant);
+                        com->valorItem[i] = valorItem[i];
+
+                        printf("\n Valor do Item: R$ %.2f", valorItem[i]);
+
+                    }
+                    com->valorCompra = valorCompra;
+                    fseek(file, -1*sizeof(Compra), SEEK_CUR);
+                    fwrite(com, sizeof(Compra), 1, file);
+                    break;
+                }
+            } 
+
+            printf("///                                                                   ///\n");
+            printf("///            Produto alterado com sucesso!                          ///\n"); 
+            printf("///                                                                   ///\n");
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+
+// ---------------------------------------------------------------------------------------
+
+        } else if(decisao == 'N' || decisao == 'n'){
+            printf("///                                                                   ///\n");
+            printf("///            Operação cancelada!                                    ///\n");
+            printf("///                                                                   ///\n");
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+
+        }
         
-        }while (validaDig || validaNull);
-
-
-        // ------------------------- Calculando o valor da compra ----------------------------------
-
-        quantC = converteCharParaInt(pro->quant);
-
-        valor = quantC * (com->valorItem[i]);
-        total += valor;
-
-        com->valorCompra = total;
-
-        // ------------------------- Adicionando o produto ao vetor de Produtos ----------------------
-
-        strcpy(com->itens[i].codBarras, pro->codBarras);
-        strcpy(com->itens[i].nomeItem, pro->nomeItem);
-        strcpy(com->itens[i].dataValidade, pro->dataValidade);
-        strcpy(com->itens[i].local, pro->local);
-        strcpy(com->itens[i].status, pro->status);
-
-        // ------------------------- Valores de entrada cadastrados ----------------------------------
-            
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                       VALORES DE ENTRADA:                         ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            Item %d \n", i+1);
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///              Código de Barras: %s \n", pro->codBarras);
-        printf("///             Descrição do Item: %s \n", pro->nomeItem);
-        printf("///              Data de Validade: %s \n", pro->dataValidade);
-        printf("///                    Quantidade: %s \n", pro->quant);
-        printf("///                 Valor do Item: R$ %.2f \n", com->valorItem[i]);
-        printf("///               Valor da compra: R$ %.2f \n", com->valorCompra);
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-
-        free(pro);
-
     }
-    
 
 }
 
@@ -963,7 +1007,6 @@ void alterarItem(Compra* com_lida){
     char quant[10];
     char valorItem[10];
     float preco = 0.0;
-
 
     FILE* file;
     Compra* com;
@@ -1213,7 +1256,6 @@ void alterarItem(Compra* com_lida){
 
     }
 
-
 }
 
 void alterarCompra(){
@@ -1221,9 +1263,48 @@ void alterarCompra(){
     Chave* key;
     Compra* com;
 
+    char resposta;
+
+    int validaDig;
+    int validaOp;
+
     key = telaAlterarCompra();
     com = pegarCompra(key);
 
-    exibirCompra(com);
+    if(com == NULL){
+        exibirCompra(com);
+
+    }else{
+        exibirCompra(com);
+
+        do{
+            printf("///          - Deseja alterar todos os items do consumo (S/N) ");
+            scanf("%[^\n]", &resposta);
+            getchar();
+
+            validaDig = testeDigito(resposta);
+            validaOp = validaOpcao(resposta);
+            
+
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
+            }
+
+        }while(!validaOp || validaDig);
+
+        if (resposta == 'S' || resposta == 's'){
+            alterarTudo(com);
+
+            free(key);
+            free(com);
+
+        } else if(resposta == 'S' || resposta == 's'){
+            alterarItem(com);
+            free(key);
+            free(com);
+
+        }
+    }
+    
 
 }

@@ -45,4 +45,4 @@ void alterarTudo(Compra*);
 
 void alterarItem(Compra*);
 
-void telaListarCompras(void);
+void alterarCompra(void);
