@@ -87,13 +87,13 @@ int main(void) {
                             pesquisarConsumo();
                             break;
                         case '3':
-                            //telaExcluirConsumo(con);
+                            ecluirConsumo();
                             break;
                         case '4':
                             alterarConsumo();
                             break;
                         case '5':
-                            telaListarConsumos();
+                            listarConsumos();
                             break;
                     }
 

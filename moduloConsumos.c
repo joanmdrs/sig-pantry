@@ -7,10 +7,10 @@
 typedef struct consumo Consumo;
 
 struct consumo {
-    char quantItens[10];
-    Produto itens[100];
     char dataConsumo[11];
     char horaConsumo[6];
+    char quantItens[10];
+    Produto itens[100];
     char status[10];
 };
 
@@ -32,7 +32,8 @@ void gravarConsumo(Consumo* con){
 }
 
 void exibirConsumo(Consumo* con){
-        if(con == NULL){
+    
+    if(con == NULL){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///         Não existem consumos cadastrados com a DATA e HORA        ///\n");  
@@ -70,9 +71,6 @@ void exibirConsumo(Consumo* con){
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
-
-/* A função menuConsumo irá direcionar o usuário para as funções cadastrar, pesquisar,
-   excluir, alterar e listar, referentes ao módulo consumo. */
 
 char menuConsumo(void){
     char opcao;
@@ -121,8 +119,6 @@ char menuConsumo(void){
 }
 
 // SEÇÃO RELACIONADA AO CADASTRO ________________________________________________________________________________
-
-/* A função telaCadastrarConsumo realiza o cadastro de um consumo. */
 
 Consumo* telaCadastrarConsumo(void){
 
@@ -282,17 +278,12 @@ Consumo* telaCadastrarConsumo(void){
 
     }while(!validaHora || validaDig || validaNull);
 
-// ---------------------------------------------------------------------------------------
-
-    strcpy(con->status, "Disponível");
-        
-// ---------------------------------------------------------------------------------------
-
+    strcpy(con->status, "DISPONÍVEL");
+    
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///                 Consumo cadastrado com sucesso !                  ///\n");
     exibirConsumo(con);
-
 
     return con;
 
@@ -406,20 +397,13 @@ void pesquisarConsumo(void){
 
 // SEÇÃO RELACIONADA À EXCLUSÃO ________________________________________________________________________________
 
-/* A função telaExcluirConsumo realiza a exclusão de um consumo. */
+ChaveC* telaExcluirConsumo(){
 
-void telaExcluirConsumo(Consumo* con){
-
-    char resposta;
-    char dataConsumo[11];
-    char horaConsumo[9];
-
-    int validaOp;
     int validaDig;
     int validaData;
     int validaHora;
     int validaNull;
-    
+
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -430,19 +414,22 @@ void telaExcluirConsumo(Consumo* con){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =           ///\n");
+    printf("///           = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
-// ---------------------------------------------------------------------------------------
+    ChaveC* key;
+    key = (ChaveC*) malloc(sizeof(ChaveC));
+
+    // ------------------------- Validando a data do consumo ----------------------------------
 
     do{
         printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("%[^\n]", dataConsumo);
+        scanf("%[^\n]", key->dataConsumo);
         getchar();
     
-        validaData = testaData(dataConsumo);
-        validaDig = testeDigitosNumericosData(dataConsumo);
-        validaNull = verificaNulo(dataConsumo);
+        validaData = testaData(key->dataConsumo);
+        validaDig = testeDigitosNumericosData(key->dataConsumo);
+        validaNull = verificaNulo(key->dataConsumo);
 
         if (!validaData || validaDig || validaNull) {
             printf("///            Data inválida, tente novamente !\n");
@@ -450,53 +437,50 @@ void telaExcluirConsumo(Consumo* con){
 
     }while(!validaData || validaDig || validaNull);
 
-// ---------------------------------------------------------------------------------------
+// ------------------------- Validando a hora do consumo ----------------------------------
 
     do{
         printf("///            - Horário Consumo (hh:mm): ");
-        scanf("%[^\n]", horaConsumo);
+        scanf("%[^\n]", key->horaConsumo);
         getchar();
     
-        validaHora = testaHora(horaConsumo);
-        validaDig = testeDigitosNumericosHora(horaConsumo);
-        validaNull = verificaNulo(horaConsumo);
+        validaHora = testaHora(key->horaConsumo);
+        validaDig = testeDigitosNumericosHora(key->horaConsumo);
+        validaNull = verificaNulo(key->horaConsumo);
 
         if (!validaHora || validaDig || validaNull) {
             printf("///            Hora inválida, tente novamente !\n");
         }
 
     }while(!validaHora || validaDig || validaNull);
-// ---------------------------------------------------------------------------------------
 
-    if (!strcmp(dataConsumo,con->dataConsumo) && !strcmp(horaConsumo,con->horaConsumo) && strcmp("x",con->status)){
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            CONSUMO LOCALIZADO!                                    ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            Lista de Itens:                                        ///\n");
-        printf("///                                                                   ///\n");
+    return key;
+}
 
-        int q = atoi(con->quantItens);
+void excluirLogicamente(Consumo* con){
 
-        for (int i = 0; i < q; i++){
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///            Item %d \n", i+1);
-            printf("///                                                                   ///\n");
-            printf("///              Código de Barras: %s \n", con->itens[i].codBarras);
-            printf("///             Descrição do Item: %s \n", con->itens[i].nomeItem);
-            int quantC = converteCharParaInt(con->itens[i].quant);
-            printf("///                    Quantidade: %d \n", quantC);
-            printf("///              Data de Validade: %s \n", con->itens[i].dataValidade);
-        }
+    FILE* file;
+    Consumo* cons;
+    char resposta;
 
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            - Data do consumo: %s \n", con->dataConsumo);
-        printf("///            - Horário da consumo: %s \n", con->horaConsumo);
+    int validaDig;
+    int validaOp;
+
+    cons = (Consumo*) malloc(sizeof(Consumo));
+    file = fopen("consumos.dat", "r+b");
+
+    if(con == NULL){
         printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///          Não foram encontrados consumos com a DATA e HORA         ///\n");  
+        printf("///          fornecidas.                                              ///\n");    
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
 
-// ---------------------------------------------------------------------------------------
-
+    } else{
         do{
             printf("///            - Confirmar operação (S/N) ? ");
             scanf("%[^\n]", &resposta);
@@ -512,37 +496,52 @@ void telaExcluirConsumo(Consumo* con){
 
         }while(!validaOp || validaDig);
 
-// ---------------------------------------------------------------------------------------
-
         if (resposta == 'S' || resposta == 's'){
-            strcpy(con->status, "x");
+
+            while(!feof(file)) {
+                fread(cons, sizeof(Consumo), 1, file);
+                if(!strcmp(cons->dataConsumo, con->dataConsumo) && !strcmp(cons->horaConsumo, con->horaConsumo) && strcmp("x",cons->status)){
+                    strcpy(cons->status, "x");
+                    fseek(file, -1*sizeof(Consumo), SEEK_CUR);
+                    fwrite(cons, sizeof(Consumo), 1, file);
+                    break;
+                }
+            }
+
             printf("///                                                                   ///\n");
             printf("///            Consumo excluído com sucesso!                          ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t              >>> Tecle <ENTER> para continuar...\n");
+            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
-        }else if (resposta == 'N' || resposta == 'n'){
+        } else if (resposta == 'N' || resposta == 'n'){
             printf("///                                                                   ///\n");
             printf("///            Operação cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
         }
-
-    } else {
-        printf("///                                                                   ///\n");  
-        printf("///          Não há registro de consumo para o dia e horário          ///\n");    
-        printf("///          informado.                                               ///\n"); 
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
     }
     
+    fclose(file);
+}
+
+void excluirConsumo(void){
+
+    Consumo* con;
+    ChaveC* key;
+
+    key = telaExcluirConsumo();
+    con = pegarConsumo(key);
+    exibirConsumo(con);
+    excluirLogicamente(con);
+
+    free(key);
+    free(con);
+
 }
 
 // SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
@@ -1010,8 +1009,6 @@ void alterarItemC(Consumo* con_lido){
     }
 }
 
-/* A função telaAlterarConsumo realiza a alteração de um consumo. */
-
 void alterarConsumo(void){
     ChaveC* key;
     Consumo* con;
@@ -1052,9 +1049,7 @@ void alterarConsumo(void){
     }
 }
 
-/* A função telaListarConsumos realiza a listagem de todos os consumos. */
-
-void telaListarConsumos(void){
+void listarConsumos(void){
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -1066,19 +1061,24 @@ void telaListarConsumos(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            MÓDULO LISTAR CONSUMOS:                                ///\n");
+    printf("///          = = = = = = MÓDULO LISTAR CONSUMOS: = = = = = =          ///\n");
     printf("///                                                                   ///\n");
-    printf("///            Itens: Aqui vai mostrar todos os itens consumidos      ///\n");
-    printf("///            naquele por dia e horário, e suas informações          ///\n");
-    printf("///            - Data do consumo:                                     ///\n");
-    printf("///            - Horário do consumo:                                  ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
 
-    /* No módulo listar consumos, serão exibidos todos os items consumidos, separados por 
-    data e horário de cadastro. 
-    */
+    FILE* fp;
+    Consumo* con;
+    con = (Consumo*) malloc(sizeof(Consumo));
+    fp = fopen("consumos.dat", "rb");
+
+    if (fp == NULL) {
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+        printf("Não é possível continuar este programa...\n");
+        exit(1);
+    }
+
+    while(fread(con, sizeof(Consumo), 1, fp)) {
+        if (strcmp(con->status, "x")) {
+            exibirConsumo(con);
+        }
+    }
+    fclose(fp);
 }
