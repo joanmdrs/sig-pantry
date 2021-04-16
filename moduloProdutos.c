@@ -63,6 +63,7 @@ char menuProdutos(void){
 
 }
 
+
 /* A função gravarProduto salva o produto no arquivo produtos.dat. */
 
 void gravarProduto(Produto* pro){
@@ -74,6 +75,8 @@ void gravarProduto(Produto* pro){
 
     fclose(file);
 }
+
+// SEÇÃO RELACIONADA AO CADASTRO ________________________________________________________________________________
 
 /* A função telaCadastrarProduto realiza o cadastro de um produto. */
 
@@ -238,6 +241,8 @@ void cadastrarProduto(void){
 
     free(prod);
 }
+
+// SEÇÃO RELACIONADA À PESQUISA ________________________________________________________________________________
 
 /* A função buscaProduto verifica se o produto está no arquivo produtos.dat. */
 
@@ -412,6 +417,7 @@ void pesquisarProduto(void){
     free(pro);
 }
 
+// SEÇÃO RELACIONADA À EXCLUSÃO ________________________________________________________________________________
 
 /* A função telaExcluirProduto realiza a exclusão de um produto. */
 
@@ -465,8 +471,7 @@ Produto* buscaProdutoPorCodBarra(char* codBarras){
     prod = (Produto*) malloc(sizeof(Produto));
     file = fopen("produtos.dat", "rb");
 
-    while(!feof(file)){
-        fread(prod, sizeof(Produto), 1, file);
+    while(fread(prod, sizeof(Produto), 1, file)){
 
         if(!strcmp(prod->codBarras, codBarras) && strcmp("x",prod->status)){
             printf("///        ___________________________________________________        ///\n");
@@ -533,8 +538,7 @@ void excProduto(Produto* pro){
 
         if (resposta == 'S' || resposta == 's'){
 
-            while(!feof(file)) {
-                fread(prod, sizeof(Produto), 1, file);
+            while(fread(prod, sizeof(Produto), 1, file)) {
                 if(!strcmp(pro->codBarras, prod->codBarras) && strcmp(prod->status, "x")){
                     strcpy(prod->status, "x");
                     fseek(file, -1*sizeof(Produto), SEEK_CUR);
@@ -578,6 +582,8 @@ void excluirProduto(void){
     free(codBarras);
 
 }
+
+// SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
 
 /* A função telaAlterarProduto realiza a alteração de um produto. */
 
@@ -788,7 +794,6 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->quant, quant);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
-                        break;
                     }
                 } 
 
@@ -866,7 +871,6 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->nomeItem, nomeItem);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
-                        break;
                     }
                 }
                 printf("///                                                                   ///\n");
@@ -902,7 +906,6 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->dataValidade, dataValidade);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
-                        break;
                     }
                 }
 
@@ -938,7 +941,6 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->local, local);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
-                        break;
                     }
                 }
 
@@ -974,7 +976,6 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->status, status);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
-                        break;
                     }
                 }
 
@@ -1010,7 +1011,6 @@ void atualizarProduto(Produto* pro){
                         strcpy(prod->quant, quant);
                         fseek(file, -1*sizeof(Produto), SEEK_CUR);
                         fwrite(prod, sizeof(Produto), 1, file);
-                        break;
                     }
                 }
 

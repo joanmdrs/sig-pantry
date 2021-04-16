@@ -337,7 +337,7 @@ Compra* telaCadastrarCompra(void){
 
 }
 
-void cadastrarCompra(){
+void cadastrarCompra(void){
 
     Compra* com;
 
@@ -351,7 +351,7 @@ void cadastrarCompra(){
 
 // SEÇÃO RELACIONADA À PESQUISA ________________________________________________________________________________
 
-Chave* telaPesquisarCompra(){
+Chave* telaPesquisarCompra(void){
 
     int validaDig;
     int validaData;
@@ -416,8 +416,7 @@ Compra* pegarCompra(Chave* key){
     com = (Compra*) malloc(sizeof(Compra));
     file = fopen("compras.dat", "rb");
 
-    while(!feof(file)){
-        fread(com, sizeof(Compra), 1, file);
+    while(fread(com, sizeof(Compra), 1, file)){
         if(!strcmp(com->dataCompra, key->dataCompra) && !strcmp(com->horaCompra, key->horaCompra)){
             fclose(file);
             return com;
@@ -503,67 +502,6 @@ Chave* telaExcluirCompra(){
 
     return key;
 
-/*
-
-        do{
-            printf("///            - Confirmar operação (S/N) ? ");
-            scanf("%[^\n]", &resposta);
-            getchar();
-
-            validaDig = testeDigito(resposta);
-            validaOp = validaOpcao(resposta);
-            
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-// ---------------------------------------------------------------------------------------
-
-        printf("/// _________________________________________________________________ ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                        VALOR DE ENTRADA:                          ///\n");
-        printf("///                                                                   ///\n");
-        printf("///             Opção escolhida: %c \n", resposta);
-        printf("/// _________________________________________________________________ ///\n");
-
-        if (resposta == 'S' || resposta == 's'){
-            strcpy(com->status, "x");
-            printf("///                                                                   ///\n");
-            printf("///            Compra excluída com sucesso!                           ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }else if(resposta == 'N' || resposta == 'n'){
-            printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }
-
-        }else {
-            printf("/// _________________________________________________________________ ///\n");
-            printf("///                                                                   ///\n");  
-            printf("///          Não há registro de compras para o dia e horário          ///\n");    
-            printf("///          informado.                                               ///\n"); 
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-        }
-        
-
-// --------------------------------------------------------------------------------------- */
-
-    
-    
 }
 
 void excluirLogicamente(Compra* com){
@@ -655,7 +593,8 @@ void excluirCompra(void){
 
 // SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
 
-Chave* telaAlterarCompra(){
+Chave* telaAlterarCompra(void){
+
     int validaDig;
     int validaData;
     int validaHora;
@@ -878,7 +817,6 @@ void alterarTudo(Compra* com_lida){
                     }
                     fseek(file, -1*sizeof(Compra), SEEK_CUR);
                     fwrite(com, sizeof(Compra), 1, file);
-                    break;
                 }
             } 
 
@@ -912,7 +850,6 @@ void alterarItem(Compra* com_lida){
     char codBarras[14];
     char nomeItem[51];
     char dataValidade[11];
-    char local[10];
     char quant[10];
     char valorCompra[10];
 
@@ -970,6 +907,7 @@ void alterarItem(Compra* com_lida){
 
         for(int i = 0; i < q; i++){
             if (!strcmp(codBarras, com_lida->itens[i].codBarras) && !strcmp(dataValidade,com_lida->itens[i].dataValidade)){
+                int itemAch = i;
                 printf("/// _________________________________________________________________ ///\n");
                 printf("///                                                                   ///\n");
                 printf("///                        ITEM ENCONTRADO !                          ///\n");
@@ -1004,7 +942,7 @@ void alterarItem(Compra* com_lida){
 
                 }while(!validaOp || validaDig);
 
-                // ----------------------- Alterando a descrição da compra -------------------------------
+// ----------------------- Alterando a descrição da compra -------------------------------
 
                 if (respostaLetras == 'A' || respostaLetras == 'a'){
                     printf("///                                                                   ///\n");
@@ -1022,7 +960,7 @@ void alterarItem(Compra* com_lida){
                     }while (validaDig || validaNull);
 
                     while(fread(com, sizeof(Compra), 1, file)){
-                        strcpy(com->itens[i].nomeItem, nomeItem);        
+                        strcpy(com->itens[itemAch].nomeItem, nomeItem);        
                         fseek(file, -1*sizeof(Compra), SEEK_CUR);
                         fwrite(com, sizeof(Compra), 1, file);
                     }
@@ -1052,7 +990,7 @@ void alterarItem(Compra* com_lida){
                     }while(!validaData || validaDig || validaNull);
 
                     while(fread(com, sizeof(Compra), 1, file)){
-                        strcpy(com->itens[i].dataValidade, dataValidade);        
+                        strcpy(com->itens[itemAch].dataValidade, dataValidade);        
                         fseek(file, -1*sizeof(Compra), SEEK_CUR);
                         fwrite(com, sizeof(Compra), 1, file);
                     }
@@ -1081,7 +1019,7 @@ void alterarItem(Compra* com_lida){
                     }while (validaDig || validaNull);
 
                     while(fread(com, sizeof(Compra), 1, file)){
-                        strcpy(com->itens[i].quant, quant);        
+                        strcpy(com->itens[itemAch].quant, quant);        
                         fseek(file, -1*sizeof(Compra), SEEK_CUR);
                         fwrite(com, sizeof(Compra), 1, file);
                     }
@@ -1135,7 +1073,7 @@ void alterarItem(Compra* com_lida){
     }
 }
 
-void alterarCompra(){
+void alterarCompra(void){
     Chave* key;
     Compra* com;
     char resposta;
@@ -1150,7 +1088,7 @@ void alterarCompra(){
     }else{
         exibirCompra(com);
         do{
-            printf("///          - Deseja alterar todos os items do consumo (S/N) ");
+            printf("///          - Deseja alterar todos os items da compra (S/N) ");
             scanf("%[^\n]", &resposta);
             getchar();
 

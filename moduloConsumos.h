@@ -7,14 +7,37 @@ struct consumo {
     char status[10];
 };
 
+typedef struct chaveC ChaveC;
+
+struct chaveC{
+    char dataConsumo[11];
+    char horaConsumo[6];
+};
+
 char menuConsumo(void);
 
 Consumo* telaCadastrarConsumo(void);
 
-void telaPesquisarConsumo(Consumo*);
+void cadastrarConsumo(void);
+
+void gravarConsumo(Consumo*);
+
+void exibirConsumo(Consumo*);
+
+ChaveC* telaPesquisarConsumo(void);
+
+Consumo* pegarConsumo(ChaveC*);
+
+void pesquisarConsumo(void);
 
 void telaExcluirConsumo(Consumo*);
 
-void telaAlterarConsumo(Consumo*);
+ChaveC* telaAlterarConsumo(void);
+
+void alterarTudoC(Consumo*);
+
+void alterarItemC(Consumo*);
+
+void alterarConsumo(void);
 
 void telaListarConsumos(void);
