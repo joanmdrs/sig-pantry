@@ -33,7 +33,7 @@ void pesquisarConsumo(void);
 
 ChaveC* telaExcluirConsumo(void);
 
-void excluirLogicamente(Consumo*);
+void excluirLogicamenteC(Consumo*);
 
 void excluirConsumo(void);
 

@@ -87,7 +87,7 @@ int main(void) {
                             pesquisarConsumo();
                             break;
                         case '3':
-                            ecluirConsumo();
+                            excluirConsumo();
                             break;
                         case '4':
                             alterarConsumo();

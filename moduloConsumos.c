@@ -457,7 +457,7 @@ ChaveC* telaExcluirConsumo(){
     return key;
 }
 
-void excluirLogicamente(Consumo* con){
+void excluirLogicamenteC(Consumo* con){
 
     FILE* file;
     Consumo* cons;
@@ -537,7 +537,7 @@ void excluirConsumo(void){
     key = telaExcluirConsumo();
     con = pegarConsumo(key);
     exibirConsumo(con);
-    excluirLogicamente(con);
+    excluirLogicamenteC(con);
 
     free(key);
     free(con);
