@@ -1,43 +1,63 @@
 typedef struct produto Produto;
 struct produto {
     char codBarras[14];
-    char nomeItem[51];
     char dataValidade[11];
-    char local[10];
-    char status[10];
+    char nomeItem[51];
+    char local[20];
     char quant[10];
+    char status[11];
 };
 
-
+typedef struct chaveP ChaveP;
+struct chaveP {
+    char codBarras[14];
+    char dataValidade[11];
+};
 
 char menuProdutos(void);
 
-Produto* telaCadastrarProduto(void);
-
 void gravarProduto(Produto*);
-
-void cadastrarProduto(void);
-
-Produto* buscaProduto(char);
-
-char telaPesquisarProduto(void);
-
-void pesquisarProduto(void);
 
 void exibeProduto(Produto*);
 
-char* telaExcluirProduto(void);
+Produto* telaCadastrarProduto(void);
 
-Produto* buscaProdutoPorCodBarra(char*);
+void cadastrarProduto(void);
 
-void excProduto(Produto*);
+char telaTipoPesq(void);
+
+ChaveP* telaPesquisarPeloCod(void);
+ 
+Produto* pegarProdutoPeloCod(ChaveP*);
+
+char* telaPesquisarPelaDesc(void);
+
+Produto* pegarProdutoPelaDesc(char*);
+
+void pesquisarProduto(void);
+
+ChaveP* telaExcluirProduto(void);
+
+void excluirProdutoLogicamente(Produto*);
 
 void excluirProduto(void);
 
-char* telaAlterarProduto(void);
+ChaveP* telaAlterarProduto(void);
 
-void atualizarProduto(Produto*);
+Produto* telaAlterarTudo();
+
+char* telaAlterarValidade(void);
+
+char* telaAlterarDesc(void);
+
+char* telaAlterarLocal(void);
+
+char* telaAlterarQuant(void);
+
+void regravarProduto(Produto*);
+
+void regravarCampo(Produto*);
 
 void alterarProduto(void);
 
-void telaListarProdutos(void);
+void listarProdutos(void);

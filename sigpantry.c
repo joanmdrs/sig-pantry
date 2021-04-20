@@ -43,7 +43,7 @@ int main(void) {
                             alterarProduto();;
                             break;
                         case '5':
-                            telaListarProdutos();
+                            listarProdutos();
                             break;
                     }
 
