@@ -324,6 +324,7 @@ void cadastrarCompra(void){
         }while (validaDig || validaNull);
 
         pro->quant = atoi(quantidade);
+        
         int q = atoi(quantidade);
         int achou = 0;
         while(fread(proe, sizeof(Produto), 1, fp)) {

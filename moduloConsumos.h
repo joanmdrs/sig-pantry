@@ -17,27 +17,31 @@ char menuConsumo(void);
 
 void cadastrarConsumo(void);
 
-/*
+long int telaPesquisarConsumo(void);
 
-ChaveC* telaPesquisarConsumo(void);
-
-Consumo* pegarConsumo(ChaveC*);
+Consumo* pegarConsumo(long int);
 
 void pesquisarConsumo(void);
 
-ChaveC* telaExcluirConsumo(void);
+long int telaExcluirConsumo(void);
 
-void excluirLogicamenteC(Consumo*);
+void excluirConsumoLog(Consumo*);
 
 void excluirConsumo(void);
 
-ChaveC* telaAlterarConsumo(void);
+long int telaAlterarConsumo(void);
 
-void alterarTudoC(Consumo*);
+char* telaPreencheDataConsumo(void);
 
-void alterarItemC(Consumo*);
+char* telaPreencheHoraConsumo(void);
+
+double telaPreencheValorConsumo(void);
+
+char telaEscolhaConsumo(void);
+
+void regravarConsumo(Consumo*);
 
 void alterarConsumo(void);
-*/
+
 void listarConsumos(void);
 

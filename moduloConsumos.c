@@ -160,7 +160,7 @@ void cadastrarConsumo(void){
 
     }while(!validaData || validaDig || validaNull);
     
-// ------------------------- Validando a hora da compra ----------------------------------
+// ------------------------- Validando a hora do consumo ----------------------------------
 
     do{
         printf("///            - Horário Consumo (hh:mm:ss): ");
@@ -326,6 +326,420 @@ void cadastrarConsumo(void){
         free(con);
     }
 }
+
+// SEÇÃO RELACIONADA À PESQUISA ________________________________________________________________________________
+
+long int telaPesquisarConsumo(void){
+
+    int validaDig;
+    int validaNull;
+    char codConsumo[9];
+    long int codigo;
+
+    limpaTela();
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *     SIG-PANTRY - Controle de Despensa   * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           = = = = =  MÓDULO PESQUISAR CONSUMO: = = = = =          ///\n");
+    printf("///                                                                   ///\n");
+ 
+    do{
+        printf("///            - Código do consumo: ");
+        scanf("%[^\n]", codConsumo);
+        getchar();
+
+        validaDig = testeDigitosNumericos(codConsumo);
+        validaNull = verificaNulo(codConsumo);
+        if(validaDig || validaNull){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(validaDig || validaNull);
+
+    codigo = atoi(codConsumo);
+    return codigo;
+}
+
+Consumo* pegarConsumo(long int codigo){
+
+    FILE* file;
+    Consumo* con;
+
+    con = (Consumo*) malloc(sizeof(Consumo));
+    file = fopen("consumos.dat", "rb");
+
+    while(fread(con, sizeof(Consumo), 1, file)){
+        if(con->codConsumo == codigo && con->status != 'x'){
+            fclose(file);
+            return con;
+        }
+    }
+
+    fclose(file);
+    return NULL;
+}
+
+void pesquisarConsumo(void){
+    
+    Consumo* con;
+    long int codigo;
+    codigo = telaPesquisarConsumo();
+    con = pegarConsumo(codigo);
+    exibirConsumo(con);
+    free(con);
+
+}
+
+// SEÇÃO RELACIONADA À EXCLUSÃO ________________________________________________________________________________
+
+long int telaExcluirConsumo(void){
+
+    int validaDig;
+    int validaNull;
+    char codConsumo[9];
+    long int codigo;
+
+    limpaTela();
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =           ///\n");
+    printf("///                                                                   ///\n");
+
+    do{
+        printf("///            - Código do consumo: ");
+        scanf("%[^\n]", codConsumo);
+        getchar();
+
+        validaDig = testeDigitosNumericos(codConsumo);
+        validaNull = verificaNulo(codConsumo);
+        if(validaDig || validaNull){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(validaDig || validaNull);
+
+    codigo = atoi(codConsumo);
+    return codigo;
+}
+
+void excluirConsumoLog(Consumo* con){
+    char resposta;
+    int validaDig;
+    int validaOp;
+    FILE* file;
+    Consumo* conp;
+    conp = (Consumo*) malloc(sizeof(Consumo));
+    file = fopen("consumos.dat", "r+b");
+
+    if(con == NULL){
+        exibirConsumo(con);
+
+    } else{
+        do{
+            printf("///            - Confirmar operação (S/N) ? ");
+            scanf("%[^\n]", &resposta);
+            getchar();
+
+            validaDig = testeDigito(resposta);
+            validaOp = validaOpcao(resposta);
+            
+
+            if(!validaOp || validaDig){
+                printf("///            Opcão inválida, tente novamente!\n");
+            }
+
+        }while(!validaOp || validaDig);
+
+        if (resposta == 'S' || resposta == 's'){
+            while(fread(conp, sizeof(Consumo), 1, file)){
+                if(conp->codConsumo == con->codConsumo && conp->status != 'x'){
+                    conp->status = 'x';
+                    fseek(file, -1*sizeof(Consumo), SEEK_CUR);
+                    fwrite(conp, sizeof(Consumo), 1, file);   
+                    break;
+                }
+            }
+            fclose(file);
+        
+            printf("///                                                                   ///\n");
+            printf("///            Consumo excluído com sucesso!                          ///\n"); 
+            printf("///                                                                   ///\n");
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+
+        } else if (resposta == 'N' || resposta == 'n'){
+            printf("///                                                                   ///\n");
+            printf("///            Operação cancelada!                                    ///\n"); 
+            printf("///                                                                   ///\n");
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+            fclose(file);
+        }
+    } 
+    fclose(file);
+}
+
+void excluirConsumo(void){
+    Consumo* con;
+    long int codigo;
+    codigo = telaExcluirConsumo();
+    con = pegarConsumo(codigo);
+    exibirConsumo(con);
+    
+    if(con != NULL){
+        excluirConsumoLog(con);
+    }
+    free(con);
+}
+
+// SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
+
+long int telaAlterarConsumo(void){
+
+    int validaDig;
+    int validaNull;
+    char codConsumo[9];
+    long int codigo;
+
+    limpaTela();
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            = = = = =  MÓDULO ALTERAR CONSUMO: = = = = =           ///\n");
+    printf("///                                                                   ///\n");
+
+    do{
+        printf("///            - Código do consumo: ");
+        scanf("%[^\n]", codConsumo);
+        getchar();
+
+        validaDig = testeDigitosNumericos(codConsumo);
+        validaNull = verificaNulo(codConsumo);
+        if(validaDig || validaNull){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(validaDig || validaNull);
+
+    codigo = atoi(codConsumo);
+    return codigo;
+}
+
+char* telaPreencheDataConsumo(void){
+
+    int validaData;
+    int validaDig;
+    int validaNull;
+    char* dataConsumo;
+    dataConsumo = (char*) malloc(11*sizeof(char));
+
+     do{
+        printf("///            - Data Consumo (dd/mm/aaaa): ");
+        scanf("%[^\n]", dataConsumo);
+        getchar();
+    
+        validaData = testaData(dataConsumo);
+        validaDig = testeDigitosNumericosData(dataConsumo);
+        validaNull = verificaNulo(dataConsumo);
+
+        if (!validaData || validaDig || validaNull) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig || validaNull);
+    return dataConsumo;
+}
+
+char* telaPreencheHoraConsumo(void){
+    int validaHora;
+    int validaDig;
+    int validaNull;
+    char* horaConsumo;
+    horaConsumo = (char*) malloc(9*sizeof(char));
+
+    do{
+        printf("///            - Horário Consumo (hh:mm:ss): ");
+        scanf("%[^\n]", horaConsumo);
+        getchar();
+    
+        validaHora = testaHora(horaConsumo);
+        validaDig = testeDigitosNumericosHora(horaConsumo);
+        validaNull = verificaNulo(horaConsumo);
+
+        if (!validaHora || validaDig || validaNull) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!validaHora || validaDig || validaNull);
+    return horaConsumo;
+
+}
+
+double telaPreencheValorConsumo(void){
+    int validaDig;
+    char valor[10];
+    double valorConsumo = 0.0;
+
+    do{
+        printf("///            - Valor do consumo R$ ");
+        scanf("%s", valor);
+        getchar();
+        
+        validaDig = testeDigitosNumericosValorFlutuante(valor);
+
+        if(validaDig){
+            printf("///            Dígitos inválidos, tente novamente !\n");
+        }
+
+    }while (validaDig);
+
+    valorConsumo = converteCharParaDouble(valor);
+    return valorConsumo;
+}
+
+char telaEscolhaConsumo(void){
+    int validaDig;
+    int validaOp;
+    char opcao;
+
+    do{
+        printf("///            - Informe a sua opção: ");
+        scanf("%[^\n]", &opcao);
+        getchar();
+
+        validaDig = testeDigito(opcao);
+        validaOp = validaOpcaoLetrasAC(opcao);
+        
+        if(!validaOp || validaDig){
+            printf("///            Opcão inválida, tente novamente!\n");
+        }
+
+    }while(!validaOp || validaDig);
+    printf("///                                                                   ///\n");
+    return opcao;
+}
+
+void regravarConsumo(Consumo* con){
+
+    FILE* file;
+    Consumo* conp;
+    conp = (Consumo*) malloc(sizeof(Consumo));
+    file = fopen("consumos.dat", "r+b");
+    char opcao;
+   
+    printf("///                                                                   ///\n");
+    printf("///           ESCOLHA O QUER ALTERAR:                                 ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            - Digite 'a' para alterar a data do consumo            ///\n");
+    printf("///            - Digite 'b' para alterar a hora do consumo            ///\n");
+    printf("///            - Digite 'c' para alterar o valor do consumo           ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    opcao = telaEscolhaConsumo();
+
+    if(opcao == 'a'){
+        char* dataConsumo;
+        dataConsumo = telaPreencheDataConsumo();
+
+        while(fread(conp, sizeof(Consumo), 1, file)){
+            if(conp->codConsumo == con->codConsumo && conp->status != 'x'){
+                strcpy(conp->dataConsumo, dataConsumo);
+                fseek(file, -1*sizeof(Consumo), SEEK_CUR);
+                fwrite(conp, sizeof(Consumo), 1, file);
+                break;
+            }
+        }
+        fclose(file);
+        free(dataConsumo);
+        free(conp);
+        printf("///                                                                   ///\n");
+        printf("///            A data do consumo foi alterada!                        ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+
+    }else if(opcao == 'b'){
+        char* horaConsumo;
+        horaConsumo = telaPreencheHoraConsumo();
+        
+        while(fread(conp, sizeof(Consumo), 1, file)){
+            if(conp->codConsumo == con->codConsumo && conp->status != 'x'){
+                strcpy(conp->horaConsumo, horaConsumo);
+                fseek(file, -1*sizeof(Consumo), SEEK_CUR);
+                fwrite(conp, sizeof(Consumo), 1, file);
+                break;
+            }
+        }
+        fclose(file);
+        free(horaConsumo);
+        free(conp);
+        printf("///                                                                   ///\n");
+        printf("///            A hora do consumo foi alterada!                        ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+
+    }else if(opcao == 'c'){
+        double valorConsumo = 0.0;
+        valorConsumo = telaPreencheValorConsumo();
+
+        while(fread(conp, sizeof(Consumo), 1, file)){
+            if(conp->codConsumo == con->codConsumo && conp->status != 'x'){
+                conp->valor = valorConsumo;
+                fseek(file, -1*sizeof(Consumo), SEEK_CUR);
+                fwrite(conp, sizeof(Consumo), 1, file);
+                break;
+            }
+        }
+        fclose(file);
+        free(conp);
+        printf("///                                                                   ///\n");
+        printf("///            O valor do consumo foi alterado!                       ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+
+    }
+    fclose(file);
+}
+
+void alterarConsumo(void){
+    Consumo* con;
+    long int codigo;
+    codigo = telaAlterarConsumo();
+    con = pegarConsumo(codigo);
+    exibirConsumo(con);
+    
+    if(con != NULL){
+        regravarConsumo(con);
+    }
+    free(con);
+}
+
 
 void listarConsumos(void){
 

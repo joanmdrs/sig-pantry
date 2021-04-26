@@ -84,13 +84,13 @@ int main(void) {
                             cadastrarConsumo();
                             break;
                         case '2':
-                            //pesquisarConsumo();
+                            pesquisarConsumo();
                             break;
                         case '3':
-                            //excluirConsumo();
+                            excluirConsumo();
                             break;
                         case '4':
-                            //alterarConsumo();
+                            alterarConsumo();
                             break;
                         case '5':
                             listarConsumos();

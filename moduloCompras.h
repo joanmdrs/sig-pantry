@@ -42,7 +42,7 @@ double telaPreencheValor(void);
 
 char telaEscolha(void);
 
-void regravarCompra(Compra* com);
+void regravarCompra(Compra*);
 
 void alterarCompra(void);
 
