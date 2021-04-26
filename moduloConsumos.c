@@ -22,7 +22,6 @@ void gravarConsumo(Consumo* con){
     fclose(file);
 }
 
-
 char menuConsumo(void){
     char opcao;
     int validaOp;
@@ -263,7 +262,6 @@ void cadastrarConsumo(void){
         
         int q = converteCharParaInt(quantidade);
 
-
         while(fread(proe, sizeof(Produto), 1, fp)) {
             if (!strcmp(proe->codBarras, codBarras) && !strcmp(proe->dataValidade, dataValidade) && strcmp(proe->status, "x")) {
                 if (proe->quant > q || proe->quant == q ){
@@ -274,7 +272,6 @@ void cadastrarConsumo(void){
                     achou = 1;
                     break;
                 }
-    
             }
         }
         fclose(fp);
