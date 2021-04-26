@@ -1,31 +1,23 @@
-/*typedef struct consumo Consumo;
+typedef struct consumo Consumo;
 
 struct consumo {
+    long int codConsumo;
     char dataConsumo[11];
-    char horaConsumo[6];
-    char quantItens[10];
-    Produto itens[100];
-    char status[10];
-};
-
-typedef struct chaveC ChaveC;
-
-struct chaveC{
-    char dataConsumo[11];
-    char horaConsumo[6];
+    char horaConsumo[9];
+    int quant;
+    double valor;
+    char status;
 };
 
 void gravarConsumo(Consumo*);
 
 void exibirConsumo(Consumo*);
 
-*/
 char menuConsumo(void);
 
-/*
-Consumo* telaCadastrarConsumo(void);
-
 void cadastrarConsumo(void);
+
+/*
 
 ChaveC* telaPesquisarConsumo(void);
 
@@ -46,7 +38,6 @@ void alterarTudoC(Consumo*);
 void alterarItemC(Consumo*);
 
 void alterarConsumo(void);
-
+*/
 void listarConsumos(void);
 
-*/

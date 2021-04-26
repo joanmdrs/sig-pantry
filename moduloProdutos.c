@@ -786,7 +786,7 @@ void regravarProduto(Produto* pro){
                 strcpy(prod->dataValidade, proe->dataValidade);
                 strcpy(prod->nomeItem, proe->nomeItem);
                 strcpy(prod->local, proe->local);
-                prod->quant = pro->quant;
+                prod->quant = proe->quant;
                 fseek(file, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(prod, sizeof(Produto), 1, file);
                 break;

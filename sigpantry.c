@@ -81,7 +81,7 @@ int main(void) {
 
                     switch (opcao4){
                         case '1':
-                            //cadastrarConsumo();
+                            cadastrarConsumo();
                             break;
                         case '2':
                             //pesquisarConsumo();
@@ -93,7 +93,7 @@ int main(void) {
                             //alterarConsumo();
                             break;
                         case '5':
-                            //listarConsumos();
+                            listarConsumos();
                             break;
                     }
 

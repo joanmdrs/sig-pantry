@@ -4,75 +4,25 @@
 #include "moduloValidacoes.h"
 #include "moduloProdutos.h"
 
-/*
 typedef struct consumo Consumo;
 
 struct consumo {
+    long int codConsumo;
     char dataConsumo[11];
-    char horaConsumo[6];
-    char quantItens[10];
-    Produto itens[100];
-    char status[10];
-};
-
-typedef struct chaveC ChaveC;
-
-struct chaveC{
-    char dataConsumo[11];
-    char horaConsumo[6];
+    char horaConsumo[9];
+    int quant;
+    double valor;
+    char status;
 };
 
 void gravarConsumo(Consumo* con){
     FILE* file;
-
     file = fopen("consumos.dat", "ab");
-
     fwrite(con, sizeof(Consumo), 1, file);
-
     fclose(file);
 }
 
-void exibirConsumo(Consumo* con){
-    
-    if(con == NULL){
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///         Não existem consumos cadastrados com a DATA e HORA        ///\n");  
-        printf("///         fornecidas.                                               ///\n");    
-        printf("///        ___________________________________________________        ///\n");
 
-    } else {
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///             Data do consumo: %s \n", con->dataConsumo);
-        printf("///             Horário do consumo: %s \n", con->horaConsumo);
-        printf("///             Status: %s \n", con->status);
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            LISTA DE ITENS:                                        ///\n");
-        printf("///                                                                   ///\n");
-
-        int q = atoi(con->quantItens);
-
-        for (int i = 0; i < q; i++){
-            printf("               Item %d \n", i+1);
-            printf("///\n");
-            printf("///              Código de Barras: %s \n", con->itens[i].codBarras);
-            printf("///             Descrição do Item: %s \n", con->itens[i].nomeItem);
-            int quantC = converteCharParaInt(con->itens[i].quant);
-            printf("///                    Quantidade: %d \n", quantC);
-            printf("///              Data de Validade: %s \n", con->itens[i].dataValidade);
-
-        }
-
-    }
-
-    printf("///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-}
-*/
 char menuConsumo(void){
     char opcao;
     int validaOp;
@@ -110,27 +60,51 @@ char menuConsumo(void){
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
-
         }
 
     }while(!validaOp || !validaOpM);
-
 	return opcao;
+}
+
+void exibirConsumo(Consumo* con){
+
+    if(con == NULL){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///           Não existem consumos cadastrados com o CÓDIGO           ///\n");  
+        printf("///           informado.                                              ///\n");    
+        printf("///        ___________________________________________________        ///\n");
+
+    } else {
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///             Código do consumo: %ld \n",con->codConsumo);
+        printf("///             Data do consumo: %s \n", con->dataConsumo);
+        printf("///             Horário do consumo: %s \n", con->horaConsumo);
+        printf("///             Q. produtos: %d \n", con->quant);
+        printf("///             Valor total: R$ %.2f \n", con->valor);
+        printf("///             Status: %c \n", con->status);
+        printf("///        ___________________________________________________        ///\n");
+
+    }
+
+    printf("///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 
 }
 
-/*
-// SEÇÃO RELACIONADA AO CADASTRO ________________________________________________________________________________
+// SEÇÃO RELACIONADA AO CADASTRO _______________________________________________________________________________
 
-Consumo* telaCadastrarConsumo(void){
-
+void cadastrarConsumo(void){
     int validaCod;
     int validaDig;
     int validaData;
     int validaHora;
     int validaNull;
-
-    int quantC[10];
+    double valorConsumo = 0.0;
+    int achou = 0;
 
     limpaTela();
     printf("\n");
@@ -138,7 +112,7 @@ Consumo* telaCadastrarConsumo(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *     SIG-PANTRY - Controle de Despensa   * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -146,107 +120,30 @@ Consumo* telaCadastrarConsumo(void){
     printf("///          = = = = =  MÓDULO CADASTRAR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
-// ----------------------- Alocando espaço de memória ----------------------------------
+    FILE* fp;
+    FILE* fc;
+    fc = fopen("consumos.dat", "rb");
 
     Consumo* con;
-    con = (Consumo*) malloc(sizeof(Consumo));    
+    Consumo* cons;
+    con = (Consumo*) malloc(sizeof(Consumo));
+    cons = (Consumo*) malloc(sizeof(Consumo));
 
-// ----------------------- Validando a quantidade de itens ----------------------------------
+    Produto* proe;
 
-    do{
-        printf("///            - Quant. Itens do consumo: ");
-        scanf("%[^\n]", con->quantItens);
-        getchar();
-    
-        validaDig = testeDigitosNumericos(con->quantItens);
-        validaNull = verificaNulo(con->quantItens);
+// ------------------------- Gerando o código do consumo ----------------------------------
 
-		if(validaDig || validaNull){
-			printf("///            Quantidade inválida, tente novamente !\n");
-		}
+    con->codConsumo = geraNF();
 
-	}while(validaDig || validaNull);
-
-    int q = atoi(con->quantItens);
-
-    for(int i = 0; i < q; i++){
-
-        printf("///\n");
-        printf("///            Item %d \n", i+1);
-        printf("///\n");
-
-// ----------------------- Validando o código de barras ----------------------------------
-
-        do{
-            printf("///            - Código de Barras: ");
-            scanf("%[^\n]", con->itens[i].codBarras);
-            getchar();
-        
-            validaCod = validaCodBarras(con->itens[i].codBarras);
-            validaDig = testeDigitosNumericos(con->itens[i].codBarras);
-            validaNull = verificaNulo(con->itens[i].codBarras);
-
-            if(!validaCod || validaDig || validaNull){
-                printf("///            Código inválido, tente novamente !\n");
-            }
-
-        }while(!validaCod || validaDig || validaNull);
-
-// ----------------------- Validando a descrição do produto ------------------------------
-
-        do{
-            printf("///            - Descrição do Item: ");
-            scanf("%[^\n]", con->itens[i].nomeItem);
-            getchar();
-
-            validaDig = testeDigitos(con->itens[i].nomeItem);
-            validaNull = verificaNulo(con->itens[i].nomeItem);
-
-            if(validaDig || validaNull){
-                printf("///            Caracteres inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-
-// ----------------------- Validando a data de validade ----------------------------------
-
-        do{
-            printf("///            - Data Val. (dd/mm/aaaa): ");
-            scanf("%[^\n]", con->itens[i].dataValidade);
-            getchar();
-        
-            validaData = testaData(con->itens[i].dataValidade);
-            validaDig = testeDigitosNumericosData(con->itens[i].dataValidade);
-            validaNull = verificaNulo(con->itens[i].dataValidade);
-
-            if (!validaData || validaDig || validaNull) {
-                printf("///            Data inválida, tente novamente !\n");
-            }
-
-        }while(!validaData || validaDig || validaNull);
-
-// ----------------------------- Validando a quantidade ----------------------------------
-        
-        do{
-            printf("///            - Quantidade: ");
-            scanf("%[^\n]", con->itens[i].quant);
-            getchar();
-            
-            validaDig = testeDigitosNumericos(con->itens[i].quant);
-            validaNull = verificaNulo(con->itens[i].quant);
-
-            if(validaDig || validaNull){
-                printf("///            Dígitos inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-
-        quantC[i] = converteCharParaInt(con->itens[i].quant);
-
+    while(fread(cons, sizeof(Consumo), 1, fc)) {
+        if ((cons->codConsumo == con->codConsumo)) {
+            con->codConsumo = geraNF();
+        }
     }
+    fclose(fc);
+    printf("///            - Código do consumo: %ld \n", con->codConsumo);
 
 // ------------------------- Validando a data do consumo ----------------------------------
-    printf("///                                                                   ///\n");
 
     do{
         printf("///            - Data Consumo (dd/mm/aaaa): ");
@@ -262,14 +159,14 @@ Consumo* telaCadastrarConsumo(void){
         }
 
     }while(!validaData || validaDig || validaNull);
-
-// ------------------------- Validando a hora do consumo ----------------------------------
+    
+// ------------------------- Validando a hora da compra ----------------------------------
 
     do{
-        printf("///            - Horário Consumo (hh:mm): ");
+        printf("///            - Horário Consumo (hh:mm:ss): ");
         scanf("%[^\n]", con->horaConsumo);
         getchar();
-
+    
         validaHora = testaHora(con->horaConsumo);
         validaDig = testeDigitosNumericosHora(con->horaConsumo);
         validaNull = verificaNulo(con->horaConsumo);
@@ -280,566 +177,63 @@ Consumo* telaCadastrarConsumo(void){
 
     }while(!validaHora || validaDig || validaNull);
 
-    strcpy(con->status, "DISPONÍVEL");
-    
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///                 Consumo cadastrado com sucesso !                  ///\n");
-    exibirConsumo(con);
+// ----------------------------- Definindo o status ----------------------------------
 
-    return con;
-
-}
-
-void cadastrarConsumo(void){
-
-    Consumo* con;
-
-    con = telaCadastrarConsumo();
-
-    gravarConsumo(con);
-
-    free(con);
-
-}
-
-// SEÇÃO RELACIONADA À PESQUISA ________________________________________________________________________________
-
-ChaveC* telaPesquisarConsumo(void){
-
-    int validaDig;
-    int validaData;
-    int validaHora;
-    int validaNull;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = =  MÓDULO PESQUISAR CONSUMO: = = = = =          ///\n");
-    printf("///                                                                   ///\n");
-
-    ChaveC* key;
-    key = (ChaveC*) malloc(sizeof(ChaveC));
-
-// ---------------------------------------------------------------------------------------
-
-    do{
-        printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("%[^\n]", key->dataConsumo);
-        getchar();
-    
-        validaData = testaData(key->dataConsumo);
-        validaDig = testeDigitosNumericosData(key->dataConsumo);
-        validaNull = verificaNulo(key->dataConsumo);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-
-    }while(!validaData || validaDig || validaNull);
-
-// ---------------------------------------------------------------------------------------
-
-    do{
-        printf("///            - Horário Consumo (hh:mm): ");
-        scanf("%[^\n]", key->horaConsumo);
-        getchar();
-
-        validaHora = testaHora(key->horaConsumo);
-        validaDig = testeDigitosNumericosHora(key->horaConsumo);
-        validaNull = verificaNulo(key->horaConsumo);
-
-        if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
-        }
-
-    }while(!validaHora || validaDig || validaNull);
-
-    return key;
-}
-
-Consumo* pegarConsumo(ChaveC* key){
-
-    FILE* file;
-    Consumo* con;
-
-    con = (Consumo*) malloc(sizeof(Consumo));
-    file = fopen("consumos.dat", "rb");
-
-    while(fread(con, sizeof(Consumo), 1, file)){
-        if(!strcmp(con->dataConsumo, key->dataConsumo) && !strcmp(con->horaConsumo, key->horaConsumo)){
-            fclose(file);
-            return con;
-        }
-    }
-
-    fclose(file);
-    return NULL;
-}
-
-void pesquisarConsumo(void){
-
-    Consumo* con;
-    ChaveC* key;
-
-    key = telaPesquisarConsumo();
-    con = pegarConsumo(key);
-    exibirConsumo(con);
-
-    free(key);
-    free(con);
-}
-
-// SEÇÃO RELACIONADA À EXCLUSÃO ________________________________________________________________________________
-
-ChaveC* telaExcluirConsumo(){
-
-    int validaDig;
-    int validaData;
-    int validaHora;
-    int validaNull;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =            ///\n");
-    printf("///                                                                   ///\n");
-
-    ChaveC* key;
-    key = (ChaveC*) malloc(sizeof(ChaveC));
-
-    // ------------------------- Validando a data do consumo ----------------------------------
-
-    do{
-        printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("%[^\n]", key->dataConsumo);
-        getchar();
-    
-        validaData = testaData(key->dataConsumo);
-        validaDig = testeDigitosNumericosData(key->dataConsumo);
-        validaNull = verificaNulo(key->dataConsumo);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-
-    }while(!validaData || validaDig || validaNull);
-
-// ------------------------- Validando a hora do consumo ----------------------------------
-
-    do{
-        printf("///            - Horário Consumo (hh:mm): ");
-        scanf("%[^\n]", key->horaConsumo);
-        getchar();
-    
-        validaHora = testaHora(key->horaConsumo);
-        validaDig = testeDigitosNumericosHora(key->horaConsumo);
-        validaNull = verificaNulo(key->horaConsumo);
-
-        if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
-        }
-
-    }while(!validaHora || validaDig || validaNull);
-
-    return key;
-}
-
-void excluirLogicamenteC(Consumo* con){
-
-    FILE* file;
-    Consumo* cons;
-    char resposta;
-
-    int validaDig;
-    int validaOp;
-
-    cons = (Consumo*) malloc(sizeof(Consumo));
-    file = fopen("consumos.dat", "r+b");
-
-    if(con == NULL){
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///          Não foram encontrados consumos com a DATA e HORA         ///\n");  
-        printf("///          fornecidas.                                              ///\n");    
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
-
-    } else{
-        do{
-            printf("///            - Confirmar operação (S/N) ? ");
-            scanf("%[^\n]", &resposta);
-            getchar();
-
-            validaDig = testeDigito(resposta);
-            validaOp = validaOpcao(resposta);
-            
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-        if (resposta == 'S' || resposta == 's'){
-
-            while(!feof(file)) {
-                fread(cons, sizeof(Consumo), 1, file);
-                if(!strcmp(cons->dataConsumo, con->dataConsumo) && !strcmp(cons->horaConsumo, con->horaConsumo) && strcmp("x",cons->status)){
-                    strcpy(cons->status, "x");
-                    fseek(file, -1*sizeof(Consumo), SEEK_CUR);
-                    fwrite(cons, sizeof(Consumo), 1, file);
-                    break;
-                }
-            }
-
-            printf("///                                                                   ///\n");
-            printf("///            Consumo excluído com sucesso!                          ///\n"); 
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        } else if (resposta == 'N' || resposta == 'n'){
-            printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n"); 
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }
-    }
-    
-    fclose(file);
-}
-
-void excluirConsumo(void){
-
-    Consumo* con;
-    ChaveC* key;
-
-    key = telaExcluirConsumo();
-    con = pegarConsumo(key);
-    exibirConsumo(con);
-    excluirLogicamenteC(con);
-
-    free(key);
-    free(con);
-
-}
-
-// SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
-
-ChaveC* telaAlterarConsumo(void){
-    
-    int validaDig;
-    int validaData;
-    int validaHora;
-    int validaNull;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          = = = = = = MÓDULO ALTERAR CONSUMO = = = = = =           ///\n");
-    printf("///                                                                   ///\n");
-
-    ChaveC* key;
-    key = (ChaveC*) malloc(sizeof(ChaveC));
-
-// ---------------------------------------------------------------------------------------
-
-    do{
-        printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("%[^\n]", key->dataConsumo);
-        getchar();
-    
-        validaData = testaData(key->dataConsumo);
-        validaDig = testeDigitosNumericosData(key->dataConsumo);
-        validaNull = verificaNulo(key->dataConsumo);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-
-    }while(!validaData || validaDig || validaNull);
-
-// ---------------------------------------------------------------------------------------
-
-    do{
-        printf("///            - Horário Consumo (hh:mm): ");
-        scanf("%[^\n]", key->horaConsumo);
-        getchar();
-    
-        validaHora = testaHora(key->horaConsumo);
-        validaDig = testeDigitosNumericosHora(key->horaConsumo);
-        validaNull = verificaNulo(key->horaConsumo);
-
-        if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
-        }
-
-    }while(!validaHora || validaDig || validaNull);
-
-    return key;
-}
-
-void alterarTudoC(Consumo* con_lido){
-
-    int validaCod;
-    int validaDig;
-    int validaNull;
-    int validaData;
-    int validaOp;
-    char decisao;
-
-    FILE* file;
-    Consumo* con;
-    con = (Consumo*) malloc(sizeof(Consumo));
-
-    Consumo* con_pre;    
-    con_pre = (Consumo*) malloc(sizeof(Consumo));
-
-    file = fopen("consumos.dat", "r+b");
-
-    if(con_lido == NULL){
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///         Não existem compras cadastradas com a DATA e HORA         ///\n");  
-        printf("///         fornecidas.                                               ///\n");    
-        printf("///        ___________________________________________________        ///\n");
-
-    } else {
-        printf("///                                                                   ///\n");
-        printf("///           NOVA LISTA DE ITENS:                                    ///\n");
-        printf("///                                                                   ///\n");
-
-        // ----------------------- Validando a quantidade de itens ----------------------------------
-
-        do{
-            printf("///            - Quant. Itens do consumo: ");
-            scanf("%[^\n]", con_pre->quantItens);
-            getchar();
-        
-            validaDig = testeDigitosNumericos(con_pre->quantItens);
-            validaNull = verificaNulo(con_pre->quantItens);
-
-            if(validaDig || validaNull){
-                printf("///            Quantidade inválida, tente novamente !\n");
-            }
-
-        }while(validaDig || validaNull);
-
-        int quant = atoi(con_pre->quantItens);
-
-        for(int i = 0; i < quant; i++){
-
-            printf("///\n");
-            printf("///            Item %d \n", i+1);
-            printf("///\n");
-
-// ----------------------- Validando o código de barras ----------------------------------
-
-            do{
-                printf("///            - Código de Barras: ");
-                scanf("%[^\n]", con_pre->itens[i].codBarras);
-                getchar();
-            
-                validaCod = validaCodBarras(con_pre->itens[i].codBarras);
-                validaNull = verificaNulo(con_pre->itens[i].codBarras);
-
-                if(!validaCod || validaNull){
-                    printf("///            Código inválido, tente novamente !\n");
-                }
-
-            }while(!validaCod || validaNull);
-
-// ----------------------- Validando a descrição do produto ------------------------------
-
-            do{
-                printf("///            - Descrição do Item: ");
-                scanf("%[^\n]", con_pre->itens[i].nomeItem);
-                getchar();
-
-                validaDig = testeDigitos(con_pre->itens[i].nomeItem);
-                validaNull = verificaNulo(con_pre->itens[i].nomeItem);
-
-                if(validaDig || validaNull){
-                    printf("///            Caracteres inválidos, tente novamente !\n");
-                }
-            
-            }while (validaDig || validaNull);
-
-// ----------------------- Validando a data de validade ----------------------------------
-
-            do{
-                printf("///            - Data Val. (dd/mm/aaaa): ");
-                scanf("%[^\n]", con_pre->itens[i].dataValidade);
-                getchar();
-            
-                validaData = testaData(con_pre->itens[i].dataValidade);
-                validaDig = testeDigitosNumericosData(con_pre->itens[i].dataValidade);
-                validaNull = verificaNulo(con_pre->itens[i].dataValidade);
-
-                if (!validaData || validaDig || validaNull) {
-                    printf("///            Data inválida, tente novamente !\n");
-                }
-
-            }while(!validaData || validaDig || validaNull);
+    con->status = 'Y';
 
 // ----------------------------- Validando a quantidade ----------------------------------
-        
-            do{
-                printf("///            - Quantidade: ");
-                scanf("%[^\n]", con_pre->itens[i].quant);
-                getchar();
-                
-                validaDig = testeDigitosNumericos(con_pre->itens[i].quant);
-                validaNull = verificaNulo(con_pre->itens[i].quant);
 
-                if(validaDig || validaNull){
-                    printf("///            Dígitos inválidos, tente novamente !\n");
-                }
-
-            }while (validaDig || validaNull);
-        }
-
-// ---------------------------------------------------------------------------------------
-
-        do{
-            printf("///            - Confirmar operação (S/N) ? ");
-            scanf("%[^\n]", &decisao);
-            getchar();
-
-            validaDig = testeDigito(decisao);
-            validaOp = validaOpcao(decisao);
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-// ---------------------------------------------------------------------------------------
-
-        if (decisao == 'S' || decisao == 's'){
-
-            while(fread(con, sizeof(Consumo), 1, file)) {
-                if(!strcmp(con->dataConsumo, con_lido->dataConsumo) && !strcmp(con->horaConsumo, con_lido->horaConsumo)){
-                    for(int i = 0; i < quant; i++){
-                        strcpy(con->quantItens, con_pre->quantItens);
-                        strcpy(con->itens[i].codBarras, con_pre->itens[i].codBarras);
-                        strcpy(con->itens[i].nomeItem, con_pre->itens[i].nomeItem);
-                        strcpy(con->itens[i].dataValidade, con_pre->itens[i].dataValidade);
-                        strcpy(con->itens[i].quant, con_pre->itens[i].quant);
-                    }
-                    fseek(file, -1*sizeof(Consumo), SEEK_CUR);
-                    fwrite(con, sizeof(Consumo), 1, file);
-                }
-            } 
-
-            printf("///                                                                   ///\n");
-            printf("///            Item alterado com sucesso!                             ///\n"); 
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }else if(decisao == 'N' || decisao == 'n'){
-            printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n");
-            printf("///                                                                   ///\n");
-            printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-
-        }
-    }
-}
-
-void alterarItemC(Consumo* con_lido){
-
-    char codBarras[14];
-    char nomeItem[51];
-    char dataValidade[11];
-    char quant[10];
-
-    int validaCod;
-    int validaDig;
-    int validaNull;
-    int validaData;
-    int validaOp;
-    char respostaLetras;
-
-    FILE* file;
-    Consumo* con;
-
-    con = (Consumo*) malloc(sizeof(Consumo));
-    file = fopen("consumos.dat", "r+b");
-
-    if(con_lido == NULL){
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///          Não foram encontradas consumos com a DATA e HORA         ///\n");  
-        printf("///          informada.                                               ///\n");    
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    char quant[4];
+    do{
+        printf("///            - Quant. Consumidos: ");
+        scanf("%[^\n]", quant);
         getchar();
+    
+        validaDig = testeDigitosNumericos(quant);
+        validaNull = verificaNulo(quant);
 
-    } else {
-        printf("///                                                                   ///\n");
-        printf("///           INFORME O ITEM A ALTERAR:                               ///\n");
-        printf("///                                                                   ///\n");
+        if(validaDig || validaNull){
+            printf("///            Quantidade inválida, tente novamente !\n");
+        }
+
+    }while(validaDig || validaNull);
+
+    int q = atoi(quant);
+    con->quant = q;
+
+    for(int i = 0; i < q; i++){
+
+        fp = fopen("produtos.dat", "r+b");
+        proe = (Produto*) malloc(sizeof(Produto));
+        printf("///\n");
+        printf("///            Item %d \n", i+1);
+        printf("///\n");
 
 // ----------------------- Validando o código de barras ----------------------------------
-
+        char codBarras[14];
         do{
             printf("///            - Código de Barras: ");
             scanf("%[^\n]", codBarras);
             getchar();
         
             validaCod = validaCodBarras(codBarras);
+            validaDig = testeDigitosNumericos(codBarras);
             validaNull = verificaNulo(codBarras);
 
-            if(!validaCod || validaNull){
+            if(!validaCod || validaDig || validaNull){
                 printf("///            Código inválido, tente novamente !\n");
             }
 
-        }while(!validaCod || validaNull);
+        }while(!validaCod || validaDig || validaNull);
 
 // ----------------------- Validando a data de validade ----------------------------------
 
+        char dataValidade[11];
         do{
-            printf("///            - Data de Validade (dd/mm/aaaa): ");
+            printf("///            - Data Val. (dd/mm/aaaa): ");
             scanf("%[^\n]", dataValidade);
             getchar();
-        
+
             validaData = testaData(dataValidade);
             validaDig = testeDigitosNumericosData(dataValidade);
             validaNull = verificaNulo(dataValidade);
@@ -850,204 +244,86 @@ void alterarItemC(Consumo* con_lido){
 
         }while(!validaData || validaDig || validaNull);
 
-        int q = atoi(con_lido->quantItens);
-
-        for(int i = 0; i < q; i++){
-
-            if (!strcmp(codBarras, con_lido->itens[i].codBarras) && !strcmp(dataValidade, con_lido->itens[i].dataValidade)){
-                int itemAc = i;
-                printf("/// _________________________________________________________________ ///\n");
-                printf("///                                                                   ///\n");
-                printf("///            ITEM ENCONTRADO !                                      ///\n");
-                printf("///                                                                   ///\n");
-                printf("///              Código de Barras: %s \n", con_lido->itens[i].codBarras);
-                printf("///             Descrição do Item: %s \n", con_lido->itens[i].nomeItem);
-                int quantC = converteCharParaInt(con_lido->itens[i].quant);
-                printf("///                    Quantidade: %d \n", quantC);
-                printf("///              Data de Validade: %s \n", con_lido->itens[i].dataValidade);
-                printf("///        ___________________________________________________        ///\n");
-
-                printf("///                                                                   ///\n");
-                printf("///           ESCOLHA O CAMPO À ALTERAR:                              ///\n");
-                printf("///                                                                   ///\n");
-                printf("///            - Digite 'a' para alterar a descrição                  ///\n");
-                printf("///            - Digite 'b' para alterar a validade                   ///\n");
-                printf("///            - Digite 'c' para alterar o quantidade                 ///\n");
-                printf("///        ___________________________________________________        ///\n");
-                printf("///                                                                   ///\n");
-// ---------------------------------------------------------------------------------------
-
-                do{
-                    printf("///            - Informe a sua opção: ");
-                    scanf("%[^\n]", &respostaLetras);
-                    getchar();
-
-                    validaDig = testeDigito(respostaLetras);
-                    validaOp = validaOpcaoLetrasAC(respostaLetras);
-                    
-
-                    if(!validaOp || validaDig){
-                        printf("///            Opcão inválida, tente novamente!\n");
-                    }
-
-                }while(!validaOp || validaDig);
-
-// ----------------------- Validando a descrição do Consumo -------------------------------
-
-                if (respostaLetras == 'A' || respostaLetras == 'a'){
-                    printf("///                                                                   ///\n");
-
-                    do{
-                        printf("///            - a) Nova Descrição: ");
-                        scanf("%[^\n]", nomeItem);
-                        getchar();
-
-                        validaDig = testeDigitos(nomeItem);
-                        validaNull = verificaNulo(nomeItem);
-
-                        if(validaDig || validaNull){
-                            printf("///            Caracteres inválidos, tente novamente !\n");
-                        }
-
-                    }while (validaDig || validaNull);
-
-// ---------------------------------------------------------------------------------------
-
-                    while(fread(con, sizeof(Consumo), 1, file)){
-                        strcpy(con->itens[itemAc].nomeItem, nomeItem);        
-                        fseek(file, -1*sizeof(Consumo), SEEK_CUR);
-                        fwrite(con, sizeof(Consumo), 1, file);
-                    }
-                    printf("///                                                                   ///\n");
-                    printf("///            A descrição do item foi alterada!                      ///\n");
-                    printf("///                                                                   ///\n");
-                    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-                    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-                    getchar();
-                    break;
-
-                }else if(respostaLetras == 'B' || respostaLetras == 'b'){
-
-// ----------------------- Validando a data de validade ----------------------------------
-
-                    printf("///                                                                   ///\n");
-
-                    do{
-                        printf("///            - b) Nova Data Val. (dd/mm/aaaa): ");
-                        scanf("%[^\n]", dataValidade);
-                        getchar();
-                    
-                        validaData = testaData(dataValidade);
-                        validaDig = testeDigitosNumericosData(dataValidade);
-                        validaNull = verificaNulo(dataValidade);
-
-                        if (!validaData || validaNull) {
-                            printf("///            Data inválida, tente novamente !\n");
-                        }
-
-                    }while(!validaData || validaNull);
-
-// ---------------------------------------------------------------------------------------
-
-                    while(fread(con, sizeof(Consumo), 1, file)){
-                        strcpy(con->itens[itemAc].dataValidade, dataValidade);        
-                        fseek(file, -1*sizeof(Consumo), SEEK_CUR);
-                        fwrite(con, sizeof(Consumo), 1, file);
-                    }
-                    printf("///                                                                   ///\n");
-                    printf("///            A data de validade do item foi alterada!               ///\n");
-                    printf("///                                                                   ///\n");
-                    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-                    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-                    getchar();
-                    break;
-
-
-                }else if(respostaLetras == 'C' || respostaLetras == 'c'){   
-
 // ----------------------------- Validando a quantidade ----------------------------------
 
-                    printf("///                                                                   ///\n");
+        char quantidade[10];
+        do{
+            printf("///            - Quantidade: ");
+            scanf("%[^\n]", quantidade);
+            getchar();
             
-                    do{
-                        printf("///            - c) Nova Quantidade: ");
-                        scanf("%[^\n]", quant);
-                        getchar();
-                        
-                        validaDig = testeDigitosNumericos(quant);
-                        validaNull = verificaNulo(quant);
+            validaDig = testeDigitosNumericos(quantidade);
+            validaNull = verificaNulo(quantidade);
 
-                        if(validaDig || validaNull){
-                            printf("///            Dígitos inválidos, tente novamente !\n");
-                        }
+            if(validaDig || validaNull){
+                printf("///            Dígitos inválidos, tente novamente !\n");
+            }
 
-                    }while (validaDig || validaNull);
+        }while (validaDig || validaNull);
+        
+        int q = converteCharParaInt(quantidade);
 
-                    quantC = converteCharParaInt(quant);
 
-// ---------------------------------------------------------------------------------------
-
-                    while(fread(con, sizeof(Consumo), 1, file)){
-                        strcpy(con->itens[itemAc].quant, quant);        
-                        fseek(file, -1*sizeof(Consumo), SEEK_CUR);
-                        fwrite(con, sizeof(Consumo), 1, file);
-                    }
-                    printf("///                                                                   ///\n");
-                    printf("///            A quantidade do item foi alterada!                     ///\n");
-                    printf("///                                                                   ///\n");
-                    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-                    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-                    getchar();
+        while(fread(proe, sizeof(Produto), 1, fp)) {
+            if (!strcmp(proe->codBarras, codBarras) && !strcmp(proe->dataValidade, dataValidade) && strcmp(proe->status, "x")) {
+                if (proe->quant > q || proe->quant == q ){
+                    proe->quant = proe->quant - q;
+                    printf("%d \n", proe->quant);
+                    fseek(fp, -1*sizeof(Produto), SEEK_CUR);
+                    fwrite(proe, sizeof(Produto), 1, fp);
+                    achou = 1;
                     break;
                 }
+    
             }
         }
-        printf("///                                                                   ///\n");
-        printf("///            ITEM NÃO ENCONTRADO !                                  ///\n");
-        printf("///                                                                   ///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
-    }
-}
+        fclose(fp);
+        free(proe);
 
-void alterarConsumo(void){
-    ChaveC* key;
-    Consumo* con;
-    char resposta;
-    int validaDig;
-    int validaOp;
-
-    key = telaAlterarConsumo();
-    con = pegarConsumo(key);
-
-    if(con == NULL){
-        exibirConsumo(con);
-    }else{
-        exibirConsumo(con);
-        do{
-            printf("///          - Deseja alterar todos os items do consumo (S/N) ");
-            scanf("%[^\n]", &resposta);
-            getchar();
-
-            validaDig = testeDigito(resposta);
-            validaOp = validaOpcao(resposta);
+        if(achou == 0){
             
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-        }while(!validaOp || validaDig);
+            printf("///        ___________________________________________________        ///\n");
+            printf("///                                                                   ///\n");
+            printf("///           Este produto não existe na despensa ou a                ///\n");  
+            printf("///           quantidade consumida é superior à quant-                ///\n");   
+            printf("///           idade registrada no banco de dados.                     ///\n");                                                            
+            printf("///        ___________________________________________________        ///\n");
+            printf("///                                                                   ///\n"); 
+            printf("/////////////////////////////////////////////////////////////////////////\n\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+            
+            break;
 
-        if (resposta == 'S' || resposta == 's'){
-            alterarTudoC(con);
-            free(key);
-            free(con);
+        }else {
+// ----------------------------- Validando o preço ----------------------------------
 
-        } else if(resposta == 'N' || resposta == 'n'){
-            alterarItemC(con);
-            free(key);
-            free(con);
+            char preco[10];
+            do{
+                printf("///            - Preço do Item: R$ ");
+                scanf("%s", preco);
+                getchar();
+                
+                validaDig = testeDigitosNumericosValorFlutuante(preco);
+
+                if(validaDig){
+                    printf("///            Dígitos inválidos, tente novamente !\n");
+                }
+
+            }while (validaDig);
+
+// ----------------------------- Calculando o valor do consumo ----------------------------------
+
+            double valor = converteCharParaDouble(preco);
+            valorConsumo = valorConsumo + (q * valor);
+
         }
+
+    }
+    if (achou == 1){
+        con->valor = valorConsumo;
+        gravarConsumo(con);
+        free(con);
     }
 }
 
@@ -1058,7 +334,7 @@ void listarConsumos(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -1078,11 +354,10 @@ void listarConsumos(void){
     }
 
     while(fread(con, sizeof(Consumo), 1, fp)) {
-        if (strcmp(con->status, "x")) {
-            exibirConsumo(con);
-        }
+        exibirConsumo(con);
+        
     }
     fclose(fp);
 }
 
-*/
+

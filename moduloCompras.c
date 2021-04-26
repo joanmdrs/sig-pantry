@@ -324,12 +324,11 @@ void cadastrarCompra(void){
         }while (validaDig || validaNull);
 
         pro->quant = atoi(quantidade);
-        int q = pro->quant;
-        int total = proe->quant + q;
+        int q = atoi(quantidade);
         int achou = 0;
         while(fread(proe, sizeof(Produto), 1, fp)) {
             if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade) && strcmp(proe->status, "x")) {
-                proe->quant = total;
+                proe->quant = proe->quant + q;
                 fseek(fp, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(proe, sizeof(Produto), 1, fp);
                 achou = 1;
