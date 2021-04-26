@@ -4,7 +4,7 @@ struct produto {
     char dataValidade[11];
     char nomeItem[51];
     char local[20];
-    char quant[10];
+    int quant;
     char status[11];
 };
 

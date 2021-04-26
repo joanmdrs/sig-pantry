@@ -1,4 +1,4 @@
-typedef struct consumo Consumo;
+/*typedef struct consumo Consumo;
 
 struct consumo {
     char dataConsumo[11];
@@ -19,8 +19,10 @@ void gravarConsumo(Consumo*);
 
 void exibirConsumo(Consumo*);
 
+*/
 char menuConsumo(void);
 
+/*
 Consumo* telaCadastrarConsumo(void);
 
 void cadastrarConsumo(void);
@@ -46,3 +48,5 @@ void alterarItemC(Consumo*);
 void alterarConsumo(void);
 
 void listarConsumos(void);
+
+*/

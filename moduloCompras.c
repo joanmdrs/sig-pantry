@@ -11,13 +11,10 @@ struct compra {
     long int codCompra;
     char dataCompra[11];
     char horaCompra[9];
-    char status;
-    int quantItens;
-    char codItem[14];
-    char dataValidade[11];
-    char nomeItem[51];
     int quant;
-    double valorItem;
+    double valor;
+    char status;
+    
 };
 
 void gravarCompra(Compra* com){
@@ -27,38 +24,6 @@ void gravarCompra(Compra* com){
     fclose(file);
 }
 
-void exibirTudo(Compra* com){
-
-    if(com == NULL){
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///            Não existem compras cadastradas com o CÓDIGO           ///\n");  
-        printf("///            informado.                                             ///\n");    
-        printf("///        ___________________________________________________        ///\n");
-
-    } else {
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///             Código da compra: %ld \n",com->codCompra);
-        printf("///             Data da compra: %s \n", com->dataCompra);
-        printf("///             Horário da compra: %s \n", com->horaCompra);
-        printf("///             Status: %c \n", com->status);
-        printf("///             Q. produtos: %d \n", com->quantItens);
-        printf("///\n");
-        printf("///             Código Item: %s \n", com->codItem);
-        printf("///             Data Validade: %s \n", com->dataValidade);
-        printf("///             Descrição: %s \n", com->nomeItem);
-        printf("///             Quantidade: %d \n", com->quant);
-        printf("///             Valor Item: R$ %.2f \n", com->valorItem);
-        printf("///        ___________________________________________________        ///\n");
-    }
-
-    printf("///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-
-}
 
 void exibirCompra(Compra* com){
 
@@ -75,8 +40,9 @@ void exibirCompra(Compra* com){
         printf("///             Código da compra: %ld \n",com->codCompra);
         printf("///             Data da compra: %s \n", com->dataCompra);
         printf("///             Horário da compra: %s \n", com->horaCompra);
+        printf("///             Q. produtos: %d \n", com->quant);
+        printf("///             Valor total: R$ %.2f \n", com->valor);
         printf("///             Status: %c \n", com->status);
-        printf("///             Q. produtos: %d \n", com->quantItens);
         printf("///        ___________________________________________________        ///\n");
 
     }
@@ -88,7 +54,7 @@ void exibirCompra(Compra* com){
 
 }
 
-void exibirItens(Compra* com){
+/*void exibirItens(Compra* com){
 
     if(com == NULL){
         printf("///        ___________________________________________________        ///\n");
@@ -112,6 +78,7 @@ void exibirItens(Compra* com){
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
+*/
 
 char menuCompras(void){
     char opcao;
@@ -183,14 +150,18 @@ void cadastrarCompra(void){
 
     FILE* fp;
     FILE* fc;
+    fc = fopen("compras.dat", "rb");
+
     Compra* com;
     Compra* comp;
-    Produto* pro;
-    Produto* proe;
     com = (Compra*) malloc(sizeof(Compra));
     comp = (Compra*) malloc(sizeof(Compra));
-    fp = fopen("produtos.dat", "r+b");
-    fc = fopen("compras.dat", "rb");
+    double valorCompra = 0.0;
+
+    Produto* pro;
+    Produto* proe;
+
+// ------------------------- Gerando o código da compra ----------------------------------
 
     com->codCompra = geraNF();
 
@@ -259,10 +230,11 @@ void cadastrarCompra(void){
     }while(validaDig || validaNull);
 
     int q = atoi(quant);
-    com->quantItens = q;
+    com->quant = q;
 
     for(int i = 0; i < q; i++){
 
+        fp = fopen("produtos.dat", "r+b");
         pro = (Produto*) malloc(sizeof(Produto));
         proe = (Produto*) malloc(sizeof(Produto));
         printf("///\n");
@@ -286,8 +258,6 @@ void cadastrarCompra(void){
 
         }while(!validaCod || validaDig || validaNull);
 
-        strcpy(com->codItem, pro->codBarras);
-
 // ----------------------- Validando a data de validade ----------------------------------
 
         do{
@@ -305,8 +275,6 @@ void cadastrarCompra(void){
 
         }while(!validaData || validaDig || validaNull);
 
-        strcpy(com->dataValidade, pro->dataValidade);
-
 // ----------------------- Validando a descrição do produto ------------------------------
 
         do{
@@ -322,8 +290,6 @@ void cadastrarCompra(void){
             }
 
         }while (validaDig || validaNull);
-
-        strcpy(com->nomeItem, pro->nomeItem);
 
 // ----------------------------- Validando o local ----------------------------------
 
@@ -342,39 +308,37 @@ void cadastrarCompra(void){
         }while (validaDig || validaNull);
 
 // ----------------------------- Validando a quantidade ----------------------------------
-
+        char quantidade[10];
         do{
             printf("///            - Quantidade: ");
-            scanf("%[^\n]", pro->quant);
+            scanf("%[^\n]", quantidade);
             getchar();
             
-            validaDig = testeDigitosNumericos(pro->quant);
-            validaNull = verificaNulo(pro->quant);
+            validaDig = testeDigitosNumericos(quantidade);
+            validaNull = verificaNulo(quantidade);
 
-            if(validaDig || validaNull || strcmp(pro->quant, "0") == 0){
+            if(validaDig || validaNull){
                 printf("///            Dígitos inválidos, tente novamente !\n");
             }
 
         }while (validaDig || validaNull);
 
-        com->quant = atoi(pro->quant);
-        
+        pro->quant = atoi(quantidade);
+        int q = pro->quant;
+        int total = proe->quant + q;
         int achou = 0;
         while(fread(proe, sizeof(Produto), 1, fp)) {
-            if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade)) {
-                strcpy(proe->quant, pro->quant);
+            if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade) && strcmp(proe->status, "x")) {
+                proe->quant = total;
                 fseek(fp, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(proe, sizeof(Produto), 1, fp);
                 achou = 1;
+                free(pro);
                 break;
             }
         }
         fclose(fp);
         free(proe);
-
-// ----------------------------- Definindo o status ----------------------------------
-
-        strcpy(pro->status, "Y");
 
 // ----------------------------- Validando o preço ----------------------------------
 
@@ -392,17 +356,22 @@ void cadastrarCompra(void){
 
         }while (validaDig);
 
+// ----------------------------- Calculando o valor da compra ----------------------------------
+
         double valor = converteCharParaDouble(preco);
-        com->valorItem = valor;
+        valorCompra = valorCompra + (q * valor);
 
 // ----------------------------------------------------------------------------------
 
-        gravarCompra(com);
         if(achou == 0){
+            strcpy(pro->status, "Y");
             gravarProduto(pro);
             free(pro);
         }
     } 
+
+    com->valor = valorCompra;
+    gravarCompra(com);
     free(com);
     
 }
@@ -466,30 +435,14 @@ Compra* pegarCompra(long int codigo){
 }
 
 void pesquisarCompra(void){
-    FILE* fp;
-    fp = fopen("compras.dat", "rb");
+    
     Compra* com;
-    Compra* comp;
-    comp = (Compra*) malloc(sizeof(Compra));
     long int codigo;
     codigo = telaPesquisarCompra();
     com = pegarCompra(codigo);
     exibirCompra(com);
+    free(com);
 
-    if(com != NULL){
-        printf("///           = = = = =  LISTA DE ITENS COMPRADOS = = = = =           ///\n");
-        for(int i = 0; i<com->quantItens; i++){
-            while(fread(comp, sizeof(Compra), 1, fp)) {
-                if(comp->codCompra == com->codCompra){
-                    exibirItens(comp);   
-                }
-            }
-        }
-        
-        fclose(fp);
-        free(comp);
-        free(com);
-    }   
 }
 
 // SEÇÃO RELACIONADA À EXCLUSÃO ________________________________________________________________________________
@@ -560,7 +513,6 @@ void excluirCompraLog(Compra* com){
         }while(!validaOp || validaDig);
 
         if (resposta == 'S' || resposta == 's'){
-
             while(fread(comp, sizeof(Compra), 1, file)){
                 if(comp->codCompra == com->codCompra && comp->status != 'x'){
                     comp->status = 'x';
@@ -569,7 +521,6 @@ void excluirCompraLog(Compra* com){
                     break;
                 }
             }
-            
             fclose(file);
         
             printf("///                                                                   ///\n");
@@ -587,39 +538,22 @@ void excluirCompraLog(Compra* com){
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
             fclose(file);
-
         }
-    }
-    
+    } 
     fclose(file);
-
 }
 
 void excluirCompra(void){
-    FILE* fp;
-    fp = fopen("compras.dat", "rb");
     Compra* com;
-    Compra* comp;
-    comp = (Compra*) malloc(sizeof(Compra));
     long int codigo;
     codigo = telaExcluirCompra();
     com = pegarCompra(codigo);
     exibirCompra(com);
-
+    
     if(com != NULL){
-        printf("///           = = = = =  LISTA DE ITENS COMPRADOS = = = = =           ///\n");
-        for(int i = 0; i<com->quantItens; i++){
-            while(fread(comp, sizeof(Compra), 1, fp)) {
-                if(comp->codCompra == com->codCompra){
-                    exibirItens(comp);   
-                }
-            }
-        }
-        fclose(fp);
         excluirCompraLog(com);
-        free(comp);
-        free(com);
-    }   
+    }
+    free(com);
 }
 
 // SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
@@ -711,30 +645,26 @@ char* telaPreencheHora(void){
 
 }
 
-int telaPreencheQuant(void){
+double telaPreencheValor(void){
     int validaDig;
-    int validaNull;
-    char* quantAux;
-    int quant;
-    quantAux = (char*) malloc(10*sizeof(char));
+    char valor[10];
+    double valorCompra = 0.0;
 
     do{
-        printf("///            - Quantidade: ");
-        scanf("%[^\n]", quantAux);
+        printf("///            - Valor da compra R$ ");
+        scanf("%s", valor);
         getchar();
         
-        validaDig = testeDigitosNumericos(quantAux);
-        validaNull = verificaNulo(quantAux);
+        validaDig = testeDigitosNumericosValorFlutuante(valor);
 
-        if(validaDig || validaNull){
+        if(validaDig){
             printf("///            Dígitos inválidos, tente novamente !\n");
         }
 
-    }while (validaDig || validaNull);
+    }while (validaDig);
 
-    quant = atoi(quantAux);
-    free(quantAux);
-    return quant;
+    valorCompra = converteCharParaDouble(valor);
+    return valorCompra;
 }
 
 char telaEscolha(void){
@@ -772,7 +702,7 @@ void regravarCompra(Compra* com){
     printf("///                                                                   ///\n");
     printf("///            - Digite 'a' para alterar a data da compra             ///\n");
     printf("///            - Digite 'b' para alterar a hora da compra             ///\n");
-    printf("///            - Digite 'c' para alterar algum item da compra         ///\n");
+    printf("///            - Digite 'c' para alterar o valor da compra            ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     opcao = telaEscolha();
@@ -786,10 +716,10 @@ void regravarCompra(Compra* com){
                 strcpy(comp->dataCompra, dataCompra);
                 fseek(file, -1*sizeof(Compra), SEEK_CUR);
                 fwrite(comp, sizeof(Compra), 1, file);
-                fclose(file);
                 break;
             }
         }
+        fclose(file);
         free(dataCompra);
         free(comp);
         printf("///                                                                   ///\n");
@@ -821,35 +751,42 @@ void regravarCompra(Compra* com){
         printf("\t\t>>> Tecle <ENTER> para continuar...\n");
         getchar();
 
+    }else if(opcao == 'c'){
+        double valorCompra = 0.0;
+        valorCompra = telaPreencheValor();
+
+        while(fread(comp, sizeof(Compra), 1, file)){
+            if(comp->codCompra == com->codCompra && comp->status != 'x'){
+                comp->valor = valorCompra;
+                fseek(file, -1*sizeof(Compra), SEEK_CUR);
+                fwrite(comp, sizeof(Compra), 1, file);
+                break;
+            }
+        }
+        fclose(file);
+        free(comp);
+        printf("///                                                                   ///\n");
+        printf("///            O valor da compra foi alterado!                        ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+
     }
     fclose(file);
 }
 
 void alterarCompra(void){
-    FILE* fp;
-    fp = fopen("compras.dat", "rb");
     Compra* com;
-    Compra* comp;
-    comp = (Compra*) malloc(sizeof(Compra));
     long int codigo;
     codigo = telaAlterarCompra();
     com = pegarCompra(codigo);
     exibirCompra(com);
-
+    
     if(com != NULL){
-        printf("///           = = = = =  LISTA DE ITENS COMPRADOS = = = = =           ///\n");
-        for(int i = 0; i<com->quantItens; i++){
-            while(fread(comp, sizeof(Compra), 1, fp)) {
-                if(comp->codCompra == com->codCompra){
-                    exibirItens(comp);   
-                }
-            }
-        }
         regravarCompra(com);
-        free(comp);
-        free(com);
-        fclose(fp);
-    }   
+    }
+    free(com);
 }
 
 
@@ -880,7 +817,7 @@ void listarCompras(void){
     }
 
     while(fread(com, sizeof(Compra), 1, fp)) {
-        exibirTudo(com);
+        exibirCompra(com);
         
     }
     fclose(fp);

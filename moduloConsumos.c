@@ -4,6 +4,7 @@
 #include "moduloValidacoes.h"
 #include "moduloProdutos.h"
 
+/*
 typedef struct consumo Consumo;
 
 struct consumo {
@@ -71,7 +72,7 @@ void exibirConsumo(Consumo* con){
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
-
+*/
 char menuConsumo(void){
     char opcao;
     int validaOp;
@@ -118,6 +119,7 @@ char menuConsumo(void){
 
 }
 
+/*
 // SEÇÃO RELACIONADA AO CADASTRO ________________________________________________________________________________
 
 Consumo* telaCadastrarConsumo(void){
@@ -1082,3 +1084,5 @@ void listarConsumos(void){
     }
     fclose(fp);
 }
+
+*/

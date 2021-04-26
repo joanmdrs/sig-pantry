@@ -9,7 +9,7 @@ struct produto {
     char dataValidade[11];
     char nomeItem[51];
     char local[20];
-    char quant[10];
+    int quant;
     char status[11];
 };
 
@@ -83,7 +83,7 @@ void exibeProduto(Produto* prod){
         printf("///              Data de Validade: %s \n", prod->dataValidade);
         printf("///                     Descrição: %s \n", prod->nomeItem);
         printf("///                         Local: %s \n", prod->local);
-        printf("///                    Quantidade: %s \n", prod->quant);
+        printf("///                    Quantidade: %d \n", prod->quant);
         printf("///                        Status: %s \n", prod->status);
         printf("///        ___________________________________________________        ///\n");
     }
@@ -212,20 +212,22 @@ Produto* telaCadastrarProduto(void){
     }while (validaDig || validaNull);
 
 // ----------------------------- Validando a quantidade ----------------------------------
-      
+    char quantidade[10];
     do{
         printf("///            - Quantidade: ");
-        scanf("%[^\n]", pro->quant);
+        scanf("%[^\n]", quantidade);
         getchar();
 
-        validaDig = testeDigitosNumericos(pro->quant);
-        validaNull = verificaNulo(pro->quant);
+        validaDig = testeDigitosNumericos(quantidade);
+        validaNull = verificaNulo(quantidade);
 
         if(validaDig || validaNull){
             printf("///            Dígitos inválidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
+
+    pro->quant = converteCharParaInt(quantidade);
 
     // -------------------------------- Definindo status -----------------------------------
 
@@ -640,19 +642,22 @@ Produto* telaAlterarTudo(){
             printf("///            Caracteres inválidos, tente novamente !\n");
         }
     }while (validaDig || validaNull);
-       
+
+    char quantidade[10];
     do{
         printf("///            - Nova Quantidade: ");
-        scanf("%[^\n]", pro->quant);
+        scanf("%[^\n]", quantidade);
         getchar();
         
-        validaDig = testeDigitosNumericos(pro->quant);
-        validaNull = verificaNulo(pro->quant);
+        validaDig = testeDigitosNumericos(quantidade);
+        validaNull = verificaNulo(quantidade);
 
         if(validaDig || validaNull){
             printf("///            Dígitos inválidos, tente novamente !\n");
         }
     }while (validaDig || validaNull); 
+
+    pro->quant = converteCharParaInt(quantidade);
 
     return pro;   
 }
@@ -781,7 +786,7 @@ void regravarProduto(Produto* pro){
                 strcpy(prod->dataValidade, proe->dataValidade);
                 strcpy(prod->nomeItem, proe->nomeItem);
                 strcpy(prod->local, proe->local);
-                strcpy(prod->quant, proe->quant);
+                prod->quant = pro->quant;
                 fseek(file, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(prod, sizeof(Produto), 1, file);
                 break;
@@ -900,9 +905,11 @@ void regravarCampo(Produto* pro){
     }else if(opcao == 'D' || opcao == 'd'){
         char* quant;
         quant = telaAlterarQuant();
+        int quantidade;
+        quantidade = converteCharParaInt(quant);
         while(fread(prod, sizeof(Produto), 1, file)) {   
             if(!strcmp(pro->codBarras, prod->codBarras) && !strcmp(pro->dataValidade, prod->dataValidade) && strcmp(prod->status, "x")){
-                strcpy(prod->quant, quant);
+                prod->quant = quantidade;
                 fseek(file, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(prod, sizeof(Produto), 1, file);
                 break;
