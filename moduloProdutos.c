@@ -665,7 +665,7 @@ char* telaAlterarValidade(void){
     dataValidade = (char*) malloc(11*sizeof(char));
 
     do{
-        printf("///            - a) Nova Data Val. (dd/mm/aaaa): ");
+        printf("///            - a) Data Val. (dd/mm/aaaa): ");
         scanf("%[^\n]", dataValidade);
         getchar();
     
@@ -699,7 +699,6 @@ char* telaAlterarDesc(void){
             printf("///            Caracteres inválidos, tente novamente !\n");
         }
     }while (validaDig || validaNull);
-
     return nomeItem;
 }
 

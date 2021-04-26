@@ -35,3 +35,5 @@ int testaData(char []);
 int testaHora(char []);
 
 int verificaNulo(char []);
+
+long int geraNF(void);

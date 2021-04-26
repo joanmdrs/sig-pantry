@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <ctype.h>
 #include <string.h>
+
 
 // A função limpaTela realiza literalmente a limpeza da tela. 
 
@@ -435,6 +437,9 @@ int testaHora(char n[]){
     char min[3];
     int minC;
 
+	char sec[3];
+	int secC;
+
 	hora[0] = n[0];
 	hora[1] = n[1];
 	horaC = converteCharParaInt(hora);
@@ -443,14 +448,22 @@ int testaHora(char n[]){
 	min[1] = n[4];
 	minC = converteCharParaInt(min);
 
+	sec[0] = n[6];
+	sec[1] = n[7];
+	secC = converteCharParaInt(sec);
 
-	if (strlen(n) == 5){
-		if (horaC > 23 || minC > 59 ){
+
+	if (strlen(n) == 8){
+		if (horaC > 23 || minC > 59 || secC > 59){
 			return 0;
 
 		}else if (horaC >= 0 && horaC <=23){
 			if(minC >= 0 && minC <= 59){
-				return 1;
+				if(secC >= 0 && secC <= 59){
+					return 1;
+				}else{
+					return 0;
+				}
 			}else{
 				return 0;
 			}
@@ -475,16 +488,7 @@ int verificaNulo(char nome[]) {
   }
 }
 
-// A função verificaStatus verifica se o status do produto informado é FECHADO ou ABERTO
-
-int verificaStatus(char status[]){
-
-	if(!strcmp(status, "Fechado") || !strcmp(status, "FECHADO") || !strcmp(status, "fechado") || !strcmp(status, "Aberto") || !strcmp(status, "ABERTO") || !strcmp(status, "aberto")){
-		return 1;
-
-	}else{
-		return 0;
-	}
-
+long int geraNF(void) {
+	srand(time(NULL));
+  	return (9999999 + rand() % 99999999);
 }
-
