@@ -4,6 +4,7 @@
 #include "moduloValidacoes.h"
 
 typedef struct produto Produto;
+
 struct produto {
     char codBarras[14];
     char dataValidade[11];
@@ -14,6 +15,7 @@ struct produto {
 };
 
 typedef struct chaveP ChaveP;
+
 struct chaveP {
     char codBarras[14];
     char dataValidade[11];

@@ -10,15 +10,26 @@ struct compra {
     
 };
 
+typedef struct item Item;
+
+struct item {
+    long int codCompra;
+    char descricao[51];
+    int quant;
+    double valor;
+};
+
 char menuCompras(void);
 
 void cadastrarCompra(void);
 
 void gravarCompra(Compra*);
 
+void gravarItem(Item*);
+
 void exibirCompra(Compra*);
 
-//void exibirItens(Compra*);
+void exibirItem(Item*);
 
 long int telaPesquisarCompra(void);
 
