@@ -328,6 +328,7 @@ void cadastrarConsumo(void){
                 if (proe->quant > q || proe->quant == quantidadeP ){
                     proe->quant = proe->quant - quantidadeP;
                     printf("%d \n", proe->quant);
+                    strcpy(item->descricao, proe->nomeItem);
                     fseek(fp, -1*sizeof(Produto), SEEK_CUR);
                     fwrite(proe, sizeof(Produto), 1, fp);
                     achou = 1;
@@ -355,13 +356,13 @@ void cadastrarConsumo(void){
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
-
-            gravarItemC(item);
-            free(item);
             
             break;
 
-        }
+        }else if(achou == 1){
+            gravarItemC(item);
+            free(item);
+        } 
     }
 
     con->valor = valorConsumo;
