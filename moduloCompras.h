@@ -27,6 +27,16 @@ void gravarCompra(Compra*);
 
 void gravarItem(Item*);
 
+long int preencheCodCompra(void);
+
+char* preencheDataCompra(void);
+
+char* preencheHoraCompra(void);
+
+char* preencheQuantCompra(void);
+
+double preencheValorCompra(void);
+
 void exibirCompra(Compra*);
 
 void exibirItem(Item*);
@@ -44,12 +54,6 @@ void excluirCompraLog(Compra*);
 void excluirCompra(void);
 
 long int telaAlterarCompra(void);
-
-char* telaPreencheData(void);
-
-char* telaPreencheHora(void);
-
-double telaPreencheValor(void);
 
 char telaEscolha(void);
 

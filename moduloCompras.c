@@ -41,6 +41,131 @@ void gravarItem(Item* item){
     fclose(file);
 }
 
+long int preencheCodCompra(void){
+
+    FILE* fc;
+    fc = fopen("compras.dat", "rb");
+
+    Compra* com;
+    com = (Compra*) malloc(sizeof(Compra));
+
+    long int codCompra;
+
+    codCompra = geraNF();
+
+    while(fread(com, sizeof(Compra), 1, fc)) {
+        if ((com->codCompra == codCompra)) {
+            codCompra = geraNF();
+        }
+    }
+    fclose(fc);
+    free(com);
+
+    return codCompra;
+}
+
+char* preencheDataCompra(void){
+    
+    int validaData;
+    int validaDig;
+    int validaNull;
+
+    char* dataCompra;
+    dataCompra = (char*) malloc(11*sizeof(char));
+
+    do{
+        printf("///            - Data Compra (dd/mm/aaaa): ");
+        scanf("%[^\n]", dataCompra);
+        getchar();
+    
+        validaData = testaData(dataCompra);
+        validaDig = testeDigitosNumericosData(dataCompra);
+        validaNull = verificaNulo(dataCompra);
+
+        if (!validaData || validaDig || validaNull) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig || validaNull);
+
+    return dataCompra;
+}
+
+
+char* preencheHoraCompra(void){
+
+    int validaHora;
+    int validaDig;
+    int validaNull;
+
+    char* horaCompra;
+    horaCompra = (char*) malloc(9*sizeof(char));
+
+    do{
+        printf("///            - Horário Compra (hh:mm:ss): ");
+        scanf("%[^\n]", horaCompra);
+        getchar();
+    
+        validaHora = testaHora(horaCompra);
+        validaDig = testeDigitosNumericosHora(horaCompra);
+        validaNull = verificaNulo(horaCompra);
+
+        if (!validaHora || validaDig || validaNull) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!validaHora || validaDig || validaNull);
+
+    return horaCompra;
+}
+
+char* preencheQuantCompra(void){
+    int validaDig;
+    int validaNull;
+    
+    char* quantC;
+    quantC = (char*) malloc(20*sizeof(char));
+
+    do{
+        printf("///            - Quant. Itens da compra: ");
+        scanf("%[^\n]", quantC);
+        getchar();
+    
+        validaDig = testeDigitosNumericos(quantC);
+        validaNull = verificaNulo(quantC);  
+
+        if(validaDig || validaNull){
+            printf("///            Quantidade inválida, tente novamente !\n");
+        }
+
+    }while(validaDig || validaNull);
+
+    return quantC;
+}
+
+
+double preencheValorCompra(void){
+    int validaDig;
+    char valor[10];
+    double valorCompra = 0.0;
+
+    do{
+        printf("///            - Valor da compra R$ ");
+        scanf("%s", valor);
+        getchar();
+        
+        validaDig = testeDigitosNumericosValorFlutuante(valor);
+
+        if(validaDig){
+            printf("///            Dígitos inválidos, tente novamente !\n");
+        }
+
+    }while (validaDig);
+
+    valorCompra = converteCharParaDouble(valor);
+    return valorCompra;
+}
+
 void exibirCompra(Compra* com){
 
     if(com == NULL){
@@ -481,78 +606,6 @@ long int telaAlterarCompra(void){
     return codigo;
 }
 
-char* telaPreencheData(void){
-
-    int validaData;
-    int validaDig;
-    int validaNull;
-    char* dataCompra;
-    dataCompra = (char*) malloc(11*sizeof(char));
-
-     do{
-        printf("///            - Data Compra (dd/mm/aaaa): ");
-        scanf("%[^\n]", dataCompra);
-        getchar();
-    
-        validaData = testaData(dataCompra);
-        validaDig = testeDigitosNumericosData(dataCompra);
-        validaNull = verificaNulo(dataCompra);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-
-    }while(!validaData || validaDig || validaNull);
-    return dataCompra;
-}
-
-char* telaPreencheHora(void){
-    int validaHora;
-    int validaDig;
-    int validaNull;
-    char* horaCompra;
-    horaCompra = (char*) malloc(9*sizeof(char));
-
-    do{
-        printf("///            - Horário Compra (hh:mm:ss): ");
-        scanf("%[^\n]", horaCompra);
-        getchar();
-    
-        validaHora = testaHora(horaCompra);
-        validaDig = testeDigitosNumericosHora(horaCompra);
-        validaNull = verificaNulo(horaCompra);
-
-        if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
-        }
-
-    }while(!validaHora || validaDig || validaNull);
-    return horaCompra;
-
-}
-
-double telaPreencheValor(void){
-    int validaDig;
-    char valor[10];
-    double valorCompra = 0.0;
-
-    do{
-        printf("///            - Valor da compra R$ ");
-        scanf("%s", valor);
-        getchar();
-        
-        validaDig = testeDigitosNumericosValorFlutuante(valor);
-
-        if(validaDig){
-            printf("///            Dígitos inválidos, tente novamente !\n");
-        }
-
-    }while (validaDig);
-
-    valorCompra = converteCharParaDouble(valor);
-    return valorCompra;
-}
-
 char telaEscolha(void){
     int validaDig;
     int validaOp;
@@ -595,7 +648,7 @@ void regravarCompra(Compra* com){
 
     if(opcao == 'a'){
         char* dataCompra;
-        dataCompra = telaPreencheData();
+        dataCompra = preencheDataCompra();
 
         while(fread(comp, sizeof(Compra), 1, file)){
             if(comp->codCompra == com->codCompra && comp->status != 'x'){
@@ -617,7 +670,7 @@ void regravarCompra(Compra* com){
 
     }else if(opcao == 'b'){
         char* horaCompra;
-        horaCompra = telaPreencheHora();
+        horaCompra = preencheHoraCompra();
         
         while(fread(comp, sizeof(Compra), 1, file)){
             if(comp->codCompra == com->codCompra && comp->status != 'x'){
@@ -639,7 +692,7 @@ void regravarCompra(Compra* com){
 
     }else if(opcao == 'c'){
         double valorCompra = 0.0;
-        valorCompra = telaPreencheValor();
+        valorCompra = preencheValorCompra();
 
         while(fread(comp, sizeof(Compra), 1, file)){
             if(comp->codCompra == com->codCompra && comp->status != 'x'){

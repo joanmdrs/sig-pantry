@@ -3,6 +3,7 @@
 #include <string.h>
 #include "moduloValidacoes.h"
 #include "moduloProdutos.h"
+#include "moduloUtil.h"
 
 typedef struct consumo Consumo;
 
@@ -15,11 +16,150 @@ struct consumo {
     char status;
 };
 
+typedef struct itemC ItemC;
+
+struct itemC {
+    long int codConsumo;
+    char descricao[51];
+    int quant;
+    double valor;
+};
+
 void gravarConsumo(Consumo* con){
     FILE* file;
     file = fopen("consumos.dat", "ab");
     fwrite(con, sizeof(Consumo), 1, file);
     fclose(file);
+}
+
+void gravarItemC(ItemC* item){
+    FILE* file;
+    file = fopen("itensCon.dat", "ab");
+    fwrite(item, sizeof(ItemC), 1, file);
+    fclose(file);
+}
+
+long int preencheCodConsumo(void){
+
+    FILE* fc;
+    fc = fopen("consumos.dat", "rb");
+
+    Consumo* con;
+    con = (Consumo*) malloc(sizeof(Consumo));
+
+    long int codConsumo;
+
+    codConsumo = geraNF();
+
+    while(fread(con, sizeof(Consumo), 1, fc)) {
+        if ((con->codConsumo == codConsumo)) {
+            codConsumo = geraNF();
+        }
+    }
+    fclose(fc);
+    free(con);
+
+    return codConsumo;
+}
+
+char* preencheDataConsumo(void){
+    
+    int validaData;
+    int validaDig;
+    int validaNull;
+
+    char* dataConsumo;
+    dataConsumo = (char*) malloc(11*sizeof(char));
+
+    do{
+        printf("///            - Data Consumo (dd/mm/aaaa): ");
+        scanf("%[^\n]", dataConsumo);
+        getchar();
+    
+        validaData = testaData(dataConsumo);
+        validaDig = testeDigitosNumericosData(dataConsumo);
+        validaNull = verificaNulo(dataConsumo);
+
+        if (!validaData || validaDig || validaNull) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(!validaData || validaDig || validaNull);
+
+    return dataConsumo;
+}
+
+char* preencheHoraConsumo(void){
+
+    int validaHora;
+    int validaDig;
+    int validaNull;
+
+    char* horaConsumo;
+    horaConsumo = (char*) malloc(9*sizeof(char));
+
+    do{
+        printf("///            - Horário Consumo (hh:mm:ss): ");
+        scanf("%[^\n]", horaConsumo);
+        getchar();
+    
+        validaHora = testaHora(horaConsumo);
+        validaDig = testeDigitosNumericosHora(horaConsumo);
+        validaNull = verificaNulo(horaConsumo);
+
+        if (!validaHora || validaDig || validaNull) {
+            printf("///            Hora inválida, tente novamente !\n");
+        }
+
+    }while(!validaHora || validaDig || validaNull);
+
+    return horaConsumo;
+}
+
+char* preencheQuantConsumo(void){
+    int validaDig;
+    int validaNull;
+    
+    char* quantC;
+    quantC = (char*) malloc(20*sizeof(char));
+
+    do{
+        printf("///            - Quant. Itens Consumidos: ");
+        scanf("%[^\n]", quantC);
+        getchar();
+    
+        validaDig = testeDigitosNumericos(quantC);
+        validaNull = verificaNulo(quantC);  
+
+        if(validaDig || validaNull){
+            printf("///            Quantidade inválida, tente novamente !\n");
+        }
+
+    }while(validaDig || validaNull);
+
+    return quantC;
+}
+
+double preencheValorConsumo(void){
+    int validaDig;
+    char valor[10];
+    double valorConsumo = 0.0;
+
+    do{
+        printf("///            - Valor do consumo R$ ");
+        scanf("%s", valor);
+        getchar();
+        
+        validaDig = testeDigitosNumericosValorFlutuante(valor);
+
+        if(validaDig){
+            printf("///            Dígitos inválidos, tente novamente !\n");
+        }
+
+    }while (validaDig);
+
+    valorConsumo = converteCharParaDouble(valor);
+    return valorConsumo;
 }
 
 char menuConsumo(void){
@@ -94,14 +234,17 @@ void exibirConsumo(Consumo* con){
 
 }
 
+void exibirItemC(ItemC* item){
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///         Descrição: %s Quant.: %d Preço: R$ %.2f \n",item->descricao, item->quant, item->valor);
+   
+}
+
 // SEÇÃO RELACIONADA AO CADASTRO _______________________________________________________________________________
 
 void cadastrarConsumo(void){
-    int validaCod;
-    int validaDig;
-    int validaData;
-    int validaHora;
-    int validaNull;
+
     double valorConsumo = 0.0;
     int achou = 0;
 
@@ -120,162 +263,85 @@ void cadastrarConsumo(void){
     printf("///                                                                   ///\n");
 
     FILE* fp;
-    FILE* fc;
-    fc = fopen("consumos.dat", "rb");
 
     Consumo* con;
-    Consumo* cons;
     con = (Consumo*) malloc(sizeof(Consumo));
-    cons = (Consumo*) malloc(sizeof(Consumo));
 
+    Produto* pro;
     Produto* proe;
+    ItemC* item;
 
 // ------------------------- Gerando o código do consumo ----------------------------------
 
-    con->codConsumo = geraNF();
+    long int codConsumo = preencheCodConsumo();
 
-    while(fread(cons, sizeof(Consumo), 1, fc)) {
-        if ((cons->codConsumo == con->codConsumo)) {
-            con->codConsumo = geraNF();
-        }
-    }
-    fclose(fc);
-    printf("///            - Código do consumo: %ld \n", con->codConsumo);
+    printf("///            - Código do consumo: %ld \n", codConsumo);
 
-// ------------------------- Validando a data do consumo ----------------------------------
+    con->codConsumo = codConsumo;
 
-    do{
-        printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("%[^\n]", con->dataConsumo);
-        getchar();
-    
-        validaData = testaData(con->dataConsumo);
-        validaDig = testeDigitosNumericosData(con->dataConsumo);
-        validaNull = verificaNulo(con->dataConsumo);
+    char* dataConsumo = preencheDataConsumo();
+    strcpy(con->dataConsumo, dataConsumo);
+    free(dataConsumo);
 
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
+    char* horaConsumo = preencheHoraConsumo();
+    strcpy(con->horaConsumo, horaConsumo);
+    free(horaConsumo);
 
-    }while(!validaData || validaDig || validaNull);
-    
-// ------------------------- Validando a hora do consumo ----------------------------------
-
-    do{
-        printf("///            - Horário Consumo (hh:mm:ss): ");
-        scanf("%[^\n]", con->horaConsumo);
-        getchar();
-    
-        validaHora = testaHora(con->horaConsumo);
-        validaDig = testeDigitosNumericosHora(con->horaConsumo);
-        validaNull = verificaNulo(con->horaConsumo);
-
-        if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
-        }
-
-    }while(!validaHora || validaDig || validaNull);
-
-// ----------------------------- Definindo o status ----------------------------------
+    char* quant;
+    quant = preencheQuantConsumo();
+    int q;
+    q = converteCharParaInt(quant);
+    con->quant = q;
 
     con->status = 'Y';
-
-// ----------------------------- Validando a quantidade ----------------------------------
-
-    char quant[4];
-    do{
-        printf("///            - Quant. Consumidos: ");
-        scanf("%[^\n]", quant);
-        getchar();
-    
-        validaDig = testeDigitosNumericos(quant);
-        validaNull = verificaNulo(quant);
-
-        if(validaDig || validaNull){
-            printf("///            Quantidade inválida, tente novamente !\n");
-        }
-
-    }while(validaDig || validaNull);
-
-    int q = atoi(quant);
-    con->quant = q;
 
     for(int i = 0; i < q; i++){
 
         fp = fopen("produtos.dat", "r+b");
+        pro = (Produto*) malloc(sizeof(Produto));
         proe = (Produto*) malloc(sizeof(Produto));
+        item = (ItemC*) malloc(sizeof(ItemC));
+
         printf("///\n");
         printf("///            Item %d \n", i+1);
         printf("///\n");
 
-// ----------------------- Validando o código de barras ----------------------------------
-        char codBarras[14];
-        do{
-            printf("///            - Código de Barras: ");
-            scanf("%[^\n]", codBarras);
-            getchar();
-        
-            validaCod = validaCodBarras(codBarras);
-            validaDig = testeDigitosNumericos(codBarras);
-            validaNull = verificaNulo(codBarras);
+        item->codConsumo = con->codConsumo;
 
-            if(!validaCod || validaDig || validaNull){
-                printf("///            Código inválido, tente novamente !\n");
-            }
+        char* codBarras = preencheCodBarras();
+        strcpy(pro->codBarras, codBarras);
+        free(codBarras);
 
-        }while(!validaCod || validaDig || validaNull);
+        char* dataValidade = preencheDataValidade();
+        strcpy(pro->dataValidade, dataValidade);
+        free(dataValidade);
 
-// ----------------------- Validando a data de validade ----------------------------------
-
-        char dataValidade[11];
-        do{
-            printf("///            - Data Val. (dd/mm/aaaa): ");
-            scanf("%[^\n]", dataValidade);
-            getchar();
-
-            validaData = testaData(dataValidade);
-            validaDig = testeDigitosNumericosData(dataValidade);
-            validaNull = verificaNulo(dataValidade);
-
-            if (!validaData || validaDig || validaNull) {
-                printf("///            Data inválida, tente novamente !\n");
-            }
-
-        }while(!validaData || validaDig || validaNull);
-
-// ----------------------------- Validando a quantidade ----------------------------------
-
-        char quantidade[10];
-        do{
-            printf("///            - Quantidade: ");
-            scanf("%[^\n]", quantidade);
-            getchar();
-            
-            validaDig = testeDigitosNumericos(quantidade);
-            validaNull = verificaNulo(quantidade);
-
-            if(validaDig || validaNull){
-                printf("///            Dígitos inválidos, tente novamente !\n");
-            }
-
-        }while (validaDig || validaNull);
-        
-        int q = converteCharParaInt(quantidade);
+        char* quantP;
+        quantP = preencheQuantPro();
+        int quantidadeP;
+        quantidadeP = converteCharParaInt(quantP);
+        pro->quant = quantidadeP;
+        item->quant = quantidadeP;
 
         while(fread(proe, sizeof(Produto), 1, fp)) {
-            if (!strcmp(proe->codBarras, codBarras) && !strcmp(proe->dataValidade, dataValidade) && strcmp(proe->status, "x")) {
-                if (proe->quant > q || proe->quant == q ){
-                    proe->quant = proe->quant - q;
+            if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade) && strcmp(proe->status, "x")) {
+                if (proe->quant > q || proe->quant == quantidadeP ){
+                    proe->quant = proe->quant - quantidadeP;
                     printf("%d \n", proe->quant);
                     fseek(fp, -1*sizeof(Produto), SEEK_CUR);
                     fwrite(proe, sizeof(Produto), 1, fp);
                     achou = 1;
+                    free(pro);
                     break;
                 }
             }
         }
         fclose(fp);
         free(proe);
+
+        double preco = preenchePrecoItem();
+        item->valor = preco;
+        valorConsumo = valorConsumo + (quantidadeP * preco);
 
         if(achou == 0){
             
@@ -289,39 +355,19 @@ void cadastrarConsumo(void){
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
+
+            gravarItemC(item);
+            free(item);
             
             break;
 
-        }else {
-// ----------------------------- Validando o preço ----------------------------------
-
-            char preco[10];
-            do{
-                printf("///            - Preço do Item: R$ ");
-                scanf("%s", preco);
-                getchar();
-                
-                validaDig = testeDigitosNumericosValorFlutuante(preco);
-
-                if(validaDig){
-                    printf("///            Dígitos inválidos, tente novamente !\n");
-                }
-
-            }while (validaDig);
-
-// ----------------------------- Calculando o valor do consumo ----------------------------------
-
-            double valor = converteCharParaDouble(preco);
-            valorConsumo = valorConsumo + (q * valor);
-
         }
+    }
 
-    }
-    if (achou == 1){
-        con->valor = valorConsumo;
-        gravarConsumo(con);
-        free(con);
-    }
+    con->valor = valorConsumo;
+    gravarConsumo(con);
+    free(con);
+
 }
 
 // SEÇÃO RELACIONADA À PESQUISA ________________________________________________________________________________
@@ -383,12 +429,28 @@ Consumo* pegarConsumo(long int codigo){
 }
 
 void pesquisarConsumo(void){
-    
+    FILE* fi;
+    ItemC* item;
+    item = (ItemC*) malloc(sizeof(ItemC));
     Consumo* con;
     long int codigo;
     codigo = telaPesquisarConsumo();
     con = pegarConsumo(codigo);
     exibirConsumo(con);
+    fi = fopen("itensCon.dat", "rb");
+    if(con != NULL){ 
+        while(fread(item, sizeof(ItemC), 1, fi)){
+            if(con->codConsumo == item->codConsumo){
+                exibirItemC(item);
+            }
+        }
+        printf("///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
+    fclose(fi);
+    free(item);
     free(con);
 
 }
@@ -543,78 +605,6 @@ long int telaAlterarConsumo(void){
     return codigo;
 }
 
-char* telaPreencheDataConsumo(void){
-
-    int validaData;
-    int validaDig;
-    int validaNull;
-    char* dataConsumo;
-    dataConsumo = (char*) malloc(11*sizeof(char));
-
-     do{
-        printf("///            - Data Consumo (dd/mm/aaaa): ");
-        scanf("%[^\n]", dataConsumo);
-        getchar();
-    
-        validaData = testaData(dataConsumo);
-        validaDig = testeDigitosNumericosData(dataConsumo);
-        validaNull = verificaNulo(dataConsumo);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-
-    }while(!validaData || validaDig || validaNull);
-    return dataConsumo;
-}
-
-char* telaPreencheHoraConsumo(void){
-    int validaHora;
-    int validaDig;
-    int validaNull;
-    char* horaConsumo;
-    horaConsumo = (char*) malloc(9*sizeof(char));
-
-    do{
-        printf("///            - Horário Consumo (hh:mm:ss): ");
-        scanf("%[^\n]", horaConsumo);
-        getchar();
-    
-        validaHora = testaHora(horaConsumo);
-        validaDig = testeDigitosNumericosHora(horaConsumo);
-        validaNull = verificaNulo(horaConsumo);
-
-        if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
-        }
-
-    }while(!validaHora || validaDig || validaNull);
-    return horaConsumo;
-
-}
-
-double telaPreencheValorConsumo(void){
-    int validaDig;
-    char valor[10];
-    double valorConsumo = 0.0;
-
-    do{
-        printf("///            - Valor do consumo R$ ");
-        scanf("%s", valor);
-        getchar();
-        
-        validaDig = testeDigitosNumericosValorFlutuante(valor);
-
-        if(validaDig){
-            printf("///            Dígitos inválidos, tente novamente !\n");
-        }
-
-    }while (validaDig);
-
-    valorConsumo = converteCharParaDouble(valor);
-    return valorConsumo;
-}
-
 char telaEscolhaConsumo(void){
     int validaDig;
     int validaOp;
@@ -657,7 +647,7 @@ void regravarConsumo(Consumo* con){
 
     if(opcao == 'a'){
         char* dataConsumo;
-        dataConsumo = telaPreencheDataConsumo();
+        dataConsumo = preencheDataConsumo();
 
         while(fread(conp, sizeof(Consumo), 1, file)){
             if(conp->codConsumo == con->codConsumo && conp->status != 'x'){
@@ -679,7 +669,7 @@ void regravarConsumo(Consumo* con){
 
     }else if(opcao == 'b'){
         char* horaConsumo;
-        horaConsumo = telaPreencheHoraConsumo();
+        horaConsumo = preencheHoraConsumo();
         
         while(fread(conp, sizeof(Consumo), 1, file)){
             if(conp->codConsumo == con->codConsumo && conp->status != 'x'){
@@ -701,7 +691,7 @@ void regravarConsumo(Consumo* con){
 
     }else if(opcao == 'c'){
         double valorConsumo = 0.0;
-        valorConsumo = telaPreencheValorConsumo();
+        valorConsumo = preencheValorConsumo();
 
         while(fread(conp, sizeof(Consumo), 1, file)){
             if(conp->codConsumo == con->codConsumo && conp->status != 'x'){

@@ -13,6 +13,16 @@ void gravarConsumo(Consumo*);
 
 void exibirConsumo(Consumo*);
 
+long int preencheCodConsumo(void);
+
+char* preencheDataConsumo(void);
+
+char* preencheHoraConsumo(void);
+
+char* preencheQuantConsumo(void);
+
+double preencheValorConsumo(void);
+
 char menuConsumo(void);
 
 void cadastrarConsumo(void);
@@ -30,12 +40,6 @@ void excluirConsumoLog(Consumo*);
 void excluirConsumo(void);
 
 long int telaAlterarConsumo(void);
-
-char* telaPreencheDataConsumo(void);
-
-char* telaPreencheHoraConsumo(void);
-
-double telaPreencheValorConsumo(void);
 
 char telaEscolhaConsumo(void);
 

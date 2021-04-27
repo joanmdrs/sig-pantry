@@ -758,7 +758,7 @@ void regravarProduto(Produto* pro){
     int validaDig;
     int validaOp;
     char confirma;
-    int achou;
+    
     FILE* file;
     Produto* prod; // Variável para armazenar o produto a ser alterado.
     Produto* proe; // Variável que armazena os novos valores do produto.
