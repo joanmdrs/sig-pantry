@@ -9,9 +9,22 @@ struct consumo {
     char status;
 };
 
+typedef struct itemC ItemC;
+
+struct itemC {
+    long int codConsumo;
+    char descricao[51];
+    int quant;
+    double valor;
+};
+
 void gravarConsumo(Consumo*);
 
+void gravarItemC(ItemC*);
+
 void exibirConsumo(Consumo*);
+
+void exibirItemC(ItemC*);
 
 long int preencheCodConsumo(void);
 
