@@ -158,3 +158,46 @@ double preenchePrecoItem(void){
     free(precoC);
     return precoD;
 }
+
+char confirmaExclusao(void){
+    int validaDig;
+    int validaOp;
+    char resposta;
+
+    do{
+        printf("///            - Confirmar a exclusão (S/N) ? ");
+        scanf("%[^\n]", &resposta);
+        getchar();
+
+        validaDig = testeDigito(resposta);
+        validaOp = validaOpcao(resposta);
+        
+        if(!validaOp || validaDig){
+            printf("///            Opcão inválida, tente novamente!\n");
+        }
+    }while(!validaOp || validaDig);
+
+    return resposta;
+}
+
+char confirmaAlteracao(void){
+    int validaDig;
+    int validaOp;
+    char confirma;
+
+    do{
+        printf("///            - Confirmar à alteração deste produto (S/N) ? ");
+        scanf("%[^\n]", &confirma);
+        getchar();
+
+        validaDig = testeDigito(confirma);
+        validaOp = validaOpcao(confirma);
+
+        if(!validaOp || validaDig){
+            printf("///            Opcão inválida, tente novamente!\n");
+        }
+    }while(!validaOp || validaDig);
+
+    return confirma;
+
+}

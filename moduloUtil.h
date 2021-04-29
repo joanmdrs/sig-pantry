@@ -16,3 +16,6 @@ char* preencheQuantPro(void);
 
 double preenchePrecoItem(void);
 
+char confirmaExclusao(void);
+
+char confirmaAlteracao(void);

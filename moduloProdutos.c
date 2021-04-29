@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "moduloValidacoes.h"
+#include "moduloUtil.h"
 
 typedef struct produto Produto;
 
@@ -99,10 +100,6 @@ void exibeProduto(Produto* prod){
 // SEÇÃO RELACIONADA AO CADASTRO ________________________________________________________________________________
 
 Produto* telaCadastrarProduto(void){
-    int validaCod;
-	int validaDig;
-	int validaData;
-    int validaNull;
 
     limpaTela();
     printf("\n");
@@ -110,7 +107,7 @@ Produto* telaCadastrarProduto(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -127,42 +124,24 @@ Produto* telaCadastrarProduto(void){
 
     fp = fopen("produtos.dat", "rb");
 
-// ----------------------- Validando o código de barras ----------------------------------
+// ----------------------- Preenchendo o código de barras ----------------------------------
 
-    do{
-        printf("///            - Código de Barras: ");
-        scanf("%[^\n]", pro->codBarras);
-        getchar();
+    char* codBarras;
+    codBarras = preencheCodBarras();
+    strcpy(pro->codBarras, codBarras);
+    free(codBarras);
 
-		validaCod = validaCodBarras(pro->codBarras);
-        validaDig = testeDigitosNumericos(pro->codBarras);
-        validaNull = verificaNulo(pro->codBarras);
+// ----------------------- Preenchendo a data de validade ----------------------------------
 
-		if(!validaCod || validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
+    char* dataValidade;
+    dataValidade = preencheDataValidade();
+    strcpy(pro->dataValidade, dataValidade);
+    free(dataValidade);
 
-	}while(!validaCod || validaDig || validaNull);
-
-// ----------------------- Validando a data de validade ----------------------------------
-
-    do{
-        printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("%[^\n]", pro->dataValidade);
-        getchar();
-
-        validaData = testaData(pro->dataValidade);
-        validaDig = testeDigitosNumericosData(pro->dataValidade);
-        validaNull = verificaNulo(pro->dataValidade);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-
-    }while(!validaData || validaDig || validaNull);
-
+    int achou = 0;
     while(fread(proe, sizeof(Produto), 1, fp)) {
         if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade)) {
+            achou = 1;
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n");
             printf("///         Já existe um produto cadastrado com este CÓDIGO           ///\n");  
@@ -177,72 +156,43 @@ Produto* telaCadastrarProduto(void){
             fclose(fp);
             free(proe);
             free(pro);
-            exit(1);  
         }
     }
 
-// ----------------------- Validando a descrição do produto ------------------------------
+    if (achou == 0){
+        // ----------------------- Preenchendo a descrição do produto ------------------------------
 
-    do{
-        printf("///            - Descrição: ");
-        scanf("%[^\n]", pro->nomeItem);
-        getchar();
+        char* nomeItem;
+        nomeItem = preencheDesc();
+        strcpy(pro->nomeItem, nomeItem);
+        free(nomeItem);
 
-        validaDig = testeDigitos(pro->nomeItem);
-        validaNull = verificaNulo(pro->nomeItem);
+        // ----------------------- Preenchendo o local do produto ----------------------------------
 
-        if(validaDig || validaNull){
-            printf("///            Caracteres inválidos, tente novamente !\n");
-        }
+        char* local;
+        local = preencheLocal();
+        strcpy(pro->local, local);
+        free(local);
 
-    }while (validaDig || validaNull);
+        // ----------------------- Preenchendo a quantidade do produto -----------------------------
 
-// -------------------------------- Validando o local ------------------------------------
+        char* quantidade;
+        quantidade = preencheQuantPro();
+        pro->quant = converteCharParaInt(quantidade);
+        free(quantidade);
 
-    do{
-        printf("///            - Local: ");
-        scanf("%[^\n]", pro->local);
-        getchar();
+        // --------------------------- Definindo o status do produto -----------------------------------
 
-        validaDig = testeDigitos(pro->local);
-        validaNull = verificaNulo(pro->local);
+        strcpy(pro->status, "DISPONIVEL");
 
-        if(validaDig || validaNull){
-            printf("///            Caracteres inválidos, tente novamente !\n");
-        }
+        // ---------------------------------------------------------------------------------------
 
-    }while (validaDig || validaNull);
-
-// ----------------------------- Validando a quantidade ----------------------------------
-    char quantidade[10];
-    do{
-        printf("///            - Quantidade: ");
-        scanf("%[^\n]", quantidade);
-        getchar();
-
-        validaDig = testeDigitosNumericos(quantidade);
-        validaNull = verificaNulo(quantidade);
-
-        if(validaDig || validaNull){
-            printf("///            Dígitos inválidos, tente novamente !\n");
-        }
-
-    }while (validaDig || validaNull);
-
-    pro->quant = converteCharParaInt(quantidade);
-
-    // -------------------------------- Definindo status -----------------------------------
-
-    strcpy(pro->status, "DISPONIVEL");
-
-// ---------------------------------------------------------------------------------------
-
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///                  Produto cadastrado com sucesso !                 ///\n");
-    exibeProduto(pro);
-
-    return pro;
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///                  Produto cadastrado com sucesso !                 ///\n");
+        exibeProduto(pro);
+        return pro;
+    }
 
 }
 
@@ -264,7 +214,7 @@ char telaTipoPesquisa(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -291,40 +241,18 @@ char telaTipoPesquisa(void){
 }
 
 ChaveP* telaPesquisarPeloCod(void){
-    int validaCod;
-    int validaData;
-    int validaDig;
-    int validaNull;
     ChaveP* key;
     key = (ChaveP*) malloc(sizeof(ChaveP));
 
-    do{
-        printf("///            - Código de Barras: ");
-        scanf("%[^\n]", key->codBarras);
-        getchar();
+    char* codBarras;
+    codBarras = preencheCodBarras();
+    strcpy(key->codBarras, codBarras);
+    free(codBarras);
 
-		validaCod = validaCodBarras(key->codBarras);
-        validaDig = testeDigitosNumericos(key->codBarras);
-        validaNull = verificaNulo(key->codBarras);
-
-		if(!validaCod || validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-	}while(!validaCod || validaDig || validaNull);
-
-    do{
-        printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("%[^\n]", key->dataValidade);
-        getchar();
-
-        validaData = testaData(key->dataValidade);
-        validaDig = testeDigitosNumericosData(key->dataValidade);
-        validaNull = verificaNulo(key->dataValidade);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-    }while(!validaData || validaDig || validaNull);
+    char* dataValidade;
+    dataValidade = preencheDataValidade();
+    strcpy(key->dataValidade, dataValidade);
+    free(dataValidade);
 
     return key;
 }
@@ -347,25 +275,9 @@ Produto* pegarProdutoPeloCod(ChaveP* key){
 }
 
 char* telaPesquisarPelaDesc(void){
-    int validaDig;
-    int validaNull;
+    
     char* nomeItem;
-    nomeItem = (char*) malloc(51*sizeof(char));
-
-    do{
-        printf("///            - Descrição: ");
-        scanf("%[^\n]", nomeItem);
-        getchar();
-
-        validaDig = testeDigitos(nomeItem);
-        validaNull = verificaNulo(nomeItem);
-
-        if(validaDig || validaNull){
-            printf("///            Caracteres inválidos, tente novamente !\n");
-        }
-
-    }while (validaDig || validaNull);
-
+    nomeItem = preencheDesc();
     return nomeItem;
 
 }
@@ -415,19 +327,13 @@ void pesquisarProduto(void){
 // SEÇÃO RELACIONADA À EXCLUSÃO ________________________________________________________________________________
 
 ChaveP* telaExcluirProduto(void){
-    int validaCod;
-    int validaData;
-    int validaDig;
-    int validaNull;
-    ChaveP* key;
-    key = (ChaveP*) malloc(sizeof(ChaveP));
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -435,34 +341,18 @@ ChaveP* telaExcluirProduto(void){
     printf("///            = = = = = MÓDULO EXCLUIR PRODUTO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
-    do{
-        printf("///            - Código de Barras: ");
-        scanf("%[^\n]", key->codBarras);
-        getchar();
-        
-		validaCod = validaCodBarras(key->codBarras);
-        validaDig = testeDigitosNumericos(key->codBarras);
-        validaNull = verificaNulo(key->codBarras);
+    ChaveP* key;
+    key = (ChaveP*) malloc(sizeof(ChaveP));
 
-		if(!validaCod || validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
+    char* codBarras;
+    codBarras = preencheCodBarras();
+    strcpy(key->codBarras, codBarras);
+    free(codBarras);
 
-	}while(!validaCod || validaDig || validaNull);
-
-    do{
-        printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("%[^\n]", key->dataValidade);
-        getchar();
-
-        validaData = testaData(key->dataValidade);
-        validaDig = testeDigitosNumericosData(key->dataValidade);
-        validaNull = verificaNulo(key->dataValidade);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-    }while(!validaData || validaDig || validaNull);
+    char* dataValidade;
+    dataValidade = preencheDataValidade();
+    strcpy(key->dataValidade, dataValidade);
+    free(dataValidade);
 
     return key;
 }
@@ -470,9 +360,6 @@ ChaveP* telaExcluirProduto(void){
 void excluirProdutoLogicamente(Produto* pro){
     FILE* file;
     Produto* prod;
-    char resposta;
-    int validaDig;
-    int validaOp;
 
     prod = (Produto*) malloc(sizeof(Produto));
     file = fopen("produtos.dat", "r+b");
@@ -483,29 +370,17 @@ void excluirProdutoLogicamente(Produto* pro){
     } else{
         exibeProduto(pro);
         printf("///                                                                   ///\n");
-        do{
-            printf("///            - Confirmar a exclusão do produto (S/N) ? ");
-            scanf("%[^\n]", &resposta);
-            getchar();
+        
+        char confirma;
+        confirma = confirmaExclusao();
 
-            validaDig = testeDigito(resposta);
-            validaOp = validaOpcao(resposta);
-            
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-        if (resposta == 'S' || resposta == 's'){
+        if (confirma == 'S' || confirma == 's'){
             while(fread(prod, sizeof(Produto), 1, file)) {
                 if(!strcmp(pro->codBarras, prod->codBarras) && !strcmp(pro->dataValidade, prod->dataValidade) && strcmp(prod->status, "x")){
                     strcpy(prod->status, "x");
                     fseek(file, -1*sizeof(Produto), SEEK_CUR);
                     fwrite(prod, sizeof(Produto), 1, file);
                     break;
-                    
                 }
             }
             printf("///                                                                   ///\n");
@@ -515,7 +390,7 @@ void excluirProdutoLogicamente(Produto* pro){
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
-        } else if (resposta == 'N' || resposta == 'n'){
+        } else if (confirma == 'N' || confirma == 'n'){
             printf("///                                                                   ///\n");
             printf("///            Operação cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
@@ -540,129 +415,6 @@ void excluirProduto(void){
 }
 
 // SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
-
-ChaveP* telaAlterarProduto(void){
-    int validaCod;
-    int validaData;
-    int validaDig;
-    int validaNull;
-    ChaveP* key;
-    key = (ChaveP*) malloc(sizeof(ChaveP));
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///            = = = = = MÓDULO ALTERAR PRODUTO: = = = = =            ///\n");
-    printf("///                                                                   ///\n");
-
-    do{
-        printf("///            - Código de Barras: ");
-        scanf("%[^\n]", key->codBarras);
-        getchar();
-        
-		validaCod = validaCodBarras(key->codBarras);
-        validaDig = testeDigitosNumericos(key->codBarras);
-        validaNull = verificaNulo(key->codBarras);
-
-		if(!validaCod || validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-
-	}while(!validaCod || validaDig || validaNull);
-
-    do{
-        printf("///            - Data Val. (dd/mm/aaaa): ");
-        scanf("%[^\n]", key->dataValidade);
-        getchar();
-
-        validaData = testaData(key->dataValidade);
-        validaDig = testeDigitosNumericosData(key->dataValidade);
-        validaNull = verificaNulo(key->dataValidade);
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-    }while(!validaData || validaDig || validaNull);
-
-    return key;
-}
-
-Produto* telaAlterarTudo(){
-    int validaDig;
-    int validaNull;
-    int validaData;
-    Produto* pro;
-    pro = (Produto*) malloc(sizeof(Produto));
-
-    printf("///                                                                   ///\n");
-    printf("///           INFORME OS NOVOS VALORES DO PRODUTO:                    ///\n");
-    printf("///                                                                   ///\n");
-
-    do{
-        printf("///            - Nova Data Val. (dd/mm/aaaa): ");
-        scanf("%[^\n]", pro->dataValidade);
-        getchar();
-    
-        validaData = testaData(pro->dataValidade);
-        validaDig = testeDigitosNumericosData(pro->dataValidade);
-        validaNull = verificaNulo(pro->dataValidade); 
-
-        if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
-        }
-    }while(!validaData || validaDig || validaNull);
-
-    do{
-        printf("///            - Nova Descrição: ");
-        scanf("%[^\n]", pro->nomeItem);
-        getchar();
-
-        validaDig = testeDigitos(pro->nomeItem);
-        validaNull = verificaNulo(pro->nomeItem);
-
-        if(validaDig || validaNull){
-            printf("///            Caracteres inválidos, tente novamente !\n");
-        }
-    }while (validaDig || validaNull);
-    
-    do{
-        printf("///            - Novo Local: ");
-        scanf("%[^\n]", pro->local);
-        getchar();
-
-        validaDig = testeDigitos(pro->local);
-        validaNull = verificaNulo(pro->local);
-
-        if(validaDig || validaNull){
-            printf("///            Caracteres inválidos, tente novamente !\n");
-        }
-    }while (validaDig || validaNull);
-
-    char quantidade[10];
-    do{
-        printf("///            - Nova Quantidade: ");
-        scanf("%[^\n]", quantidade);
-        getchar();
-        
-        validaDig = testeDigitosNumericos(quantidade);
-        validaNull = verificaNulo(quantidade);
-
-        if(validaDig || validaNull){
-            printf("///            Dígitos inválidos, tente novamente !\n");
-        }
-    }while (validaDig || validaNull); 
-
-    pro->quant = converteCharParaInt(quantidade);
-
-    return pro;   
-}
 
 char* telaAlterarValidade(void){
     int validaData;
@@ -695,7 +447,7 @@ char* telaAlterarDesc(void){
     nomeItem = (char*) malloc(51*sizeof(char));
 
     do{
-        printf("///            - a) Nova Descrição: ");
+        printf("///            - b) Nova Descrição: ");
         scanf("%[^\n]", nomeItem);
         getchar();
 
@@ -738,7 +490,7 @@ char* telaAlterarQuant(void){
     quant = (char*) malloc(10*sizeof(char));
 
     do{
-        printf("///            - e) Nova Quantidade: ");
+        printf("///            - d) Nova Quantidade: ");
         scanf("%[^\n]", quant);
         getchar();
         
@@ -754,33 +506,102 @@ char* telaAlterarQuant(void){
     return quant;
 }
 
-void regravarProduto(Produto* pro){
+ChaveP* telaAlterarProduto(void){
+    int validaCod;
+    int validaData;
     int validaDig;
-    int validaOp;
-    char confirma;
+    int validaNull;
+    ChaveP* key;
+    key = (ChaveP*) malloc(sizeof(ChaveP));
+
+    limpaTela();
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            = = = = = MÓDULO ALTERAR PRODUTO: = = = = =            ///\n");
+    printf("///                                                                   ///\n");
+
+    do{
+        printf("///            - Código de Barras: ");
+        scanf("%[^\n]", key->codBarras);
+        getchar();
+        
+		validaCod = validaCodBarras(key->codBarras);
+        validaDig = testeDigitosNumericos(key->codBarras);
+        validaNull = verificaNulo(key->codBarras);
+
+		if(!validaCod || validaDig || validaNull){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(!validaCod || validaDig || validaNull);
+
+    do{
+        printf("///            - Data Val. (dd/mm/aaaa): ");
+        scanf("%[^\n]", key->dataValidade);
+        getchar();
+
+        validaData = testaData(key->dataValidade);
+        validaDig = testeDigitosNumericosData(key->dataValidade);
+        validaNull = verificaNulo(key->dataValidade);
+
+        if (!validaData || validaDig || validaNull) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+    }while(!validaData || validaDig || validaNull);
+
+    return key;
+}
+
+Produto* telaAlterarTudo(){
+    Produto* pro;
+    pro = (Produto*) malloc(sizeof(Produto));
+
+    printf("///                                                                   ///\n");
+    printf("///           INFORME OS NOVOS VALORES DO PRODUTO:                    ///\n");
+    printf("///                                                                   ///\n");
+
+    char* dataValidade;
+    dataValidade = telaAlterarValidade();
+    strcpy(pro->dataValidade, dataValidade);
+    free(dataValidade);
+
+    char* nomeItem;
+    nomeItem = telaAlterarDesc();
+    strcpy(pro->nomeItem, nomeItem);
+    free(nomeItem);
+    
+    char* local;
+    local = telaAlterarLocal();
+    strcpy(pro->local, local);
+    free(local);
+
+    char* quantidade;
+    quantidade = telaAlterarQuant();
+    pro->quant = converteCharParaInt(quantidade);
+    free(quantidade);
+
+    return pro;   
+}
+
+void regravarProduto(Produto* pro){ 
     
     FILE* file;
     Produto* prod; // Variável para armazenar o produto a ser alterado.
     Produto* proe; // Variável que armazena os novos valores do produto.
     prod = (Produto*) malloc(sizeof(Produto));
-    file = fopen("produtos.dat", "r+b");
-
     proe = telaAlterarTudo();
+    file = fopen("produtos.dat", "r+b");
     printf("///                                                                    ///\n");
-    
-    do{
-        printf("///            - Confirmar à alteração deste produto (S/N) ? ");
-        scanf("%[^\n]", &confirma);
-        getchar();
 
-        validaDig = testeDigito(confirma);
-        validaOp = validaOpcao(confirma);
-
-        if(!validaOp || validaDig){
-            printf("///            Opcão inválida, tente novamente!\n");
-        }
-
-    }while(!validaOp || validaDig);
+    char confirma;
+    confirma = confirmaAlteracao();
 
     if(confirma == 'S' || confirma == 's'){
         while(fread(prod, sizeof(Produto), 1, file)){
@@ -944,7 +765,7 @@ void alterarProduto(void){
         exibeProduto(pro);
 
         do{
-            printf("///          - Deseja alterar todos os items da compra (S/N) ");
+            printf("///          - Deseja alterar todos os campos do produto (S/N) ");
             scanf("%[^\n]", &decisao);
             getchar();
 
@@ -981,7 +802,7 @@ void listarProdutos(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");

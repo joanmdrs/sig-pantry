@@ -26,6 +26,8 @@ void exibirConsumo(Consumo*);
 
 void exibirItemC(ItemC*);
 
+long int geraCodConsumo(void);
+
 long int preencheCodConsumo(void);
 
 char* preencheDataConsumo(void);

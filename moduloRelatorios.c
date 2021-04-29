@@ -64,8 +64,8 @@ char menuRelatorioProdutos(void){
     printf("///            RELATÓRIOS - PRODUTOS:                                 ///\n");    
     printf("///                                                                   ///\n");
     printf("///            1 - Itens vencidos                                     ///\n");
-    printf("///            2 - Itens a vencer                                     ///\n");
-    printf("///            3 - Itens abertos                                      ///\n");
+    printf("///            2 - Itens à vencer                                     ///\n");
+    printf("///            3 - Itens em ordem alfabética                          ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");

@@ -41,7 +41,7 @@ void gravarItem(Item* item){
     fclose(file);
 }
 
-long int preencheCodCompra(void){
+long int geraCodCompra(void){
 
     FILE* fc;
     fc = fopen("compras.dat", "rb");
@@ -62,6 +62,28 @@ long int preencheCodCompra(void){
     free(com);
 
     return codCompra;
+}
+
+long int preencheCodCompra(void){
+    int validaDig;
+    int validaNull;
+    char codCompra[9];
+    long int codigo;
+
+    do{
+        printf("///            - Código da compra: ");
+        scanf("%[^\n]", codCompra);
+        getchar();
+
+        validaDig = testeDigitosNumericos(codCompra);
+        validaNull = verificaNulo(codCompra);
+        if(validaDig || validaNull){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+	}while(validaDig || validaNull);
+
+    codigo = atoi(codCompra);
+    return codigo;
 }
 
 char* preencheDataCompra(void){
@@ -91,9 +113,7 @@ char* preencheDataCompra(void){
     return dataCompra;
 }
 
-
 char* preencheHoraCompra(void){
-
     int validaHora;
     int validaDig;
     int validaNull;
@@ -122,7 +142,6 @@ char* preencheHoraCompra(void){
 char* preencheQuantCompra(void){
     int validaDig;
     int validaNull;
-    
     char* quantC;
     quantC = (char*) malloc(20*sizeof(char));
 
@@ -137,12 +156,10 @@ char* preencheQuantCompra(void){
         if(validaDig || validaNull){
             printf("///            Quantidade inválida, tente novamente !\n");
         }
-
     }while(validaDig || validaNull);
 
     return quantC;
 }
-
 
 double preencheValorCompra(void){
     int validaDig;
@@ -199,7 +216,6 @@ void exibirItem(Item* item){
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///         Descrição: %s Quant.: %d Preço: R$ %.2f \n",item->descricao, item->quant, item->valor);
-   
 }
 
 char menuCompras(void){
@@ -243,12 +259,14 @@ char menuCompras(void){
     }while(!validaOp || !validaOpM);
 
 	return opcao;
-
 }
 
 // SEÇÃO RELACIONADA AO CADASTRO _______________________________________________________________________________
 
 void cadastrarCompra(void){
+
+    double valorCompra = 0.0;
+    int achou = 0;
 
     limpaTela();
     printf("\n");
@@ -265,36 +283,33 @@ void cadastrarCompra(void){
     printf("///                                                                   ///\n");
 
     FILE* fp;
-
     Compra* com;
     com = (Compra*) malloc(sizeof(Compra));
-
-    double valorCompra = 0.0;
-
     Produto* pro;
     Produto* proe;
     Item* item;
 
+// ------------------------- Gerando o código da compra ----------------------------------
 
-    long int codCompra = preencheCodCompra();
+    long int codCompra = geraCodCompra();
 
     printf("///            - Código da compra: %ld \n", codCompra);
 
-    com->codCompra = codCompra;
+    com->codCompra = codCompra; 
 
     char* dataCompra = preencheDataCompra();
-    strcpy(com->dataCompra, dataCompra);
+    strcpy(com->dataCompra, dataCompra); // Preenchendo a data da compra
     free(dataCompra);
 
     char* horaCompra = preencheHoraCompra();
-    strcpy(com->horaCompra, horaCompra);
+    strcpy(com->horaCompra, horaCompra); // Preenchendo a hora da compra
     free(horaCompra);
 
     char* quant;
     quant = preencheQuantCompra();
     int quantidade;
     quantidade = converteCharParaInt(quant);
-    com->quant = quantidade;
+    com->quant = quantidade; // Preenchendo a quantidade de itens da compra
 
     com->status = 'Y';
 
@@ -312,30 +327,29 @@ void cadastrarCompra(void){
         item->codCompra = com->codCompra;
 
         char* codBarras = preencheCodBarras();
-        strcpy(pro->codBarras, codBarras);
+        strcpy(pro->codBarras, codBarras); // Preenchendo o código de barras
         free(codBarras);
 
         char* dataValidade = preencheDataValidade();
-        strcpy(pro->dataValidade, dataValidade);
+        strcpy(pro->dataValidade, dataValidade); // Preenchendo a data de validade
         free(dataValidade);
 
         char* nomeItem = preencheDesc();
-        strcpy(pro->nomeItem, nomeItem);
+        strcpy(pro->nomeItem, nomeItem); // Preenchendo a descrição
         strcpy(item->descricao, nomeItem);
         free(nomeItem);
 
         char* local = preencheLocal();
-        strcpy(pro->local, local);
+        strcpy(pro->local, local); // Preenchendo o local
         free(local);
 
         char* quantP;
         quantP = preencheQuantPro();
         int quantidadeP;
         quantidadeP = converteCharParaInt(quantP);
-        pro->quant = quantidadeP;
+        pro->quant = quantidadeP; // Preenchendo a quantidade
         item->quant = quantidadeP;
         
-        int achou = 0;
         while(fread(proe, sizeof(Produto), 1, fp)) {
             if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade) && strcmp(proe->status, "x")) {
                 proe->quant = proe->quant + quantidadeP;
@@ -350,35 +364,25 @@ void cadastrarCompra(void){
         free(proe);
 
         double preco = preenchePrecoItem();
-        item->valor = preco;
+        item->valor = preco; 
         valorCompra = valorCompra + (quantidadeP * preco);
-
-// ----------------------------------------------------------------------------------
 
         if(achou == 0){
             strcpy(pro->status, "Y");
             gravarProduto(pro);
             free(pro);
             gravarItem(item);
-            free(item);
-            
+            free(item);   
         }
     } 
-
-    com->valor = valorCompra;
+    com->valor = valorCompra; // Preenchendo o valor da compra
     gravarCompra(com);
     free(com);
-    
 }
 
 // SEÇÃO RELACIONADA À PESQUISA ________________________________________________________________________________
 
 long int telaPesquisarCompra(void){
-
-    int validaDig;
-    int validaNull;
-    char codCompra[9];
-    long int codigo;
 
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
@@ -393,20 +397,8 @@ long int telaPesquisarCompra(void){
     printf("///           = = = = =  MÓDULO PESQUISAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
  
-    do{
-        printf("///            - Código da compra: ");
-        scanf("%[^\n]", codCompra);
-        getchar();
-
-        validaDig = testeDigitosNumericos(codCompra);
-        validaNull = verificaNulo(codCompra);
-        if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-
-	}while(validaDig || validaNull);
-
-    codigo = atoi(codCompra);
+    long int codigo;
+    codigo = preencheCodCompra();
     return codigo;
 }
 
@@ -424,7 +416,6 @@ Compra* pegarCompra(long int codigo){
             return com;
         }
     }
-
     fclose(file);
     return NULL;
 }
@@ -460,11 +451,6 @@ void pesquisarCompra(void){
 
 long int telaExcluirCompra(void){
 
-    int validaDig;
-    int validaNull;
-    char codCompra[9];
-    long int codigo;
-
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -478,27 +464,13 @@ long int telaExcluirCompra(void){
     printf("///            = = = = =  MÓDULO EXCLUIR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
-    do{
-        printf("///            - Código da compra: ");
-        scanf("%[^\n]", codCompra);
-        getchar();
-
-        validaDig = testeDigitosNumericos(codCompra);
-        validaNull = verificaNulo(codCompra);
-        if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-
-	}while(validaDig || validaNull);
-
-    codigo = atoi(codCompra);
+    long int codigo;
+    codigo = preencheCodCompra();
     return codigo;
 }
 
 void excluirCompraLog(Compra* com){
-    char resposta;
-    int validaDig;
-    int validaOp;
+    char confirma;
     FILE* file;
     Compra* comp;
     comp = (Compra*) malloc(sizeof(Compra));
@@ -508,22 +480,9 @@ void excluirCompraLog(Compra* com){
         exibirCompra(com);
 
     } else{
-        do{
-            printf("///            - Confirmar operação (S/N) ? ");
-            scanf("%[^\n]", &resposta);
-            getchar();
+        confirma = confirmaExclusao();
 
-            validaDig = testeDigito(resposta);
-            validaOp = validaOpcao(resposta);
-            
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-        if (resposta == 'S' || resposta == 's'){
+        if (confirma == 'S' || confirma == 's'){
             while(fread(comp, sizeof(Compra), 1, file)){
                 if(comp->codCompra == com->codCompra && comp->status != 'x'){
                     comp->status = 'x';
@@ -541,7 +500,7 @@ void excluirCompraLog(Compra* com){
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
-        } else if (resposta == 'N' || resposta == 'n'){
+        } else if (confirma == 'N' || confirma == 'n'){
             printf("///                                                                   ///\n");
             printf("///            Operação cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
@@ -571,11 +530,6 @@ void excluirCompra(void){
 
 long int telaAlterarCompra(void){
 
-    int validaDig;
-    int validaNull;
-    char codCompra[9];
-    long int codigo;
-
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -589,20 +543,8 @@ long int telaAlterarCompra(void){
     printf("///            = = = = =  MÓDULO ALTERAR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
-    do{
-        printf("///            - Código da compra: ");
-        scanf("%[^\n]", codCompra);
-        getchar();
-
-        validaDig = testeDigitosNumericos(codCompra);
-        validaNull = verificaNulo(codCompra);
-        if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-
-	}while(validaDig || validaNull);
-
-    codigo = atoi(codCompra);
+    long int codigo;
+    codigo = preencheCodCompra();
     return codigo;
 }
 
@@ -727,7 +669,6 @@ void alterarCompra(void){
     }
     free(com);
 }
-
 
 void listarCompras(void){
 

@@ -27,6 +27,8 @@ void gravarCompra(Compra*);
 
 void gravarItem(Item*);
 
+long int geraCodCompra(void);
+
 long int preencheCodCompra(void);
 
 char* preencheDataCompra(void);

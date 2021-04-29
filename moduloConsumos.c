@@ -39,7 +39,7 @@ void gravarItemC(ItemC* item){
     fclose(file);
 }
 
-long int preencheCodConsumo(void){
+long int geraCodConsumo(void){
 
     FILE* fc;
     fc = fopen("consumos.dat", "rb");
@@ -60,6 +60,28 @@ long int preencheCodConsumo(void){
     free(con);
 
     return codConsumo;
+}
+
+long int preencheCodConsumo(){
+    int validaDig;
+    int validaNull;
+    char codConsumo[9];
+    long int codigo;
+
+    do{
+        printf("///            - Código do consumo: ");
+        scanf("%[^\n]", codConsumo);
+        getchar();
+
+        validaDig = testeDigitosNumericos(codConsumo);
+        validaNull = verificaNulo(codConsumo);
+        if(validaDig || validaNull){
+			printf("///            Código inválido, tente novamente !\n");
+		}
+
+	}while(validaDig || validaNull);
+    codigo = converteCharParaInt(codConsumo);
+    return codigo;
 }
 
 char* preencheDataConsumo(void){
@@ -273,7 +295,7 @@ void cadastrarConsumo(void){
 
 // ------------------------- Gerando o código do consumo ----------------------------------
 
-    long int codConsumo = preencheCodConsumo();
+    long int codConsumo = geraCodConsumo();
 
     printf("///            - Código do consumo: %ld \n", codConsumo);
 
@@ -356,7 +378,6 @@ void cadastrarConsumo(void){
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
-            
             break;
 
         }else if(achou == 1){
@@ -375,11 +396,6 @@ void cadastrarConsumo(void){
 
 long int telaPesquisarConsumo(void){
 
-    int validaDig;
-    int validaNull;
-    char codConsumo[9];
-    long int codigo;
-
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -393,20 +409,8 @@ long int telaPesquisarConsumo(void){
     printf("///           = = = = =  MÓDULO PESQUISAR CONSUMO: = = = = =          ///\n");
     printf("///                                                                   ///\n");
  
-    do{
-        printf("///            - Código do consumo: ");
-        scanf("%[^\n]", codConsumo);
-        getchar();
-
-        validaDig = testeDigitosNumericos(codConsumo);
-        validaNull = verificaNulo(codConsumo);
-        if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-
-	}while(validaDig || validaNull);
-
-    codigo = atoi(codConsumo);
+    long int codigo;
+    codigo = preencheCodConsumo();
     return codigo;
 }
 
@@ -424,7 +428,6 @@ Consumo* pegarConsumo(long int codigo){
             return con;
         }
     }
-
     fclose(file);
     return NULL;
 }
@@ -460,11 +463,6 @@ void pesquisarConsumo(void){
 
 long int telaExcluirConsumo(void){
 
-    int validaDig;
-    int validaNull;
-    char codConsumo[9];
-    long int codigo;
-
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -478,27 +476,13 @@ long int telaExcluirConsumo(void){
     printf("///            = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
-    do{
-        printf("///            - Código do consumo: ");
-        scanf("%[^\n]", codConsumo);
-        getchar();
-
-        validaDig = testeDigitosNumericos(codConsumo);
-        validaNull = verificaNulo(codConsumo);
-        if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-
-	}while(validaDig || validaNull);
-
-    codigo = atoi(codConsumo);
+    long int codigo;
+    codigo = preencheCodConsumo();
     return codigo;
 }
 
 void excluirConsumoLog(Consumo* con){
-    char resposta;
-    int validaDig;
-    int validaOp;
+    char confirma;
     FILE* file;
     Consumo* conp;
     conp = (Consumo*) malloc(sizeof(Consumo));
@@ -508,22 +492,9 @@ void excluirConsumoLog(Consumo* con){
         exibirConsumo(con);
 
     } else{
-        do{
-            printf("///            - Confirmar operação (S/N) ? ");
-            scanf("%[^\n]", &resposta);
-            getchar();
+        confirma = confirmaExclusao();
 
-            validaDig = testeDigito(resposta);
-            validaOp = validaOpcao(resposta);
-            
-
-            if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
-            }
-
-        }while(!validaOp || validaDig);
-
-        if (resposta == 'S' || resposta == 's'){
+        if (confirma == 'S' || confirma == 's'){
             while(fread(conp, sizeof(Consumo), 1, file)){
                 if(conp->codConsumo == con->codConsumo && conp->status != 'x'){
                     conp->status = 'x';
@@ -541,7 +512,7 @@ void excluirConsumoLog(Consumo* con){
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
-        } else if (resposta == 'N' || resposta == 'n'){
+        } else if (confirma == 'N' || confirma == 'n'){
             printf("///                                                                   ///\n");
             printf("///            Operação cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
@@ -571,11 +542,6 @@ void excluirConsumo(void){
 
 long int telaAlterarConsumo(void){
 
-    int validaDig;
-    int validaNull;
-    char codConsumo[9];
-    long int codigo;
-
     limpaTela();
     printf("/////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                   ///\n");
@@ -589,20 +555,8 @@ long int telaAlterarConsumo(void){
     printf("///            = = = = =  MÓDULO ALTERAR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
-    do{
-        printf("///            - Código do consumo: ");
-        scanf("%[^\n]", codConsumo);
-        getchar();
-
-        validaDig = testeDigitosNumericos(codConsumo);
-        validaNull = verificaNulo(codConsumo);
-        if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
-		}
-
-	}while(validaDig || validaNull);
-
-    codigo = atoi(codConsumo);
+    long int codigo;
+    codigo = preencheCodConsumo();
     return codigo;
 }
 
@@ -727,7 +681,6 @@ void alterarConsumo(void){
     }
     free(con);
 }
-
 
 void listarConsumos(void){
 
