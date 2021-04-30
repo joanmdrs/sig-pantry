@@ -369,6 +369,7 @@ void cadastrarCompra(void){
 
         if(achou == 0){
             strcpy(pro->status, "Y");
+            pro->prox = NULL;
             gravarProduto(pro);
             free(pro);
             gravarItem(item);

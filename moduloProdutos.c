@@ -185,6 +185,7 @@ Produto* telaCadastrarProduto(void){
         // --------------------------- Definindo o status do produto -----------------------------------
 
         strcpy(pro->status, "DISPONIVEL");
+        pro->prox = NULL;
 
         // ---------------------------------------------------------------------------------------
 
@@ -588,6 +589,8 @@ Produto* telaAlterarTudo(){
     pro->quant = converteCharParaInt(quantidade);
     free(quantidade);
 
+    pro->prox = NULL;
+
     return pro;   
 }
 
@@ -611,6 +614,7 @@ void regravarProduto(Produto* pro){
                 strcpy(prod->nomeItem, proe->nomeItem);
                 strcpy(prod->local, proe->local);
                 prod->quant = proe->quant;
+                prod->prox = proe->prox;
                 fseek(file, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(prod, sizeof(Produto), 1, file);
                 break;

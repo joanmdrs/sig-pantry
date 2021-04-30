@@ -1,4 +1,5 @@
 typedef struct produto Produto;
+
 struct produto {
     char codBarras[14];
     char dataValidade[11];
@@ -6,6 +7,7 @@ struct produto {
     char local[20];
     int quant;
     char status[11];
+    struct produto *prox;
 };
 
 typedef struct chaveP ChaveP;
