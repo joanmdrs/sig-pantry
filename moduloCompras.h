@@ -7,7 +7,7 @@ struct compra {
     int quant;
     double valor;
     char status;
-    
+    struct compra *prox;
 };
 
 typedef struct item Item;

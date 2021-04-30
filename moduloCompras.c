@@ -15,7 +15,7 @@ struct compra {
     int quant;
     double valor;
     char status;
-    
+    struct compra *prox;
 };
 
 typedef struct item Item;
@@ -295,7 +295,7 @@ void cadastrarCompra(void){
 
     printf("///            - Código da compra: %ld \n", codCompra);
 
-    com->codCompra = codCompra; 
+    com->codCompra = codCompra;
 
     char* dataCompra = preencheDataCompra();
     strcpy(com->dataCompra, dataCompra); // Preenchendo a data da compra
@@ -311,7 +311,9 @@ void cadastrarCompra(void){
     quantidade = converteCharParaInt(quant);
     com->quant = quantidade; // Preenchendo a quantidade de itens da compra
 
-    com->status = 'Y';
+    com->status = 'Y'; 
+
+    com->prox = NULL;
 
     for(int i = 0; i < quantidade; i++){
 

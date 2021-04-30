@@ -103,9 +103,10 @@ int main(void) {
             case '4':
                 do{
                     opcao5 = menuRelatorios();
-                    Produto* pro;
                     Produto* lista;
+                    Compra* listaC;
                     lista = NULL;
+                    listaC = NULL;
 
                     switch (opcao5){
                         case '1':
@@ -143,6 +144,11 @@ int main(void) {
                                     
                                     case '3':
                                         comprasAnuais();
+                                        break;
+                                    
+                                    case '4':
+                                        gerarRelCompOrd(&listaC);
+                                        exibirListaCompra(listaC);
                                         break;
                                 }
                                 

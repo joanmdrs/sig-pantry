@@ -3,6 +3,7 @@
 #include <string.h>
 #include "moduloValidacoes.h"
 #include "moduloProdutos.h"
+#include "moduloCompras.h"
  
 char menuRelatorios(void){
     char opcao;
@@ -256,6 +257,7 @@ void gerarRelProdOrd(Produto **lista){
     }
 }
 
+
 char menuRelatorioCompras(void){
     char opcao;
     int validaOp;
@@ -276,6 +278,7 @@ char menuRelatorioCompras(void){
     printf("///            1 - Compras Diárias                                    ///\n");
     printf("///            2 - Compras Mensais                                    ///\n");
     printf("///            3 - Compras Anuais                                     ///\n");
+    printf("///            4 - Compras Valor Decrescente                          ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -286,7 +289,7 @@ char menuRelatorioCompras(void){
         scanf("%[^\n]", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, 3); 
+        validaOpM = validaOpcaoMenu(opcao, 4); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -608,6 +611,90 @@ void comprasAnuais(void){
     printf("\n/////////////////////////////////////////////////////////////////////////\n");
     printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
+
+void exibirListaCompra(Compra* aux){
+
+    limpaTela();
+    printf("\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///        = RELATÓRIO - COMPRAS ORDENADAS - VALOR DECRESCENTE =      ///\n");
+    printf("///                                                                   ///\n");
+    printf(" Código da Compra: \tData da Compra:   Hora da Compra:   Valor da Compra: \n");
+    printf("\n");
+    
+    while (aux != NULL){
+        printf(" %ld \t\t", aux->codCompra);
+        printf("%s\t", aux->dataCompra);
+        printf("  %s\t", aux->horaCompra);
+        printf("    R$ %.2f \n", aux->valor);
+        aux = aux->prox;
+    }
+    printf("\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void apagarListaCompra(Compra **lista){
+    Compra *com;
+    
+    while (*lista != NULL){
+   	    com = *lista;
+        *lista = (*lista)->prox;
+        free(com);
+    }
+    printf("Lista excluida com sucesso! \n");    
+}
+
+void gerarRelCompOrd(Compra **lista){
+
+    FILE *fp;
+    Compra* com;
+
+    apagarListaCompra(&(*lista));
+    *lista = NULL;
+
+    fp = fopen("compras.dat","rb");
+
+    if (fp == NULL){
+        printf("Erro na abertura do arquivo... \n");
+        exit(1);
+
+    }else{
+
+        com = (Compra*) malloc(sizeof(Compra));
+        while (fread(com, sizeof(Compra), 1, fp)){
+
+            if ((*lista == NULL) || com->valor < (*lista)->valor ) {
+                com->prox = *lista;
+                *lista = com;
+
+            }else{
+                Compra* ant = *lista;
+                Compra* atu = (*lista)->prox;
+                
+                while ((atu != NULL) && atu->valor < com->valor) {
+                    ant = atu;
+                    atu = atu->prox;
+                }
+                ant->prox = com;
+                com->prox = atu;
+            }
+            com = (Compra*) malloc(sizeof(Compra));
+        }
+        free(com);
+        printf("Arquivo recuperado com sucesso! \n");
+        fclose(fp);
+    }
 }
 
 char menuRelatorioConsumo(void){
