@@ -13,6 +13,7 @@ struct produto {
     char local[20];
     int quant;
     char status[11];
+    struct produto *prox;
 };
 
 typedef struct chaveP ChaveP;

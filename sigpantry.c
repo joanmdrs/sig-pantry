@@ -118,7 +118,7 @@ int main(void) {
                                         break;
                                     
                                     case '3':
-                                        itensAbertos();
+                                        relatorioItensOrdenados();
                                         break;
                                 }
                                 

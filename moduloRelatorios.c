@@ -1,6 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "moduloValidacoes.h"
+#include "moduloProdutos.h"
+
+typedef struct produtoR ProdutoR;
+
+struct produtoR {
+    char codBarras[14];
+    char dataValidade[11];
+    char nomeItem[51];
+    char local[20];
+    int quant;
+    char status[11];
+    struct produto *prox;
+};
 
 char menuRelatorios(void){
     char opcao;
@@ -65,7 +79,7 @@ char menuRelatorioProdutos(void){
     printf("///                                                                   ///\n");
     printf("///            1 - Itens vencidos                                     ///\n");
     printf("///            2 - Itens à vencer                                     ///\n");
-    printf("///            3 - Itens em ordem alfabética                          ///\n");
+    printf("///            3 - Itens em ordem                                     ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -171,43 +185,74 @@ void itensParaVencer(void){
 
 }
 
-void itensAbertos(void){
-    char codBarras[14] = "789859844612";
-    char nomeItem[51] = "Arroz Branco";
-    char dataValidade[11] = "28/03/2021";
-    char local[10] = "Armário";
-    char status[10] = "Fechado";
-    int quant = 5;
+void exibirLista(Produto* prod){
+    if(prod){
+        printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        printf("///          Não foram encontrados produtos na despensa!              ///\n");  
+        printf("///        ___________________________________________________        ///\n");
 
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - PRODUTOS ABERTOS = = = =            ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total de produtos abertos: 2                               \n");
-    printf("              _____________________________________________              \n");
+    }else{
+        while (prod != NULL){
+            printf("///        ___________________________________________________        ///\n");
+            printf("///                                                                   ///\n");
+            printf("///              Código de Barras: %s \n", prod->codBarras);
+            printf("///              Data de Validade: %s \n", prod->dataValidade);
+            printf("///                     Descrição: %s \n", prod->nomeItem);
+            printf("///                         Local: %s \n", prod->local);
+            printf("///                    Quantidade: %d \n", prod->quant);
+            printf("///                        Status: %s \n", prod->status);
+            printf("///        ___________________________________________________        ///\n");
+        }
+	}
     
-    for(int i=0; i < 2; i++){
-        printf("                                                                         \n");
-        printf("                 Código de Barras : %s \n", codBarras);
-        printf("                 Descrição        : %s \n", nomeItem);
-        printf("                 Data de Validade : %s \n", dataValidade);
-        printf("                 Local            : %s \n", local);
-        printf("                 Status           : %s \n", status);
-        printf("                 Quantidade       : %d \n", quant);
-        printf("              _____________________________________________              \n");
-    }
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
 
+ProdutoR* itensOrdenados(void){
+    FILE* file;
+    Produto* pro;
+    ProdutoR* lista;
+    lista->prox = NULL;
+    file = fopen("produtos.dat","rb");
+
+    if(file == NULL){
+        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+        printf("Não é possível continuar este programa...\n");
+        exit(1);
+    }else{
+        pro = (Produto*) malloc(sizeof(Produto));
+        while(fread(pro, sizeof(ProdutoR), 1, file)){
+            if ((lista == NULL) || (strcmp(pro->nomeItem, lista->prox->nomeItem) < 0)){
+                pro->prox = lista;
+                lista = pro;
+            }else{
+                ProdutoR* anterior = lista;
+                ProdutoR* atual = lista->prox;
+                while ((atual != NULL) && (strcmp(atual->nomeItem, pro->nomeItem) < 0)) {
+                    anterior = atual;
+                    atual = atual->prox;
+                }
+                anterior->prox = pro;
+                pro->prox = atual;
+            }
+            pro = (ProdutoR*) malloc(sizeof(ProdutoR));
+        }
+        free(pro);
+        fclose(file);
+        return lista;
+    }
+
+}
+
+void relatorioItensOrdenados(void){
+    ProdutoR* pro;
+    pro = itensOrdenados();
+    exibirLista(pro);
+    free(pro);
 }
 
 char menuRelatorioCompras(void){
