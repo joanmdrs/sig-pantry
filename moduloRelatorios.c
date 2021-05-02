@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "moduloValidacoes.h"
+#include "moduloUtil.h"
 #include "moduloProdutos.h"
 #include "moduloCompras.h"
- 
+
 char menuRelatorios(void){
     char opcao;
     int validaOp;
@@ -15,16 +16,16 @@ char menuRelatorios(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            RELATÓRIOS:                                            ///\n");
     printf("///                                                                   ///\n");
-    printf("///            1 - Relatório: Produtos                                ///\n");
-    printf("///            2 - Relatório: Compras                                 ///\n");
-    printf("///            3 - Relatório: Consumo                                 ///\n");
+    printf("///            1 - PRODUTOS                                           ///\n");
+    printf("///            2 - COMPRAS                                            ///\n");
+    printf("///            3 - CONSUMOS                                           ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -47,6 +48,8 @@ char menuRelatorios(void){
 	return opcao;
 
 }
+
+// SEÇÃO RELACIONADA AOS RELATÓRIOS DE PRODUTOS ________________________________________________________
 
 char menuRelatorioProdutos(void){
 
@@ -59,16 +62,17 @@ char menuRelatorioProdutos(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            RELATÓRIOS - PRODUTOS:                                 ///\n");    
     printf("///                                                                   ///\n");
-    printf("///            1 - Itens vencidos                                     ///\n");
-    printf("///            2 - Itens à vencer                                     ///\n");
-    printf("///            3 - Itens em ordem                                     ///\n");
+    printf("///            1 - Produtos vencidos                                  ///\n");
+    printf("///            2 - Produtos à vencer                                  ///\n");
+    printf("///            3 - Produtos em ordem                                  ///\n");
+    printf("///            4 - Produtos por local                                 ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -79,7 +83,7 @@ char menuRelatorioProdutos(void){
         scanf("%[^\n]", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, 3); 
+        validaOpM = validaOpcaoMenu(opcao, 4); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -92,115 +96,51 @@ char menuRelatorioProdutos(void){
 
 }
 
-void itensVencidos(void){
-
-    char codBarras[14] = "789859844612";
-    char nomeItem[51] = "Arroz Branco";
-    char dataValidade[11] = "19/03/2021";
-    char local[10] = "Armário";
-    char status[10] = "Fechado";
-    int quant = 5;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - PRODUTOS VENCIDOS = = = =           ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total de produtos vencidos: 2                              \n");
-    printf("              _____________________________________________              \n");
-    
-    for(int i=0; i < 2; i++){
-        printf("                                                                         \n");
-        printf("                 Código de Barras : %s \n", codBarras);
-        printf("                 Descrição        : %s \n", nomeItem);
-        printf("                 Data de Validade : %s \n", dataValidade);
-        printf("                 Local            : %s \n", local);
-        printf("                 Status           : %s \n", status);
-        printf("                 Quantidade       : %d \n", quant);
-        printf("              _____________________________________________              \n");
-    }
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-
-
+void exibeRelProd(Produto* pro){
+    printf("%26s\t", pro->nomeItem);
+    printf("%13s\t", pro->codBarras);
+    printf("%10s\t", pro->dataValidade);
+    printf("%d\t", pro->quant);
+    printf("%s\n", pro->local);
 }
 
-void itensParaVencer(void){
-
-    char codBarras[14] = "789859844612";
-    char nomeItem[51] = "Arroz Branco";
-    char dataValidade[11] = "28/03/2021";
-    char local[10] = "Armário";
-    char status[10] = "Fechado";
-    int quant = 5;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - PRODUTOS À VENCER = = = =           ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total de produtos à vencer: 2                              \n");
-    printf("              Data: 23/03/2021                                           \n");
-    printf("              _____________________________________________              \n");
-    
-    for(int i=0; i < 2; i++){
-        printf("                                                                         \n");
-        printf("                 Código de Barras : %s \n", codBarras);
-        printf("                 Descrição        : %s \n", nomeItem);
-        printf("                 Data de Validade : %s \n", dataValidade);
-        printf("                 Local            : %s \n", local);
-        printf("                 Status           : %s \n", status);
-        printf("                 Quantidade       : %d \n", quant);
-        printf("              _____________________________________________              \n");
-    }
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+void exibirProdutos(Produto* pro){
+    printf("                Produto  : %s\n", pro->nomeItem);
+    printf("                Código   : %s\n", pro->codBarras);
+    printf("                Validade : %s\n", pro->dataValidade);
+    printf("                Local    : %s\n", pro->local);
+    printf("                Quant.   : %d\n", pro->quant);
+    printf("              _____________________________________________\n");
+    printf("\n");
 
 }
 
 void exibirLista(Produto* aux){
 
     limpaTela();
-    printf("\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          = = = =  RELATÓRIO - PRODUTOS ORDENADOS = = = =          ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Descrição: \tValidade:\tQuant.:\n");
-    printf("\n");
-    
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                             ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        _____________________________________________________________________________        ///\n");
+    printf("///                                                                                             ///\n");
+    printf("///        = = = = = = = = = = = RELATÓRIO - PRODUTOS ORDENADOS = = = = = = = = = = = =         ///\n\n");
+    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+
     while (aux != NULL){
-        printf("              %s \t\t", aux->nomeItem);
-        printf("%s\t", aux->dataValidade);
-        printf("%d \n", aux->quant);
+        printf("%26s\t", aux->nomeItem);
+        printf("%13s\t", aux->codBarras);
+        printf("%10s\t", aux->dataValidade);
+        printf("%d\t", aux->quant);
+        printf("%s\n", aux->local);
         aux = aux->prox;
     }
     printf("\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
 
@@ -211,11 +151,87 @@ void apagarLista(Produto **lista){
    	    pro = *lista;
         *lista = (*lista)->prox;
         free(pro);
-    }
-    printf("Lista excluida com sucesso! \n");    
+    }   
 }
 
-void gerarRelProdOrd(Produto **lista){
+void relProdVencidos(void){
+    FILE *fp;
+    Produto* pro;
+    int vencido;
+
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                             ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        _____________________________________________________________________________        ///\n");
+    printf("///                                                                                             ///\n");
+    printf("///        = = = = = = = = = = = = RELATÓRIO - PRODUTOS VENCIDOS = = = = = = = = = = = =        ///\n\n");
+    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+
+    pro = (Produto*) malloc(sizeof(Produto));
+    fp = fopen("produtos.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }else{
+        while(fread(pro, sizeof(Produto), 1, fp)) {
+            vencido = itensVencidos(pro->dataValidade);
+            if(vencido == 1){
+                exibeRelProd(pro);
+            }
+        }
+        printf("\n");
+        printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
+    fclose(fp);
+
+}
+
+void relProdParaVencer(void){
+    FILE *fp;
+    Produto* pro;
+    int vencer;
+
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                             ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        _____________________________________________________________________________        ///\n");
+    printf("///                                                                                             ///\n");
+    printf("///        = = = = = = = = = = = = RELATÓRIO - PRODUTOS À VENCER = = = = = = = = = = = =        ///\n\n");
+    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+
+    pro = (Produto*) malloc(sizeof(Produto));
+    fp = fopen("produtos.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }else{
+        while(fread(pro, sizeof(Produto), 1, fp)) {
+            vencer = itensParaVencer(pro->dataValidade);
+            if(vencer == 1){
+                exibeRelProd(pro);
+            }
+        }
+        printf("\n");
+        printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
+    fclose(fp);
+}
+
+void relProdOrdenados(Produto **lista){
 
     FILE *fp;
     Produto* pro;
@@ -226,8 +242,7 @@ void gerarRelProdOrd(Produto **lista){
     fp = fopen("produtos.dat","rb");
 
     if (fp == NULL){
-        printf("Erro na abertura do arquivo... \n");
-        exit(1);
+        exibeErroArquivo();
 
     }else{
 
@@ -252,11 +267,54 @@ void gerarRelProdOrd(Produto **lista){
             pro = (Produto*) malloc(sizeof(Produto));
         }
         free(pro);
-        printf("Arquivo recuperado com sucesso! \n");
         fclose(fp);
     }
 }
 
+void relProdLocal(void){
+    FILE *fp;
+    Produto* pro;
+
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                             ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        _____________________________________________________________________________        ///\n");
+    printf("///                                                                                             ///\n");
+    printf("///        = = = = = = = = = = = = RELATÓRIO - PRODUTOS POR LOCAL = = = = = = = = = = = =       ///\n");
+    printf("///                                                                                             ///\n");
+
+    char* local;
+    local = preencheLocal();
+
+    printf("///        _____________________________________________________________________________        ///\n\n");
+    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+
+    pro = (Produto*) malloc(sizeof(Produto));
+    fp = fopen("produtos.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }else{
+        while(fread(pro, sizeof(Produto), 1, fp)) {
+            if(!strcmp(pro->local, local)){
+                exibeRelProd(pro);
+            }
+        }
+        printf("\n");
+        printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
+    }
+    free(local);
+    fclose(fp);
+}
+
+// SEÇÃO RELACIONADA AOS RELATÓRIOS DE COMPRAS _________________________________________________________
 
 char menuRelatorioCompras(void){
     char opcao;
@@ -268,7 +326,7 @@ char menuRelatorioCompras(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -278,7 +336,8 @@ char menuRelatorioCompras(void){
     printf("///            1 - Compras Diárias                                    ///\n");
     printf("///            2 - Compras Mensais                                    ///\n");
     printf("///            3 - Compras Anuais                                     ///\n");
-    printf("///            4 - Compras Valor Decrescente                          ///\n");
+    printf("///            4 - Compras: Ordem por valor                           ///\n");
+    printf("///            5 - Compras: Ordem cronológica                         ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -289,7 +348,7 @@ char menuRelatorioCompras(void){
         scanf("%[^\n]", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, 4); 
+        validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -302,346 +361,72 @@ char menuRelatorioCompras(void){
 
 }
 
-void comprasDiarias(void){
-
-    char dataCompra[11] = "23/03/2021";
-    char horaCompra[6] = "08:30";
-    char nomeItem[51] = "Arroz Branco";
-    char valorCompra[20] = "100,00";
-    int quant = 5;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - COMPRAS DIÁRIAS = = = =             ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total gasto com compras hoje: $200                         \n");
-    printf("              Total de compras realizadas hoje: 2                        \n");
-    printf("              Data: 23/03/2021                                           \n");
-    printf("              _____________________________________________              \n");
-    
-    for(int i=0; i < 2; i++){
-        printf("                                                                         \n");
-        printf("                 Data Compra: %s\n", dataCompra);
-        printf("                 Horário Compra: %s\n\n", horaCompra);
-        printf("                 Lista de Itens:\n\n");
-
-        for (int i = 0; i < 5; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem, quant);
-        }
-
-        printf("                 Valor Compra: $ %s\n", valorCompra);
-        printf("              _____________________________________________              \n");
-    }
-    
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-
+void exibeRelCompra(Compra* com){
+    printf("               %ld\t\t", com->codCompra);
+    printf("%s\t", com->dataCompra);
+    printf("%s\t", com->horaCompra);
+    printf("%d\t", com->quant);
+    printf("%.2f\n", com->valor);
 }
 
-void comprasMensais(void){
-    char dataCompra1[11] = "03/03/2021";
-    char horaCompra1[6] = "08:30";
-    char nomeItem1[51] = "Arroz Branco";
-    char valorCompra1[20] = "200,00";
-    int quant1 = 5;
-
-    char dataCompra2[11] = "12/03/2021";
-    char horaCompra2[6] = "10:33";
-    char nomeItem2[51] = "Macarrão";
-    char valorCompra2[20] = "250,00";
-    int quant2 = 8;
-
-    char dataCompra3[11] = "25/03/2021";
-    char horaCompra3[6] = "14:54";
-    char nomeItem3[51] = "Feijão";
-    char valorCompra3[20] = "300,00";
-    int quant3 = 2;
-
-    char dataCompra4[11] = "29/03/2021";
-    char horaCompra4[6] = "11:02";
-    char nomeItem4[51] = "Macarrão";
-    char valorCompra4[20] = "250,00";
-    int quant4 = 8;
-
+void exibirListaOrdemValor(Compra* aux){
     limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - COMPRAS MENSAIS = = = =             ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total gasto com compras esse mês: $1000                    \n");
-    printf("              Total de compras realizadas esse mês: 4                    \n");
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Compra: %s\n", dataCompra1);
-    printf("                 Horário Compra: %s\n\n", horaCompra1);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 5; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem1, quant1);
-    }
-    printf("                 Valor Compra: $ %s\n", valorCompra1);
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Compra: %s\n", dataCompra2);
-    printf("                 Horário Compra: %s\n\n", horaCompra2);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 8; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem2, quant2);
-    }
-    printf("                 Valor Compra: $ %s\n", valorCompra2);
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Compra: %s\n", dataCompra3);
-    printf("                 Horário Compra: %s\n\n", horaCompra3);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 2; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem3, quant3);
-    }
-    printf("                 Valor Compra: $ %s\n", valorCompra3);
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Compra: %s\n", dataCompra4);
-    printf("                 Horário Compra: %s\n\n", horaCompra4);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 8; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem4, quant4);
-    }
-    printf("                 Valor Compra: $ %s\n", valorCompra4);
-    printf("              _____________________________________________              \n");
-    
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///           = = = = = = = RELATÓRIO - ORDEM CRESCENTE - VALORES = = = = = = =         ///\n");
+    printf("///                                                                                     ///\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
 
-}
-
-void comprasAnuais(void){
-    char mes[2];
-    int m;
-
-    char dataCompra1[11] = "03/02/2021";
-    char horaCompra1[6] = "08:30";
-    char nomeItem1[51] = "Arroz Branco";
-    char valorCompra1[20] = "200,00";
-    int quant1 = 5;
-
-    char dataCompra2[11] = "12/05/2021";
-    char horaCompra2[6] = "10:33";
-    char nomeItem2[51] = "Macarrão";
-    char valorCompra2[20] = "250,00";
-    int quant2 = 8;
-
-    char dataCompra3[11] = "25/08/2021";
-    char horaCompra3[6] = "14:54";
-    char nomeItem3[51] = "Feijão";
-    char valorCompra3[20] = "300,00";
-    int quant3 = 2;
-
-    char dataCompra4[11] = "29/12/2021";
-    char horaCompra4[6] = "11:02";
-    char nomeItem4[51] = "Macarrão";
-    char valorCompra4[20] = "250,00";
-    int quant4 = 8;
-
-    int validaDig;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - COMPRAS ANUAIS = = = =              ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total gasto com compras esse ano: $1000                    \n");
-    printf("              Total de compras realizadas esse ano: 4                    \n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-
-    do{
-        printf("Informe o mês que deseja ver o relatório (1/12): ");
-        scanf("%[^\n]", mes);
-        getchar();
-        validaDig = testeDigitosNumericos(mes);
-        m = converteCharParaInt(mes);
-
-        if(validaDig || (m < 1 || m > 12)){
-            printf("Opção inválida, tente novamente!\n");
-
-        }
-
-    }while(validaDig || (m < 1 || m > 12));
-
-    if (m == 1){
-        printf("              _____________________________________________              \n");
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - JANEIRO = = = =                     ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-
-    } else if (m == 2){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - FEVEREIRO = = = =                   ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Compra: %s\n", dataCompra1);
-        printf("                 Horário Compra: %s\n\n", horaCompra1);
-        printf("                 Lista de Itens:\n\n");
-
-        for (int i = 0; i < 5; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem1, quant1);
-        }
-
-        printf("                 Valor Compra: $ %s\n", valorCompra1);
-        printf("              _____________________________________________              \n");
-        
-    } else if (m == 3){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - MARÇO = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 4){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - ABRIL = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 5){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - MAIO = = = =                        ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Compra: %s\n", dataCompra2);
-        printf("                 Horário Compra: %s\n\n", horaCompra2);
-        printf("                 Lista de Itens:\n\n");
-        for (int i = 0; i < 8; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem2, quant2);
-        }
-        printf("                 Valor Compra: $ %s\n", valorCompra2);
-        printf("              _____________________________________________              \n");
-        
-    } else if (m == 6){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - JUNHO = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 7){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - JULHO = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 8){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - AGOSTO = = = =                      ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Compra: %s\n", dataCompra3);
-        printf("                 Horário Compra: %s\n\n", horaCompra3);
-        printf("                 Lista de Itens:\n\n");
-        for (int i = 0; i < 2; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem3, quant3);
-        }
-        printf("                 Valor Compra: $ %s\n", valorCompra3);
-        printf("              _____________________________________________              \n");
-        
-    } else if (m == 9){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - SETEMBRO = = = =                    ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 10){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - OUTUBRO = = = =                     ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 11){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - NOVEMBRO = = = =                    ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrada nenhuma compra nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 12){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - DEZEMBRO = = = =                    ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Compra: %s\n", dataCompra4);
-        printf("                 Horário Compra: %s\n\n", horaCompra4);
-        printf("                 Lista de Itens:\n\n");
-        for (int i = 0; i < 8; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem4, quant4);
-        }
-        printf("                 Valor Compra: $ %s\n", valorCompra4);
-        printf("              _____________________________________________              \n");
-
-    }
-
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-}
-
-void exibirListaCompra(Compra* aux){
-
-    limpaTela();
-    printf("\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///        = RELATÓRIO - COMPRAS ORDENADAS - VALOR DECRESCENTE =      ///\n");
-    printf("///                                                                   ///\n");
-    printf(" Código da Compra: \tData da Compra:   Hora da Compra:   Valor da Compra: \n");
-    printf("\n");
-    
     while (aux != NULL){
-        printf(" %ld \t\t", aux->codCompra);
+        printf("               %ld\t\t", aux->codCompra);
         printf("%s\t", aux->dataCompra);
-        printf("  %s\t", aux->horaCompra);
-        printf("    R$ %.2f \n", aux->valor);
+        printf("%s\t", aux->horaCompra);
+        printf("%d\t", aux->quant);
+        printf("%.2f\n", aux->valor);
         aux = aux->prox;
     }
     printf("\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
+
+void exibirListaOrdemCrono(Compra* aux){
+
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///           = = = = = = = = = RELATÓRIO - ORDEM CRONOLÓGICA = = = = = = = = =         ///\n");
+    printf("///                                                                                     ///\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
+
+    while (aux != NULL){
+        printf("               %ld\t\t", aux->codCompra);
+        printf("%s\t", aux->dataCompra);
+        printf("%s\t", aux->horaCompra);
+        printf("%d\t", aux->quant);
+        printf("%.2f\n", aux->valor);
+        aux = aux->prox;
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+
 }
 
 void apagarListaCompra(Compra **lista){
@@ -652,10 +437,185 @@ void apagarListaCompra(Compra **lista){
         *lista = (*lista)->prox;
         free(com);
     }
-    printf("Lista excluida com sucesso! \n");    
 }
 
-void gerarRelCompOrd(Compra **lista){
+void relComprasDiarias(void){
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///            = = = = = = = = RELATÓRIO - COMPRAS DIÁRIAS = = = = = = = =              ///\n");
+    printf("///                                                                                     ///\n");
+    char* data;
+    data = preencheDataCompra();
+    printf("           _____________________________________________________________________           \n\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    double total = 0.0;
+    int cont = 0;
+
+    FILE* fp;
+    Compra* com;
+    com = (Compra*) malloc(sizeof(Compra));
+    fp = fopen("compras.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }
+
+    while(fread(com, sizeof(Compra), 1, fp)) {
+        if(strcmp(com->dataCompra, data) == 0){
+            total = total + com->valor;
+            cont += 1;
+            exibeRelCompra(com);
+        
+        }        
+    }
+    if(cont == 0){
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Não há registro de compras para o dia informado                              \n");
+        printf("           _____________________________________________________________________           \n\n");
+
+    }else{
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Total Gasto: R$ %.2f \n", total);
+        printf("              Quantidade de compras: %d \n", cont);
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    free(data);
+    fclose(fp);
+    
+}
+
+void relComprasMensais(void){
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///            = = = = = = = = RELATÓRIO - COMPRAS MENSAIS = = = = = = = =              ///\n");
+    printf("///                                                                                     ///\n");
+    char* recorta;
+    char* data;
+    data = preencheMesEAno();
+    printf("           _____________________________________________________________________           \n\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    double total = 0.0;
+    int cont = 0;
+
+    FILE* fp;
+    Compra* com;
+    com = (Compra*) malloc(sizeof(Compra));
+    fp = fopen("compras.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }
+
+    while(fread(com, sizeof(Compra), 1, fp)) {
+        recorta = recortaMesEAno(com->dataCompra);
+        if(strcmp(recorta, data) == 0){
+            total = total + com->valor;
+            cont += 1;
+            exibeRelCompra(com);
+        
+        }        
+    }
+    if(cont == 0){
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Não há registro de compras para o mês informado                              \n");
+        printf("           _____________________________________________________________________           \n\n");
+
+    }else{
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Total Gasto: R$ %.2f \n", total);
+        printf("              Quantidade de compras: %d \n", cont);
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    free(data);
+    free(recorta);
+    fclose(fp);
+}
+
+void relComprasAnuais(void){
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///             = = = = = = = = RELATÓRIO - COMPRAS ANUAIS = = = = = = = =              ///\n");
+    printf("///                                                                                     ///\n");
+
+    char* recorta;
+    char* data;
+    data = preencheAno();
+    printf("           _____________________________________________________________________           \n\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    double total = 0.0;
+    int cont = 0;
+
+    FILE* fp;
+    Compra* com;
+    com = (Compra*) malloc(sizeof(Compra));
+    fp = fopen("compras.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }
+
+    while(fread(com, sizeof(Compra), 1, fp)) {
+        recorta = recortaAno(com->dataCompra);
+        if(strcmp(recorta, data) == 0){
+            total = total + com->valor;
+            cont += 1;
+            exibeRelCompra(com);
+        
+        }        
+    }
+    if(cont == 0){
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Não há registro de compras para o ano informado                              \n");
+        printf("           _____________________________________________________________________           \n\n");
+
+    }else{
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Total Gasto: R$ %.2f \n", total);
+        printf("              Quantidade de compras: %d \n", cont);
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    
+    free(data);
+    free(recorta);
+    fclose(fp);
+    
+    
+}
+
+void relCompOrdemValor(Compra **lista){
 
     FILE *fp;
     Compra* com;
@@ -666,8 +626,7 @@ void gerarRelCompOrd(Compra **lista){
     fp = fopen("compras.dat","rb");
 
     if (fp == NULL){
-        printf("Erro na abertura do arquivo... \n");
-        exit(1);
+        exibeErroArquivo();
 
     }else{
 
@@ -692,10 +651,51 @@ void gerarRelCompOrd(Compra **lista){
             com = (Compra*) malloc(sizeof(Compra));
         }
         free(com);
-        printf("Arquivo recuperado com sucesso! \n");
         fclose(fp);
     }
 }
+
+void relCompOrdemCrono(Compra **lista){
+    FILE *fp;
+    Compra* com;
+
+    apagarListaCompra(&(*lista));
+    *lista = NULL;
+
+    fp = fopen("compras.dat","rb");
+
+    if (fp == NULL){
+        exibeErroArquivo();
+
+    }else{
+
+        com = (Compra*) malloc(sizeof(Compra));
+        while (fread(com, sizeof(Compra), 1, fp)){
+
+            if ((*lista == NULL) || (strcmp(com->dataCompra, (*lista)->dataCompra) < 0)) {
+                com->prox = *lista;
+                *lista = com;
+
+            }else{
+                Compra* ant = *lista;
+                Compra* atu = (*lista)->prox;
+                
+                while ((atu != NULL) && (strcmp(atu->dataCompra, com->dataCompra) < 0)) {
+                    ant = atu;
+                    atu = atu->prox;
+                }
+                ant->prox = com;
+                com->prox = atu;
+            }
+            com = (Compra*) malloc(sizeof(Compra));
+        }
+        free(com);
+        fclose(fp);
+    }
+
+}
+
+// SEÇÃO RELACIONADA AOS RELATÓRIOS DE CONSUMOS _________________________________________________________
 
 char menuRelatorioConsumo(void){
     char opcao;
@@ -707,16 +707,18 @@ char menuRelatorioConsumo(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///            RELATÓRIOS - CONSUMO:                                  ///\n");    
     printf("///                                                                   ///\n");
-    printf("///            1 - Consumo Diário                                     ///\n");
-    printf("///            2 - Consumo Mensal                                     ///\n");
-    printf("///            3 - Consumo Anual                                      ///\n");
+    printf("///            1 - Consumos Diários                                   ///\n");
+    printf("///            2 - Consumos Mensais                                   ///\n");
+    printf("///            3 - Consumos Anuais                                    ///\n");
+    printf("///            4 - Consumos: Ordem por valor                          ///\n");
+    printf("///            5 - Consumos: Ordem cronológica                        ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -727,7 +729,7 @@ char menuRelatorioConsumo(void){
         scanf("%[^\n]", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, 3); 
+        validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -737,301 +739,6 @@ char menuRelatorioConsumo(void){
     }while(!validaOp || !validaOpM);
 
 	return opcao;
-
-}
-
-void consumoDiario(void){
-    char dataConsumo[11] = "23/03/2021";
-    char horaConsumo[6] = "08:30";
-    char nomeItem[51] = "Arroz Branco";
-    int quant = 5;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - CONSUMOS DIÁRIOS = = = =            ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total de consumos realizados hoje: 2                       \n");
-    printf("              Data: 23/03/2021                                           \n");
-    printf("              _____________________________________________              \n");
-    
-    for(int i=0; i < 2; i++){
-        printf("                                                                         \n");
-        printf("                 Data Consumo: %s\n", dataConsumo);
-        printf("                 Horário Consumo: %s\n\n", horaConsumo);
-        printf("                 Lista de Itens:\n\n");
-
-        for (int i = 0; i < 5; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem, quant);
-        }
-
-        printf("              _____________________________________________              \n");
-    }
-    
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-
-}
-
-void consumoMensal(void){
-    char dataConsumo1[11] = "03/03/2021";
-    char horaConsumo1[6] = "08:30";
-    char nomeItem1[51] = "Arroz Branco";
-    int quant1 = 5;
-
-    char dataConsumo2[11] = "12/03/2021";
-    char horaConsumo2[6] = "10:33";
-    char nomeItem2[51] = "Macarrão";
-    int quant2 = 8;
-
-    char dataConsumo3[11] = "25/03/2021";
-    char horaConsumo3[6] = "14:54";
-    char nomeItem3[51] = "Feijão";
-    int quant3 = 2;
-
-    char dataConsumo4[11] = "29/03/2021";
-    char horaConsumo4[6] = "11:02";
-    char nomeItem4[51] = "Macarrão";
-    int quant4 = 8;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - CONSUMOS MENSAIS = = = =            ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total de consumos realizados esse mês: 4                   \n");
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Consumo: %s\n", dataConsumo1);
-    printf("                 Horário Consumo: %s\n\n", horaConsumo1);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 5; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem1, quant1);
-    }
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Consumo: %s\n", dataConsumo2);
-    printf("                 Horário Consumo: %s\n\n", horaConsumo2);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 8; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem2, quant2);
-    }
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Consumo: %s\n", dataConsumo3);
-    printf("                 Horário Consumo: %s\n\n", horaConsumo3);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 2; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem3, quant3);
-    }
-    printf("              _____________________________________________              \n");
-    
-    printf("                                                                         \n");
-    printf("                 Data Consumo: %s\n", dataConsumo4);
-    printf("                 Horário Consumo: %s\n\n", horaConsumo4);
-    printf("                 Lista de Itens:\n\n");
-    for (int i = 0; i < 8; i++){
-        printf("                 %s, %d unidade(s) \n", nomeItem4, quant4);
-    }
-    printf("              _____________________________________________              \n");
-    
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-
-
-}
-
-void consumoAnual(void){
-    char mes[2];
-    int m;
-
-    char dataConsumo1[11] = "03/03/2021";
-    char horaConsumo1[6] = "08:30";
-    char nomeItem1[51] = "Arroz Branco";
-    int quant1 = 5;
-
-    char dataConsumo2[11] = "12/03/2021";
-    char horaConsumo2[6] = "10:33";
-    char nomeItem2[51] = "Macarrão";
-    int quant2 = 8;
-
-    char dataConsumo3[11] = "25/03/2021";
-    char horaConsumo3[6] = "14:54";
-    char nomeItem3[51] = "Feijão";
-    int quant3 = 2;
-
-    char dataConsumo4[11] = "29/03/2021";
-    char horaConsumo4[6] = "11:02";
-    char nomeItem4[51] = "Macarrão";
-    int quant4 = 8;
-
-
-    int validaDig;
-
-    limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           = = = = RELATÓRIO - CONSUMOS ANUAIS = = = =             ///\n");
-    printf("///                                                                   ///\n");
-    printf("              Total de consumos realizados esse ano: 4                   \n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-
-    do{
-        printf("Informe o mês que deseja ver o relatório (1/12): ");
-        scanf("%[^\n]", mes);
-        getchar();
-        validaDig = testeDigitosNumericos(mes);
-        m = converteCharParaInt(mes);
-
-        if(validaDig || (m < 1 || m > 12)){
-            printf("Opção inválida, tente novamente!\n");
-
-        }
-
-    }while(validaDig || (m < 1 || m > 12));
-
-    if (m == 1){
-        printf("              _____________________________________________              \n");
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - JANEIRO = = = =                     ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-
-    } else if (m == 2){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - FEVEREIRO = = = =                   ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Consumo: %s\n", dataConsumo1);
-        printf("                 Horário Consumo: %s\n\n", horaConsumo1);
-        printf("                 Lista de Itens:\n\n");
-
-        for (int i = 0; i < 5; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem1, quant1);
-        }
-
-        printf("              _____________________________________________              \n");
-        
-    } else if (m == 3){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - MARÇO = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 4){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - ABRIL = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 5){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - MAIO = = = =                        ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Consumo: %s\n", dataConsumo2);
-        printf("                 Horário Consumo: %s\n\n", horaConsumo2);
-        printf("                 Lista de Itens:\n\n");
-        for (int i = 0; i < 8; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem2, quant2);
-        }
-
-        printf("              _____________________________________________              \n");
-        
-    } else if (m == 6){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - JUNHO = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 7){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - JULHO = = = =                       ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 8){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - AGOSTO = = = =                      ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Consumo: %s\n", dataConsumo3);
-        printf("                 Horário Consumo: %s\n\n", horaConsumo3);
-        printf("                 Lista de Itens:\n\n");
-        for (int i = 0; i < 2; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem3, quant3);
-        }
-
-        printf("              _____________________________________________              \n");
-        
-    } else if (m == 9){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - SETEMBRO = = = =                    ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 10){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - OUTUBRO = = = =                     ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 11){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - NOVEMBRO = = = =                    ///\n");
-        printf("///                                                                   ///\n");
-        printf("              Não foi registrado nenhum consumo nesse mês!            ///\n");
-        printf("///        ___________________________________________________        ///\n");
-        
-    } else if (m == 12){
-        printf("///                                                                   ///\n");
-        printf("///           = = = = RELATÓRIO - DEZEMBRO = = = =                    ///\n");
-        printf("///                                                                   ///\n");
-        printf("                 Data Consumo: %s\n", dataConsumo4);
-        printf("                 Horário Consumo: %s\n\n", horaConsumo4);
-        printf("                 Lista de Itens:\n\n");
-        for (int i = 0; i < 8; i++){
-            printf("                 %s, %d unidade(s) \n", nomeItem4, quant4);
-        }
-        
-        printf("              _____________________________________________              \n");
-
-    }
-
-    printf("\n/////////////////////////////////////////////////////////////////////////\n");
-    printf("\n\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
 
 }
 

@@ -14,6 +14,7 @@ struct consumo {
     int quant;
     double valor;
     char status;
+    struct consumo *prox;
 };
 
 typedef struct itemC ItemC;
@@ -316,6 +317,8 @@ void cadastrarConsumo(void){
     con->quant = q;
 
     con->status = 'Y';
+
+    con->prox = NULL;
 
     for(int i = 0; i < q; i++){
 
@@ -703,15 +706,13 @@ void listarConsumos(void){
     fp = fopen("consumos.dat", "rb");
 
     if (fp == NULL) {
-        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-        printf("Não é possível continuar este programa...\n");
-        exit(1);
+        exibeErroArquivo();
+    }else{
+        while(fread(con, sizeof(Consumo), 1, fp)) {
+            exibirConsumo(con);
+        }
     }
 
-    while(fread(con, sizeof(Consumo), 1, fp)) {
-        exibirConsumo(con);
-        
-    }
     fclose(fp);
 }
 

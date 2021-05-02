@@ -114,16 +114,19 @@ int main(void) {
                                 opcao6 = menuRelatorioProdutos();
                                 switch (opcao6){
                                     case '1': 
-                                        itensVencidos();
+                                        relProdVencidos();
                                         break;
 
                                     case '2':
-                                        itensParaVencer();
+                                        relProdParaVencer();
                                         break;
                                     
                                     case '3':
-                                        gerarRelProdOrd(&lista);
+                                        relProdOrdenados(&lista);
                                         exibirLista(lista);
+                                        break;
+                                    case '4':
+                                        relProdLocal();
                                         break;
                                 }
                                 
@@ -135,20 +138,25 @@ int main(void) {
                                 opcao7 = menuRelatorioCompras();
                                 switch (opcao7){
                                     case '1': 
-                                        comprasDiarias();
+                                        relComprasDiarias();
                                         break;
 
                                     case '2':
-                                        comprasMensais();
+                                        relComprasMensais();
                                         break;
                                     
                                     case '3':
-                                        comprasAnuais();
+                                        relComprasAnuais();
                                         break;
                                     
                                     case '4':
-                                        gerarRelCompOrd(&listaC);
-                                        exibirListaCompra(listaC);
+                                        relCompOrdemValor(&listaC);
+                                        exibirListaOrdemValor(listaC);
+                                        break;
+
+                                    case '5':
+                                        relCompOrdemCrono(&listaC);
+                                        exibirListaOrdemCrono(listaC);
                                         break;
                                 }
                                 
@@ -160,15 +168,23 @@ int main(void) {
                                 opcao8 = menuRelatorioConsumo();
                                 switch (opcao8){
                                     case '1': 
-                                        consumoDiario();
+                                        //nome da função
                                         break;
 
                                     case '2':
-                                        consumoMensal();
+                                        //nome da função
                                         break;
                                     
                                     case '3':
-                                        consumoAnual();
+                                        //nome da função
+                                        break;
+
+                                    case '4':
+                                        //nome da função
+                                        break;
+
+                                    case '5':
+                                        //nome da função
                                         break;
                                 }
                                 
@@ -186,7 +202,28 @@ int main(void) {
         } 
 
     }while(opcao1 != '0');
-    printf("Fim do programa, obrigado por utilizar nossos serviços!\n");
+
+    system("cls");
+    printf("\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                   ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***************************************************        ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                     VOCÊ ENCERROU O PROGRAMA!                     ///\n");
+    printf("///                                                                   ///\n");
+    printf("///            Agradecemos por utilizar os nossos serviços.           ///\n");
+    printf("///            Os dados cadastrados estarão disponíveis no            ///\n");
+    printf("///            seu próximo acesso.                                    ///\n");
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///           Developed by  @allangbr @joanmdrs - Jan, 2021           ///\n");
+    printf("///                                                                   ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////\n\n");
 
     return 0;
 

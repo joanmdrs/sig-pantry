@@ -1,20 +1,24 @@
-
 char menuRelatorios(void);
-char menuRelatorioProdutos(void);
-void itensVencidos(void);
-void itensParaVencer(void);
 
+char menuRelatorioProdutos(void);
+void exibeRelProd(Produto*);
+void exibirProdutos(Produto*);
 void exibirLista(Produto*);
 void apagarLista(Produto**);
-void gerarRelProdOrd(Produto**);
+void relProdVencidos(void);
+void relProdParaVencer(void);
+void relProdOrdenados(Produto**);
+void relProdLocal(void);
+
 char menuRelatorioCompras(void);
-void comprasDiarias(void);
-void comprasMensais(void);
-void comprasAnuais(void);
-void exibirListaCompra(Compra*);
+void exibeRelCompras(Compra*);
+void exibirListaOrdemValor(Compra*);
+void exibirListaOrdemCrono(Compra*);
 void apagarListaCompra(Compra**);
-void gerarRelCompOrd(Compra**);
+void relComprasDiarias(void);
+void relComprasMensais(void);
+void relComprasAnuais(void);
+void relCompOrdemValor(Compra**);
+void relCompOrdemCrono(Compra**);
+
 char menuRelatorioConsumo(void);
-void consumoDiario(void);
-void consumoMensal(void);
-void consumoAnual(void);

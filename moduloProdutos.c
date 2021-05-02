@@ -820,15 +820,13 @@ void listarProdutos(void){
     fp = fopen("produtos.dat", "rb");
 
     if (fp == NULL) {
-        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-        printf("Não é possível continuar este programa...\n");
-        exit(1);
+        exibeErroArquivo();
+    }else{
+        while(fread(pro, sizeof(Produto), 1, fp)) {
+            exibeProduto(pro);
+        }
     }
 
-    while(fread(pro, sizeof(Produto), 1, fp)) {
-        exibeProduto(pro);
-    
-    }
     fclose(fp);
 
 }

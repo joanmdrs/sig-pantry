@@ -110,7 +110,12 @@ char* preencheDataCompra(void){
 
     }while(!validaData || validaDig || validaNull);
 
-    return dataCompra;
+
+    char* dataAux;
+    dataAux = dataInvertida(dataCompra);
+    free(dataCompra);
+    return dataAux;
+
 }
 
 char* preencheHoraCompra(void){
@@ -694,15 +699,13 @@ void listarCompras(void){
     fp = fopen("compras.dat", "rb");
 
     if (fp == NULL) {
-        printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-        printf("Não é possível continuar este programa...\n");
-        exit(1);
+        exibeErroArquivo();
+    }else{
+        while(fread(com, sizeof(Compra), 1, fp)) {
+            exibirCompra(com);
+        }
     }
 
-    while(fread(com, sizeof(Compra), 1, fp)) {
-        exibirCompra(com);
-        
-    }
     fclose(fp);
 }
 
