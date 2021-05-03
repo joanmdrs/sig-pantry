@@ -99,7 +99,6 @@ void exibeProduto(Produto* prod){
         printf("///                     Descrição: %s \n", prod->nomeItem);
         printf("///                         Local: %s \n", prod->local);
         printf("///                    Quantidade: %d \n", prod->quant);
-        printf("///                        Status: %s \n", prod->status);
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
 

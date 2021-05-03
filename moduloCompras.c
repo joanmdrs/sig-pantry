@@ -215,7 +215,6 @@ void exibirCompra(Compra* com){
         printf("///             Horário da compra: %s \n", com->horaCompra);
         printf("///                 Qtd. produtos: %d \n", com->quant);
         printf("///                   Valor total: R$ %.2f \n", com->valor);
-        printf("///                        Status: %c \n", com->status);
         printf("///       ___________________________________________________         \n");
         printf("///                                                                   \n");
     }

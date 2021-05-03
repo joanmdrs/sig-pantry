@@ -258,7 +258,6 @@ void exibirConsumo(Consumo* con){
         printf("///             Horário do consumo: %s \n", con->horaConsumo);
         printf("///                  Qtd. produtos: %d \n", con->quant);
         printf("///                    Valor total: R$ %.2f \n", con->valor);
-        printf("///                         Status: %c \n", con->status);
         printf("///        ___________________________________________________        \n");
         printf("///                                                                   \n");
     }
