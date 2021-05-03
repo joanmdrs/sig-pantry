@@ -40,8 +40,12 @@ char* mesInvertido(char*);
 
 char* preencheMesEAno(void);
 
+char* preencheMesEAnoC(void);
+
 char* recortaMesEAno(char*);
 
 char* preencheAno(void);
+
+char* preencheAnoC(void);
 
 char* recortaAno(char*);

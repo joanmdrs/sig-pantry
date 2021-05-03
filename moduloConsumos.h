@@ -7,6 +7,7 @@ struct consumo {
     int quant;
     double valor;
     char status;
+    struct consumo *prox;
 };
 
 typedef struct itemC ItemC;
@@ -21,6 +22,8 @@ struct itemC {
 void gravarConsumo(Consumo*);
 
 void gravarItemC(ItemC*);
+
+void mostraConsumos(Consumo*);
 
 void exibirConsumo(Consumo*);
 

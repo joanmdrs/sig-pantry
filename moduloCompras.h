@@ -39,6 +39,8 @@ char* preencheQuantCompra(void);
 
 double preencheValorCompra(void);
 
+void mostraCompras(Compra*);
+
 void exibirCompra(Compra*);
 
 void exibirItem(Item*);

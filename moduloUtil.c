@@ -5,7 +5,6 @@
 #include "moduloValidacoes.h"
 
 void exibeTecleEnter(void){
-    printf("\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -383,7 +382,6 @@ int itensParaVencer(char n[]){
 	return 0;
 }
 
-
 char* dataInvertida(char* data){
 
     char* dataAux;
@@ -444,6 +442,34 @@ char* preencheMesEAno(void){
 
 }
 
+char* preencheMesEAnoC(void){
+    int validaDig;
+    int validaNull;
+
+    char* dataConsumo;
+    dataConsumo = (char*) malloc(8*sizeof(char));
+
+    do{
+        printf("///            - Mês do consumo (mm/aaaa): ");
+        scanf("%[^\n]", dataConsumo);
+        getchar();
+    
+        validaDig = testeDigitosNumericosData(dataConsumo);
+        validaNull = verificaNulo(dataConsumo);
+
+        if (validaDig || validaNull) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(validaDig || validaNull);
+
+    char* dataAux;
+    dataAux = mesInvertido(dataConsumo);
+    free(dataConsumo);
+    return dataAux;
+
+}
+
 char* recortaMesEAno(char* data){
     char* dataAux;
     dataAux = (char*) malloc(8*sizeof(char));
@@ -481,7 +507,30 @@ char* preencheAno(void){
     }while(validaDig || validaNull);
 
     return dataCompra;
+}
 
+char* preencheAnoC(void){
+    int validaDig;
+    int validaNull;
+
+    char* dataConsumo;
+    dataConsumo = (char*) malloc(5*sizeof(char));
+
+    do{
+        printf("///            - Ano do consumo (aaaa): ");
+        scanf("%[^\n]", dataConsumo);
+        getchar();
+    
+        validaDig = testeDigitosNumericosData(dataConsumo);
+        validaNull = verificaNulo(dataConsumo);
+
+        if (validaDig || validaNull) {
+            printf("///            Data inválida, tente novamente !\n");
+        }
+
+    }while(validaDig || validaNull);
+
+    return dataConsumo;
 }
 
 char* recortaAno(char* data){

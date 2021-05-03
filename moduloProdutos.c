@@ -12,7 +12,7 @@ struct produto {
     char nomeItem[51];
     char local[20];
     int quant;
-    char status[11];
+    char status[2];
     struct produto *prox;
 };
 
@@ -70,6 +70,15 @@ void gravarProduto(Produto* pro){
     file = fopen("produtos.dat", "ab");
     fwrite(pro, sizeof(Produto), 1, file);
     fclose(file);
+}
+
+void mostraProdutos(Produto* pro){
+    printf("%26s\t", pro->nomeItem);
+    printf("%13s\t", pro->codBarras);
+    printf("%10s\t", pro->dataValidade);
+    printf("%d\t", pro->quant);
+    printf("%s\t\t", pro->local);
+    printf("%s\n", pro->status);
 }
 
 void exibeProduto(Produto* prod){
@@ -184,7 +193,7 @@ Produto* telaCadastrarProduto(void){
 
         // --------------------------- Definindo o status do produto -----------------------------------
 
-        strcpy(pro->status, "DISPONIVEL");
+        strcpy(pro->status, "Y");
         pro->prox = NULL;
 
         // ---------------------------------------------------------------------------------------
@@ -803,17 +812,17 @@ void listarProdutos(void){
     Produto* pro;
 
     limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          = = = = = = MÓDULO LISTAR PRODUTOS: = = = = = =          ///\n");
-    printf("///                                                                   ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                     ///\n");
+    printf("///        *************************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *************************************************************************************        ///\n");
+    printf("///        ____________________________________________________________________________________         ///\n");
+    printf("///                                                                                                     ///\n");
+    printf("///        = = = = = = = = = = = = = = = MÓDULO - LISTAR PRODUTOS = = = = = = = = = = = = = = =         ///\n\n");
+    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:         Status: \n\n");
 
 
     pro = (Produto*) malloc(sizeof(Produto));
@@ -823,8 +832,12 @@ void listarProdutos(void){
         exibeErroArquivo();
     }else{
         while(fread(pro, sizeof(Produto), 1, fp)) {
-            exibeProduto(pro);
+            mostraProdutos(pro);
         }
+        printf("\n");
+        printf("///////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
     }
 
     fclose(fp);

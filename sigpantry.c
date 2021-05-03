@@ -105,8 +105,10 @@ int main(void) {
                     opcao5 = menuRelatorios();
                     Produto* lista;
                     Compra* listaC;
+                    Consumo* listaCon;
                     lista = NULL;
                     listaC = NULL;
+                    listaCon = NULL;
 
                     switch (opcao5){
                         case '1':
@@ -168,23 +170,25 @@ int main(void) {
                                 opcao8 = menuRelatorioConsumo();
                                 switch (opcao8){
                                     case '1': 
-                                        //nome da função
+                                        relConsumosDiarios();
                                         break;
 
                                     case '2':
-                                        //nome da função
+                                        relConsumosMensais();
                                         break;
                                     
                                     case '3':
-                                        //nome da função
+                                        relConsumosAnuais();
                                         break;
 
                                     case '4':
-                                        //nome da função
+                                        relConOrdemValor(&listaCon);
+                                        exibirListaOrdemValorC(listaCon);
                                         break;
 
                                     case '5':
-                                        //nome da função
+                                        relConOrdemCrono(&listaCon);
+                                        exibirListaOrdemCronoC(listaCon);
                                         break;
                                 }
                                 

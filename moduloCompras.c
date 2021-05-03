@@ -115,7 +115,6 @@ char* preencheDataCompra(void){
     dataAux = dataInvertida(dataCompra);
     free(dataCompra);
     return dataAux;
-
 }
 
 char* preencheHoraCompra(void){
@@ -188,6 +187,15 @@ double preencheValorCompra(void){
     return valorCompra;
 }
 
+void mostraCompras(Compra* com){
+    printf("            %ld\t", com->codCompra);
+    printf("%s\t", com->dataCompra);
+    printf("%s\t", com->horaCompra);
+    printf("%d\t", com->quant);
+    printf("R$ %.2f\t", com->valor);
+    printf("%c\n", com->status);
+}
+
 void exibirCompra(Compra* com){
 
     if(com == NULL){
@@ -196,31 +204,27 @@ void exibirCompra(Compra* com){
         printf("///            Não existem compras cadastradas com o CÓDIGO           ///\n");  
         printf("///            informado.                                             ///\n");    
         printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        exibeTecleEnter();
 
     } else {
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///             Código da compra: %ld \n",com->codCompra);
-        printf("///             Data da compra: %s \n", com->dataCompra);
+        printf("///        ___________________________________________________        \n");
+        printf("///                                                                   \n");
+        printf("///              Código da compra: %ld \n",com->codCompra);
+        printf("///                Data da compra: %s \n", com->dataCompra);
         printf("///             Horário da compra: %s \n", com->horaCompra);
-        printf("///             Q. produtos: %d \n", com->quant);
-        printf("///             Valor total: R$ %.2f \n", com->valor);
-        printf("///             Status: %c \n", com->status);
-        printf("///        ___________________________________________________        ///\n");
-
+        printf("///                 Qtd. produtos: %d \n", com->quant);
+        printf("///                   Valor total: R$ %.2f \n", com->valor);
+        printf("///                        Status: %c \n", com->status);
+        printf("///       ___________________________________________________         \n");
+        printf("///                                                                   \n");
     }
-
-    printf("///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-
 }
 
 void exibirItem(Item* item){
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///         Descrição: %s Quant.: %d Preço: R$ %.2f \n",item->descricao, item->quant, item->valor);
+    printf("///%23s\t", item->descricao);
+    printf("%d\t", item->quant);
+    printf("R$ %.2f\n", item->valor);
 }
 
 char menuCompras(void){
@@ -271,7 +275,6 @@ char menuCompras(void){
 void cadastrarCompra(void){
 
     double valorCompra = 0.0;
-    int achou = 0;
 
     limpaTela();
     printf("\n");
@@ -356,7 +359,7 @@ void cadastrarCompra(void){
         quantidadeP = converteCharParaInt(quantP);
         pro->quant = quantidadeP; // Preenchendo a quantidade
         item->quant = quantidadeP;
-        
+        int achou = 0;
         while(fread(proe, sizeof(Produto), 1, fp)) {
             if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade) && strcmp(proe->status, "x")) {
                 proe->quant = proe->quant + quantidadeP;
@@ -373,8 +376,13 @@ void cadastrarCompra(void){
         double preco = preenchePrecoItem();
         item->valor = preco; 
         valorCompra = valorCompra + (quantidadeP * preco);
+        printf("%d\n", achou);
 
-        if(achou == 0){
+        if(achou == 1){
+            gravarItem(item);
+            free(item);
+
+        }else if(achou == 0){
             strcpy(pro->status, "Y");
             pro->prox = NULL;
             gravarProduto(pro);
@@ -385,6 +393,11 @@ void cadastrarCompra(void){
     } 
     com->valor = valorCompra; // Preenchendo o valor da compra
     gravarCompra(com);
+    printf("///        ___________________________________________________        ///\n");
+    printf("///                                                                   ///\n");
+    printf("///                  Compra cadastrada com sucesso !                  ///\n");
+    exibirCompra(com);
+    exibeTecleEnter();
     free(com);
 }
 
@@ -439,15 +452,17 @@ void pesquisarCompra(void){
     exibirCompra(com);
     fi = fopen("itens.dat", "rb");
     if(com != NULL){ 
+        printf("///        = = = = = = = = = LISTA DE ITENS = = = = = = = = =          \n");
+        printf("///\n");
+        printf("///                Produto:    Qtd.:    Preço:\n");
+        printf("///\n");
         while(fread(item, sizeof(Item), 1, fi)){
             if(com->codCompra == item->codCompra){
                 exibirItem(item);
             }
         }
         printf("///\n");
-        printf("/////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-        getchar();
+        exibeTecleEnter();
     }
     fclose(fi);
     free(item);
@@ -505,7 +520,7 @@ void excluirCompraLog(Compra* com){
             printf("///            Compra excluída com sucesso!                           ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
         } else if (confirma == 'N' || confirma == 'n'){
@@ -513,7 +528,7 @@ void excluirCompraLog(Compra* com){
             printf("///            Operação cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
             fclose(file);
         }
@@ -527,6 +542,7 @@ void excluirCompra(void){
     codigo = telaExcluirCompra();
     com = pegarCompra(codigo);
     exibirCompra(com);
+    //exibeTecleEnter();
     
     if(com != NULL){
         excluirCompraLog(com);
@@ -671,6 +687,7 @@ void alterarCompra(void){
     codigo = telaAlterarCompra();
     com = pegarCompra(codigo);
     exibirCompra(com);
+    //exibeTecleEnter();
     
     if(com != NULL){
         regravarCompra(com);
@@ -681,17 +698,17 @@ void alterarCompra(void){
 void listarCompras(void){
 
     limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          = = = = = = MÓDULO LISTAR COMPRAS: = = = = = =          ///\n");
-    printf("///                                                                   ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                             ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *****************************************************************************        ///\n");
+    printf("///        _____________________________________________________________________________        ///\n");
+    printf("///                                                                                             ///\n");
+    printf("///        = = = = = = = = = = = = = = MÓDULO - LISTAR COMPRAS = = = = = = = = = = = = =        ///\n\n");
+    printf("            Código:     Data:           Hora:         Qtd.:     Valor:        Status:            \n\n");
 
     FILE* fp;
     Compra* com;
@@ -702,10 +719,13 @@ void listarCompras(void){
         exibeErroArquivo();
     }else{
         while(fread(com, sizeof(Compra), 1, fp)) {
-            exibirCompra(com);
+            mostraCompras(com);
         }
     }
-
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
     fclose(fp);
 }
 

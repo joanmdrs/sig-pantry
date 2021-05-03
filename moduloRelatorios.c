@@ -5,6 +5,7 @@
 #include "moduloUtil.h"
 #include "moduloProdutos.h"
 #include "moduloCompras.h"
+#include "moduloConsumos.h"
 
 char menuRelatorios(void){
     char opcao;
@@ -180,7 +181,7 @@ void relProdVencidos(void){
     }else{
         while(fread(pro, sizeof(Produto), 1, fp)) {
             vencido = itensVencidos(pro->dataValidade);
-            if(vencido == 1){
+            if(vencido == 1 && strcmp(pro->status,"x") != 0){
                 exibeRelProd(pro);
             }
         }
@@ -219,7 +220,7 @@ void relProdParaVencer(void){
     }else{
         while(fread(pro, sizeof(Produto), 1, fp)) {
             vencer = itensParaVencer(pro->dataValidade);
-            if(vencer == 1){
+            if(vencer == 1 && strcmp(pro->status,"x") != 0){
                 exibeRelProd(pro);
             }
         }
@@ -248,21 +249,27 @@ void relProdOrdenados(Produto **lista){
 
         pro = (Produto*) malloc(sizeof(Produto));
         while (fread(pro, sizeof(Produto), 1, fp)){
+                
 
-            if ((*lista == NULL) || (strcmp(pro->nomeItem, (*lista)->nomeItem) < 0)) {
-                pro->prox = *lista;
-                *lista = pro;
+            if((*lista == NULL) || ((strcmp(pro->nomeItem, (*lista)->nomeItem) < 0))) {
+                if(strcmp(pro->status,"x") != 0){
+                    pro->prox = *lista;
+                    *lista = pro;
+                }
 
             }else{
-                Produto* ant = *lista;
-                Produto* atu = (*lista)->prox;
-                
-                while ((atu != NULL) && (strcmp(atu->nomeItem, pro->nomeItem) < 0)) {
-                    ant = atu;
-                    atu = atu->prox;
+                if(strcmp(pro->status,"x") != 0){
+
+                    Produto* ant = *lista;
+                    Produto* atu = (*lista)->prox;
+                    
+                    while ((atu != NULL) && (strcmp(atu->nomeItem, pro->nomeItem) < 0) ) {
+                        ant = atu;
+                        atu = atu->prox;
+                    }
+                    ant->prox = pro;
+                    pro->prox = atu;
                 }
-                ant->prox = pro;
-                pro->prox = atu;
             }
             pro = (Produto*) malloc(sizeof(Produto));
         }
@@ -301,7 +308,7 @@ void relProdLocal(void){
         exibeErroArquivo();
     }else{
         while(fread(pro, sizeof(Produto), 1, fp)) {
-            if(!strcmp(pro->local, local)){
+            if(!strcmp(pro->local, local) && strcmp(pro->status, "x") != 0){
                 exibeRelProd(pro);
             }
         }
@@ -393,8 +400,8 @@ void exibirListaOrdemValor(Compra* aux){
         aux = aux->prox;
     }
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
 
@@ -423,8 +430,8 @@ void exibirListaOrdemCrono(Compra* aux){
         aux = aux->prox;
     }
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 
 }
@@ -469,7 +476,7 @@ void relComprasDiarias(void){
     }
 
     while(fread(com, sizeof(Compra), 1, fp)) {
-        if(strcmp(com->dataCompra, data) == 0){
+        if(strcmp(com->dataCompra, data) == 0 && com->status != 'x'){
             total = total + com->valor;
             cont += 1;
             exibeRelCompra(com);
@@ -527,7 +534,7 @@ void relComprasMensais(void){
 
     while(fread(com, sizeof(Compra), 1, fp)) {
         recorta = recortaMesEAno(com->dataCompra);
-        if(strcmp(recorta, data) == 0){
+        if(strcmp(recorta, data) == 0 && com->status != 'x'){
             total = total + com->valor;
             cont += 1;
             exibeRelCompra(com);
@@ -586,7 +593,7 @@ void relComprasAnuais(void){
 
     while(fread(com, sizeof(Compra), 1, fp)) {
         recorta = recortaAno(com->dataCompra);
-        if(strcmp(recorta, data) == 0){
+        if(strcmp(recorta, data) == 0 && com->status != 'x'){
             total = total + com->valor;
             cont += 1;
             exibeRelCompra(com);
@@ -611,8 +618,6 @@ void relComprasAnuais(void){
     free(data);
     free(recorta);
     fclose(fp);
-    
-    
 }
 
 void relCompOrdemValor(Compra **lista){
@@ -634,19 +639,24 @@ void relCompOrdemValor(Compra **lista){
         while (fread(com, sizeof(Compra), 1, fp)){
 
             if ((*lista == NULL) || com->valor < (*lista)->valor ) {
-                com->prox = *lista;
-                *lista = com;
+                if(com->status != 'x'){
+                    com->prox = *lista;
+                    *lista = com;
+                }
 
             }else{
-                Compra* ant = *lista;
-                Compra* atu = (*lista)->prox;
-                
-                while ((atu != NULL) && atu->valor < com->valor) {
-                    ant = atu;
-                    atu = atu->prox;
+                if (com->status != 'x'){
+
+                    Compra* ant = *lista;
+                    Compra* atu = (*lista)->prox;
+                    
+                    while ((atu != NULL) && atu->valor < com->valor) {
+                        ant = atu;
+                        atu = atu->prox;
+                    }
+                    ant->prox = com;
+                    com->prox = atu;
                 }
-                ant->prox = com;
-                com->prox = atu;
             }
             com = (Compra*) malloc(sizeof(Compra));
         }
@@ -673,26 +683,29 @@ void relCompOrdemCrono(Compra **lista){
         while (fread(com, sizeof(Compra), 1, fp)){
 
             if ((*lista == NULL) || (strcmp(com->dataCompra, (*lista)->dataCompra) < 0)) {
-                com->prox = *lista;
-                *lista = com;
+                if(com->status != 'x'){
+                    com->prox = *lista;
+                    *lista = com;
+                }
 
             }else{
-                Compra* ant = *lista;
-                Compra* atu = (*lista)->prox;
-                
-                while ((atu != NULL) && (strcmp(atu->dataCompra, com->dataCompra) < 0)) {
-                    ant = atu;
-                    atu = atu->prox;
+                if(com->status != 'x'){
+                    Compra* ant = *lista;
+                    Compra* atu = (*lista)->prox;
+                    
+                    while ((atu != NULL) && (strcmp(atu->dataCompra, com->dataCompra) < 0)) {
+                        ant = atu;
+                        atu = atu->prox;
+                    }
+                    ant->prox = com;
+                    com->prox = atu;
                 }
-                ant->prox = com;
-                com->prox = atu;
             }
             com = (Compra*) malloc(sizeof(Compra));
         }
         free(com);
         fclose(fp);
     }
-
 }
 
 // SEÇÃO RELACIONADA AOS RELATÓRIOS DE CONSUMOS _________________________________________________________
@@ -739,6 +752,352 @@ char menuRelatorioConsumo(void){
     }while(!validaOp || !validaOpM);
 
 	return opcao;
+}
+
+void exibeRelConsumo(Consumo* con){
+    printf("               %ld\t\t", con->codConsumo);
+    printf("%s\t", con->dataConsumo);
+    printf("%s\t", con->horaConsumo);
+    printf("%d\t", con->quant);
+    printf("%.2f\n", con->valor);
+}
+
+void exibirListaOrdemValorC(Consumo* aux){
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///           = = = = = = = RELATÓRIO - ORDEM CRESCENTE - VALORES = = = = = = =         ///\n");
+    printf("///                                                                                     ///\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
+
+    while (aux != NULL){
+        printf("               %ld\t\t", aux->codConsumo);
+        printf("%s\t", aux->dataConsumo);
+        printf("%s\t", aux->horaConsumo);
+        printf("%d\t", aux->quant);
+        printf("%.2f\n", aux->valor);
+        aux = aux->prox;
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void exibirListaOrdemCronoC(Consumo* aux){
+
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///           = = = = = = = = = RELATÓRIO - ORDEM CRONOLÓGICA = = = = = = = = =         ///\n");
+    printf("///                                                                                     ///\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
+
+    while (aux != NULL){
+        printf("               %ld\t\t", aux->codConsumo);
+        printf("%s\t", aux->dataConsumo);
+        printf("%s\t", aux->horaConsumo);
+        printf("%d\t", aux->quant);
+        printf("%.2f\n", aux->valor);
+        aux = aux->prox;
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 
 }
+
+void apagarListaConsumo(Consumo **lista){
+    Consumo *con;
+    
+    while (*lista != NULL){
+   	    con = *lista;
+        *lista = (*lista)->prox;
+        free(con);
+    }
+}
+
+void relConsumosDiarios(void){
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///            = = = = = = = = RELATÓRIO - CONSUMOS DIÁRIOS = = = = = = = =             ///\n");
+    printf("///                                                                                     ///\n");
+    char* data;
+    data = preencheDataConsumo();
+    printf("           _____________________________________________________________________           \n\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    double total = 0.0;
+    int cont = 0;
+
+    FILE* fp;
+    Consumo* con;
+    con = (Consumo*) malloc(sizeof(Consumo));
+    fp = fopen("consumos.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }
+
+    while(fread(con, sizeof(Consumo), 1, fp)) {
+        if(strcmp(con->dataConsumo, data) == 0 && con->status != 'x'){
+            total = total + con->valor;
+            cont += 1;
+            exibeRelConsumo(con);
+        
+        }        
+    }
+    if(cont == 0){
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Não há registro de consumos para o dia informado.                             \n");
+        printf("           _____________________________________________________________________           \n\n");
+
+    }else{
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Total Gasto: R$ %.2f \n", total);
+        printf("              Quantidade de consumos: %d \n", cont);
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    free(data);
+    fclose(fp);
+    
+}
+
+void relConsumosMensais(void){
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///           = = = = = = = = RELATÓRIO - CONSUMOS MENSAIS = = = = = = = =              ///\n");
+    printf("///                                                                                     ///\n");
+    char* recorta;
+    char* data;
+    data = preencheMesEAnoC();
+    printf("           _____________________________________________________________________           \n\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    double total = 0.0;
+    int cont = 0;
+
+    FILE* fp;
+    Consumo* con;
+    con = (Consumo*) malloc(sizeof(Consumo));
+    fp = fopen("consumos.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }
+
+    while(fread(con, sizeof(Consumo), 1, fp)) {
+        recorta = recortaMesEAno(con->dataConsumo);
+
+        if(strcmp(recorta, data) == 0 && con->status != 'x'){
+            total = total + con->valor;
+            cont += 1;
+            exibeRelConsumo(con);
+        
+        }        
+    }
+    if(cont == 0){
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Não há registro de consumos para o mês informado.                              \n");
+        printf("           _____________________________________________________________________           \n\n");
+
+    }else{
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Total Gasto: R$ %.2f \n", total);
+        printf("              Quantidade de consumos: %d \n", cont);
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    free(data);
+    free(recorta);
+    fclose(fp);
+}
+
+void relConsumosAnuais(void){
+    limpaTela();
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                     ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *********************************************************************        ///\n");
+    printf("///        _____________________________________________________________________        ///\n");
+    printf("///                                                                                     ///\n");
+    printf("///             = = = = = = = = RELATÓRIO - CONSUMOS ANUAIS = = = = = = = =             ///\n");
+    printf("///                                                                                     ///\n");
+
+    char* recorta;
+    char* data;
+    data = preencheAnoC();
+    printf("           _____________________________________________________________________           \n\n");
+    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    double total = 0.0;
+    int cont = 0;
+
+    FILE* fp;
+    Consumo* con;
+    con = (Consumo*) malloc(sizeof(Consumo));
+    fp = fopen("consumos.dat", "rb");
+
+    if (fp == NULL) {
+        exibeErroArquivo();
+    }
+
+    while(fread(con, sizeof(Consumo), 1, fp)) {
+        recorta = recortaAno(con->dataConsumo);
+        if(strcmp(recorta, data) == 0 && con->status != 'x'){
+            total = total + con->valor;
+            cont += 1;
+            exibeRelConsumo(con);
+        }        
+    }
+    if(cont == 0){
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Não há registro de consumos para o ano informado.                              \n");
+        printf("           _____________________________________________________________________           \n\n");
+
+    }else{
+        printf("           _____________________________________________________________________           \n\n");
+        printf("              Total Gasto: R$ %.2f \n", total);
+        printf("              Quantidade de consumos: %d \n", cont);
+    }
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    
+    free(data);
+    free(recorta);
+    fclose(fp);
+}
+
+void relConOrdemValor(Consumo **lista){
+
+    FILE *fp;
+    Consumo* con;
+
+    apagarListaConsumo(&(*lista));
+    *lista = NULL;
+
+    fp = fopen("consumos.dat","rb");
+
+    if (fp == NULL){
+        exibeErroArquivo();
+
+    }else{
+
+        con = (Consumo*) malloc(sizeof(Consumo));
+        while (fread(con, sizeof(Consumo), 1, fp)){
+
+            if ((*lista == NULL) || con->valor < (*lista)->valor ) {
+                if(con->status != 'x'){
+                    con->prox = *lista;
+                    *lista = con;
+                }
+
+            }else{
+                if(con->status != 'x'){
+
+                    Consumo* ant = *lista;
+                    Consumo* atu = (*lista)->prox;
+                    
+                    while ((atu != NULL) && atu->valor < con->valor) {
+                        ant = atu;
+                        atu = atu->prox;
+                    }
+                    ant->prox = con;
+                    con->prox = atu;
+                }
+            }
+            con = (Consumo*) malloc(sizeof(Consumo));
+        }
+        free(con);
+        fclose(fp);
+    }
+}
+
+void relConOrdemCrono(Consumo **lista){
+    FILE *fp;
+    Consumo* con;
+
+    apagarListaConsumo(&(*lista));
+    *lista = NULL;
+
+    fp = fopen("consumos.dat","rb");
+
+    if (fp == NULL){
+        exibeErroArquivo();
+
+    }else{
+
+        con = (Consumo*) malloc(sizeof(Consumo));
+        while (fread(con, sizeof(Consumo), 1, fp)){
+
+            if ((*lista == NULL) || (strcmp(con->dataConsumo, (*lista)->dataConsumo) < 0)) {
+                if(con->status != 'x'){
+                    con->prox = *lista;
+                    *lista = con;
+                }
+
+            }else{
+                if(con->status != 'x'){
+                    Consumo* ant = *lista;
+                    Consumo* atu = (*lista)->prox;
+                    
+                    while ((atu != NULL) && (strcmp(atu->dataConsumo, con->dataConsumo) < 0)) {
+                        ant = atu;
+                        atu = atu->prox;
+                    }
+                    ant->prox = con;
+                    con->prox = atu;
+                }
+            }
+            con = (Consumo*) malloc(sizeof(Consumo));
+        }
+        free(con);
+        fclose(fp);
+    }
+}
+
+
+
+
+
+
+
 

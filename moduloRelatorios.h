@@ -22,3 +22,16 @@ void relCompOrdemValor(Compra**);
 void relCompOrdemCrono(Compra**);
 
 char menuRelatorioConsumo(void);
+void exibeRelConsumo(Consumo*);
+void exibirListaOrdemValorC(Consumo*);
+void exibirListaOrdemCronoC(Consumo*);
+void apagarListaConsumo(Consumo**);
+void relConsumosDiarios(void);
+void relConsumosMensais(void);
+void relConsumosAnuais(void);
+void relConOrdemValor(Consumo**);
+void relConOrdemCrono(Consumo**);
+
+
+
+

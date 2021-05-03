@@ -6,7 +6,7 @@ struct produto {
     char nomeItem[51];
     char local[20];
     int quant;
-    char status[11];
+    char status[2];
     struct produto *prox;
 };
 
@@ -19,6 +19,8 @@ struct chaveP {
 char menuProdutos(void);
 
 void gravarProduto(Produto*);
+
+void mostraProdutos(Produto*);
 
 void exibeProduto(Produto*);
 
