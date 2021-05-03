@@ -22,7 +22,7 @@ char menuRelatorios(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            RELATÓRIOS:                                            ///\n");
+    printf("///            RELATORIOS:                                            ///\n");
     printf("///                                                                   ///\n");
     printf("///            1 - PRODUTOS                                           ///\n");
     printf("///            2 - COMPRAS                                            ///\n");
@@ -68,10 +68,10 @@ char menuRelatorioProdutos(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            RELATÓRIOS - PRODUTOS:                                 ///\n");    
+    printf("///            RELATORIOS - PRODUTOS:                                 ///\n");    
     printf("///                                                                   ///\n");
     printf("///            1 - Produtos vencidos                                  ///\n");
-    printf("///            2 - Produtos à vencer                                  ///\n");
+    printf("///            2 - Produtos a vencer                                  ///\n");
     printf("///            3 - Produtos em ordem                                  ///\n");
     printf("///            4 - Produtos por local                                 ///\n");
     printf("///            0 - Voltar                                             ///\n");
