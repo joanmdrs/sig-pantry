@@ -172,7 +172,7 @@ double preenchePrecoItem(void){
     precoC = (char*) malloc(10*sizeof(char));
 
     do{
-        printf("///            - Preço do Item: R$ ");
+        printf("///            - Preco do Item: R$ ");
         scanf("%s", precoC);
         getchar();
         
@@ -180,7 +180,7 @@ double preenchePrecoItem(void){
         validaNull = verificaNulo(precoC);
 
         if(validaDig){
-            printf("///            Dígitos inválidos, tente novamente !\n");
+            printf("///            Digitos invalidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
