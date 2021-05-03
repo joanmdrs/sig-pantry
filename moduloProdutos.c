@@ -77,7 +77,7 @@ void mostraProdutos(Produto* pro){
     printf("%13s\t", pro->codBarras);
     printf("%10s\t", pro->dataValidade);
     printf("%d\t", pro->quant);
-    printf("%s\t\t", pro->local);
+    printf("%-15s\t", pro->local);
     printf("%s\n", pro->status);
 }
 

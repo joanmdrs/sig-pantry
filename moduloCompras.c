@@ -192,7 +192,7 @@ void mostraCompras(Compra* com){
     printf("%s\t", com->dataCompra);
     printf("%s\t", com->horaCompra);
     printf("%d\t", com->quant);
-    printf("R$ %.2f\t", com->valor);
+    printf("R$%.2f\t", com->valor);
     printf("%c\n", com->status);
 }
 

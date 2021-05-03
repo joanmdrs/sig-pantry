@@ -235,7 +235,7 @@ void mostraConsumos(Consumo* con){
     printf("%s\t", con->dataConsumo);
     printf("%s\t", con->horaConsumo);
     printf("%d\t", con->quant);
-    printf("R$ %.2f\t\t",con->valor);
+    printf("R$%.2f\t\t",con->valor);
     printf("%c\n", con->status);
 }
 
