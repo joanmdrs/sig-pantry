@@ -320,7 +320,6 @@ void cadastrarConsumo(void){
     quant = preencheQuantConsumo();
     int q;
     q = converteCharParaInt(quant);
-    con->quant = q;
 
     con->status = 'Y';
 
@@ -373,10 +372,6 @@ void cadastrarConsumo(void){
         fclose(fp);
         free(proe);
 
-        double preco = preenchePrecoItem();
-        item->valor = preco;
-        valorConsumo = valorConsumo + (quantidadeP * preco);
-
         if(achou == 0){
             
             printf("///        ___________________________________________________        ///\n");
@@ -392,12 +387,16 @@ void cadastrarConsumo(void){
             break;
 
         }else if(achou == 1){
+            double preco = preenchePrecoItem();
+            item->valor = preco;
+            valorConsumo = valorConsumo + (quantidadeP * preco);
             gravarItemC(item);
             free(item);
         } 
     }
 
-    if(certeza == con->quant){
+    if(certeza > 0){
+        con->quant = certeza;
         con->valor = valorConsumo;
         gravarConsumo(con);
         printf("///        ___________________________________________________        ///\n");
@@ -730,11 +729,12 @@ void listarConsumos(void){
         while(fread(con, sizeof(Consumo), 1, fp)) {
             mostraConsumos(con);
         }
+        printf("\n");
+        printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
     }
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    free(con);
     fclose(fp);
 }
 

@@ -376,7 +376,6 @@ void cadastrarCompra(void){
         double preco = preenchePrecoItem();
         item->valor = preco; 
         valorCompra = valorCompra + (quantidadeP * preco);
-        printf("%d\n", achou);
 
         if(achou == 1){
             gravarItem(item);
@@ -721,11 +720,13 @@ void listarCompras(void){
         while(fread(com, sizeof(Compra), 1, fp)) {
             mostraCompras(com);
         }
+        printf("\n");
+        printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
     }
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    
     getchar();
+    free(com);
     fclose(fp);
 }
 

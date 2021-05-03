@@ -89,6 +89,8 @@ void exibeProduto(Produto* prod){
         printf("///          Não foi encontrado nenhum produto com os dados           ///\n");  
         printf("///          fornecidos                                               ///\n");
         printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+        exibeTecleEnter();
     } else {
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
@@ -99,11 +101,9 @@ void exibeProduto(Produto* prod){
         printf("///                    Quantidade: %d \n", prod->quant);
         printf("///                        Status: %s \n", prod->status);
         printf("///        ___________________________________________________        ///\n");
+        printf("///                                                                   ///\n");
+
     }
-    printf("///                                                                   ///\n");
-    printf("/////////////////////////////////////////////////////////////////////////\n\n");
-    printf("\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
 
 }
 
@@ -202,6 +202,7 @@ Produto* telaCadastrarProduto(void){
         printf("///                                                                   ///\n");
         printf("///                  Produto cadastrado com sucesso !                 ///\n");
         exibeProduto(pro);
+        exibeTecleEnter();
         return pro;
     }
 
@@ -300,7 +301,7 @@ Produto* pegarProdutoPelaDesc(char* desc){
     file = fopen("produtos.dat", "rb");
 
     while(fread(pro, sizeof(Produto), 1, file)){
-        if(!strcmp(pro->nomeItem, desc)){
+        if(!strcmp(pro->nomeItem, desc) && strcmp(pro->status,"x") != 0){
             fclose(file);
             return pro;
         }
@@ -322,6 +323,7 @@ void pesquisarProduto(void){
         key = telaPesquisarPeloCod();
         pro = pegarProdutoPeloCod(key);
         exibeProduto(pro);
+        exibeTecleEnter();
         free(key);
         free(pro);
 
@@ -329,6 +331,7 @@ void pesquisarProduto(void){
         desc = telaPesquisarPelaDesc();
         pro = pegarProdutoPelaDesc(desc);
         exibeProduto(pro);
+        exibeTecleEnter();
         free(desc);
         free(pro);
 
@@ -839,7 +842,7 @@ void listarProdutos(void){
         printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
         getchar();
     }
-
+    free(pro);
     fclose(fp);
 
 }
