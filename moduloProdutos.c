@@ -51,14 +51,14 @@ char menuProdutos(void){
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
 
     do{
-        printf("Informe a sua opção : ");
+        printf("Informe a sua opcao : ");
         scanf("%[^\n]", &opcao);
         getchar();
         validaI = testeDigito(opcao);
         validaII = validaOpcaoMenu(opcao, 5); 
 
         if(!validaI || !validaII){
-            printf("Opção inválida, tente novamente!\n");
+            printf("Opcao invalida, tente novamente!\n");
         }
     }while(!validaI || !validaII);
 
@@ -86,7 +86,7 @@ void exibeProduto(Produto* prod){
     if(prod == NULL){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
-        printf("///          Não foi encontrado nenhum produto com os dados           ///\n");  
+        printf("///          Nao foi encontrado nenhum produto com os dados           ///\n");  
         printf("///          fornecidos.                                              ///\n");
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
@@ -233,7 +233,7 @@ char telaTipoPesquisa(void){
     printf("///          = = = = =  MODULO PESQUISAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
     printf("///           a) Pesquisar pelo Codigo de Barras                      ///\n");
-    printf("///           b) Pesquisar pela Descrição                             ///\n");
+    printf("///           b) Pesquisar pela Descricao                             ///\n");
     printf("///                                                                   ///\n");
 
     do{

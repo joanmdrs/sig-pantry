@@ -262,7 +262,7 @@ char menuCompras(void){
         validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
-            printf("Opção invalida, tente novamente!\n");
+            printf("Opcao invalida, tente novamente!\n");
         }
     }while(!validaOp || !validaOpM);
 

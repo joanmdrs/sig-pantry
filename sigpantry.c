@@ -221,7 +221,7 @@ int main(void) {
     printf("///                     VOCE ENCERROU O PROGRAMA!                     ///\n");
     printf("///                                                                   ///\n");
     printf("///            Agradecemos por utilizar os nossos servicos.           ///\n");
-    printf("///            Os dados cadastrados estarão disponiveis no            ///\n");
+    printf("///            Os dados cadastrados estarao disponiveis no            ///\n");
     printf("///            seu proximo acesso.                                    ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
