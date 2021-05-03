@@ -107,7 +107,7 @@ void exibeRelProd(Produto* pro){
 
 void exibirProdutos(Produto* pro){
     printf("                Produto  : %s\n", pro->nomeItem);
-    printf("                Código   : %s\n", pro->codBarras);
+    printf("                Codigo   : %s\n", pro->codBarras);
     printf("                Validade : %s\n", pro->dataValidade);
     printf("                Local    : %s\n", pro->local);
     printf("                Quant.   : %d\n", pro->quant);
@@ -128,8 +128,8 @@ void exibirLista(Produto* aux){
     printf("///        *****************************************************************************        ///\n");
     printf("///        _____________________________________________________________________________        ///\n");
     printf("///                                                                                             ///\n");
-    printf("///        = = = = = = = = = = = RELATÓRIO - PRODUTOS ORDENADOS = = = = = = = = = = = =         ///\n\n");
-    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+    printf("///        = = = = = = = = = = = RELATORIO - PRODUTOS ORDENADOS = = = = = = = = = = = =         ///\n\n");
+    printf("                  Produto:      Codigo:         Validade:      Qtd.:    Local:\n\n");
 
     while (aux != NULL){
         printf("%26s\t", aux->nomeItem);
@@ -170,8 +170,8 @@ void relProdVencidos(void){
     printf("///        *****************************************************************************        ///\n");
     printf("///        _____________________________________________________________________________        ///\n");
     printf("///                                                                                             ///\n");
-    printf("///        = = = = = = = = = = = = RELATÓRIO - PRODUTOS VENCIDOS = = = = = = = = = = = =        ///\n\n");
-    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+    printf("///        = = = = = = = = = = = = RELATORIO - PRODUTOS VENCIDOS = = = = = = = = = = = =        ///\n\n");
+    printf("                  Produto:      Codigo:         Validade:      Qtd.:    Local:\n\n");
 
     pro = (Produto*) malloc(sizeof(Produto));
     fp = fopen("produtos.dat", "rb");
@@ -209,8 +209,8 @@ void relProdParaVencer(void){
     printf("///        *****************************************************************************        ///\n");
     printf("///        _____________________________________________________________________________        ///\n");
     printf("///                                                                                             ///\n");
-    printf("///        = = = = = = = = = = = = RELATÓRIO - PRODUTOS À VENCER = = = = = = = = = = = =        ///\n\n");
-    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+    printf("///        = = = = = = = = = = = = RELATORIO - PRODUTOS A VENCER = = = = = = = = = = = =        ///\n\n");
+    printf("                  Produto:      Codigo:         Validade:      Qtd.:    Local:\n\n");
 
     pro = (Produto*) malloc(sizeof(Produto));
     fp = fopen("produtos.dat", "rb");
@@ -292,14 +292,14 @@ void relProdLocal(void){
     printf("///        *****************************************************************************        ///\n");
     printf("///        _____________________________________________________________________________        ///\n");
     printf("///                                                                                             ///\n");
-    printf("///        = = = = = = = = = = = = RELATÓRIO - PRODUTOS POR LOCAL = = = = = = = = = = = =       ///\n");
+    printf("///        = = = = = = = = = = = = RELATORIO - PRODUTOS POR LOCAL = = = = = = = = = = = =       ///\n");
     printf("///                                                                                             ///\n");
 
     char* local;
     local = preencheLocal();
 
     printf("///        _____________________________________________________________________________        ///\n\n");
-    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:\n\n");
+    printf("                  Produto:      Codigo:         Validade:      Qtd.:    Local:\n\n");
 
     pro = (Produto*) malloc(sizeof(Produto));
     fp = fopen("produtos.dat", "rb");
@@ -338,27 +338,27 @@ char menuRelatorioCompras(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            RELATÓRIOS - COMPRAS:                                  ///\n");    
+    printf("///            RELATORIOS - COMPRAS:                                  ///\n");    
     printf("///                                                                   ///\n");
-    printf("///            1 - Compras Diárias                                    ///\n");
+    printf("///            1 - Compras Diarias                                    ///\n");
     printf("///            2 - Compras Mensais                                    ///\n");
     printf("///            3 - Compras Anuais                                     ///\n");
     printf("///            4 - Compras: Ordem por valor                           ///\n");
-    printf("///            5 - Compras: Ordem cronológica                         ///\n");
+    printf("///            5 - Compras: Ordem cronologica                         ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     
     do{
-        printf("Informe a sua opção : ");
+        printf("Informe a sua opcao : ");
         scanf("%[^\n]", &opcao);
         getchar();
         validaOp = testeDigito(opcao);
         validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
-            printf("Opção inválida, tente novamente!\n");
+            printf("Opcao invalida, tente novamente!\n");
 
         }
 
@@ -387,9 +387,9 @@ void exibirListaOrdemValor(Compra* aux){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///           = = = = = = = RELATÓRIO - ORDEM CRESCENTE - VALORES = = = = = = =         ///\n");
+    printf("///           = = = = = = = RELATORIO - ORDEM CRESCENTE - VALORES = = = = = = =         ///\n");
     printf("///                                                                                     ///\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codCompra);
@@ -417,9 +417,9 @@ void exibirListaOrdemCrono(Compra* aux){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///           = = = = = = = = = RELATÓRIO - ORDEM CRONOLÓGICA = = = = = = = = =         ///\n");
+    printf("///           = = = = = = = = = RELATORIO - ORDEM CRONOLOGICA = = = = = = = = =         ///\n");
     printf("///                                                                                     ///\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codCompra);
@@ -485,7 +485,7 @@ void relComprasDiarias(void){
     }
     if(cont == 0){
         printf("           _____________________________________________________________________           \n\n");
-        printf("              Não há registro de compras para o dia informado                              \n");
+        printf("              Nao ha registro de compras para o dia informado                              \n");
         printf("           _____________________________________________________________________           \n\n");
 
     }else{
@@ -513,13 +513,13 @@ void relComprasMensais(void){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///            = = = = = = = = RELATÓRIO - COMPRAS MENSAIS = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = RELATORIO - COMPRAS MENSAIS = = = = = = = =              ///\n");
     printf("///                                                                                     ///\n");
     char* recorta;
     char* data;
     data = preencheMesEAno();
     printf("           _____________________________________________________________________           \n\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
     double total = 0.0;
     int cont = 0;
 
@@ -543,7 +543,7 @@ void relComprasMensais(void){
     }
     if(cont == 0){
         printf("           _____________________________________________________________________           \n\n");
-        printf("              Não há registro de compras para o mês informado                              \n");
+        printf("              Nao ha registro de compras para o mes informado                              \n");
         printf("           _____________________________________________________________________           \n\n");
 
     }else{
@@ -571,14 +571,14 @@ void relComprasAnuais(void){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///             = = = = = = = = RELATÓRIO - COMPRAS ANUAIS = = = = = = = =              ///\n");
+    printf("///             = = = = = = = = RELATORIO - COMPRAS ANUAIS = = = = = = = =              ///\n");
     printf("///                                                                                     ///\n");
 
     char* recorta;
     char* data;
     data = preencheAno();
     printf("           _____________________________________________________________________           \n\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
     double total = 0.0;
     int cont = 0;
 
@@ -602,7 +602,7 @@ void relComprasAnuais(void){
     }
     if(cont == 0){
         printf("           _____________________________________________________________________           \n\n");
-        printf("              Não há registro de compras para o ano informado                              \n");
+        printf("              Não ha registro de compras para o ano informado                              \n");
         printf("           _____________________________________________________________________           \n\n");
 
     }else{
@@ -773,9 +773,9 @@ void exibirListaOrdemValorC(Consumo* aux){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///           = = = = = = = RELATÓRIO - ORDEM CRESCENTE - VALORES = = = = = = =         ///\n");
+    printf("///           = = = = = = = RELATORIO - ORDEM CRESCENTE - VALORES = = = = = = =         ///\n");
     printf("///                                                                                     ///\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codConsumo);
@@ -803,9 +803,9 @@ void exibirListaOrdemCronoC(Consumo* aux){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///           = = = = = = = = = RELATÓRIO - ORDEM CRONOLÓGICA = = = = = = = = =         ///\n");
+    printf("///           = = = = = = = = = RELATORIO - ORDEM CRONOLOGICA = = = = = = = = =         ///\n");
     printf("///                                                                                     ///\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$         \n\n");
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codConsumo);
@@ -843,12 +843,12 @@ void relConsumosDiarios(void){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///            = = = = = = = = RELATÓRIO - CONSUMOS DIÁRIOS = = = = = = = =             ///\n");
+    printf("///            = = = = = = = = RELATORIO - CONSUMOS DIARIOS = = = = = = = =             ///\n");
     printf("///                                                                                     ///\n");
     char* data;
     data = preencheDataConsumo();
     printf("           _____________________________________________________________________           \n\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
     double total = 0.0;
     int cont = 0;
 
@@ -871,7 +871,7 @@ void relConsumosDiarios(void){
     }
     if(cont == 0){
         printf("           _____________________________________________________________________           \n\n");
-        printf("              Não há registro de consumos para o dia informado.                             \n");
+        printf("              Nao ha registro de consumos para o dia informado.                             \n");
         printf("           _____________________________________________________________________           \n\n");
 
     }else{
@@ -899,13 +899,13 @@ void relConsumosMensais(void){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///           = = = = = = = = RELATÓRIO - CONSUMOS MENSAIS = = = = = = = =              ///\n");
+    printf("///           = = = = = = = = RELATORIO - CONSUMOS MENSAIS = = = = = = = =              ///\n");
     printf("///                                                                                     ///\n");
     char* recorta;
     char* data;
     data = preencheMesEAnoC();
     printf("           _____________________________________________________________________           \n\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
     double total = 0.0;
     int cont = 0;
 
@@ -930,7 +930,7 @@ void relConsumosMensais(void){
     }
     if(cont == 0){
         printf("           _____________________________________________________________________           \n\n");
-        printf("              Não há registro de consumos para o mês informado.                              \n");
+        printf("              Não ha registro de consumos para o mes informado.                              \n");
         printf("           _____________________________________________________________________           \n\n");
 
     }else{
@@ -958,14 +958,14 @@ void relConsumosAnuais(void){
     printf("///        *********************************************************************        ///\n");
     printf("///        _____________________________________________________________________        ///\n");
     printf("///                                                                                     ///\n");
-    printf("///             = = = = = = = = RELATÓRIO - CONSUMOS ANUAIS = = = = = = = =             ///\n");
+    printf("///             = = = = = = = = RELATORIO - CONSUMOS ANUAIS = = = = = = = =             ///\n");
     printf("///                                                                                     ///\n");
 
     char* recorta;
     char* data;
     data = preencheAnoC();
     printf("           _____________________________________________________________________           \n\n");
-    printf("               Código:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
+    printf("               Codigo:          Data:           Hora:         Qtd.:    Valor: R$           \n\n");
     double total = 0.0;
     int cont = 0;
 
@@ -988,7 +988,7 @@ void relConsumosAnuais(void){
     }
     if(cont == 0){
         printf("           _____________________________________________________________________           \n\n");
-        printf("              Não há registro de consumos para o ano informado.                              \n");
+        printf("              Não ha registro de consumos para o ano informado.                              \n");
         printf("           _____________________________________________________________________           \n\n");
 
     }else{

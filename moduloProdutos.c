@@ -33,7 +33,7 @@ char menuProdutos(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -87,16 +87,16 @@ void exibeProduto(Produto* prod){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         printf("///          Não foi encontrado nenhum produto com os dados           ///\n");  
-        printf("///          fornecidos                                               ///\n");
+        printf("///          fornecidos.                                              ///\n");
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         exibeTecleEnter();
     } else {
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
-        printf("///              Código de Barras: %s \n", prod->codBarras);
+        printf("///              Codigo de Barras: %s \n", prod->codBarras);
         printf("///              Data de Validade: %s \n", prod->dataValidade);
-        printf("///                     Descrição: %s \n", prod->nomeItem);
+        printf("///                     Descricao: %s \n", prod->nomeItem);
         printf("///                         Local: %s \n", prod->local);
         printf("///                    Quantidade: %d \n", prod->quant);
         printf("///        ___________________________________________________        ///\n");
@@ -121,7 +121,7 @@ Produto* telaCadastrarProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///          = = = = =  MÓDULO CADASTRAR PRODUTO: = = = = =           ///\n");
+    printf("///          = = = = =  MODULO CADASTRAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
     FILE* fp;
@@ -153,10 +153,10 @@ Produto* telaCadastrarProduto(void){
             achou = 1;
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n");
-            printf("///         Já existe um produto cadastrado com este CÓDIGO           ///\n");  
+            printf("///         Ja existe um produto cadastrado com este CODIGO           ///\n");  
             printf("///         DE BARRAS e com essa DATA DE VALIDADE.                    ///\n"); 
             printf("///                                                                   ///\n");    
-            printf("///         Recomendamos utilizar a função ALTERAR PRODUTO.           ///\n");                                          
+            printf("///         Recomendamos utilizar a funcao ALTERAR PRODUTO.           ///\n");                                          
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n"); 
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -230,9 +230,9 @@ char telaTipoPesquisa(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///          = = = = =  MÓDULO PESQUISAR PRODUTO: = = = = =           ///\n");
+    printf("///          = = = = =  MODULO PESQUISAR PRODUTO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
-    printf("///           a) Pesquisar pelo Código de Barras                      ///\n");
+    printf("///           a) Pesquisar pelo Codigo de Barras                      ///\n");
     printf("///           b) Pesquisar pela Descrição                             ///\n");
     printf("///                                                                   ///\n");
 
@@ -244,7 +244,7 @@ char telaTipoPesquisa(void){
         validaDig = testeDigito(tipoPesq);
 
         if(validaDig){
-            printf("Opção inválida, tente novamente!\n");
+            printf("Opcao invalida, tente novamente!\n");
         }
     }while(validaDig);
     printf("///                                                                   ///\n");
@@ -355,7 +355,7 @@ ChaveP* telaExcluirProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            = = = = = MÓDULO EXCLUIR PRODUTO: = = = = =            ///\n");
+    printf("///            = = = = = MODULO EXCLUIR PRODUTO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
     ChaveP* key;
@@ -401,7 +401,7 @@ void excluirProdutoLogicamente(Produto* pro){
                 }
             }
             printf("///                                                                   ///\n");
-            printf("///            Produto excluído com sucesso!                          ///\n"); 
+            printf("///            Produto excluido com sucesso!                          ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -409,7 +409,7 @@ void excluirProdutoLogicamente(Produto* pro){
 
         } else if (confirma == 'N' || confirma == 'n'){
             printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n"); 
+            printf("///            Operacao cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -450,7 +450,7 @@ char* telaAlterarValidade(void){
         validaNull = verificaNulo(dataValidade);
 
         if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
+            printf("///            Data invalida, tente novamente !\n");
         }
     }while(!validaData || validaDig || validaNull);
 
@@ -464,7 +464,7 @@ char* telaAlterarDesc(void){
     nomeItem = (char*) malloc(51*sizeof(char));
 
     do{
-        printf("///            - b) Nova Descrição: ");
+        printf("///            - b) Nova Descricao: ");
         scanf("%[^\n]", nomeItem);
         getchar();
 
@@ -472,7 +472,7 @@ char* telaAlterarDesc(void){
         validaNull = verificaNulo(nomeItem);
 
         if(validaDig || validaNull){
-            printf("///            Caracteres inválidos, tente novamente !\n");
+            printf("///            Caracteres invalidos, tente novamente !\n");
         }
     }while (validaDig || validaNull);
     return nomeItem;
@@ -493,7 +493,7 @@ char* telaAlterarLocal(void){
         validaNull = verificaNulo(local);
 
         if(validaDig || validaNull){
-            printf("///            Caracteres inválidos, tente novamente !\n");
+            printf("///            Caracteres invalidos, tente novamente !\n");
         }
     }while (validaDig || validaNull);
 
@@ -515,7 +515,7 @@ char* telaAlterarQuant(void){
         validaNull = verificaNulo(quant);
 
         if(validaDig || validaNull){
-            printf("///            Dígitos inválidos, tente novamente !\n");
+            printf("///            Digitos invalidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
@@ -541,11 +541,11 @@ ChaveP* telaAlterarProduto(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            = = = = = MÓDULO ALTERAR PRODUTO: = = = = =            ///\n");
+    printf("///            = = = = = MODULO ALTERAR PRODUTO: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
     do{
-        printf("///            - Código de Barras: ");
+        printf("///            - Codigo de Barras: ");
         scanf("%[^\n]", key->codBarras);
         getchar();
         
@@ -554,7 +554,7 @@ ChaveP* telaAlterarProduto(void){
         validaNull = verificaNulo(key->codBarras);
 
 		if(!validaCod || validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
+			printf("///            Codigo invalido, tente novamente !\n");
 		}
 
 	}while(!validaCod || validaDig || validaNull);
@@ -569,7 +569,7 @@ ChaveP* telaAlterarProduto(void){
         validaNull = verificaNulo(key->dataValidade);
 
         if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
+            printf("///            Data invalida, tente novamente !\n");
         }
     }while(!validaData || validaDig || validaNull);
 
@@ -645,7 +645,7 @@ void regravarProduto(Produto* pro){
 
     }else if(confirma == 'N' || confirma == 'n'){
         printf("///                                                                   ///\n");
-        printf("///           Operação cancelada!                                     ///\n"); 
+        printf("///           Operacao cancelada!                                     ///\n"); 
         printf("///                                                                   ///\n");
         printf("/////////////////////////////////////////////////////////////////////////\n\n");
         printf("\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -664,17 +664,17 @@ void regravarCampo(Produto* pro){
     file = fopen("produtos.dat", "r+b");
    
     printf("///                                                                   ///\n");
-    printf("///           ESCOLHA O CAMPO À ALTERAR:                              ///\n");
+    printf("///           ESCOLHA O CAMPO A ALTERAR:                              ///\n");
     printf("///                                                                   ///\n");
     printf("///            - Digite 'a' para alterar a validade                   ///\n");
-    printf("///            - Digite 'b' para alterar a descrição                  ///\n");
+    printf("///            - Digite 'b' para alterar a descricao                  ///\n");
     printf("///            - Digite 'c' para alterar o local                      ///\n");
     printf("///            - Digite 'd' para alterar a quantidade                 ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
 
     do{
-        printf("///            - Informe a sua opção: ");
+        printf("///            - Informe a sua opcao: ");
         scanf("%[^\n]", &opcao);
         getchar();
 
@@ -682,7 +682,7 @@ void regravarCampo(Produto* pro){
         validaOp = validaOpcaoLetrasAD(opcao);
         
         if(!validaOp || validaDig){
-            printf("///            Opcão inválida, tente novamente!\n");
+            printf("///            Opcao invalida, tente novamente!\n");
         }
 
     }while(!validaOp || validaDig);
@@ -720,7 +720,7 @@ void regravarCampo(Produto* pro){
         }
         free(nomeItem);
         printf("///                                                                   ///\n");
-        printf("///            A Descrição do produto foi alterada!                   ///\n");
+        printf("///            A Descricao do produto foi alterada!                   ///\n");
         printf("///                                                                   ///\n");
         printf("/////////////////////////////////////////////////////////////////////////\n\n");
         printf("\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -793,7 +793,7 @@ void alterarProduto(void){
             validaOp = validaOpcao(decisao);
             
             if(!validaOp || validaDig){
-                printf("///            Opcão inválida, tente novamente!\n");
+                printf("///            Opcao invalida, tente novamente!\n");
             }
         }while(!validaOp || validaDig);
 
@@ -827,8 +827,8 @@ void listarProdutos(void){
     printf("///        *************************************************************************************        ///\n");
     printf("///        ____________________________________________________________________________________         ///\n");
     printf("///                                                                                                     ///\n");
-    printf("///        = = = = = = = = = = = = = = = MÓDULO - LISTAR PRODUTOS = = = = = = = = = = = = = = =         ///\n\n");
-    printf("                  Produto:      Código:         Validade:      Qtd.:    Local:         Status: \n\n");
+    printf("///        = = = = = = = = = = = = = = = MODULO - LISTAR PRODUTOS = = = = = = = = = = = = = = =         ///\n\n");
+    printf("                  Produto:      Codigo:         Validade:      Qtd.:    Local:         Status: \n\n");
 
 
     pro = (Produto*) malloc(sizeof(Produto));

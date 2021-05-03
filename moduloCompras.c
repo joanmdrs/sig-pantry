@@ -71,14 +71,14 @@ long int preencheCodCompra(void){
     long int codigo;
 
     do{
-        printf("///            - Código da compra: ");
+        printf("///            - Codigo da compra: ");
         scanf("%[^\n]", codCompra);
         getchar();
 
         validaDig = testeDigitosNumericos(codCompra);
         validaNull = verificaNulo(codCompra);
         if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
+			printf("///            Codigo invalido, tente novamente !\n");
 		}
 	}while(validaDig || validaNull);
 
@@ -105,7 +105,7 @@ char* preencheDataCompra(void){
         validaNull = verificaNulo(dataCompra);
 
         if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
+            printf("///            Data invalida, tente novamente !\n");
         }
 
     }while(!validaData || validaDig || validaNull);
@@ -126,7 +126,7 @@ char* preencheHoraCompra(void){
     horaCompra = (char*) malloc(9*sizeof(char));
 
     do{
-        printf("///            - Horário Compra (hh:mm:ss): ");
+        printf("///            - Horario Compra (hh:mm:ss): ");
         scanf("%[^\n]", horaCompra);
         getchar();
     
@@ -135,7 +135,7 @@ char* preencheHoraCompra(void){
         validaNull = verificaNulo(horaCompra);
 
         if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
+            printf("///            Hora invalida, tente novamente !\n");
         }
 
     }while(!validaHora || validaDig || validaNull);
@@ -158,7 +158,7 @@ char* preencheQuantCompra(void){
         validaNull = verificaNulo(quantC);  
 
         if(validaDig || validaNull){
-            printf("///            Quantidade inválida, tente novamente !\n");
+            printf("///            Quantidade invalida, tente novamente !\n");
         }
     }while(validaDig || validaNull);
 
@@ -178,7 +178,7 @@ double preencheValorCompra(void){
         validaDig = testeDigitosNumericosValorFlutuante(valor);
 
         if(validaDig){
-            printf("///            Dígitos inválidos, tente novamente !\n");
+            printf("///            Digitos invalidos, tente novamente !\n");
         }
 
     }while (validaDig);
@@ -201,7 +201,7 @@ void exibirCompra(Compra* com){
     if(com == NULL){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
-        printf("///            Não existem compras cadastradas com o CÓDIGO           ///\n");  
+        printf("///            Nao existem compras cadastradas com o CODIGO           ///\n");  
         printf("///            informado.                                             ///\n");    
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
@@ -210,9 +210,9 @@ void exibirCompra(Compra* com){
     } else {
         printf("///        ___________________________________________________        \n");
         printf("///                                                                   \n");
-        printf("///              Código da compra: %ld \n",com->codCompra);
+        printf("///              Codigo da compra: %ld \n",com->codCompra);
         printf("///                Data da compra: %s \n", com->dataCompra);
-        printf("///             Horário da compra: %s \n", com->horaCompra);
+        printf("///             Horario da compra: %s \n", com->horaCompra);
         printf("///                 Qtd. produtos: %d \n", com->quant);
         printf("///                   Valor total: R$ %.2f \n", com->valor);
         printf("///       ___________________________________________________         \n");
@@ -236,7 +236,7 @@ char menuCompras(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -254,7 +254,7 @@ char menuCompras(void){
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
 
     do{
-        printf("Informe a sua opção : ");
+        printf("Informe a sua opcao : ");
         scanf("%[^\n]", &opcao);
         getchar();
 
@@ -262,7 +262,7 @@ char menuCompras(void){
         validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
-            printf("Opção inválida, tente novamente!\n");
+            printf("Opção invalida, tente novamente!\n");
         }
     }while(!validaOp || !validaOpM);
 
@@ -286,7 +286,7 @@ void cadastrarCompra(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///           = = = = =  MÓDULO CADASTRAR COMPRA: = = = = =           ///\n");
+    printf("///           = = = = =  MODULO CADASTRAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
     FILE* fp;
@@ -300,7 +300,7 @@ void cadastrarCompra(void){
 
     long int codCompra = geraCodCompra();
 
-    printf("///            - Código da compra: %ld \n", codCompra);
+    printf("///            - Codigo da compra: %ld \n", codCompra);
 
     com->codCompra = codCompra;
 
@@ -413,7 +413,7 @@ long int telaPesquisarCompra(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///           = = = = =  MÓDULO PESQUISAR COMPRA: = = = = =           ///\n");
+    printf("///           = = = = =  MODULO PESQUISAR COMPRA: = = = = =           ///\n");
     printf("///                                                                   ///\n");
  
     long int codigo;
@@ -452,7 +452,7 @@ void pesquisarCompra(void){
     if(com != NULL){ 
         printf("///        = = = = = = = = = LISTA DE ITENS = = = = = = = = =          \n");
         printf("///\n");
-        printf("///                Produto:    Qtd.:    Preço:\n");
+        printf("///                Produto:    Qtd.:    Preco:\n");
         printf("///\n");
         while(fread(item, sizeof(Item), 1, fi)){
             if(com->codCompra == item->codCompra){
@@ -482,7 +482,7 @@ long int telaExcluirCompra(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            = = = = =  MÓDULO EXCLUIR COMPRA: = = = = =            ///\n");
+    printf("///            = = = = =  MODULO EXCLUIR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
     long int codigo;
@@ -515,7 +515,7 @@ void excluirCompraLog(Compra* com){
             fclose(file);
         
             printf("///                                                                   ///\n");
-            printf("///            Compra excluída com sucesso!                           ///\n"); 
+            printf("///            Compra excluida com sucesso!                           ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -523,7 +523,7 @@ void excluirCompraLog(Compra* com){
 
         } else if (confirma == 'N' || confirma == 'n'){
             printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n"); 
+            printf("///            Operacao cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -562,7 +562,7 @@ long int telaAlterarCompra(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            = = = = =  MÓDULO ALTERAR COMPRA: = = = = =            ///\n");
+    printf("///            = = = = =  MODULO ALTERAR COMPRA: = = = = =            ///\n");
     printf("///                                                                   ///\n");
 
     long int codigo;
@@ -576,7 +576,7 @@ char telaEscolha(void){
     char opcao;
 
     do{
-        printf("///            - Informe a sua opção: ");
+        printf("///            - Informe a sua opcao: ");
         scanf("%[^\n]", &opcao);
         getchar();
 
@@ -584,7 +584,7 @@ char telaEscolha(void){
         validaOp = validaOpcaoLetrasAC(opcao);
         
         if(!validaOp || validaDig){
-            printf("///            Opcão inválida, tente novamente!\n");
+            printf("///            Opcao invalida, tente novamente!\n");
         }
 
     }while(!validaOp || validaDig);
@@ -705,8 +705,8 @@ void listarCompras(void){
     printf("///        *****************************************************************************        ///\n");
     printf("///        _____________________________________________________________________________        ///\n");
     printf("///                                                                                             ///\n");
-    printf("///        = = = = = = = = = = = = = = MÓDULO - LISTAR COMPRAS = = = = = = = = = = = = =        ///\n\n");
-    printf("            Código:     Data:           Hora:         Qtd.:     Valor:        Status:            \n\n");
+    printf("///        = = = = = = = = = = = = = = MODULO - LISTAR COMPRAS = = = = = = = = = = = = =        ///\n\n");
+    printf("            Codigo:     Data:           Hora:         Qtd.:     Valor:        Status:            \n\n");
 
     FILE* fp;
     Compra* com;

@@ -70,14 +70,14 @@ long int preencheCodConsumo(){
     long int codigo;
 
     do{
-        printf("///            - Código do consumo: ");
+        printf("///            - Codigo do consumo: ");
         scanf("%[^\n]", codConsumo);
         getchar();
 
         validaDig = testeDigitosNumericos(codConsumo);
         validaNull = verificaNulo(codConsumo);
         if(validaDig || validaNull){
-			printf("///            Código inválido, tente novamente !\n");
+			printf("///            Codigo invalido, tente novamente !\n");
 		}
 
 	}while(validaDig || validaNull);
@@ -104,7 +104,7 @@ char* preencheDataConsumo(void){
         validaNull = verificaNulo(dataConsumo);
 
         if (!validaData || validaDig || validaNull) {
-            printf("///            Data inválida, tente novamente !\n");
+            printf("///            Data invalida, tente novamente !\n");
         }
 
     }while(!validaData || validaDig || validaNull);
@@ -124,7 +124,7 @@ char* preencheHoraConsumo(void){
     horaConsumo = (char*) malloc(9*sizeof(char));
 
     do{
-        printf("///            - Horário Consumo (hh:mm:ss): ");
+        printf("///            - Horario Consumo (hh:mm:ss): ");
         scanf("%[^\n]", horaConsumo);
         getchar();
     
@@ -133,7 +133,7 @@ char* preencheHoraConsumo(void){
         validaNull = verificaNulo(horaConsumo);
 
         if (!validaHora || validaDig || validaNull) {
-            printf("///            Hora inválida, tente novamente !\n");
+            printf("///            Hora invalida, tente novamente !\n");
         }
 
     }while(!validaHora || validaDig || validaNull);
@@ -157,7 +157,7 @@ char* preencheQuantConsumo(void){
         validaNull = verificaNulo(quantC);  
 
         if(validaDig || validaNull){
-            printf("///            Quantidade inválida, tente novamente !\n");
+            printf("///            Quantidade invalida, tente novamente !\n");
         }
 
     }while(validaDig || validaNull);
@@ -178,7 +178,7 @@ double preencheValorConsumo(void){
         validaDig = testeDigitosNumericosValorFlutuante(valor);
 
         if(validaDig){
-            printf("///            Dígitos inválidos, tente novamente !\n");
+            printf("///            Digitos invalidos, tente novamente !\n");
         }
 
     }while (validaDig);
@@ -197,7 +197,7 @@ char menuConsumo(void){
     printf("///                                                                   ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *     SIGPENTRY - Controle de Despensa    * * *        ///\n");
+    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
     printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -215,7 +215,7 @@ char menuConsumo(void){
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     
     do{
-        printf("Informe a sua opção : ");
+        printf("Informe a sua opcao : ");
         scanf("%[^\n]", &opcao);
         getchar();
 
@@ -223,7 +223,7 @@ char menuConsumo(void){
         validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
-            printf("Opção inválida, tente novamente!\n");
+            printf("Opcao invalida, tente novamente!\n");
         }
 
     }while(!validaOp || !validaOpM);
@@ -244,7 +244,7 @@ void exibirConsumo(Consumo* con){
     if(con == NULL){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
-        printf("///           Não existem consumos cadastrados com o CÓDIGO           ///\n");  
+        printf("///           Nao existem consumos cadastrados com o CODIGO           ///\n");  
         printf("///           informado.                                              ///\n");    
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
@@ -253,9 +253,9 @@ void exibirConsumo(Consumo* con){
     } else {
         printf("///        ___________________________________________________        \n");
         printf("///                                                                   \n");
-        printf("///              Código do consumo: %ld \n",con->codConsumo);
+        printf("///              Codigo do consumo: %ld \n",con->codConsumo);
         printf("///                Data do consumo: %s \n", con->dataConsumo);
-        printf("///             Horário do consumo: %s \n", con->horaConsumo);
+        printf("///             Horario do consumo: %s \n", con->horaConsumo);
         printf("///                  Qtd. produtos: %d \n", con->quant);
         printf("///                    Valor total: R$ %.2f \n", con->valor);
         printf("///        ___________________________________________________        \n");
@@ -287,7 +287,7 @@ void cadastrarConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///          = = = = =  MÓDULO CADASTRAR CONSUMO: = = = = =           ///\n");
+    printf("///          = = = = =  MODULO CADASTRAR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
     FILE* fp;
@@ -303,7 +303,7 @@ void cadastrarConsumo(void){
 
     long int codConsumo = geraCodConsumo();
 
-    printf("///            - Código do consumo: %ld \n", codConsumo);
+    printf("///            - Codigo do consumo: %ld \n", codConsumo);
 
     con->codConsumo = codConsumo;
 
@@ -375,8 +375,8 @@ void cadastrarConsumo(void){
             
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n");
-            printf("///           Este produto não existe na despensa ou a                ///\n");  
-            printf("///           quantidade consumida é superior à quant-                ///\n");   
+            printf("///           Este produto nao existe na despensa ou a                ///\n");  
+            printf("///           quantidade consumida e superior a quant-                ///\n");   
             printf("///           idade registrada no banco de dados.                     ///\n");                                                            
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n"); 
@@ -422,7 +422,7 @@ long int telaPesquisarConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///           = = = = =  MÓDULO PESQUISAR CONSUMO: = = = = =          ///\n");
+    printf("///           = = = = =  MODULO PESQUISAR CONSUMO: = = = = =          ///\n");
     printf("///                                                                   ///\n");
  
     long int codigo;
@@ -461,7 +461,7 @@ void pesquisarConsumo(void){
     if(con != NULL){ 
         printf("///        = = = = = = = = = LISTA DE ITENS = = = = = = = = =          \n");
         printf("///\n");
-        printf("///                Produto:    Qtd.:    Preço:\n");
+        printf("///                Produto:    Qtd.:    Preco:\n");
         printf("///\n");
         while(fread(item, sizeof(ItemC), 1, fi)){
             if(con->codConsumo == item->codConsumo){
@@ -491,7 +491,7 @@ long int telaExcluirConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            = = = = =  MÓDULO EXCLUIR CONSUMO: = = = = =           ///\n");
+    printf("///            = = = = =  MODULO EXCLUIR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
     long int codigo;
@@ -524,7 +524,7 @@ void excluirConsumoLog(Consumo* con){
             fclose(file);
         
             printf("///                                                                   ///\n");
-            printf("///            Consumo excluído com sucesso!                          ///\n"); 
+            printf("///            Consumo excluido com sucesso!                          ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -532,7 +532,7 @@ void excluirConsumoLog(Consumo* con){
 
         } else if (confirma == 'N' || confirma == 'n'){
             printf("///                                                                   ///\n");
-            printf("///            Operação cancelada!                                    ///\n"); 
+            printf("///            Operacao cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
             printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -571,7 +571,7 @@ long int telaAlterarConsumo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///            = = = = =  MÓDULO ALTERAR CONSUMO: = = = = =           ///\n");
+    printf("///            = = = = =  MODULO ALTERAR CONSUMO: = = = = =           ///\n");
     printf("///                                                                   ///\n");
 
     long int codigo;
@@ -585,7 +585,7 @@ char telaEscolhaConsumo(void){
     char opcao;
 
     do{
-        printf("///            - Informe a sua opção: ");
+        printf("///            - Informe a sua opcao: ");
         scanf("%[^\n]", &opcao);
         getchar();
 
@@ -593,7 +593,7 @@ char telaEscolhaConsumo(void){
         validaOp = validaOpcaoLetrasAC(opcao);
         
         if(!validaOp || validaDig){
-            printf("///            Opcão inválida, tente novamente!\n");
+            printf("///            Opcao invalida, tente novamente!\n");
         }
 
     }while(!validaOp || validaDig);
@@ -714,8 +714,8 @@ void listarConsumos(void){
     printf("///        *****************************************************************************        ///\n");
     printf("///        _____________________________________________________________________________        ///\n");
     printf("///                                                                                             ///\n");
-    printf("///         = = = = = = = = = = = = = MÓDULO - LISTAR CONSUMOS = = = = = = = = = = = = =        ///\n\n");
-    printf("            Código:     Data:           Hora:         Qtd.:     Valor:        Status:            \n\n");
+    printf("///         = = = = = = = = = = = = = MODULO - LISTAR CONSUMOS = = = = = = = = = = = = =        ///\n\n");
+    printf("            Codigo:     Data:           Hora:         Qtd.:     Valor:        Status:            \n\n");
 
     FILE* fp;
     Consumo* con;
