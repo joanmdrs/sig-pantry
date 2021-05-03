@@ -286,34 +286,18 @@ int validaCodBarras(char codBarras[]){
 		somaTotal = somaPares + (somaImpares * 3);
 		resultadoF = somaTotal / 10;
 		resultadoI = resultadoF;
+		resultadoI += 1;
 
-		if ((resultadoF - resultadoI) >= 0.5){
-			resultadoI += 1;
-			aux[0] = codBarras[12];
-			digitoI = atoi(aux);
-			digitoC = ((resultadoI + 1) * 10) - somaTotal;
+		aux[0] = codBarras[12];
+		digitoI = atoi(aux);
+		digitoC = ((resultadoI) * 10) - somaTotal;
 
-			if (digitoI == digitoC){
-				return 1;
-
-			}else{
-				return 0;
-
-			}
+		if (digitoI == digitoC){
+			return 1;
 
 		}else{
-			resultadoI = resultadoI;
-			aux[0] = codBarras[12];
-			digitoI = atoi(aux);
-			digitoC = ((resultadoI + 1) * 10) - somaTotal;
+			return 0;
 
-			if (digitoI == digitoC){
-				return 1;
-
-			}else{
-				return 0;
-
-			}
 		}
 
 	}else{
