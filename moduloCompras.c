@@ -722,9 +722,8 @@ void listarCompras(void){
         printf("\n");
         printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
         printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
     }
-    
-    getchar();
     free(com);
     fclose(fp);
 }

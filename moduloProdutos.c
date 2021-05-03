@@ -322,7 +322,9 @@ void pesquisarProduto(void){
         key = telaPesquisarPeloCod();
         pro = pegarProdutoPeloCod(key);
         exibeProduto(pro);
-        exibeTecleEnter();
+        if(pro != NULL){
+            exibeTecleEnter();
+        }
         free(key);
         free(pro);
 
@@ -330,7 +332,9 @@ void pesquisarProduto(void){
         desc = telaPesquisarPelaDesc();
         pro = pegarProdutoPelaDesc(desc);
         exibeProduto(pro);
-        exibeTecleEnter();
+        if(pro != NULL){
+            exibeTecleEnter();
+        }
         free(desc);
         free(pro);
 
@@ -400,7 +404,7 @@ void excluirProdutoLogicamente(Produto* pro){
             printf("///            Produto excluído com sucesso!                          ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
 
         } else if (confirma == 'N' || confirma == 'n'){
@@ -408,7 +412,7 @@ void excluirProdutoLogicamente(Produto* pro){
             printf("///            Operação cancelada!                                    ///\n"); 
             printf("///                                                                   ///\n");
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
-            printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            printf("\t\t>>> Tecle <ENTER> para continuar...\n");
             getchar();
         }
     }
