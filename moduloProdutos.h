@@ -6,6 +6,7 @@ struct produto {
     char nomeItem[51];
     char local[20];
     int quant;
+    double preco;
     char status[2];
     struct produto *prox;
 };
@@ -29,11 +30,11 @@ void mostraProdutos(Produto*);
 
 void exibeProduto(Produto*);
 
+Produto* pegarProdutoPeloCod(ChaveP*);
+
 Produto* telaCadastrarProduto(void);
 
 void cadastrarProduto(void);
-
-Produto* pegarProdutoPeloCod(ChaveP*);
 
 char telaTipoPesq(void);
 
@@ -56,6 +57,8 @@ char* telaAlterarDesc(void);
 char* telaAlterarLocal(void);
 
 char* telaAlterarQuant(void);
+
+double telaAlterarPreco(void);
 
 void regravarProduto(Produto*);
 

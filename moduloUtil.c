@@ -172,7 +172,7 @@ double preenchePrecoItem(void){
     precoC = (char*) malloc(10*sizeof(char));
 
     do{
-        printf("///            - Preco do Item: R$ ");
+        printf("///            - Preco: R$ ");
         scanf("%s", precoC);
         getchar();
         

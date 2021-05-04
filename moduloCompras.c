@@ -353,28 +353,29 @@ void cadastrarCompra(void){
         strcpy(pro->dataValidade, dataValidade); // Preenchendo a data de validade
         free(dataValidade);
 
-        char* nomeItem = preencheDesc();
-        strcpy(pro->nomeItem, nomeItem); // Preenchendo a descrição
-        strcpy(item->descricao, nomeItem);
-        free(nomeItem);
-
-        char* local = preencheLocal();
-        strcpy(pro->local, local); // Preenchendo o local
-        free(local);
-
-        char* quantP;
-        quantP = preencheQuantPro();
-        int quantidadeP;
-        quantidadeP = converteCharParaInt(quantP);
-        pro->quant = quantidadeP; // Preenchendo a quantidade
-        item->quant = quantidadeP;
+        double preco = 0.0;
         int achou = 0;
         while(fread(proe, sizeof(Produto), 1, fp)) {
             if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade) && strcmp(proe->status, "x")) {
-                proe->quant = proe->quant + quantidadeP;
+                achou = 1;
+                printf("///            - Descricao do Item: %s\n", proe->nomeItem);
+                printf("///            - Local: %s\n", proe->local);
+
+                char* quantP = preencheQuantPro();
+                int quantidadeP = converteCharParaInt(quantP);
+
+                preco = preenchePrecoItem();
+                proe->quant += quantidadeP;
+                proe->preco = preco;
+                valorCompra += (quantidadeP * preco);
+
+                strcpy(item->descricao, proe->nomeItem);
+                item->quant = quantidadeP;
+                item->valor = preco;
+                gravarItem(item);
+                free(item);
                 fseek(fp, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(proe, sizeof(Produto), 1, fp);
-                achou = 1;
                 free(pro);
                 break;
             }
@@ -382,22 +383,35 @@ void cadastrarCompra(void){
         fclose(fp);
         free(proe);
 
-        double preco = preenchePrecoItem();
-        item->valor = preco; 
-        valorCompra = valorCompra + (quantidadeP * preco);
+        if (achou == 0){
+            char* nomeItem = preencheDesc();
+            strcpy(pro->nomeItem, nomeItem); // Preenchendo a descrição
+            strcpy(item->descricao, nomeItem);
+            free(nomeItem);
 
-        if(achou == 1){
-            gravarItem(item);
-            free(item);
+            char* local = preencheLocal();
+            strcpy(pro->local, local); // Preenchendo o local
+            free(local);
 
-        }else if(achou == 0){
+            char* quantP = preencheQuantPro();
+            int quantidadeP = converteCharParaInt(quantP);
+            pro->quant = quantidadeP; // Preenchendo a quantidade
+            item->quant = quantidadeP;
+
+            preco = preenchePrecoItem();
+            pro->preco = preco;
+            item->valor = preco;
+            valorCompra += (quantidadeP * preco);
+
             strcpy(pro->status, "Y");
             pro->prox = NULL;
+
+            gravarItem(item);
             gravarProduto(pro);
             free(pro);
-            gravarItem(item);
-            free(item);   
+            free(item);
         }
+
     } 
     com->valor = valorCompra; // Preenchendo o valor da compra
     gravarCompra(com);

@@ -12,6 +12,7 @@ struct produto {
     char nomeItem[51];
     char local[20];
     int quant;
+    double preco;
     char status[2];
     struct produto *prox;
 };
@@ -74,7 +75,7 @@ void gravarProduto(Produto* pro){
 
 void mostraCabecalho(void){
     printf("///\n");
-    printf("///          Produto:                 Codigo:          Validade:      Qtd.:     Local:\n");
+    printf("///          Produto:                 Codigo:          Validade:      Qtd.:    Preco: R$        Local:\n");
     printf("///\n");
 }
 
@@ -83,6 +84,7 @@ void mostraProdutosControle(Produto* pro){
     printf("%13s\t", pro->codBarras);
     printf("%10s\t", pro->dataValidade);
     printf("%d\t", pro->quant);
+    printf("%.2f\t\t", pro->preco);
     printf("%-15s\t", pro->local);
     printf("%s\n", pro->status);
 }
@@ -92,6 +94,7 @@ void mostraProdutos(Produto* pro){
     printf("%13s\t", pro->codBarras);
     printf("%10s\t", pro->dataValidade);
     printf("%d\t", pro->quant);
+    printf("%.2f\t\t", pro->preco);
     printf("%-15s\n", pro->local);
 }
 
@@ -113,6 +116,7 @@ void exibeProduto(Produto* prod){
         printf("///                     Descricao: %s \n", prod->nomeItem);
         printf("///                         Local: %s \n", prod->local);
         printf("///                    Quantidade: %d \n", prod->quant);
+        printf("///                         Preco: R$ %.2f \n", prod->preco);
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
 
@@ -120,7 +124,7 @@ void exibeProduto(Produto* prod){
 
 }
 
-// SEÇÃO RELACIONADA AO CADASTRO ________________________________________________________________________________
+// SEÇÃO RELACIONADA AO CADASTRO ______________________________________________________________________________
 
 Produto* pegarProdutoPeloCod(ChaveP* key){
 
@@ -221,6 +225,10 @@ Produto* telaCadastrarProduto(void){
         pro->quant = converteCharParaInt(quantidade);
         free(quantidade);
 
+        // ------------------------ Preenchendo o preço do produto ----------------------------------
+
+        pro->preco = preenchePrecoItem();
+
         // --------------------------- Definindo o status do produto -----------------------------------
 
         strcpy(pro->status, "Y");
@@ -252,20 +260,21 @@ char telaTipoPesquisa(void){
     int validaDig;
 
     limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                                               ///\n");
-    printf("///        *******************************************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        *******************************************************************************        ///\n");
-    printf("///        _______________________________________________________________________________        ///\n");
-    printf("///                                                                                               ///\n");
-    printf("///        = = = = = = = = = = = = = MODULO - PESQUISAR PRODUTO = = = = = = = = = = = = =         ///\n");
-    printf("///                                                                                               ///\n");
-    printf("///          a) Pesquisar pelo Codigo de Barras                                                   ///\n");
-    printf("///          b) Pesquisar pela Descricao                                                          ///\n");
-    printf("///                                                                                               ///\n");
+    printf("/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                               ///\n");
+    printf("///        ***********************************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        ***********************************************************************************************        ///\n");
+    printf("///        _______________________________________________________________________________________________        ///\n");
+    printf("///                                                                                                               ///\n");
+    printf("///        = = = = = = = = = = = = = = = = = = MODULO - PESQUISAR PRODUTO = = = = = = = = = = = = = = = =         ///\n");
+    printf("///                                                                                                               ///\n");
+    printf("///          a) Pesquisar pelo Codigo de Barras                                                                   ///\n");
+    printf("///          b) Pesquisar pela Descricao                                                                          ///\n");
+    printf("///                                                                                                               ///\n");
+
     do{
         printf("///          Informe o tipo de pesquisa : ");
         scanf("%[^\n]", &tipoPesq);
@@ -297,7 +306,7 @@ void pesquisarProduto(void){
             exibeErroArquivo();
         }else{
             cod = preencheCodBarras();
-            printf("///        _______________________________________________________________________________\n");
+            printf("///        _______________________________________________________________________________________________\n");
             mostraCabecalho();
             while(fread(pro, sizeof(Produto), 1, fp)) {
                 if(!strcmp(pro->codBarras, cod) && strcmp(pro->status,"x")){
@@ -305,8 +314,8 @@ void pesquisarProduto(void){
                 }
             }
             printf("///\n");
-            printf("/////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
-            printf("                             >>> Tecle <ENTER> para continuar...\n");
+            printf("/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+            printf("                                      >>> Tecle <ENTER> para continuar...\n");
             getchar();
             free(cod);
         } 
@@ -316,7 +325,7 @@ void pesquisarProduto(void){
             exibeErroArquivo();
         }else{
             desc = preencheDesc();
-            printf("///        _______________________________________________________________________________\n");
+            printf("///        _______________________________________________________________________________________________\n");
             mostraCabecalho();
             while(fread(pro, sizeof(Produto), 1, fp)) {
                 if(!strcmp(pro->nomeItem, desc) && strcmp(pro->status,"x")){
@@ -324,8 +333,8 @@ void pesquisarProduto(void){
                 }
             }
             printf("///\n");
-            printf("/////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
-            printf("                             >>> Tecle <ENTER> para continuar...\n");
+            printf("/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+            printf("                                      >>> Tecle <ENTER> para continuar...\n");
             getchar();
             free(desc);
         }  
@@ -424,7 +433,7 @@ void excluirProduto(void){
 
 }
 
-// SEÇÃO RELACIONADA À ALTERAÇÃO ________________________________________________________________________________
+// SEÇÃO RELACIONADA À ALTERAÇÃO _______________________________________________________________________________
 
 char* telaAlterarValidade(void){
     int validaData;
@@ -516,6 +525,34 @@ char* telaAlterarQuant(void){
     return quant;
 }
 
+double telaAlterarPreco(void){
+
+    int validaDig;
+    int validaNull;
+
+    double precoD = 0.0;
+    char* precoC;
+    precoC = (char*) malloc(10*sizeof(char));
+
+    do{
+        printf("///            - Novo preco: R$ ");
+        scanf("%s", precoC);
+        getchar();
+        
+        validaDig = testeDigitosNumericosValorFlutuante(precoC);
+        validaNull = verificaNulo(precoC);
+
+        if(validaDig){
+            printf("///            Digitos invalidos, tente novamente !\n");
+        }
+
+    }while (validaDig || validaNull);
+
+    precoD = converteCharParaDouble(precoC);
+    free(precoC);
+    return precoD;
+}
+
 ChaveP* telaAlterarProduto(void){
     int validaCod;
     int validaData;
@@ -597,6 +634,8 @@ Produto* telaAlterarTudo(){
     pro->quant = converteCharParaInt(quantidade);
     free(quantidade);
 
+    pro->preco = telaAlterarPreco();
+
     pro->prox = NULL;
 
     return pro;   
@@ -622,6 +661,7 @@ void regravarProduto(Produto* pro){
                 strcpy(prod->nomeItem, proe->nomeItem);
                 strcpy(prod->local, proe->local);
                 prod->quant = proe->quant;
+                prod->preco = proe->preco;
                 prod->prox = proe->prox;
                 fseek(file, -1*sizeof(Produto), SEEK_CUR);
                 fwrite(prod, sizeof(Produto), 1, file);
@@ -663,6 +703,7 @@ void regravarCampo(Produto* pro){
     printf("///            - Digite 'b' para alterar a descricao                  ///\n");
     printf("///            - Digite 'c' para alterar o local                      ///\n");
     printf("///            - Digite 'd' para alterar a quantidade                 ///\n");
+    printf("///            - Digite 'e' para alterar o preco                      ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
 
@@ -672,7 +713,7 @@ void regravarCampo(Produto* pro){
         getchar();
 
         validaDig = testeDigito(opcao);
-        validaOp = validaOpcaoLetrasAD(opcao);
+        validaOp = validaOpcaoLetrasAE(opcao);
         
         if(!validaOp || validaDig){
             printf("///            Opcao invalida, tente novamente!\n");
@@ -758,6 +799,24 @@ void regravarCampo(Produto* pro){
         printf("/////////////////////////////////////////////////////////////////////////\n\n");
         printf("\t\t>>> Tecle <ENTER> para continuar...\n");
         getchar();
+
+    }else if(opcao == 'E' || opcao == 'e'){
+        double preco;
+        preco = telaAlterarPreco();
+        while(fread(prod, sizeof(Produto), 1, file)) {   
+            if(!strcmp(pro->codBarras, prod->codBarras) && !strcmp(pro->dataValidade, prod->dataValidade) && strcmp(prod->status, "x")){
+                prod->preco = preco;
+                fseek(file, -1*sizeof(Produto), SEEK_CUR);
+                fwrite(prod, sizeof(Produto), 1, file);
+                break;
+            }
+        }
+        printf("///                                                                   ///\n");
+        printf("///            O preco do produto foi alterado!                       ///\n");
+        printf("///                                                                   ///\n");
+        printf("/////////////////////////////////////////////////////////////////////////\n\n");
+        printf("\t\t>>> Tecle <ENTER> para continuar...\n");
+        getchar();
     }
     fclose(file);   
 }
@@ -811,17 +870,17 @@ void listarProdutos(void){
     Produto* pro;
 
     limpaTela();
-    printf("///////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                                                     ///\n");
-    printf("///        *************************************************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        *************************************************************************************        ///\n");
-    printf("///        ____________________________________________________________________________________         ///\n");
-    printf("///                                                                                                     ///\n");
-    printf("///        = = = = = = = = = = = = = = = MODULO - LISTAR PRODUTOS = = = = = = = = = = = = = = =         ///\n\n");
-    printf("                  Produto:      Codigo:         Validade:      Qtd.:    Local:         Status: \n\n");
+    printf("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                                  ///\n");
+    printf("///        ***************************************************************************************************       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        * * * * * * * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * * * * * *       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        ***************************************************************************************************       ///\n");
+    printf("///        ___________________________________________________________________________________________________       ///\n");
+    printf("///                                                                                                                  ///\n");
+    printf("///        = = = = = = = = = = = = = = = = = = = MODULO - LISTAR PRODUTOS = = = = = = = = = = = = = = = = = =        ///\n\n");
+    printf("                  Produto:      Codigo:         Validade:      Qtd.:    Preco: R$       Local:        Status:        \n\n");
 
 
     pro = (Produto*) malloc(sizeof(Produto));
@@ -834,8 +893,8 @@ void listarProdutos(void){
             mostraProdutosControle(pro);
         }
         printf("\n");
-        printf("///////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
-        printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+        printf("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("                                     >>> Tecle <ENTER> para continuar...\n");
         getchar();
     }
     free(pro);
