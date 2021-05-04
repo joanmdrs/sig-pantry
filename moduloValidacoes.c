@@ -472,6 +472,8 @@ int verificaNulo(char nome[]) {
   }
 }
 
+// A função geraNF gera um código de oito dígitos
+
 long int geraNF(void) {
 	srand(time(NULL));
   	return (9999999 + rand() % 99999999);

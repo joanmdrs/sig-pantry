@@ -11,6 +11,7 @@ struct produto {
 };
 
 typedef struct chaveP ChaveP;
+
 struct chaveP {
     char codBarras[14];
     char dataValidade[11];
@@ -20,6 +21,10 @@ char menuProdutos(void);
 
 void gravarProduto(Produto*);
 
+void mostraCabecalho(void);
+
+void mostraProdutosControle(Produto*);
+
 void mostraProdutos(Produto*);
 
 void exibeProduto(Produto*);
@@ -28,15 +33,9 @@ Produto* telaCadastrarProduto(void);
 
 void cadastrarProduto(void);
 
-char telaTipoPesq(void);
-
-ChaveP* telaPesquisarPeloCod(void);
- 
 Produto* pegarProdutoPeloCod(ChaveP*);
 
-char* telaPesquisarPelaDesc(void);
-
-Produto* pegarProdutoPelaDesc(char*);
+char telaTipoPesq(void);
 
 void pesquisarProduto(void);
 

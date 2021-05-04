@@ -72,13 +72,27 @@ void gravarProduto(Produto* pro){
     fclose(file);
 }
 
-void mostraProdutos(Produto* pro){
+void mostraCabecalho(void){
+    printf("///\n");
+    printf("///          Produto:                 Codigo:          Validade:      Qtd.:     Local:\n");
+    printf("///\n");
+}
+
+void mostraProdutosControle(Produto* pro){
     printf("%26s\t", pro->nomeItem);
     printf("%13s\t", pro->codBarras);
     printf("%10s\t", pro->dataValidade);
     printf("%d\t", pro->quant);
     printf("%-15s\t", pro->local);
     printf("%s\n", pro->status);
+}
+
+void mostraProdutos(Produto* pro){
+    printf("///          %-25s", pro->nomeItem);
+    printf("%13s\t", pro->codBarras);
+    printf("%10s\t", pro->dataValidade);
+    printf("%d\t", pro->quant);
+    printf("%-15s\n", pro->local);
 }
 
 void exibeProduto(Produto* prod){
@@ -107,6 +121,23 @@ void exibeProduto(Produto* prod){
 }
 
 // SEÇÃO RELACIONADA AO CADASTRO ________________________________________________________________________________
+
+Produto* pegarProdutoPeloCod(ChaveP* key){
+
+    FILE* file;
+    Produto* pro;
+    pro = (Produto*) malloc(sizeof(Produto));
+    file = fopen("produtos.dat", "rb");
+
+    while(fread(pro, sizeof(Produto), 1, file)){
+        if(!strcmp(pro->codBarras, key->codBarras) && !strcmp(pro->dataValidade, key->dataValidade) && strcmp(pro->status, "x") != 0){
+            fclose(file);
+            return pro;
+        }
+    }
+    fclose(file);
+    return NULL;
+}
 
 Produto* telaCadastrarProduto(void){
 
@@ -221,23 +252,22 @@ char telaTipoPesquisa(void){
     int validaDig;
 
     limpaTela();
-    printf("/////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                   ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        ***************************************************        ///\n");
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///          = = = = =  MODULO PESQUISAR PRODUTO: = = = = =           ///\n");
-    printf("///                                                                   ///\n");
-    printf("///           a) Pesquisar pelo Codigo de Barras                      ///\n");
-    printf("///           b) Pesquisar pela Descricao                             ///\n");
-    printf("///                                                                   ///\n");
-
+    printf("/////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                               ///\n");
+    printf("///        *******************************************************************************        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * *        ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+    printf("///        *******************************************************************************        ///\n");
+    printf("///        _______________________________________________________________________________        ///\n");
+    printf("///                                                                                               ///\n");
+    printf("///        = = = = = = = = = = = = = MODULO - PESQUISAR PRODUTO = = = = = = = = = = = = =         ///\n");
+    printf("///                                                                                               ///\n");
+    printf("///          a) Pesquisar pelo Codigo de Barras                                                   ///\n");
+    printf("///          b) Pesquisar pela Descricao                                                          ///\n");
+    printf("///                                                                                               ///\n");
     do{
-        printf("///            Informe o tipo de pesquisa : ");
+        printf("///          Informe o tipo de pesquisa : ");
         scanf("%[^\n]", &tipoPesq);
         getchar();
 
@@ -247,98 +277,61 @@ char telaTipoPesquisa(void){
             printf("Opcao invalida, tente novamente!\n");
         }
     }while(validaDig);
-    printf("///                                                                   ///\n");
+    printf("///\n");
     return tipoPesq;
 }
 
-ChaveP* telaPesquisarPeloCod(void){
-    ChaveP* key;
-    key = (ChaveP*) malloc(sizeof(ChaveP));
-
-    char* codBarras;
-    codBarras = preencheCodBarras();
-    strcpy(key->codBarras, codBarras);
-    free(codBarras);
-
-    char* dataValidade;
-    dataValidade = preencheDataValidade();
-    strcpy(key->dataValidade, dataValidade);
-    free(dataValidade);
-
-    return key;
-}
-
-Produto* pegarProdutoPeloCod(ChaveP* key){
-
-    FILE* file;
-    Produto* pro;
-    pro = (Produto*) malloc(sizeof(Produto));
-    file = fopen("produtos.dat", "rb");
-
-    while(fread(pro, sizeof(Produto), 1, file)){
-        if(!strcmp(pro->codBarras, key->codBarras) && !strcmp(pro->dataValidade, key->dataValidade) && strcmp(pro->status, "x") != 0){
-            fclose(file);
-            return pro;
-        }
-    }
-    fclose(file);
-    return NULL;
-}
-
-char* telaPesquisarPelaDesc(void){
-    
-    char* nomeItem;
-    nomeItem = preencheDesc();
-    return nomeItem;
-
-}
-
-Produto* pegarProdutoPelaDesc(char* desc){
-    FILE* file;
-    Produto* pro;
-    pro = (Produto*) malloc(sizeof(Produto));
-    file = fopen("produtos.dat", "rb");
-
-    while(fread(pro, sizeof(Produto), 1, file)){
-        if(!strcmp(pro->nomeItem, desc) && strcmp(pro->status,"x") != 0){
-            fclose(file);
-            return pro;
-        }
-    }
-    fclose(file);
-    return NULL;
-
-}
-
 void pesquisarProduto(void){
+    FILE* fp;
     Produto* pro;
-    ChaveP* key;
-    char opcao;
-    char* desc;
+    pro = (Produto*) malloc(sizeof(Produto));
+    fp = fopen("produtos.dat", "rb");
 
+    char opcao;
+    char* cod;
+    char* desc;
     opcao = telaTipoPesquisa();
 
     if(opcao == 'a'){
-        key = telaPesquisarPeloCod();
-        pro = pegarProdutoPeloCod(key);
-        exibeProduto(pro);
-        if(pro != NULL){
-            exibeTecleEnter();
-        }
-        free(key);
-        free(pro);
+        if (fp == NULL) {
+            exibeErroArquivo();
+        }else{
+            cod = preencheCodBarras();
+            printf("///        _______________________________________________________________________________\n");
+            mostraCabecalho();
+            while(fread(pro, sizeof(Produto), 1, fp)) {
+                if(!strcmp(pro->codBarras, cod) && strcmp(pro->status,"x")){
+                    mostraProdutos(pro);
+                }
+            }
+            printf("///\n");
+            printf("/////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+            printf("                             >>> Tecle <ENTER> para continuar...\n");
+            getchar();
+            free(cod);
+        } 
 
     }else if(opcao == 'b'){
-        desc = telaPesquisarPelaDesc();
-        pro = pegarProdutoPelaDesc(desc);
-        exibeProduto(pro);
-        if(pro != NULL){
-            exibeTecleEnter();
-        }
-        free(desc);
-        free(pro);
-
+        if (fp == NULL) {
+            exibeErroArquivo();
+        }else{
+            desc = preencheDesc();
+            printf("///        _______________________________________________________________________________\n");
+            mostraCabecalho();
+            while(fread(pro, sizeof(Produto), 1, fp)) {
+                if(!strcmp(pro->nomeItem, desc) && strcmp(pro->status,"x")){
+                    mostraProdutos(pro);
+                }
+            }
+            printf("///\n");
+            printf("/////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+            printf("                             >>> Tecle <ENTER> para continuar...\n");
+            getchar();
+            free(desc);
+        }  
     }
+    free(pro);
+    fclose(fp);
 }
 
 // SEÇÃO RELACIONADA À EXCLUSÃO ________________________________________________________________________________
@@ -838,7 +831,7 @@ void listarProdutos(void){
         exibeErroArquivo();
     }else{
         while(fread(pro, sizeof(Produto), 1, fp)) {
-            mostraProdutos(pro);
+            mostraProdutosControle(pro);
         }
         printf("\n");
         printf("///////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
