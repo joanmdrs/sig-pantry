@@ -370,6 +370,11 @@ char menuRelatorioCompras(void){
 
 void exibeRelCompra(Compra* com){
     printf("               %ld\t\t", com->codCompra);
+
+    char* data = dataReinvertida(com->dataCompra);
+    strcpy(com->dataCompra, data); 
+    free(data);
+        
     printf("%s\t", com->dataCompra);
     printf("%s\t", com->horaCompra);
     printf("%d\t", com->quant);
@@ -393,6 +398,11 @@ void exibirListaOrdemValor(Compra* aux){
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codCompra);
+
+        char* data = dataReinvertida(aux->dataCompra);
+        strcpy(aux->dataCompra, data); 
+        free(data);
+        
         printf("%s\t", aux->dataCompra);
         printf("%s\t", aux->horaCompra);
         printf("%d\t", aux->quant);
@@ -423,6 +433,11 @@ void exibirListaOrdemCrono(Compra* aux){
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codCompra);
+
+        char* data = dataReinvertida(aux->dataCompra);
+        strcpy(aux->dataCompra, data); 
+        free(data);
+        
         printf("%s\t", aux->dataCompra);
         printf("%s\t", aux->horaCompra);
         printf("%d\t", aux->quant);
@@ -756,6 +771,11 @@ char menuRelatorioConsumo(void){
 
 void exibeRelConsumo(Consumo* con){
     printf("               %ld\t\t", con->codConsumo);
+    
+    char* data = dataReinvertida(con->dataConsumo);
+    strcpy(con->dataConsumo, data); 
+    free(data);
+    
     printf("%s\t", con->dataConsumo);
     printf("%s\t", con->horaConsumo);
     printf("%d\t", con->quant);
@@ -779,6 +799,11 @@ void exibirListaOrdemValorC(Consumo* aux){
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codConsumo);
+    
+        char* data = dataReinvertida(aux->dataConsumo);
+        strcpy(aux->dataConsumo, data); 
+        free(data);
+    
         printf("%s\t", aux->dataConsumo);
         printf("%s\t", aux->horaConsumo);
         printf("%d\t", aux->quant);
@@ -809,6 +834,11 @@ void exibirListaOrdemCronoC(Consumo* aux){
 
     while (aux != NULL){
         printf("               %ld\t\t", aux->codConsumo);
+    
+        char* data = dataReinvertida(aux->dataConsumo);
+        strcpy(aux->dataConsumo, data); 
+        free(data);
+    
         printf("%s\t", aux->dataConsumo);
         printf("%s\t", aux->horaConsumo);
         printf("%d\t", aux->quant);

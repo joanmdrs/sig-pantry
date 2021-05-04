@@ -189,6 +189,11 @@ double preencheValorCompra(void){
 
 void mostraCompras(Compra* com){
     printf("            %ld\t", com->codCompra);
+
+    char* data = dataReinvertida(com->dataCompra);
+    strcpy(com->dataCompra, data); 
+    free(data);
+
     printf("%s\t", com->dataCompra);
     printf("%s\t", com->horaCompra);
     printf("%d\t", com->quant);
@@ -211,6 +216,11 @@ void exibirCompra(Compra* com){
         printf("///        ___________________________________________________        \n");
         printf("///                                                                   \n");
         printf("///              Codigo da compra: %ld \n",com->codCompra);
+
+        char* data = dataReinvertida(com->dataCompra);
+        strcpy(com->dataCompra, data); 
+        free(data);
+        
         printf("///                Data da compra: %s \n", com->dataCompra);
         printf("///             Horario da compra: %s \n", com->horaCompra);
         printf("///                 Qtd. produtos: %d \n", com->quant);

@@ -232,6 +232,11 @@ char menuConsumo(void){
 
 void mostraConsumos(Consumo* con){
     printf("            %ld\t", con->codConsumo);
+    
+    char* data = dataReinvertida(con->dataConsumo);
+    strcpy(con->dataConsumo, data); 
+    free(data);
+    
     printf("%s\t", con->dataConsumo);
     printf("%s\t", con->horaConsumo);
     printf("%d\t", con->quant);
@@ -254,6 +259,11 @@ void exibirConsumo(Consumo* con){
         printf("///        ___________________________________________________        \n");
         printf("///                                                                   \n");
         printf("///              Codigo do consumo: %ld \n",con->codConsumo);
+    
+        char* data = dataReinvertida(con->dataConsumo);
+        strcpy(con->dataConsumo, data); 
+        free(data);
+
         printf("///                Data do consumo: %s \n", con->dataConsumo);
         printf("///             Horario do consumo: %s \n", con->horaConsumo);
         printf("///                  Qtd. produtos: %d \n", con->quant);

@@ -36,6 +36,8 @@ int itensParaVencer(char []);
 
 char* dataInvertida(char*);
 
+char* dataReinvertida(char*);
+
 char* mesInvertido(char*);
 
 char* preencheMesEAno(void);

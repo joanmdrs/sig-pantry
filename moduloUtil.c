@@ -400,6 +400,24 @@ char* dataInvertida(char* data){
     return dataAux;
 }
 
+char* dataReinvertida(char* data){
+
+    char* dataAux;
+    dataAux = (char*) malloc(11*sizeof(char));
+	dataAux[0] = data[8];
+	dataAux[1] = data[9];
+	dataAux[2] = '/';
+	dataAux[3] = data[5];
+	dataAux[4] = data[6];
+	dataAux[5] = '/';
+	dataAux[6] = data[0];
+	dataAux[7] = data[1];
+	dataAux[8] = data[2];
+	dataAux[9] = data[3];
+	dataAux[10] = '\0';
+    return dataAux;
+}
+
 char* mesInvertido(char* data){
     char* dataAux;
     dataAux = (char*) malloc(8*sizeof(char));
