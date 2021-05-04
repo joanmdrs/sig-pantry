@@ -262,6 +262,457 @@ int pegaAno(void){
 	return ano;
 }
 
+char* retornaDiaConvertido(void){
+
+    time_t timer;
+	struct tm *horarioLocal;
+	time(&timer); // Obtem informações de data e hora
+	horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+	int x = horarioLocal->tm_mday;
+	
+	int aux;
+    char* valor;
+    valor = (char*) malloc(3*sizeof(char));
+	
+	if(x >= 1 && x <= 9){
+		valor[0] = '0';
+		valor[1] = 49;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x >= 10 && x <= 19){
+		valor[0] = '1';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 20 && x <= 29){
+		valor[0] = '2';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 30 && x <= 31){
+		valor[0] = '3';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}
+
+    return valor;
+}
+
+char* retornaMesConvertido(void){
+
+    time_t timer;
+	struct tm *horarioLocal;
+	time(&timer); // Obtem informações de data e hora
+	horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+	int x = horarioLocal->tm_mon + 1;
+	
+	int aux;
+    char* valor;
+    valor = (char*) malloc(3*sizeof(char));
+	
+	if(x >= 1 && x <= 9){
+		valor[0] = '0';
+		valor[1] = 49;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x >= 10 && x <= 12){
+		valor[0] = '1';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}
+
+    return valor;
+}
+
+char* retornaAnoConvertido(void){
+
+    time_t timer;
+	struct tm *horarioLocal;
+	time(&timer); // Obtem informações de data e hora
+	horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+	int x = horarioLocal->tm_year + 1900;
+	int aux;
+    char* valor;
+    valor = (char*) malloc(5*sizeof(char));
+
+	if(x >= 2021 && x <= 2029){
+		valor[0] = '2';
+		valor[1] = '0';
+		valor[2] = '2';
+		valor[3] =  49;
+		valor[4] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[3] += 1;
+			}
+		}
+
+	}else if(x >= 2030 && x <= 2039){
+		valor[0] = '2';
+		valor[1] = '0';
+		valor[2] = '3';
+		valor[3] =  48;
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[3] += 1;
+			}
+		}
+	}
+
+    return valor;
+}
+
+char* retornaData(void){
+
+    char* data;
+    data = (char*) malloc(11*sizeof(char));
+
+    char* dia = retornaDiaConvertido();
+	char* mes = retornaMesConvertido();
+	char* ano = retornaAnoConvertido();
+
+    data[0] = ano[0];
+	data[1] = ano[1];
+	data[2] = ano[2];
+	data[3] = ano[3];
+	data[4] = '/';
+	data[5] = mes[0];
+	data[6] = mes[1];
+	data[7] = '/';
+	data[8] = dia[0];
+	data[9] = dia[1];
+	data[10] = '\0';
+
+    return data;
+}
+
+char* retornaHoraConvertida(void){
+
+    time_t timer;
+	struct tm *horarioLocal;
+
+	time(&timer); // Obtem informações de data e hora
+	horarioLocal = localtime(&timer); 
+
+	int x = horarioLocal->tm_hour;
+	
+	int aux;
+    char* valor;
+    valor = (char*) malloc(3*sizeof(char));
+	
+	if(x >= 1 && x <= 9){
+		valor[0] = '0';
+		valor[1] = 49;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x == 0){
+		valor[0] = '0';
+		valor[1] = '0';
+		valor[2] = '\0';
+		
+	}else if(x >= 10 && x <= 19){
+		valor[0] = '1';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x >= 20 && x <= 23){
+		valor[0] = '2';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}
+
+    return valor;
+}
+
+char* retornaMinConvertidos(void){
+
+    time_t timer;
+	struct tm *horarioLocal;
+	time(&timer); // Obtem informações de data e hora
+	horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+	int x  = horarioLocal->tm_min;
+	
+    int aux;
+    char* valor;
+    valor = (char*) malloc(3*sizeof(char));
+	if(x == 0){
+		valor[0] = '0';
+		valor[1] = '0';
+		valor[2] = '\0';
+
+	}else if(x >= 1 && x <= 9){
+		valor[0] = '0';
+		valor[1] = 49;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x >= 10 && x <= 19){
+		valor[0] = '1';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 20 && x <= 29){
+		valor[0] = '2';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 30 && x <= 39){
+		valor[0] = '3';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x >= 40 && x <= 49){
+		valor[0] = '4';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 50 && x <= 59){
+		valor[0] = '5';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}
+
+    return valor;
+}
+
+char* retornaSegConvertidos(void){
+
+    time_t timer;
+	struct tm *horarioLocal;
+	time(&timer); // Obtem informações de data e hora
+	horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+	int x  = horarioLocal->tm_sec;
+
+    int aux;
+    char* valor;
+    valor = (char*) malloc(3*sizeof(char));
+
+	if(x == 0){
+		valor[0] = '0';
+		valor[1] = '0';
+		valor[2] = '\0';
+
+	}else if(x >= 1 && x <= 9){
+		valor[0] = '0';
+		valor[1] = 49;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x >= 10 && x <= 19){
+		valor[0] = '1';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 20 && x <= 29){
+		valor[0] = '2';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 30 && x <= 39){
+		valor[0] = '3';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+
+	}else if(x >= 40 && x <= 49){
+		valor[0] = '4';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}else if(x >= 50 && x <= 59){
+		valor[0] = '5';
+		valor[1] = 48;
+		valor[2] = '\0';
+		for(int i = 0; i < x; i++){
+			aux = atoi(valor);
+			if(aux == x){
+				break;
+			}else{
+				valor[1] += 1;
+			}
+		}
+	}
+
+    return valor;
+}
+
+char* retornaHora(void){
+
+    char* hora;
+    hora = (char*) malloc(9*sizeof(char));
+
+    char* hour = retornaHoraConvertida();
+	char* min = retornaMinConvertidos();
+	char* seg = retornaSegConvertidos();	
+
+    hora[0] = hour[0];
+	hora[1] = hour[1];
+	hora[2] = ':';
+	hora[3] = min[0];
+	hora[4] = min[1];
+	hora[5] = ':';
+	hora[6] = seg[0];
+	hora[7] = seg[1];
+	hora[8] = '\0'; 
+
+    return hora;
+}
+
 // Quando esta função retorna 1 o produto está vencido
 int itensVencidos(char n[]){
 

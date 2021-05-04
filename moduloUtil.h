@@ -30,6 +30,22 @@ int pegaMes(void);
 
 int pegaAno(void);
 
+char* retornaDiaConvertido(void);
+
+char* retornaMesConvertido(void);
+
+char* retornaAnoConvertido(void);
+
+char* retornaData(void);
+
+char* retornaHoraConvertida(void);
+
+char* retornaMinConvertidos(void);
+
+char* retornaSegConvertidos(void);
+
+char* retornaHora(void);
+
 int itensVencidos(char []);
 
 int itensParaVencer(char []);

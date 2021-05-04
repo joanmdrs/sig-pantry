@@ -244,6 +244,8 @@ Produto* telaCadastrarProduto(void){
         return pro;
     }
 
+    return NULL;
+
 }
 
 void cadastrarProduto(void){

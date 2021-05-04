@@ -314,11 +314,11 @@ void cadastrarCompra(void){
 
     com->codCompra = codCompra;
 
-    char* dataCompra = preencheDataCompra();
+    char* dataCompra = retornaData();
     strcpy(com->dataCompra, dataCompra); // Preenchendo a data da compra
     free(dataCompra);
 
-    char* horaCompra = preencheHoraCompra();
+    char* horaCompra = retornaHora();
     strcpy(com->horaCompra, horaCompra); // Preenchendo a hora da compra
     free(horaCompra);
 

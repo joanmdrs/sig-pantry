@@ -317,11 +317,11 @@ void cadastrarConsumo(void){
 
     con->codConsumo = codConsumo;
 
-    char* dataConsumo = preencheDataConsumo();
+    char* dataConsumo = retornaData();
     strcpy(con->dataConsumo, dataConsumo);
     free(dataConsumo);
 
-    char* horaConsumo = preencheHoraConsumo();
+    char* horaConsumo = retornaHora();
     strcpy(con->horaConsumo, horaConsumo);
     free(horaConsumo);
 
