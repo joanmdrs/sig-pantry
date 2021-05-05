@@ -37,7 +37,9 @@ char* preencheDataConsumo(void);
 
 char* preencheHoraConsumo(void);
 
-char* preencheQuantConsumo(void);
+char* preencheQuantItensConsumo(void);
+
+char* preencheQuantAConsumir(void);
 
 double preencheValorConsumo(void);
 

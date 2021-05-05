@@ -108,6 +108,7 @@ void exibeProduto(Produto* prod){
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
         exibeTecleEnter();
+
     } else {
         printf("///        ___________________________________________________        ///\n");
         printf("///                                                                   ///\n");
@@ -236,19 +237,18 @@ Produto* telaCadastrarProduto(void){
 
         // ---------------------------------------------------------------------------------------
 
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                  Produto cadastrado com sucesso !                 ///\n");
+        printf("///        ___________________________________________________        \n");
+        printf("///                                                                   \n");
+        printf("///                  Produto cadastrado com sucesso !                 \n");
         exibeProduto(pro);
         exibeTecleEnter();
         return pro;
     }
 
-    return NULL;
-
 }
 
 void cadastrarProduto(void){
+    
     Produto* prod;
     prod = telaCadastrarProduto();
     gravarProduto(prod);

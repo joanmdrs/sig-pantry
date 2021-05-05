@@ -306,26 +306,23 @@ void cadastrarCompra(void){
     Produto* proe;
     Item* item;
 
-// ------------------------- Gerando o código da compra ----------------------------------
-
-    long int codCompra = geraCodCompra();
-
+    long int codCompra = geraCodCompra(); // Gerando o codigo da compra
     printf("///            - Codigo da compra: %ld \n", codCompra);
-
     com->codCompra = codCompra;
 
     char* dataCompra = retornaData();
-    strcpy(com->dataCompra, dataCompra); // Preenchendo a data da compra
+    strcpy(com->dataCompra, dataCompra); // Pegando a data da compra automaticamente
     free(dataCompra);
+    char* data = dataReinvertida(com->dataCompra);
+    printf("///            - Data da compra: %s \n", data);
 
     char* horaCompra = retornaHora();
-    strcpy(com->horaCompra, horaCompra); // Preenchendo a hora da compra
+    strcpy(com->horaCompra, horaCompra); // Pegando a hora da compra automaticamente
     free(horaCompra);
+    printf("///            - Horario da compra: %s \n", com->horaCompra);
 
-    char* quant;
-    quant = preencheQuantCompra();
-    int quantidade;
-    quantidade = converteCharParaInt(quant);
+    char* quant = preencheQuantCompra();
+    int quantidade = converteCharParaInt(quant);
     com->quant = quantidade; // Preenchendo a quantidade de itens da compra
 
     com->status = 'Y'; 
@@ -415,12 +412,13 @@ void cadastrarCompra(void){
     } 
     com->valor = valorCompra; // Preenchendo o valor da compra
     gravarCompra(com);
-    printf("///        ___________________________________________________        ///\n");
-    printf("///                                                                   ///\n");
-    printf("///                  Compra cadastrada com sucesso !                  ///\n");
+    printf("///        ___________________________________________________        \n");
+    printf("///                                                                   \n");
+    printf("///                  Compra cadastrada com sucesso !                  \n");
     exibirCompra(com);
     exibeTecleEnter();
     free(com);
+    free(data);
 }
 
 // SEÇÃO RELACIONADA À PESQUISA ________________________________________________________________________________

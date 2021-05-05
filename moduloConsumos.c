@@ -141,7 +141,7 @@ char* preencheHoraConsumo(void){
     return horaConsumo;
 }
 
-char* preencheQuantConsumo(void){
+char* preencheQuantItensConsumo(void){
     int validaDig;
     int validaNull;
     
@@ -149,7 +149,31 @@ char* preencheQuantConsumo(void){
     quantC = (char*) malloc(20*sizeof(char));
 
     do{
-        printf("///            - Quant. Itens Consumidos: ");
+        printf("///            - Qtd. itens consumidos: ");
+        scanf("%[^\n]", quantC);
+        getchar();
+    
+        validaDig = testeDigitosNumericos(quantC);
+        validaNull = verificaNulo(quantC);  
+
+        if(validaDig || validaNull){
+            printf("///            Quantidade invalida, tente novamente !\n");
+        }
+
+    }while(validaDig || validaNull);
+
+    return quantC;
+}
+
+char* preencheQuantAConsumir(void){
+    int validaDig;
+    int validaNull;
+    
+    char* quantC;
+    quantC = (char*) malloc(20*sizeof(char));
+
+    do{
+        printf("///            - Qtd. à consumir: ");
         scanf("%[^\n]", quantC);
         getchar();
     
@@ -275,6 +299,7 @@ void exibirConsumo(Consumo* con){
 }
 
 void exibirItemC(ItemC* item){
+
     printf("///%23s\t", item->descricao);
     printf("%d\t", item->quant);
     printf("R$ %.2f\n", item->valor);
@@ -321,14 +346,17 @@ void cadastrarConsumo(void){
     strcpy(con->dataConsumo, dataConsumo);
     free(dataConsumo);
 
+    char* data = dataReinvertida(con->dataConsumo);
+    printf("///            - Data do consumo: %s \n", data);
+
     char* horaConsumo = retornaHora();
     strcpy(con->horaConsumo, horaConsumo);
     free(horaConsumo);
 
-    char* quant;
-    quant = preencheQuantConsumo();
-    int q;
-    q = converteCharParaInt(quant);
+    printf("///            - Horario do consumo: %s \n", con->horaConsumo);
+
+    char* quant = preencheQuantItensConsumo();
+    int q = converteCharParaInt(quant);
 
     con->status = 'Y';
 
@@ -355,22 +383,34 @@ void cadastrarConsumo(void){
         strcpy(pro->dataValidade, dataValidade);
         free(dataValidade);
 
-        char* quantP;
-        quantP = preencheQuantPro();
-        int quantidadeP;
-        quantidadeP = converteCharParaInt(quantP);
-        pro->quant = quantidadeP;
-        item->quant = quantidadeP;
-
         int achou = 0;
 
         while(fread(proe, sizeof(Produto), 1, fp)) {
             if (!strcmp(proe->codBarras, pro->codBarras) && !strcmp(proe->dataValidade, pro->dataValidade) && strcmp(proe->status, "x")) {
-                if (proe->quant > q || proe->quant == quantidadeP ){
-                    proe->quant = proe->quant - quantidadeP;
-                    strcpy(item->descricao, proe->nomeItem);
+                printf("///            - Descricao do Item: %s\n", proe->nomeItem);
+                printf("///            - Local: %s\n", proe->local);
+                printf("///            - Qtd. Atual: %d\n", proe->quant);
+
+                char* quantP = preencheQuantAConsumir();
+                int quantidadeP = converteCharParaInt(quantP);
+                pro->quant = quantidadeP;
+                item->quant = quantidadeP;
+
+                if (proe->quant >= quantidadeP ){
+
+                    proe->quant -= quantidadeP;
                     fseek(fp, -1*sizeof(Produto), SEEK_CUR);
                     fwrite(proe, sizeof(Produto), 1, fp);
+
+                    double preco = proe->preco;
+                    valorConsumo += quantidadeP * preco;
+
+                    strcpy(item->descricao, proe->nomeItem);
+                    item->quant = proe->quant;
+                    item->valor = proe->preco;
+                    gravarItemC(item);
+                    free(item);
+                    
                     achou = 1;
                     certeza += 1;
                     free(pro);
@@ -379,6 +419,7 @@ void cadastrarConsumo(void){
             }
         }
         fclose(fp);
+        free(pro);
         free(proe);
 
         if(achou == 0){
@@ -395,26 +436,21 @@ void cadastrarConsumo(void){
             getchar();
             break;
 
-        }else if(achou == 1){
-            double preco = preenchePrecoItem();
-            item->valor = preco;
-            valorConsumo = valorConsumo + (quantidadeP * preco);
-            gravarItemC(item);
-            free(item);
-        } 
+        }    
     }
 
     if(certeza > 0){
         con->quant = certeza;
         con->valor = valorConsumo;
         gravarConsumo(con);
-        printf("///        ___________________________________________________        ///\n");
-        printf("///                                                                   ///\n");
-        printf("///                  Consumo cadastrado com sucesso !                 ///\n");
+        printf("///        ___________________________________________________        \n");
+        printf("///                                                                   \n");
+        printf("///                  Consumo cadastrado com sucesso !                 \n");
         exibirConsumo(con);
         exibeTecleEnter();
         free(con);
     }
+    free(data);
 
 }
 
