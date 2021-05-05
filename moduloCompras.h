@@ -66,3 +66,5 @@ void regravarCompra(Compra*);
 void alterarCompra(void);
 
 void listarCompras(void);
+
+void excluirCompras(void);

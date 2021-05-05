@@ -46,6 +46,7 @@ char menuProdutos(void){
     printf("///            3 - Excluir produto                                    ///\n");
     printf("///            4 - Alterar produto                                    ///\n");
     printf("///            5 - Listar produtos                                    ///\n");
+    printf("///            6 - Lixeira                                            ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -56,7 +57,7 @@ char menuProdutos(void){
         scanf("%[^\n]", &opcao);
         getchar();
         validaI = testeDigito(opcao);
-        validaII = validaOpcaoMenu(opcao, 5); 
+        validaII = validaOpcaoMenu(opcao, 6); 
 
         if(!validaI || !validaII){
             printf("Opção invalida, tente novamente!\n");
@@ -80,13 +81,18 @@ void mostraCabecalho(void){
 }
 
 void mostraProdutosControle(Produto* pro){
-    printf("%26s\t", pro->nomeItem);
+    printf("///%23s\t", pro->nomeItem);
     printf("%13s\t", pro->codBarras);
     printf("%10s\t", pro->dataValidade);
     printf("%d\t", pro->quant);
     printf("%.2f\t\t", pro->preco);
     printf("%-15s\t", pro->local);
-    printf("%s\n", pro->status);
+    if(!strcmp(pro->status, "Y")){
+        printf("%s\n", "Disponível");
+    }else if(!strcmp(pro->status, "x")){
+        printf("%s\n", "Excluído");
+    }
+
 }
 
 void mostraProdutos(Produto* pro){
@@ -872,18 +878,19 @@ void listarProdutos(void){
     Produto* pro;
 
     limpaTela();
-    printf("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                                                                  ///\n");
-    printf("///        ***************************************************************************************************       ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
-    printf("///        * * * * * * * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * * * * * *       ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
-    printf("///        ***************************************************************************************************       ///\n");
-    printf("///        ___________________________________________________________________________________________________       ///\n");
-    printf("///                                                                                                                  ///\n");
-    printf("///        = = = = = = = = = = = = = = = = = = = MÓDULO - LISTAR PRODUTOS = = = = = = = = = = = = = = = = = =        ///\n\n");
-    printf("                  Produto:      Código:         Validade:      Qtd.:    Preço: R$       Local:        Status:        \n\n");
-
+    printf("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                                        ///\n");
+    printf("///        *********************************************************************************************************       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        *********************************************************************************************************       ///\n");
+    printf("///        _________________________________________________________________________________________________________       ///\n");
+    printf("///                                                                                                                        ///\n");
+    printf("///        = = = = = = = = = = = = = = = = = = = = MÓDULO - LISTAR PRODUTOS = = = = = = = = = = = = = = = = = = = =        ///\n");
+    printf("///\n");
+    printf("///               Produto:      Código:         Validade:      Qtd.:    Preço: R$       Local:          Status:               \n");
+    printf("///\n");
 
     pro = (Produto*) malloc(sizeof(Produto));
     fp = fopen("produtos.dat", "rb");
@@ -894,12 +901,89 @@ void listarProdutos(void){
         while(fread(pro, sizeof(Produto), 1, fp)) {
             mostraProdutosControle(pro);
         }
-        printf("\n");
-        printf("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
-        printf("                                     >>> Tecle <ENTER> para continuar...\n");
+        printf("///\n");
+        printf("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("                                         >>> Tecle <ENTER> para continuar...\n");
         getchar();
     }
     free(pro);
     fclose(fp);
 
 }
+
+void excluirProdutos(void){
+
+    limpaTela();
+    printf("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                                        ///\n");
+    printf("///        *********************************************************************************************************       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * *   SIG-PANTRY - Controle de Despensa   * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       ///\n");
+    printf("///        *********************************************************************************************************       ///\n");
+    printf("///        _________________________________________________________________________________________________________       ///\n");
+    printf("///                                                                                                                        ///\n");
+    printf("///        = = = = = = = = = = = = = = = = = = = = = = MÓDULO - LIXEIRA = = = = = = = = = = = = = = = = = = = = = =        ///\n");
+    printf("///\n");
+    printf("///               Produto:      Código:         Validade:      Qtd.:    Preço: R$       Local:          Status:              \n");
+    printf("///\n");
+
+    char confirma;
+    int cont = 0;
+    FILE* original;
+    FILE* novo;
+
+    Produto* pro;
+    Produto* proe;
+    proe = (Produto*) malloc(sizeof(Produto));
+    pro = (Produto*) malloc(sizeof(Produto));
+
+    original = fopen("produtos.dat", "rb");
+
+    if(original == NULL){
+        exibeErroArquivo();
+
+    }else{
+        while(fread(proe, sizeof(Produto), 1, original)) {
+            if(!strcmp(proe->status,"x")){
+                mostraProdutosControle(proe);
+                cont += 1;
+            }
+        }
+        fclose(original);
+        free(proe);
+        printf("///\n");
+        printf("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+        printf("///\n");
+
+        if(cont > 0){
+            confirma = confirmaExclusao();
+
+            if(confirma == 'S' || confirma == 's'){
+                original = fopen("produtos.dat", "rb");
+                novo = fopen("novo.dat", "ab");
+            
+                while(fread(pro, sizeof(Produto), 1, original)) {
+                    if(!strcmp(pro->status, "Y")){
+                        fwrite(pro, sizeof(Produto), 1, novo);
+                    }
+                }
+                fclose(original);
+                fclose(novo);
+                free(pro);
+                remove("produtos.dat");
+                rename("novo.dat", "produtos.dat");
+
+                telaLixeiraVazia();
+
+            }else if(confirma == 'N' || confirma == 'n'){
+                telaLixeiraSemAlteracoes();
+
+            }
+        }else{
+            telaLixeiraVazia();
+        }
+    }
+}
+
+

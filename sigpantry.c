@@ -45,6 +45,9 @@ int main(void) {
                         case '5':
                             listarProdutos();
                             break;
+                        case '6':
+                            excluirProdutos();
+                            break;
                     }
 
                 }while(opcao2 != '0');
@@ -70,6 +73,9 @@ int main(void) {
                         case '5':
                             listarCompras();
                             break;
+                        case '6':
+                            excluirCompras();
+                            break;
                     }
 
                 } while (opcao3 != '0');
@@ -94,6 +100,9 @@ int main(void) {
                             break;
                         case '5':
                             listarConsumos();
+                            break;
+                        case '6':
+                            excluirConsumos();
                             break;
                     }
 

@@ -187,7 +187,14 @@ int validaOpcao(char n){
 
 int validaOpcaoMenu(char n, int q){
 
-	if (q == 5){
+	if(q == 6){
+		if (n == '1' || n == '2' || n == '3' || n == '4' || n == '5' || n == '6' || n == '0'  ){
+			return 1;
+		}else{
+			return 0;
+		}
+		
+	}else if (q == 5){
 		if (n == '1' || n == '2' || n == '3' || n == '4' || n == '5' || n == '0'  ){
 			return 1;
 		}else{

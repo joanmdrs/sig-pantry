@@ -1013,8 +1013,41 @@ char* recortaAno(char* data){
     return dataAux;
 }
 
+void telaLixeiraVazia(void){
+	limpaTela();
+	printf("/////////////////////////////////////////////////////////////////////////\n");
+	printf("///                                                                   ///\n");
+	printf("///        ***************************************************        ///\n");
+	printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+	printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
+	printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+	printf("///        ***************************************************        ///\n");
+	printf("///        ___________________________________________________        ///\n");
+	printf("///                                                                   ///\n");
+	printf("///           = = = = = = = MÓDULO - LIXEIRA: = = = = = = =           ///\n");
+	printf("///                                                                   ///\n");
+	printf("///            A lixeira está vazia.                                  ///\n");
+	printf("///                                                                   ///\n");
+	exibeTecleEnter();
+}
 
-
+void telaLixeiraSemAlteracoes(void){
+	limpaTela();
+	printf("/////////////////////////////////////////////////////////////////////////\n");
+	printf("///                                                                   ///\n");
+	printf("///        ***************************************************        ///\n");
+	printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+	printf("///        * * *    SIG-PANTRY - Controle de Despensa    * * *        ///\n");
+	printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
+	printf("///        ***************************************************        ///\n");
+	printf("///        ___________________________________________________        ///\n");
+	printf("///                                                                   ///\n");
+	printf("///           = = = = = = = MÓDULO - LIXEIRA: = = = = = = =           ///\n");
+	printf("///                                                                   ///\n");
+	printf("///            Sem alterações na lixeira.                             ///\n");
+	printf("///                                                                   ///\n");
+	exibeTecleEnter();
+}
 
 
 

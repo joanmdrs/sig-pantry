@@ -188,7 +188,7 @@ double preencheValorCompra(void){
 }
 
 void mostraCompras(Compra* com){
-    printf("            %ld\t", com->codCompra);
+    printf("///         %ld\t", com->codCompra);
 
     char* data = dataReinvertida(com->dataCompra);
     strcpy(com->dataCompra, data); 
@@ -198,7 +198,11 @@ void mostraCompras(Compra* com){
     printf("%s\t", com->horaCompra);
     printf("%d\t", com->quant);
     printf("R$%.2f\t\t", com->valor);
-    printf("%c\n", com->status);
+    if(com->status == 'x'){
+        printf("%s\n", "Excluída");
+    }else if(com->status == 'Y'){
+        printf("%s\n", "Disponível");
+    }
 }
 
 void exibirCompra(Compra* com){
@@ -258,6 +262,7 @@ char menuCompras(void){
     printf("///            3 - Excluir compra                                     ///\n");
     printf("///            4 - Alterar compra                                     ///\n");
     printf("///            5 - Listar compras                                     ///\n");
+    printf("///            6 - Lixeira                                            ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -269,7 +274,7 @@ char menuCompras(void){
         getchar();
 
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, 5); 
+        validaOpM = validaOpcaoMenu(opcao, 6); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -718,17 +723,19 @@ void alterarCompra(void){
 void listarCompras(void){
 
     limpaTela();
-    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                                             ///\n");
-    printf("///        *****************************************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        *****************************************************************************        ///\n");
-    printf("///        _____________________________________________________________________________        ///\n");
-    printf("///                                                                                             ///\n");
-    printf("///        = = = = = = = = = = = = = = MÓDULO - LISTAR COMPRAS = = = = = = = = = = = = =        ///\n\n");
-    printf("            Código:     Data:           Hora:         Qtd.:     Valor:        Status:            \n\n");
+    printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                  ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        _________________________________________________________________________________         ///\n");
+    printf("///                                                                                                  ///\n");
+    printf("///        = = = = = = = = = = = = = = =  MÓDULO - LISTAR COMPRAS = = = = = = = = = = = = =          ///\n");
+    printf("///\n");
+    printf("///         Código:     Data:           Hora:         Qtd.:     Valor:          Status:                 \n");
+    printf("///\n");
 
     FILE* fp;
     Compra* com;
@@ -741,12 +748,87 @@ void listarCompras(void){
         while(fread(com, sizeof(Compra), 1, fp)) {
             mostraCompras(com);
         }
-        printf("\n");
-        printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("///\n");
+        printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
         printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
         getchar();
     }
     free(com);
     fclose(fp);
+}
+
+void excluirCompras(void){
+    limpaTela();
+    printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                  ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        _________________________________________________________________________________         ///\n");
+    printf("///                                                                                                  ///\n");
+    printf("///        = = = = = = = = = = = = = = = = MÓDULO - LIXEIRA = = = = = = = = = = = = = = = =          ///\n");
+    printf("///\n");
+    printf("///         Código:     Data:           Hora:         Qtd.:     Valor:          Status:                 \n");
+    printf("///\n");
+
+    char confirma;
+    int cont = 0;
+    FILE* original;
+    FILE* novo;
+
+    Compra* com;
+    Compra* comp;
+
+    com = (Compra*) malloc(sizeof(Compra));
+    comp = (Compra*) malloc(sizeof(Compra));
+
+    original = fopen("compras.dat", "rb");
+
+    if(original == NULL){
+        exibeErroArquivo();
+
+    }else{
+        while(fread(comp, sizeof(Compra), 1, original)) {
+            if(comp->status == 'x'){
+                mostraCompras(comp);
+                cont += 1;
+            }
+        }
+        fclose(original);
+        free(comp);
+        printf("///\n");
+        printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+        printf("///\n");
+
+        if(cont > 0){
+            confirma = confirmaExclusao();
+
+            if(confirma == 'S' || confirma == 's'){
+                original = fopen("compras.dat", "rb");
+                novo = fopen("novo.dat", "ab");
+            
+                while(fread(com, sizeof(Compra), 1, original)) {
+                    if(com->status == 'Y'){
+                        fwrite(com, sizeof(Compra), 1, novo);
+                    }
+                }
+                fclose(original);
+                fclose(novo);
+                free(com);
+                remove("compras.dat");
+                rename("novo.dat", "compras.dat");
+
+                telaLixeiraVazia();
+
+            }else if(confirma == 'N' || confirma == 'n'){
+                telaLixeiraSemAlteracoes();
+
+            }
+        }else{
+            telaLixeiraVazia();
+        }
+    }
 }
 

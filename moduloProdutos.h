@@ -67,3 +67,5 @@ void regravarCampo(Produto*);
 void alterarProduto(void);
 
 void listarProdutos(void);
+
+void excluirProdutos(void);

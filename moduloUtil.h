@@ -67,3 +67,7 @@ char* preencheAno(void);
 char* preencheAnoC(void);
 
 char* recortaAno(char*);
+
+void telaLixeiraVazia(void);
+
+void telaLixeiraSemAlteracoes(void);

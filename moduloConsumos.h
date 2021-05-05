@@ -69,3 +69,5 @@ void alterarConsumo(void);
 
 void listarConsumos(void);
 
+void excluirConsumos(void);
+

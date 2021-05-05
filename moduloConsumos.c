@@ -233,6 +233,7 @@ char menuConsumo(void){
     printf("///            3 - Excluir consumo                                    ///\n");
     printf("///            4 - Alterar consumo                                    ///\n");
     printf("///            5 - Listar consumos                                    ///\n");
+    printf("///            6 - Lixeira                                            ///\n");
     printf("///            0 - Voltar                                             ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
@@ -244,7 +245,7 @@ char menuConsumo(void){
         getchar();
 
         validaOp = testeDigito(opcao);
-        validaOpM = validaOpcaoMenu(opcao, 5); 
+        validaOpM = validaOpcaoMenu(opcao, 6); 
 
         if(!validaOp || !validaOpM){
             printf("Opção inválida, tente novamente!\n");
@@ -255,7 +256,7 @@ char menuConsumo(void){
 }
 
 void mostraConsumos(Consumo* con){
-    printf("            %ld\t", con->codConsumo);
+    printf("///         %ld\t", con->codConsumo);
     
     char* data = dataReinvertida(con->dataConsumo);
     strcpy(con->dataConsumo, data); 
@@ -265,7 +266,12 @@ void mostraConsumos(Consumo* con){
     printf("%s\t", con->horaConsumo);
     printf("%d\t", con->quant);
     printf("R$%.2f\t\t",con->valor);
-    printf("%c\n", con->status);
+    if(con->status == 'x'){
+        printf("%s\n", "Excluído");
+    }else if(con->status == 'Y'){
+        printf("%s\n", "Disponível");
+    }
+
 }
 
 void exibirConsumo(Consumo* con){
@@ -391,31 +397,38 @@ void cadastrarConsumo(void){
                 printf("///            - Local: %s\n", proe->local);
                 printf("///            - Qtd. Atual: %d\n", proe->quant);
 
-                char* quantP = preencheQuantAConsumir();
-                int quantidadeP = converteCharParaInt(quantP);
-                pro->quant = quantidadeP;
-                item->quant = quantidadeP;
+                int quantidadeP;
 
-                if (proe->quant >= quantidadeP ){
+                do{
+                    char* quantP = preencheQuantAConsumir();
+                    quantidadeP = converteCharParaInt(quantP);
+                    pro->quant = quantidadeP;
+                    item->quant = quantidadeP;
 
-                    proe->quant -= quantidadeP;
-                    fseek(fp, -1*sizeof(Produto), SEEK_CUR);
-                    fwrite(proe, sizeof(Produto), 1, fp);
+                    if(proe->quant < quantidadeP){
+                        printf("///            Qtd. à consumir é superior à existente.\n");
+                    }
 
-                    double preco = proe->preco;
-                    valorConsumo += quantidadeP * preco;
+                }while(proe->quant < quantidadeP);
+               
+                proe->quant -= quantidadeP;
+                fseek(fp, -1*sizeof(Produto), SEEK_CUR);
+                fwrite(proe, sizeof(Produto), 1, fp);
 
-                    strcpy(item->descricao, proe->nomeItem);
-                    item->quant = proe->quant;
-                    item->valor = proe->preco;
-                    gravarItemC(item);
-                    free(item);
-                    
-                    achou = 1;
-                    certeza += 1;
-                    free(pro);
-                    break;
-                }
+                double preco = proe->preco;
+                valorConsumo += quantidadeP * preco;
+
+                strcpy(item->descricao, proe->nomeItem);
+                item->quant = proe->quant;
+                item->valor = proe->preco;
+                gravarItemC(item);
+                free(item);
+                
+                achou = 1;
+                certeza += 1;
+                free(pro);
+                break;
+                
             }
         }
         fclose(fp);
@@ -426,9 +439,7 @@ void cadastrarConsumo(void){
             
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n");
-            printf("///           Este produto não existe na despensa ou a                ///\n");  
-            printf("///           quantidade consumida é superior a quant-                ///\n");   
-            printf("///           idade registrada no banco de dados.                     ///\n");                                                            
+            printf("///           Este produto não existe na despensa.                    ///\n");                                                            
             printf("///        ___________________________________________________        ///\n");
             printf("///                                                                   ///\n"); 
             printf("/////////////////////////////////////////////////////////////////////////\n\n");
@@ -751,17 +762,19 @@ void alterarConsumo(void){
 void listarConsumos(void){
 
     limpaTela();
-    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                                             ///\n");
-    printf("///        *****************************************************************************        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * * * *        ///\n");
-    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *        ///\n");
-    printf("///        *****************************************************************************        ///\n");
-    printf("///        _____________________________________________________________________________        ///\n");
-    printf("///                                                                                             ///\n");
-    printf("///         = = = = = = = = = = = = = MÓDULO - LISTAR CONSUMOS = = = = = = = = = = = = =        ///\n\n");
-    printf("            Código:     Data:           Hora:         Qtd.:     Valor:        Status:            \n\n");
+    printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                  ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        _________________________________________________________________________________         ///\n");
+    printf("///                                                                                                  ///\n");
+    printf("///         = = = = = = = = = = = = =  = =  MÓDULO - LISTAR CONSUMOS = = = = = = = = = = = =         ///\n");
+    printf("///\n");
+    printf("///         Código:     Data:           Hora:         Qtd.:     Valor:          Status:                 \n");
+    printf("///\n");
 
     FILE* fp;
     Consumo* con;
@@ -774,13 +787,90 @@ void listarConsumos(void){
         while(fread(con, sizeof(Consumo), 1, fp)) {
             mostraConsumos(con);
         }
-        printf("\n");
-        printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+        printf("///\n");
+        printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
         printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
         getchar();
     }
     free(con);
     fclose(fp);
 }
+
+void excluirConsumos(void){
+    limpaTela();
+    printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                                                  ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * *     SIG-PANTRY - Controle de Despensa     * * * * * * * * * *         ///\n");
+    printf("///        * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         ///\n");
+    printf("///        *********************************************************************************         ///\n");
+    printf("///        _________________________________________________________________________________         ///\n");
+    printf("///                                                                                                  ///\n");
+    printf("///        = = = = = = = = = = = = = = = = MÓDULO - LIXEIRA = = = = = = = = = = = = = = = =          ///\n");
+    printf("///\n");
+    printf("///         Código:     Data:           Hora:         Qtd.:     Valor:          Status:                 \n");
+    printf("///\n");
+
+    char confirma;
+    int cont = 0;
+    FILE* original;
+    FILE* novo;
+
+    Consumo* con;
+    Consumo* cons;
+
+    con = (Consumo*) malloc(sizeof(Consumo));
+    cons = (Consumo*) malloc(sizeof(Consumo));
+
+    original = fopen("consumos.dat", "rb");
+
+    if(original == NULL){
+        exibeErroArquivo();
+
+    }else{
+        while(fread(cons, sizeof(Consumo), 1, original)) {
+            if(cons->status == 'x'){
+                mostraConsumos(cons);
+                cont += 1;
+            }
+        }
+        fclose(original);
+        free(cons);
+        printf("///\n");
+        printf("////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+        printf("///\n");
+
+        if(cont > 0){
+            confirma = confirmaExclusao();
+
+            if(confirma == 'S' || confirma == 's'){
+                original = fopen("consumos.dat", "rb");
+                novo = fopen("novo.dat", "ab");
+            
+                while(fread(con, sizeof(Consumo), 1, original)) {
+                    if(con->status == 'Y'){
+                        fwrite(con, sizeof(Consumo), 1, novo);
+                    }
+                }
+                fclose(original);
+                fclose(novo);
+                free(con);
+                remove("consumos.dat");
+                rename("novo.dat", "consumos.dat");
+
+                telaLixeiraVazia();
+
+            }else if(confirma == 'N' || confirma == 'n'){
+                telaLixeiraSemAlteracoes();
+
+            }
+        }else{
+            telaLixeiraVazia();
+        }
+    }
+}
+
+
 
 
