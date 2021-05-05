@@ -842,7 +842,7 @@ void excluirConsumos(void){
         printf("///\n");
 
         if(cont > 0){
-            confirma = confirmaExclusao();
+            confirma = confirmaEsvaziarLixeira();
 
             if(confirma == 'S' || confirma == 's'){
                 original = fopen("consumos.dat", "rb");

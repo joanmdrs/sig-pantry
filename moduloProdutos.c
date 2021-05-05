@@ -957,7 +957,7 @@ void excluirProdutos(void){
         printf("///\n");
 
         if(cont > 0){
-            confirma = confirmaExclusao();
+            confirma = confirmaEsvaziarLixeira();
 
             if(confirma == 'S' || confirma == 's'){
                 original = fopen("produtos.dat", "rb");

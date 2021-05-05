@@ -1013,6 +1013,26 @@ char* recortaAno(char* data){
     return dataAux;
 }
 
+char confirmaEsvaziarLixeira(void){
+    int validaDig;
+    int validaOp;
+    char resposta;
+
+    do{
+        printf("///            - Esvaziar a lixeira (S/N) ? ");
+        scanf("%[^\n]", &resposta);
+        getchar();
+
+        validaDig = testeDigito(resposta);
+        validaOp = validaOpcao(resposta);
+        
+        if(!validaOp || validaDig){
+            printf("///            Opcão inválida, tente novamente!\n");
+        }
+    }while(!validaOp || validaDig);
+
+    return resposta;
+}
 void telaLixeiraVazia(void){
 	limpaTela();
 	printf("/////////////////////////////////////////////////////////////////////////\n");

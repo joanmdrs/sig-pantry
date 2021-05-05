@@ -68,6 +68,8 @@ char* preencheAnoC(void);
 
 char* recortaAno(char*);
 
+char confirmaEsvaziarLixeira(void);
+
 void telaLixeiraVazia(void);
 
 void telaLixeiraSemAlteracoes(void);
