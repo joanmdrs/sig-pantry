@@ -4,6 +4,16 @@
 #include <time.h>
 #include "moduloValidacoes.h"
 
+
+void limpaTela(void){
+	system("clear || cls");
+}
+
+long int geraNF(void) {
+	srand(time(NULL));
+  	return (9999999 + rand() % 99999999);
+}
+
 void exibeTecleEnter(void){
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
     printf("\t\t>>> Tecle <ENTER> para continuar...\n");

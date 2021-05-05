@@ -1,5 +1,3 @@
-void limpaTela(void);
-
 int testeDigito(char);
 
 int testeDigitos(char []);
@@ -35,5 +33,3 @@ int testaData(char []);
 int testaHora(char []);
 
 int verificaNulo(char []);
-
-long int geraNF(void);

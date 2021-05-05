@@ -4,13 +4,6 @@
 #include <ctype.h>
 #include <string.h>
 
-
-// A função limpaTela realiza literalmente a limpeza da tela. 
-
-void limpaTela(void){
-	system("cls");
-}
-
 // A função testeDigito realiza a validação de uma variavel de apenas um dígito.
 
 int testeDigito(char n){
@@ -479,9 +472,4 @@ int verificaNulo(char nome[]) {
   }
 }
 
-// A função geraNF gera um código de oito dígitos
 
-long int geraNF(void) {
-	srand(time(NULL));
-  	return (9999999 + rand() % 99999999);
-}

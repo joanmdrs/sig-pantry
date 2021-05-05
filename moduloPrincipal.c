@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "moduloValidacoes.h"
+#include "moduloUtil.h"
 
 
 /* A função menuPrincipal realiza a navegação para os demais módulos do projeto. */

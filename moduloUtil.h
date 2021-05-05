@@ -4,6 +4,10 @@
 #include <time.h>
 #include "moduloValidacoes.h"
 
+void limpaTela(void);
+
+long int geraNF(void);
+
 void exibeTecleEnter(void);
 
 void exibeErroArquivo(void);
