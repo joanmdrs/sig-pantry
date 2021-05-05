@@ -22,13 +22,13 @@ void exibeErroArquivo(void){
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///                            ATENCAO !!                             ///\n");
+    printf("///                            ATENÇÃO !!                             ///\n");
     printf("///                                                                   ///\n");
     printf("///         Informamos que ouve um erro na abertura do arquivo.       ///\n");
-    printf("///         A possivel causa do erro pode estar relacionada a         ///\n");
-    printf("///         ausencia de informacoes no Banco de Dados. Recomen-       ///\n");
-    printf("///         damos utilizar algumas das funcoes de cadastro e so       ///\n");
-    printf("///         entao retornar a esta funcao.                             ///\n");
+    printf("///         A possível causa do erro pode estar relacionada a         ///\n");
+    printf("///         ausência de informações no Banco de Dados. Recomen-       ///\n");
+    printf("///         damos utilizar algumas das funções de cadastro e so       ///\n");
+    printf("///         então retornar a esta função.                             ///\n");
     printf("///                                                                   ///\n");
     exibeTecleEnter();
 
@@ -43,7 +43,7 @@ char* preencheCodBarras(void){
     codBarras = (char*) malloc(14*sizeof(char));
 
     do{
-        printf("///            - Codigo de Barras: ");
+        printf("///            - Código de Barras: ");
         scanf("%[^\n]", codBarras);
         getchar();
     
@@ -52,7 +52,7 @@ char* preencheCodBarras(void){
         validaNull = verificaNulo(codBarras);
 
         if(!validaCod || validaDig || validaNull){
-            printf("///            Codigo invalido, tente novamente !\n");
+            printf("///            Código inválido, tente novamente !\n");
         }
 
     }while(!validaCod || validaDig || validaNull);
@@ -79,7 +79,7 @@ char* preencheDataValidade(void){
         validaNull = verificaNulo(dataValidade);
 
         if (!validaData || validaDig || validaNull) {
-            printf("///            Data invalida, tente novamente !\n");
+            printf("///            Data inválida, tente novamente !\n");
         }
 
     }while(!validaData || validaDig || validaNull);
@@ -96,7 +96,7 @@ char* preencheDesc(void){
     nomeItem = (char*) malloc(51*sizeof(char));
 
     do{
-        printf("///            - Descricao do Item: ");
+        printf("///            - Descrição do Item: ");
         scanf("%[^\n]", nomeItem);
         getchar();
 
@@ -104,7 +104,7 @@ char* preencheDesc(void){
         validaNull = verificaNulo(nomeItem);
 
         if(validaDig || validaNull){
-            printf("///            Caracteres invalidos, tente novamente !\n");
+            printf("///            Caracteres inválidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
@@ -129,7 +129,7 @@ char* preencheLocal(void){
         validaNull = verificaNulo(local);
 
         if(validaDig || validaNull){
-            printf("///            Caracteres invalidos, tente novamente !\n");
+            printf("///            Caracteres inválidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
@@ -154,7 +154,7 @@ char* preencheQuantPro(void){
         validaNull = verificaNulo(quantC);
 
         if(validaDig || validaNull){
-            printf("///            Digitos invalidos, tente novamente !\n");
+            printf("///            Dígitos inválidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
@@ -172,7 +172,7 @@ double preenchePrecoItem(void){
     precoC = (char*) malloc(10*sizeof(char));
 
     do{
-        printf("///            - Preco: R$ ");
+        printf("///            - Preço: R$ ");
         scanf("%s", precoC);
         getchar();
         
@@ -180,7 +180,7 @@ double preenchePrecoItem(void){
         validaNull = verificaNulo(precoC);
 
         if(validaDig){
-            printf("///            Digitos invalidos, tente novamente !\n");
+            printf("///            Dígitos inválidos, tente novamente !\n");
         }
 
     }while (validaDig || validaNull);
@@ -196,7 +196,7 @@ char confirmaExclusao(void){
     char resposta;
 
     do{
-        printf("///            - Confirmar a exclusao (S/N) ? ");
+        printf("///            - Confirmar a exclusão (S/N) ? ");
         scanf("%[^\n]", &resposta);
         getchar();
 
@@ -204,7 +204,7 @@ char confirmaExclusao(void){
         validaOp = validaOpcao(resposta);
         
         if(!validaOp || validaDig){
-            printf("///            Opcão invalida, tente novamente!\n");
+            printf("///            Opcão inválida, tente novamente!\n");
         }
     }while(!validaOp || validaDig);
 
@@ -891,7 +891,7 @@ char* preencheMesEAno(void){
     dataCompra = (char*) malloc(8*sizeof(char));
 
     do{
-        printf("///            - Mes da compra (mm/aaaa): ");
+        printf("///            - Mês da compra (mm/aaaa): ");
         scanf("%[^\n]", dataCompra);
         getchar();
     
@@ -899,7 +899,7 @@ char* preencheMesEAno(void){
         validaNull = verificaNulo(dataCompra);
 
         if (validaDig || validaNull) {
-            printf("///            Data invalida, tente novamente !\n");
+            printf("///            Data inválida, tente novamente !\n");
         }
 
     }while(validaDig || validaNull);
@@ -919,7 +919,7 @@ char* preencheMesEAnoC(void){
     dataConsumo = (char*) malloc(8*sizeof(char));
 
     do{
-        printf("///            - Mes do consumo (mm/aaaa): ");
+        printf("///            - Mês do consumo (mm/aaaa): ");
         scanf("%[^\n]", dataConsumo);
         getchar();
     
@@ -927,7 +927,7 @@ char* preencheMesEAnoC(void){
         validaNull = verificaNulo(dataConsumo);
 
         if (validaDig || validaNull) {
-            printf("///            Data invalida, tente novamente !\n");
+            printf("///            Data inválida, tente novamente !\n");
         }
 
     }while(validaDig || validaNull);
@@ -970,7 +970,7 @@ char* preencheAno(void){
         validaNull = verificaNulo(dataCompra);
 
         if (validaDig || validaNull) {
-            printf("///            Data invalida, tente novamente !\n");
+            printf("///            Data inválida, tente novamente !\n");
         }
 
     }while(validaDig || validaNull);
@@ -994,7 +994,7 @@ char* preencheAnoC(void){
         validaNull = verificaNulo(dataConsumo);
 
         if (validaDig || validaNull) {
-            printf("///            Data invalida, tente novamente !\n");
+            printf("///            Data inválida, tente novamente !\n");
         }
 
     }while(validaDig || validaNull);

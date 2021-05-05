@@ -218,11 +218,11 @@ int main(void) {
     printf("///        ***************************************************        ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
-    printf("///                     VOCE ENCERROU O PROGRAMA!                     ///\n");
+    printf("///                     VOCÊ ENCERROU O PROGRAMA!                     ///\n");
     printf("///                                                                   ///\n");
-    printf("///            Agradecemos por utilizar os nossos servicos.           ///\n");
-    printf("///            Os dados cadastrados estarao disponiveis no            ///\n");
-    printf("///            seu proximo acesso.                                    ///\n");
+    printf("///            Agradecemos por utilizar os nossos serviços.           ///\n");
+    printf("///            Os dados cadastrados estarão disponíveis no            ///\n");
+    printf("///            seu próximo acesso.                                    ///\n");
     printf("///        ___________________________________________________        ///\n");
     printf("///                                                                   ///\n");
     printf("///           Developed by  @allangbr @joanmdrs - Jan, 2021           ///\n");

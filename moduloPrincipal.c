@@ -23,10 +23,10 @@ char menuPrincipal(void){
     printf("///                                                                   ///\n");
     printf("///            MENU:                                                  ///\n");
     printf("///                                                                   ///\n");
-    printf("///            1 - Modulo Produtos                                    ///\n");
-    printf("///            2 - Modulo Compras                                     ///\n");
-    printf("///            3 - Modulo Consumo                                     ///\n");
-    printf("///            4 - Modulo Relatorios                                  ///\n");
+    printf("///            1 - Módulo Produtos                                    ///\n");
+    printf("///            2 - Módulo Compras                                     ///\n");
+    printf("///            3 - Módulo Consumo                                     ///\n");
+    printf("///            4 - Módulo Relatorios                                  ///\n");
     printf("///            5 - Sobre o sistema                                    ///\n");
     printf("///            0 - Encerrar Programa                                  ///\n");
     printf("///        ___________________________________________________        ///\n");
@@ -34,7 +34,7 @@ char menuPrincipal(void){
     printf("/////////////////////////////////////////////////////////////////////////\n\n");
 
     do{
-        printf("Informe a sua opcao : ");
+        printf("Informe a sua opção : ");
         scanf("%[^\n]", &opcao);
         getchar();
 
@@ -44,7 +44,7 @@ char menuPrincipal(void){
         validaOpM = validaOpcaoMenu(opcao, 5); 
 
         if(!validaOp || !validaOpM){
-            printf("Opcao invalida, tente novamente!\n");
+            printf("Opção inválida, tente novamente!\n");
 
         }
 
